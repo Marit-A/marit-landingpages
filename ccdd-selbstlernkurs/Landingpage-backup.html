@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Cowork Deep Dive – Selbstlernkurs · Marit Alke</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    @font-face { font-family:'PT Sans'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/subset-PTSans-Regular.woff2') format('woff2'); }
+    @font-face { font-family:'PT Sans'; font-style:italic; font-weight:400; font-display:swap; src:url('fonts/subset-PTSans-Italic.woff2') format('woff2'); }
+    @font-face { font-family:'PT Sans'; font-style:normal; font-weight:700; font-display:swap; src:url('fonts/subset-PTSans-Bold.woff2') format('woff2'); }
+    @font-face { font-family:'PT Sans'; font-style:italic; font-weight:700; font-display:swap; src:url('fonts/subset-PTSans-BoldItalic.woff2') format('woff2'); }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="assets/image-slot.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #fff; font-family: 'PT Sans', sans-serif; -webkit-font-smoothing: antialiased; }
+    a { text-decoration: none; }
+    .cta-btn { transition: background-color .2s ease, box-shadow .2s ease; }
+    .cta-btn:hover { background: var(--hov) !important; box-shadow: 0 10px 26px rgba(0,0,0,0.18) !important; }
+
+    .grid-cap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+    .grid-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .grid-fit { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+    .grid-quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .about-grid { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
+
+    @media (max-width: 920px) {
+      .grid-cap { grid-template-columns: repeat(2, 1fr); }
+      .grid-formats, .grid-fit, .grid-quotes { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .br-wide { display: none; }
+    }
+    @media (max-width: 540px) {
+      .grid-cap { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<script type="text/babel" src="components.jsx"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+function CtaRow({ note }) {
+  return (
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
+      <CtaButton variant="teal" big>Jetzt loslegen →</CtaButton>
+      {note && <span style={{ fontFamily: BODY, fontSize: 15.5, color: C.mid }}>{note}</span>}
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <Hero />
+
+      {/* GAME CHANGER — intro narrative */}
+      <Section bg="white" max={760}>
+        <Eyebrow center>Warum dieser Kurs</Eyebrow>
+        <H2>Claude Cowork ist für mich ein echter Game Changer</H2>
+        <div style={{ display: 'grid', gap: 22, marginTop: 30 }}>
+          <Lead center>
+            Als Soloselbstständige machst du vieles alleine – und das bedeutet: Du bist für alles zuständig. Strategie, Kommunikation, Technik, Content, Verwaltung. <strong>Was wäre, wenn du dabei einen Assistenten hättest, der wirklich versteht, wie du arbeitest?</strong>
+          </Lead>
+          <Lead center>
+            Claude Cowork macht genau das möglich – und zwar ohne Programmiererfahrung. Es verbindet die Coding-Fähigkeiten eines KI-Agenten mit der natürlichen Interaktion eines Chatbots. Du kannst damit nicht nur Fragen stellen, sondern Claude wirklich <strong>für dich arbeiten lassen</strong>: Dateien erstellen, Workflows automatisieren, Tools bauen, in deinen Apps arbeiten.
+          </Lead>
+        </div>
+
+        {/* MARIT QUOTE */}
+        <div style={{
+          marginTop: 44,
+          background: C.bgLight,
+          borderLeft: `5px solid ${C.teal}`,
+          borderRadius: 14,
+          padding: 'clamp(28px, 3vw, 40px)',
+          display: 'flex', gap: 28, alignItems: 'center',
+          flexWrap: 'wrap',
+        }}>
+          <img src="assets/portrait-marit-haende.jpg" alt="Marit Alke"
+            style={{ width: 100, height: 100, borderRadius: '50%', flexShrink: 0, objectFit: 'cover', boxShadow: '0 4px 14px rgba(0,0,0,0.12)' }} />
+          <div style={{ flex: 1, minWidth: 240 }}>
+            <p style={{
+              fontFamily: BODY, fontSize: 'clamp(1.15rem, 1.4vw, 1.3rem)',
+              fontStyle: 'italic', lineHeight: 1.7, color: C.heading, margin: '0 0 14px',
+            }}>
+              „Wenn Claude nicht nur antwortet, sondern wirklich für mich arbeitet – Dateien erstellt, Workflows anstößt, in meinen Tools handelt – dann spare ich nicht nur Zeit. Ich kann Dinge tun, die ich mir vorher schlicht nicht leisten konnte: eigene Tools bauen, Prozesse automatisieren, schneller liefern."
+            </p>
+            <p style={{ fontFamily: BODY, fontWeight: 700, fontSize: 15, color: C.teal, margin: 0 }}>
+              Marit Alke – Gründerin des Claude Cowork Deep Dive
+            </p>
+          </div>
+        </div>
+      </Section>
+
+      {/* BANNER */}
+      <SectionBanner>Was du danach hast – und was du nie mehr selbst machen musst</SectionBanner>
+
+      {/* CAPABILITIES — 8 icon cards on brand gradient */}
+      <div>
+        <div style={{
+          backgroundImage: "url('assets/gradient-tuerkis-lime.jpg')",
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          padding: 'clamp(64px, 9vw, 108px) 24px',
+        }}>
+          <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+            <div className="grid-cap">
+              <CapabilityCard icon="05-bildschirm-layout.png">Landingpages selbst bauen – kein Designer, kein Freelancer nötig</CapabilityCard>
+              <CapabilityCard icon="06-zauberstab-sterne.png">Word, Excel, PowerPoint und Grafiken – fertig, im eigenen Stil, in Minuten</CapabilityCard>
+              <CapabilityCard icon="07-filmklappe-ton.png">Videos schneiden und Audio verarbeiten – lokal auf deinem Rechner, ohne Abo</CapabilityCard>
+              <CapabilityCard icon="08-zahnrad-apps.png">Claude arbeitet direkt in WordPress, GetResponse & Co. – du gibst nur die Richtung</CapabilityCard>
+              <CapabilityCard icon="09-automatisierung-zahnrad.png">Aufgaben, die dich jede Woche Stunden kosten – einmal eingerichtet, laufen sie allein</CapabilityCard>
+              <CapabilityCard icon="10-haende-baustein.png">Eigene Skills bauen: deine besten Abläufe speichern, jederzeit abrufen</CapabilityCard>
+              <CapabilityCard icon="11-mausklick-touchscreen.png">Interaktive Tools für dich oder deine Kunden – dafür brauchst du keine Entwicklerin mehr</CapabilityCard>
+              <CapabilityCard icon="12-trichter-pipeline.png">Transkript rein – Blogartikel, Social Post, Newsletter raus. Einmal aufgebaut, immer wieder.</CapabilityCard>
+            </div>
+          </div>
+        </div>
+        <Divider height={12} />
+      </div>
+
+      {/* COURSE STRUCTURE — 4 format cards */}
+      <Section bg="white" max={1040}>
+        <Eyebrow center>So ist der Kurs aufgebaut</Eyebrow>
+        <H2>Vier Bausteine – und am Ende eine Arbeitsinfrastruktur</H2>
+        <div className="grid-formats" style={{ marginTop: 44 }}>
+          <FormatCard icon="01-puzzleteile.png" title="20+ Praxislektionen in 7 Modulen" tagline="Du übst nicht – du baust auf.">
+            Jede Lektion bringt dich einen konkreten Schritt weiter: Ordnerpower, Automatisierung, Konnektoren, Medienwerkstatt, eigene Skills – bis hin zum orchestrierten Megaprozess. Mit Erklärung, konkretem Prompt und klarer Anleitung. Kein Zuschauen, nur Umsetzen.
+          </FormatCard>
+          <FormatCard icon="02-buch-gluehbirne.png" title="Erklärlektionen &amp; Videos" tagline="Verstehen, was dahintersteckt – damit du Claude wirklich führen kannst.">
+            Wie funktionieren Tokens? Was ist der Unterschied zwischen einem Skill und einem Plugin? Warum braucht Claude eine CLAUDE.md? Die Erklärinhalte geben dir das Fundament, damit du nicht nur abarbeitest, sondern wirklich steuerst.
+          </FormatCard>
+          <FormatCard icon="03-umschlag-blitz.png" title="Wöchentlicher Praxis-Impuls" tagline="Damit du dranbleibst – und Neues entdeckst, bevor alle anderen es kennen.">
+            Einmal pro Woche: neue Anwendungsideen, Tipps aus der Praxis, Hinweise auf neue Features – kuratiert aus meiner täglichen Arbeit mit Claude Cowork. Kein allgemeiner KI-Newsletter, sondern direkt anwendbar für Soloselbstständige.
+          </FormatCard>
+          <FormatCard icon="04-werkzeugkoffer-haken.png" title="Mindestens 5 geprüfte Skills" tagline="Direkt einsetzen – kein Herumprobieren.">
+            Fertige Skills, die du mit einem Klick installierst und sofort nutzt – von mir und der Community entwickelt und getestet. Du bekommst in Minuten, wofür ich Stunden gebraucht habe.
+          </FormatCard>
+        </div>
+      </Section>
+
+      {/* FOR WHOM — two columns */}
+      <Section bg="gray" max={1040}>
+        <Eyebrow center>Für wen ist dieser Kurs?</Eyebrow>
+        <H2>Passt das zu dir?</H2>
+        <div className="grid-fit" style={{ marginTop: 44 }}>
+          <div style={{ background: C.white, border: `1.5px solid ${C.teal}`, borderRadius: 14, padding: 'clamp(28px, 3vw, 40px)', boxShadow: '0 6px 20px rgba(0,0,0,0.06)' }}>
+            <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.15rem, 1.7vw, 1.4rem)', color: C.heading, margin: '0 0 22px' }}>Passt gut zu dir, wenn…</h3>
+            <ul style={{ margin: 0, padding: 0 }}>
+              <FitItem>du als Soloselbstständige oder Solopreneur arbeitest</FitItem>
+              <FitItem>du schon mit KI-Chatbots gearbeitet hast und ein Gefühl für Prompts mitbringst</FitItem>
+              <FitItem>du Claude nicht nur befragen, sondern wirklich für dich arbeiten lassen willst</FitItem>
+              <FitItem>du lieber selbst umsetzt, statt zuzuschauen</FitItem>
+              <FitItem>du dir eine echte Arbeitsinfrastruktur aufbauen willst – nicht nur einzelne Tricks sammeln</FitItem>
+            </ul>
+          </div>
+          <div style={{ background: C.white, border: '1.5px solid #e2e4dd', borderRadius: 14, padding: 'clamp(28px, 3vw, 40px)', boxShadow: '0 6px 20px rgba(0,0,0,0.04)' }}>
+            <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.15rem, 1.7vw, 1.4rem)', color: C.mid, margin: '0 0 22px' }}>Nicht das Richtige, wenn…</h3>
+            <ul style={{ margin: 0, padding: 0 }}>
+              <FitItem positive={false}>du noch ganz am Anfang mit KI bist – starte lieber mit dem kostenlosen Starterkurs</FitItem>
+              <FitItem positive={false}>du lieber Videos konsumierst, in denen andere tolle Sachen zeigen, statt selbst Hand anzulegen</FitItem>
+              <FitItem positive={false}>du Live-Begleitung in einer Gruppe bevorzugst – dann ist das Deep Dive Programm das Richtige</FitItem>
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      {/* TESTIMONIALS */}
+      <Section bg="white" max={1040}>
+        <Eyebrow center>Was andere sagen</Eyebrow>
+        <H2 style={{ marginBottom: 44 }}>Stimmen aus dem Deep Dive</H2>
+        <div className="grid-quotes">
+          <Testimonial author="Daniela Keller, Einzelunternehmerin">
+            Dieser Kurs hat mir die Welt von Claude Cowork eröffnet. Als Einzelunternehmerin hatte ich vorher kaum Berührungspunkte mit Claude, wenn dann nur im Chat. Durch die Praxislektionen mit glasklarer Anleitung habe ich Stück für Stück ein ganzes Repertoire an Möglichkeiten kennengelernt. Jede Lektion ist super praxisnah: schrittweise Anleitung, Prompt-Vorlagen, und am Ende Ideen, wie man das im eigenen Business nutzen kann. Ich kann Claude Cowork jetzt schon wie einen Mitarbeiter einsetzen und meine Prozesse laufen so viel schneller und effizienter.
+          </Testimonial>
+          <Testimonial author="Silke van Beuningen, Teilnehmerin des Deep Dive Programms">
+            Meine Video-Aufgaben laufen jetzt per Knopfdruck. Vor dem Deep Dive war bei mir vieles chaotisch: Systeme, Aufgaben, alles hat Energie gezogen. Ich wollte am liebsten eine Assistentin, der ich jederzeit Arbeit abgeben kann – am Schreibtisch genauso wie mit den Füßen auf dem Sofa. Heute ist Claude mit Dispatch für mich wie ein zweites Gehirn: Thumbnail erstellen, Video hochladen, Aufgaben erledigen – vieles geht per Sprachnachricht oder ist nur noch einen Knopfdruck entfernt!
+          </Testimonial>
+        </div>
+      </Section>
+
+      {/* ABOUT MARIT */}
+      <Section bg="gray" max={1040}>
+        <div className="about-grid">
+          <image-slot id="marit-portrait" shape="rounded" radius="16" src="assets/portrait-marit.jpg"
+            style={{ width: '100%', aspectRatio: '1 / 1', display: 'block', boxShadow: '0 10px 30px rgba(0,0,0,0.12)' }}
+            placeholder="Foto von Marit hier ablegen"></image-slot>
+          <div>
+            <Eyebrow>Hallo, ich bin Marit!</Eyebrow>
+            <H2 center={false} style={{ marginBottom: 24 }}>Vom Ausprobieren zum echten System</H2>
+            <div style={{ display: 'grid', gap: 18 }}>
+              <Lead>
+                Im Februar 2026 habe ich Claude Cowork auf einer Workation entdeckt – und es war für mich ein zweiter großer Shift in der Arbeit mit KI. Plötzlich war da nicht mehr nur ein Chatbot, der antwortet. Da war ein Assistent, der auf meinem Rechner arbeitet, in meinen Ordnern schreibt, meine Tools kennt.
+              </Lead>
+              <Lead>
+                Seitdem lasse ich einen nervigen Workflow nach dem anderen los: Zoom-Aufzeichnung kommt rein, Kurslektion geht raus. Video transkribieren, Blog schreiben, Newsletter fertig – mit einem Befehl. Ich baue eigene Plugins, kleine Skripte, interaktive Tools für meine Kunden. Dinge, für die ich vorher Entwicklerinnen gebraucht hätte oder einfach darauf verzichtet habe.
+              </Lead>
+              <Lead>
+                In diesem Kurs gebe ich alles weiter, was ich in meinem Claude Cowork Deep Dive Programm entwickelt habe – und ergänze laufend, was ich neu entdecke. Du bekommst nicht nur Lektionen, sondern eine Infrastruktur, die mit dir wächst.
+              </Lead>
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      {/* BANNER */}
+      <SectionBanner>Bereit loszulegen?</SectionBanner>
+
+      {/* PRICING — on photo */}
+      <div id="zugang">
+        <div style={{
+          position: 'relative',
+          backgroundImage: "url('assets/hintergrund-claude-cowork-deepdive.jpg')",
+          backgroundSize: 'cover', backgroundPosition: 'center',
+          padding: 'clamp(64px, 9vw, 104px) 24px',
+        }}>
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.14) 100%)' }} />
+          <div style={{ position: 'relative', zIndex: 1, maxWidth: 540, margin: '0 auto' }}>
+            <h2 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.6rem, 3vw, 2.3rem)', color: C.white, textAlign: 'center', margin: '0 0 28px', textShadow: '0 2px 12px rgba(0,0,0,0.45)' }}>
+              Dein Zugang zum Selbstlernkurs
+            </h2>
+            <div style={{ background: C.white, borderRadius: 16, padding: 'clamp(32px, 4vw, 44px)', boxShadow: '0 18px 50px rgba(0,0,0,0.28)', textAlign: 'center' }}>
+              <div style={{ fontFamily: BODY, fontSize: 20, color: C.mid, textDecoration: 'line-through', marginBottom: 4 }}>Regulär 249 €</div>
+              <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(3rem, 7vw, 4.25rem)', color: C.heading, lineHeight: 1, margin: '4px 0 10px' }}>179 €</div>
+              <div style={{ fontFamily: BODY, fontSize: 16, color: C.mid, marginBottom: 28 }}>Einführungspreis · einmalige Zahlung · inkl. MwSt.</div>
+              <CtaButton variant="teal" big full>Jetzt loslegen →</CtaButton>
+              <p style={{ fontFamily: BODY, fontSize: 14.5, color: C.text, lineHeight: 1.6, margin: '22px 0 0', textAlign: 'left', paddingTop: 22, borderTop: '1px solid #eee' }}>
+                <strong style={{ color: C.heading }}>14 Tage Zufriedenheitsgarantie</strong> – wenn du merkst, dass der Kurs nicht das Richtige für dich ist, erstatte ich dir den Kaufpreis abzüglich einer Bearbeitungspauschale von 20 €.
+              </p>
+            </div>
+          </div>
+        </div>
+        <Divider height={12} />
+      </div>
+
+      {/* FINAL CTA */}
+      <Section bg="white" max={720}>
+        <div style={{ textAlign: 'center' }}>
+          <img src="assets/glitter-sterne-orange.png" alt="" style={{ height: 52, marginBottom: 20 }} />
+          <H2>Dein KI-System wartet darauf, aufgebaut zu werden.</H2>
+          <Lead center style={{ marginTop: 22 }}>
+            Nicht irgendwann – jetzt. Jede Lektion bringt dich einen konkreten Schritt weiter: von der ersten Datei, die Claude selbst erstellt, bis zum Workflow, der läuft, während du anderen Dingen nachgehst. Am Ende hast du keine Sammlung von Prompts. Du hast eine Infrastruktur.
+          </Lead>
+          <CtaRow />
+        </div>
+      </Section>
+
+      <Footer />
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+
+<div id="root"></div>
+</body>
+</html>
