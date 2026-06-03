@@ -68,16 +68,18 @@ const SectionBanner = ({ children }) => (
 /* ── Buttons (anchors → checkout) ──────────────────────────── */
 const CtaButton = ({ children, variant = 'teal', href = CHECKOUT, full = false, big = false }) => {
   const bg = { teal: C.teal, orange: C.orange }[variant] || C.teal;
-  const hov = variant === 'teal' ? '#0098a6' : '#e89f00';
+  const hov = variant === 'teal' ? C.orange : C.teal;
+  const pulseClass = variant === 'teal' ? 'cta-pulse-teal' : 'cta-pulse-orange';
+  const isAnchor = href.startsWith('#');
   return (
-    <a href={href} target="_blank" rel="noopener" className="cta-btn"
+    <a href={href} target={isAnchor ? undefined : '_blank'} rel={isAnchor ? undefined : 'noopener'}
+      className={`cta-btn ${pulseClass}`}
       style={{
         fontFamily: BODY, fontWeight: 700, fontSize: big ? 21 : 20,
         background: bg, color: C.white, border: 'none', borderRadius: 6,
         padding: big ? '17px 40px' : '14px 34px', cursor: 'pointer',
         display: full ? 'block' : 'inline-block', textAlign: 'center',
         textDecoration: 'none', width: full ? '100%' : 'auto',
-        boxShadow: '0 6px 18px rgba(0,0,0,0.12)',
         ['--hov']: hov,
       }}>{children}</a>
   );
@@ -127,7 +129,7 @@ const Hero = () => (
           lineHeight: 1.22, margin: '20px 0 32px', maxWidth: 760,
           textShadow: '0 2px 14px rgba(0,0,0,0.45)', textWrap: 'balance',
         }}>Schritt für Schritt zum KI-System,<br className="br-wide" /> das für dich arbeitet</h1>
-        <CtaButton variant="orange" big>Jetzt loslegen →</CtaButton>
+        <CtaButton variant="orange" big href="#zugang">Jetzt loslegen →</CtaButton>
       </div>
     </div>
     <Divider height={16} />
