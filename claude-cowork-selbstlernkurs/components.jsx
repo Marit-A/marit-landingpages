@@ -14,7 +14,7 @@ const C = {
 };
 const HEAD = "'Open Sans', sans-serif";
 const BODY = "'PT Sans', sans-serif";
-const CHECKOUT = 'https://copecart.com/products/c619e3c2/checkout';
+const CHECKOUT = 'https://myablefy.com/s/maritalke/claude-cowork-deep-dive-kurs/payment';
 const ICON = (n) => `assets/icons/${n}`;
 
 /* ── Layout primitives ─────────────────────────────────────── */
@@ -113,7 +113,7 @@ const Hero = () => (
     }}>
       <div style={{
         position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse at 50% 44%, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.40) 60%, rgba(0,0,0,0.50) 100%)',
+        background: 'radial-gradient(ellipse at 50% 44%, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.16) 60%, rgba(0,0,0,0.22) 100%)',
       }} />
       <div style={{
         position: 'relative', zIndex: 1, textAlign: 'center',
@@ -177,7 +177,7 @@ const FormatCard = ({ icon, title, children, tagline }) => (
   <div style={{
     background: C.white, border: '1.5px solid #ecefe7', borderRadius: 5,
     padding: 'clamp(26px, 3vw, 36px)', display: 'flex', gap: 24,
-    alignItems: 'flex-start', boxShadow: '0 6px 20px rgba(0,0,0,0.06)',
+    alignItems: 'flex-start', boxShadow: '0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)',
   }}>
     <IconTile src={ICON(icon)} size={96} iconSize={66} />
     <div style={{ flex: 1 }}>
