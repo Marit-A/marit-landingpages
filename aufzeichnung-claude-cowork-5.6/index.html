@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Cowork: Webinar-Aufzeichnung</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'PT Sans', sans-serif;
+      background: #ffffff;
+      color: #5a5a5a;
+      line-height: 1.7;
+    }
+
+    /* ── NAVIGATION ── */
+    .nav {
+      background: #ffffff;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, #00b3c3, #a4c931);
+      border-radius: 7px;
+      flex-shrink: 0;
+    }
+    .nav-name {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: #3a3a3a;
+      letter-spacing: 0.3px;
+    }
+
+    /* ── TRENNBALKEN ── */
+    .divider-orange-thin { height: 4px; background: #ffb000; }
+    .divider-orange      { height: 12px; background: #ffb000; }
+
+    /* ── HERO FOTO MIT TEXT ── */
+    .hero-photo {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background-image: url('header-aufzeichnung.jpg');
+      background-size: cover;
+      background-position: left center;
+      background-repeat: no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.20) 50%, rgba(0,0,0,0) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+    .hero-content { max-width: 700px; }
+    .hero-pill {
+      display: inline-block;
+      background: #ffb000;
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .hero-content h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+    }
+
+    /* ── INTRO TEXT ── */
+    .intro-section {
+      background: #ffffff;
+      padding: 40px 24px 44px;
+      text-align: center;
+    }
+    .intro-section p {
+      font-size: 18px;
+      color: #5a5a5a;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* ── VIDEO SEKTION ── */
+    .video-section {
+      background: #f7f8f5;
+      padding: 48px 24px 56px;
+    }
+    .video-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 12px 40px rgba(0,0,0,0.10);
+    }
+    .video-wrap iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+
+    /* ── ORANGER BANNER ── */
+    .orange-banner {
+      background: #ffb000;
+      padding: 22px 24px;
+      text-align: center;
+    }
+    .orange-banner h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .orange-banner p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.88);
+      margin-top: 6px;
+    }
+
+    /* ── ZEITMARKEN SEKTION ── */
+    .chapters-section {
+      background: #ffffff;
+      padding: 52px 24px 64px;
+    }
+    .chapters-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .chapters-heading {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      color: #3a3a3a;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* Zwei Spalten, Fluss von oben nach unten */
+    .chapters-columns {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+    }
+    .chapters-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chapters-col:first-child { padding-right: 20px; }
+    .chapters-col:last-child  { padding-left: 20px; }
+    .chapters-divider {
+      width: 1px;
+      background: #e8edf2;
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+    @media (max-width: 620px) {
+      .chapters-columns { flex-direction: column; }
+      .chapters-col:first-child { padding-right: 0; }
+      .chapters-col:last-child  { padding-left: 0; }
+      .chapters-divider { display: none; }
+    }
+
+    /* Karte */
+    .chapter-card {
+      background: #ffffff;
+      border: 1.5px solid #e8edf2;
+      border-radius: 6px;
+      padding: 14px 16px 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chapter-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      border-color: #00b3c3;
+    }
+    .chapter-card.has-link:hover {
+      border-color: #ffb000;
+    }
+    .chapter-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .chapter-time {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffb000;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .chapter-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #3a3a3a;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .chapter-link-hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      color: #7a9e22;
+      font-weight: 700;
+      padding-left: 23px;
+    }
+    /* Kleiner Pfeil unten zentriert */
+    .chapter-arrow {
+      text-align: center;
+      color: #00b3c3;
+      font-size: 11px;
+      margin-top: 8px;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .chapter-card.has-link .chapter-arrow { color: #ffb000; }
+
+    /* ── ANGEBOT SEKTION ── */
+    .offer-section {
+      background: #f7f8f5;
+      padding: 64px 24px 72px;
+    }
+    .offer-inner {
+      max-width: 880px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+    @media (max-width: 680px) {
+      .offer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .offer-image-wrap { max-width: 260px; margin: 0 auto; }
+    }
+
+    .offer-image-wrap {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .offer-image-wrap:hover {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    }
+    .offer-image-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    .offer-content .eyebrow {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00b3c3;
+      margin-bottom: 12px;
+    }
+    .offer-content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+      color: #3a3a3a;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .offer-content p {
+      font-size: 17px;
+      color: #5a5a5a;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .price-block {
+      background: #ffffff;
+      border: 1.5px solid #e8edf2;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .price-regular {
+      font-size: 15px;
+      color: #7b7b7b;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .price-current {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #3a3a3a;
+      margin-bottom: 6px;
+    }
+    .price-current span {
+      font-size: 15px;
+      font-weight: 400;
+      color: #7b7b7b;
+    }
+    .price-code {
+      font-size: 15px;
+      color: #5a5a5a;
+      line-height: 1.6;
+    }
+    .code-badge {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      background: #fff8e6;
+      color: #c07800;
+      border: 1px solid #ffb000;
+      border-radius: 4px;
+      padding: 2px 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-offer {
+      display: inline-block;
+      background: #00b3c3;
+      color: #ffffff;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-offer:hover {
+      background: #009aaa;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,179,195,0.30);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #3a3a3a;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer p { font-size: 14px; color: #9a9a9a; line-height: 1.6; }
+    .footer a { color: #00b3c3; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-logo-mark"></div>
+    <span class="nav-name">Marit Alke</span>
+  </nav>
+  <div class="divider-orange-thin"></div>
+
+  <!-- Hero Foto mit Text -->
+  <div class="hero-photo">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <span class="hero-pill">Webinar-Aufzeichnung · 5. Juni 2026</span>
+        <h1>Claude Cowork: die KI, die deine Aufgaben erledigt</h1>
+      </div>
+    </div>
+  </div>
+  <div class="divider-orange"></div>
+
+  <!-- Intro Text -->
+  <section class="intro-section">
+    <p>
+      Schön, dass du dabei warst oder dir die Aufzeichnung anschaust.
+      Hier findest du das komplette Webinar mit allen Live-Demos.
+      Darunter kannst du direkt zu den Abschnitten springen, die dich am meisten interessieren.
+    </p>
+  </section>
+
+  <!-- Video -->
+  <section class="video-section">
+    <div class="video-wrap">
+      <iframe
+        id="webinar-video"
+        src="https://www.youtube.com/embed/nZDqlWOTtmw"
+        title="Claude Cowork Webinar-Aufzeichnung"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Oranger Banner -->
+  <div class="orange-banner">
+    <h2>Springe direkt zu deinem Thema</h2>
+    <p>Klicke auf einen Abschnitt, das Video startet genau an dieser Stelle.</p>
+  </div>
+
+  <!-- Zeitmarken -->
+  <section class="chapters-section">
+    <div class="chapters-inner">
+      <h2 class="chapters-heading">Überblick über die Inhalte mit Sprungmarken</h2>
+      <div class="chapters-columns">
+        <div class="chapters-col" id="col-left"></div>
+        <div class="chapters-divider"></div>
+        <div class="chapters-col" id="col-right"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider-orange"></div>
+
+  <!-- Angebot -->
+  <section class="offer-section">
+    <div class="offer-inner">
+      <div class="offer-image-wrap" onclick="window.open('https://lp.marit-alke.de/claude-cowork-selbstlernkurs/', '_blank')">
+        <img src="Claude Cowork Deep Dive Selbstlernkurs.jpg" alt="Claude Cowork Deep Dive Selbstlernkurs">
+      </div>
+      <div class="offer-content">
+        <p class="eyebrow">Jetzt selbst einsteigen</p>
+        <h2>Claude Cowork Deep Dive: der Selbstlernkurs</h2>
+        <p>
+          Du willst das, was du im Webinar gesehen hast, für dein eigenes Business umsetzen?
+          Im Selbstlernkurs lernst du Schritt für Schritt, wie du Claude Cowork einrichtest,
+          deine eigenen Prozesse automatisierst und Skills baust, die wirklich zu dir passen.
+          In deinem eigenen Tempo, mit Aufgaben, die dich direkt in die Praxis bringen.
+        </p>
+
+        <div class="price-block">
+          <div class="price-regular">Regulär 249 €</div>
+          <div class="price-current">175 € <span>Einführungspreis</span></div>
+          <div class="price-code">
+            Mit Code <span class="code-badge">WEBINAR-CC</span> nochmal 25 € sparen, nur noch <strong>150 €</strong>
+          </div>
+        </div>
+
+        <a href="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/" class="btn-offer" target="_blank">
+          Zum Selbstlernkurs
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      &copy; 2026 Marit Alke ·
+      <a href="https://marit-alke.de/impressum" target="_blank">Impressum</a> ·
+      <a href="https://marit-alke.de/datenschutz" target="_blank">Datenschutz</a>
+    </p>
+  </footer>
+
+  <script>
+    // Parallax Hero
+    const heroPhoto = document.querySelector('.hero-photo');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      heroPhoto.style.backgroundPosition = `left calc(50% + ${y * 0.35}px)`;
+    }, { passive: true });
+
+    const chapters = [
+      { seconds: 0,    time: "0:00:00", title: "Herzlich Willkommen" },
+      { seconds: 271,  time: "0:04:31", title: "Wer bin ich? Marits Geschichte mit Claude Cowork" },
+      { seconds: 526,  time: "0:08:46", title: "Was ist Claude Cowork? (kurze Erklärung)" },
+      { seconds: 779,  time: "0:12:59", title: "Was zeige ich heute? (Agenda)" },
+      { seconds: 841,  time: "0:14:01", title: "Live Demo: Claude Desktop App kennenlernen" },
+      { seconds: 1068, time: "0:17:48", title: "Demo: PDF verkleinern über den freigegebenen Ordner" },
+      { seconds: 1181, time: "0:19:41", title: "Demo: Vergleichsgrafik direkt aus dem Ordner erstellen lassen" },
+      { seconds: 1462, time: "0:24:22", title: "Konnektoren: Claude mit externen Tools verbinden" },
+      { seconds: 1612, time: "0:26:52", title: "Demo: Datei aus Google Drive heraussuchen" },
+      { seconds: 1896, time: "0:31:36", title: "Skills erklärt: Wie Automatisierungen entstehen" },
+      { seconds: 2286, time: "0:38:06", title: "Demo: Von Folien zur fertigen Kurslektion mit eingebettetem Video" },
+      { seconds: 2488, time: "0:41:28", title: "Live: Video hochladen & Kurslektion erstellen" },
+      { seconds: 3047, time: "0:50:47", title: "Fragen & Antworten, Runde 1" },
+      { seconds: 3825, time: "1:03:45", title: "Das Angebot: Claude Cowork Deep Dive Selbstlernkurs" },
+      { seconds: 4074, time: "1:07:54", title: "Fragen & Antworten, Runde 2" },
+      { seconds: 4175, time: "1:09:35", title: "Bonus-Tipp: Human Design Minikurs", link: "https://copecart.com/products/a0d5af47/checkout" },
+      { seconds: 4565, time: "1:16:05", title: "Demo: Newsletter-Workflow automatisieren" },
+      { seconds: 5280, time: "1:28:00", title: "Mail-Ergebnis ansehen & Datenschutz-Fragen" },
+      { seconds: 5513, time: "1:31:53", title: "Für wen lohnt sich Claude Cowork?" },
+      { seconds: 5738, time: "1:35:38", title: "Bonus: Claude von unterwegs nutzen (Dispatch)" },
+      { seconds: 5843, time: "1:37:23", title: "Abschluss & Auf Wiedersehen" }
+    ];
+
+    const colLeft  = document.getElementById('col-left');
+    const colRight = document.getElementById('col-right');
+    const videoEl  = document.getElementById('webinar-video');
+    const BASE_URL = 'https://www.youtube.com/embed/nZDqlWOTtmw';
+    const split    = Math.ceil(chapters.length / 2); // 11 links, 10 rechts
+
+    function makeCard(ch) {
+      const card = document.createElement('a');
+      card.className = 'chapter-card' + (ch.link ? ' has-link' : '');
+      card.href = '#';
+
+      card.innerHTML = `
+        <div class="chapter-card-top">
+          <div class="chapter-time">${ch.time}</div>
+          <div class="chapter-title">${ch.title}</div>
+        </div>
+        ${ch.link ? `<div class="chapter-link-hint">Direkt zum Kurs</div>` : ''}
+        <div class="chapter-arrow">&#9662;</div>
+      `;
+
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (ch.link) {
+          window.open(ch.link, '_blank');
+        } else {
+          videoEl.src = BASE_URL + '?start=' + ch.seconds + '&autoplay=1';
+          document.querySelector('.video-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      return card;
+    }
+
+    chapters.forEach((ch, i) => {
+      const card = makeCard(ch);
+      (i < split ? colLeft : colRight).appendChild(card);
+    });
+  </script>
+
+</body>
+</html>
