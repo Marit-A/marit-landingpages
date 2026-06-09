@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deine erste flexible Automatisierung mit Claude Cowork</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&family=PT+Sans:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & Grundlage ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── Design Tokens ─────────────────────────────────────────── */
+    :root {
+      --orange:    #ffb000;
+      --teal:      #00b3c3;
+      --lime:      #a4c931;
+      --heading:   #3a3a3a;
+      --text:      #5a5a5a;
+      --text-mid:  #7b7b7b;
+      --navy:      #03557f;
+      --bg-light:  #f7f8f5;
+      --white:     #ffffff;
+      --max-w:     1000px;
+      --max-text:  680px;
+    }
+
+    /* ── Typografie ────────────────────────────────────────────── */
+    body {
+      font-family: 'PT Sans', Arial, sans-serif;
+      font-size: 18px;
+      line-height: 1.75;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      color: var(--heading);
+      line-height: 1.25;
+    }
+
+    h1 { font-size: clamp(2rem, 5vw, 3rem); }
+    h2 { font-size: clamp(1.5rem, 3.5vw, 2.1rem); }
+    h3 { font-size: clamp(1.15rem, 2.5vw, 1.4rem); }
+
+    p { margin-bottom: 1rem; }
+    p:last-child { margin-bottom: 0; }
+    strong { color: var(--heading); }
+
+    /* ── Layout-Helfer ─────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .text-narrow {
+      max-width: var(--max-text);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .section { padding: 64px 0; }
+    .section-sm { padding: 48px 0; }
+
+    /* ── Trennbalken ───────────────────────────────────────────── */
+    .divider-orange-16 { height: 16px; background: var(--orange); }
+    .divider-orange-12 { height: 12px; background: var(--orange); }
+    .divider-orange-10 { height: 10px; background: var(--orange); }
+    .divider-orange-4  { height: 4px;  background: var(--orange); }
+
+    /* ── Orange Banner-Streifen ────────────────────────────────── */
+    .banner-stripe {
+      background: var(--orange);
+      padding: 18px 24px;
+      text-align: center;
+    }
+    .banner-stripe h2 {
+      color: var(--white);
+      font-size: clamp(1.2rem, 3vw, 1.75rem);
+      margin: 0;
+    }
+
+    /* ── Buttons ───────────────────────────────────────────────── */
+    .btn {
+      display: inline-block;
+      font-family: 'PT Sans', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      padding: 16px 36px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+    .btn-teal {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .btn-teal:hover {
+      background: #009aaa;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,179,195,0.35);
+    }
+    .btn-orange {
+      background: var(--orange);
+      color: var(--white);
+    }
+    .btn-orange:hover {
+      background: #e8a000;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255,176,0,0.40);
+    }
+
+    /* ── Navigation ────────────────────────────────────────────── */
+    .nav {
+      background: var(--white);
+      padding: 18px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      display: block;
+    }
+    .nav .btn {
+      font-size: 16px;
+      padding: 10px 24px;
+    }
+
+    /* ── Hero ──────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      background-image: url('assets/hintergrundbild-see-wasserfall.jpg');
+      background-size: cover;
+      background-position: center top;
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      padding: 80px 0 72px;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.45), rgba(0,0,0,0) 70%);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-family: 'PT Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.88);
+      margin-bottom: 18px;
+    }
+    .hero h1 {
+      color: var(--white);
+      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      margin-bottom: 20px;
+    }
+    .hero-sub {
+      font-size: 19px;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.35);
+      max-width: 620px;
+      margin: 0 auto 32px;
+      line-height: 1.65;
+    }
+    .hero-meta {
+      font-size: 15px;
+      color: rgba(255,255,255,0.75);
+      margin-top: 16px;
+    }
+
+    /* ── Problem / Für wen ─────────────────────────────────────── */
+    .problem-section { background: var(--white); }
+    .qualification-list {
+      list-style: none;
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .qualification-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 18px;
+    }
+    .qualification-list li::before {
+      content: '✓';
+      color: var(--lime);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.4;
+      flex-shrink: 0;
+    }
+
+    /* ── Türkis-Wash: Konzept ──────────────────────────────────── */
+    .concept-section {
+      background: rgba(0, 179, 195, 0.10);
+    }
+    .concept-example {
+      background: var(--white);
+      border-left: 4px solid var(--teal);
+      border-radius: 0 5px 5px 0;
+      padding: 24px 28px;
+      margin-top: 32px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      max-width: var(--max-text);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .concept-example .example-label {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+      margin-bottom: 10px;
+    }
+    .concept-example p {
+      font-size: 17px;
+      margin: 0;
+      color: var(--text);
+    }
+
+    /* ── Beispiele 3-spaltig ───────────────────────────────────── */
+    .examples-section { background: var(--bg-light); }
+    .examples-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-top: 8px;
+    }
+    .example-card {
+      background: var(--white);
+      border-radius: 5px;
+      padding: 32px 24px 28px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.06);
+      text-align: center;
+    }
+    .example-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--teal) 0%, var(--lime) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      font-size: 26px;
+    }
+    .example-card h3 {
+      margin-bottom: 10px;
+      font-size: 1.05rem;
+    }
+    .example-card p {
+      font-size: 16px;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    /* ── Workshop-Format ───────────────────────────────────────── */
+    .format-section { background: var(--white); }
+    .format-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 48px;
+      align-items: start;
+      margin-top: 8px;
+    }
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding-top: 8px;
+    }
+    .timeline-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .timeline-dot-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 24px;
+    }
+    .timeline-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--teal);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    .timeline-line {
+      width: 2px;
+      flex: 1;
+      background: rgba(0,179,195,0.25);
+      min-height: 40px;
+    }
+    .timeline-gap {
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      padding: 8px 0;
+    }
+    .timeline-gap-line-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 24px;
+    }
+    .timeline-gap-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      align-items: center;
+      padding: 6px 0;
+    }
+    .timeline-gap-dots span {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(0,179,195,0.35);
+      display: block;
+    }
+    .timeline-label {
+      font-size: 15px;
+      color: var(--text-mid);
+      font-style: italic;
+      padding-top: 4px;
+    }
+    .timeline-text {
+      padding-bottom: 8px;
+    }
+    .timeline-date {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      color: var(--teal);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 2px;
+    }
+    .timeline-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--heading);
+    }
+    .sessions-detail { display: flex; flex-direction: column; gap: 28px; }
+    .session-box {
+      background: var(--bg-light);
+      border-radius: 5px;
+      padding: 24px 28px;
+      border-top: 4px solid var(--teal);
+    }
+    .session-box h3 {
+      color: var(--teal);
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+    .session-box p { font-size: 17px; margin: 0; }
+
+    /* ── Was du bekommst – Foto + Glaskasten ───────────────────── */
+    .leistungen-section {
+      position: relative;
+      background-image: url('assets/hintergrundbild-wasserfall-dunkel.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 72px 0;
+    }
+    .leistungen-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      background: rgba(0,0,0,0.15);
+    }
+    .leistungen-glass {
+      position: relative;
+      z-index: 1;
+      background: rgba(255,255,255,0.90);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 6px;
+      padding: 44px 52px;
+      max-width: 680px;
+      margin: 0 auto;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.22);
+    }
+    .leistungen-glass h2 { margin-bottom: 28px; }
+    .leistungen-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .leistungen-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      font-size: 18px;
+      color: var(--text);
+    }
+    .leistungen-list li::before {
+      content: '✓';
+      color: var(--lime);
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.5;
+      flex-shrink: 0;
+    }
+
+    /* ── Über Marit ────────────────────────────────────────────── */
+    .about-section { background: var(--white); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 52px;
+      align-items: center;
+    }
+    .about-photo {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+    }
+    .about-text h2 { margin-bottom: 16px; }
+
+    /* ── Gradient CTA ──────────────────────────────────────────── */
+    .cta-section {
+      background-image: url('assets/hintergrund-bild-gradient.jpg');
+      background-size: cover;
+      background-position: center;
+      padding: 72px 0;
+      text-align: center;
+    }
+    .cta-price {
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: clamp(2rem, 5vw, 3rem);
+      color: var(--white);
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      margin-bottom: 8px;
+    }
+    .cta-price-note {
+      font-size: 15px;
+      color: rgba(255,255,255,0.80);
+      margin-bottom: 24px;
+    }
+    .cta-tagline {
+      font-size: 20px;
+      color: var(--white);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.25);
+      max-width: 560px;
+      margin: 0 auto 36px;
+      line-height: 1.55;
+    }
+
+    /* ── FAQ ───────────────────────────────────────────────────── */
+    .faq-section { background: var(--bg-light); }
+    .faq-list {
+      max-width: var(--max-text);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    details {
+      background: var(--white);
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      overflow: hidden;
+    }
+    summary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 24px;
+      cursor: pointer;
+      font-family: 'Open Sans', sans-serif;
+      font-weight: 600;
+      font-size: 17px;
+      color: var(--heading);
+      list-style: none;
+      user-select: none;
+    }
+    summary::-webkit-details-marker { display: none; }
+    summary::before {
+      content: '?';
+      color: var(--white);
+      background: var(--orange);
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    summary::after {
+      content: '＋';
+      margin-left: auto;
+      color: var(--teal);
+      font-size: 20px;
+      transition: transform 0.2s ease;
+    }
+    details[open] summary::after {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      padding: 0 24px 20px 66px;
+      font-size: 17px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── Footer ────────────────────────────────────────────────── */
+    .footer {
+      background: var(--white);
+      padding: 32px 0;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .footer-logo img { height: 28px; width: auto; }
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 15px;
+      color: var(--text-mid);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* ── Responsive ────────────────────────────────────────────── */
+    @media (max-width: 720px) {
+      .examples-grid { grid-template-columns: 1fr; gap: 16px; }
+      .format-grid   { grid-template-columns: 1fr; gap: 32px; }
+      .about-grid    { grid-template-columns: 1fr; gap: 28px; }
+      .about-photo   { max-width: 220px; }
+      .leistungen-glass { padding: 32px 24px; }
+      .footer-inner  { flex-direction: column; align-items: flex-start; }
+      .nav .btn      { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Navigation ────────────────────────────────────────────── -->
+  <nav class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="nav-logo" href="#">
+          <img src="assets/logo-marit-alke-schriftzug.png" alt="Marit Alke">
+        </a>
+        <a href="#anmeldung" class="btn btn-teal">Jetzt anmelden</a>
+      </div>
+    </div>
+  </nav>
+  <div class="divider-orange-4"></div>
+
+  <!-- ── Hero ──────────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-eyebrow">✦ Workshop · 6. &amp; 10. August · Live auf Zoom ✦</p>
+      <h1>Deine erste flexible Automatisierung mit Claude Cowork</h1>
+      <p class="hero-sub">In zwei halben Tagen baust du einen Workflow, der sich wiederholende Aufgaben für dich erledigt – flexibel, auf deinem Rechner, vollständig unter deiner Kontrolle.</p>
+      <a href="#anmeldung" class="btn btn-orange">Jetzt anmelden – 180&thinsp;€ netto</a>
+      <p class="hero-meta">Zwei Sessions mit einer Woche dazwischen &nbsp;·&nbsp; Aufzeichnungen inklusive</p>
+    </div>
+  </section>
+  <div class="divider-orange-16"></div>
+
+  <!-- ── Problem / Für wen ──────────────────────────────────────── -->
+  <section class="problem-section section">
+    <div class="container">
+      <div class="text-narrow">
+        <h2>Du arbeitest schon mit KI. Und trotzdem machst du vieles noch von Hand.</h2>
+        <p style="margin-top: 20px;">Du kennst das: Claude beantwortet Fragen, hilft beim Schreiben, denkt mit. Aber manche Aufgaben erledigen sich immer noch nicht von selbst. Videos nachbearbeiten, Aufzeichnungen aufbereiten, Mails vorbereiten, Dateien sortieren – immer wieder, immer du.</p>
+        <p>Was fehlt, ist kein besseres Prompt. Was fehlt, ist ein Prozess, der einfach läuft.</p>
+        <p style="margin-top: 8px;"><strong>Dieser Workshop ist für dich, wenn:</strong></p>
+        <ul class="qualification-list">
+          <li>Du Claude Cowork bereits nutzt oder gerade damit anfängst</li>
+          <li>Du mit KI arbeitest und den nächsten Schritt machen willst</li>
+          <li>Du bestimmte Abläufe nicht nur effizienter, sondern wirklich automatisiert haben möchtest</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Orange Banner ─────────────────────────────────────────── -->
+  <div class="banner-stripe">
+    <h2>Was steckt dahinter?</h2>
+  </div>
+
+  <!-- ── Türkis-Wash: Konzept ───────────────────────────────────── -->
+  <section class="concept-section section">
+    <div class="container">
+      <div class="text-narrow">
+        <h2>Flexible Automatisierungen – anders als alles, was du bisher kennst.</h2>
+        <p style="margin-top: 20px;">Vielleicht kennst du Tools wie n8n oder Zapier. Klassische Automatisierungen sind praktisch – solange alles immer exakt gleich abläuft. Ändert sich ein Schritt, bricht die Verbindung.</p>
+        <p><strong>Flexible Automatisierungen mit Claude Cowork funktionieren anders.</strong> Sie laufen auf deinem Rechner, nutzen Tools, die du schon hast, und passen sich an – weil Claude mitdenkt. Statt starrer Regeln gibst du den Kontext vor. Claude versteht, was gemeint ist, und bringt den Prozess ins Ziel.</p>
+      </div>
+      <div class="concept-example">
+        <div class="example-label">Ein Beispiel aus der Praxis</div>
+        <p>Du nimmst ein Video auf. Claude Cowork schneidet es, erstellt ein Transkript, baut daraus eine Kurslektion im richtigen HTML-Design und lädt sie direkt in dein WordPress hoch. Ändert sich das Design deiner Seite? Kein Problem – du sagst es Claude, und der Rest läuft weiter wie gehabt.</p>
+      </div>
+    </div>
+  </section>
+  <div class="divider-orange-10"></div>
+
+  <!-- ── Beispiele 3-spaltig ────────────────────────────────────── -->
+  <section class="examples-section section">
+    <div class="container">
+      <div class="examples-grid">
+        <div class="example-card">
+          <div class="example-icon">🎥</div>
+          <h3>Zoom-Aufzeichnungen</h3>
+          <p>Aufzeichnung landet automatisch als fertige Kurslektion in WordPress – mit Transkript, Beschreibung und Design.</p>
+        </div>
+        <div class="example-card">
+          <div class="example-icon">📋</div>
+          <h3>Kundengespräche nachbereiten</h3>
+          <p>Gesprächsnotizen werden zu einer strukturierten Zusammenfassung, Follow-up-Mail und Rechnung – in einem Durchgang.</p>
+        </div>
+        <div class="example-card">
+          <div class="example-icon">✉️</div>
+          <h3>Newsletter aus Inhalten</h3>
+          <p>Aus einem Blogartikel oder Video entsteht ein fertiger Newsletter-Entwurf – direkt in deinem Mail-Tool, im richtigen Design.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Orange Banner ─────────────────────────────────────────── -->
+  <div class="banner-stripe">
+    <h2>Der Workshop</h2>
+  </div>
+
+  <!-- ── Workshop-Format ───────────────────────────────────────── -->
+  <section class="format-section section">
+    <div class="container">
+      <div class="format-grid">
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot-col">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-text">
+              <div class="timeline-date">Do, 6. August</div>
+              <div class="timeline-title">Session 1 – 3 Stunden</div>
+            </div>
+          </div>
+          <div class="timeline-gap">
+            <div class="timeline-gap-line-col">
+              <div class="timeline-gap-dots">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="timeline-label">Woche zum Ausprobieren</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot-col">
+              <div class="timeline-dot"></div>
+            </div>
+            <div class="timeline-text">
+              <div class="timeline-date">Mo, 10. August</div>
+              <div class="timeline-title">Session 2 – 3 Stunden</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="sessions-detail">
+          <div class="session-box">
+            <h3>Session 1 · Donnerstag, 6. August</h3>
+            <p>Wir analysieren gemeinsam deinen Prozess und bauen die erste Version deiner Automatisierung. Du gehst nicht mit einem Konzept nach Hause – sondern mit etwas, das wirklich läuft.</p>
+          </div>
+          <div class="session-box">
+            <h3>Session 2 · Montag, 10. August</h3>
+            <p>Du hattest eine Woche, um deinen Workflow im Alltag auszuprobieren. In Session 2 schauen wir, was noch fehlt oder anders sein soll – ich beantworte deine Fragen und wir verfeinern gemeinsam.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Was du bekommst – Foto + Glaskasten ───────────────────── -->
+  <div class="divider-orange-12"></div>
+  <section class="leistungen-section">
+    <div class="container">
+      <div class="leistungen-glass">
+        <h2>Was du bekommst</h2>
+        <ul class="leistungen-list">
+          <li>Ausführliches Vorbereitungs-Tutorial – inkl. Schritt-für-Schritt-Setup für Claude Cowork</li>
+          <li>Zugänge zu beiden Live-Sessions auf Zoom</li>
+          <li>Aufzeichnungen beider Sessions zum Nachschauen</li>
+          <li>Prompt-Listen und Tutorials zum Weiterarbeiten</li>
+          <li>Buddy-Matching – damit du nach dem Workshop nicht allein weiterarbeitest</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <div class="divider-orange-12"></div>
+
+  <!-- ── Über Marit ─────────────────────────────────────────────── -->
+  <section class="about-section section">
+    <div class="container">
+      <div class="about-grid">
+        <img class="about-photo" src="assets/marit-quad-gruen.jpg" alt="Marit Alke">
+        <div class="about-text">
+          <h2>Ich bin Marit.</h2>
+          <p>KI-Trainerin, Solopreneurin – und ich nutze Claude Cowork selbst täglich. Die Workflows, die ich dir in diesem Workshop zeige, habe ich für meine eigene Arbeit entwickelt. Nicht in der Theorie, sondern in echten Prozessen.</p>
+          <p>Mein Ziel ist, dass du nach diesen zwei Halbtagen weißt, wie du dir das Arbeiten mit KI wirklich leicht machen kannst – und das nächste Mal nicht auf mich warten musst.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Orange Banner ─────────────────────────────────────────── -->
+  <div class="banner-stripe">
+    <h2>Bereit für deine erste Automatisierung?</h2>
+  </div>
+
+  <!-- ── Gradient CTA ───────────────────────────────────────────── -->
+  <section id="anmeldung" class="cta-section">
+    <div class="container">
+      <p class="cta-price">180&thinsp;€ netto</p>
+      <p class="cta-price-note">Zwei Live-Sessions · Aufzeichnungen · Vorbereitungs-Material · Buddy</p>
+      <p class="cta-tagline">Du gehst mit einer fertigen Automatisierung nach Hause – und dem Wissen, wie du die nächste selbst baust.</p>
+      <a href="#" class="btn btn-orange">Jetzt anmelden – 180&thinsp;€ netto</a>
+    </div>
+  </section>
+  <div class="divider-orange-16"></div>
+
+  <!-- ── FAQ ───────────────────────────────────────────────────── -->
+  <section class="faq-section section">
+    <div class="container">
+      <div class="faq-list">
+        <h2 style="text-align:center; margin-bottom: 32px;">Häufige Fragen</h2>
+
+        <details>
+          <summary>Brauche ich technisches Vorwissen?</summary>
+          <div class="faq-answer">Nein. Du brauchst Claude Cowork – und ich erkläre dir im Vorbereitungs-Tutorial alles, was du für den Workshop brauchst. Programmierkenntnisse sind nicht erforderlich.</div>
+        </details>
+
+        <details>
+          <summary>Was genau ist ein "Buddy"?</summary>
+          <div class="faq-answer">Nach dem Workshop matche ich Teilnehmer, die ähnliche Workflows bauen oder ähnliche Ziele verfolgen. Ihr verabredet euch dann selbst – für gegenseitige Unterstützung beim Weiterbauen und Ausprobieren.</div>
+        </details>
+
+        <details>
+          <summary>Gibt es eine Aufzeichnung?</summary>
+          <div class="faq-answer">Ja, beide Sessions werden aufgezeichnet. Du bekommst Zugang zu beiden Aufzeichnungen, damit du alles in Ruhe nachschauen kannst.</div>
+        </details>
+
+        <details>
+          <summary>Was, wenn Claude Cowork bei mir noch nicht eingerichtet ist?</summary>
+          <div class="faq-answer">Kein Problem. Du bekommst vorab ein ausführliches Tutorial, das dich Schritt für Schritt durch das Setup führt – inklusive allem, was du für den Workshop brauchst.</div>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-logo">
+          <img src="assets/logo-marit-alke-schriftzug.png" alt="Marit Alke">
+        </div>
+        <ul class="footer-links">
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
