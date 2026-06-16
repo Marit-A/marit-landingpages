@@ -14,7 +14,7 @@ const C = {
 };
 const HEAD = "'Open Sans', sans-serif";
 const BODY = "'PT Sans', sans-serif";
-const CHECKOUT = 'https://myablefy.com/s/maritalke/claude-cowork-deep-dive-kurs/payment';
+const CHECKOUT = 'https://copecart.com/products/c619e3c2/checkout';
 const ICON = (n) => `assets/icons/${n}`;
 
 /* ── Layout primitives ─────────────────────────────────────── */
