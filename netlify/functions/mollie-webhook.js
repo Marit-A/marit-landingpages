@@ -22,6 +22,10 @@ exports.handler = async (event) => {
     payment = await mollieRequest("GET", `/payments/${paymentId}`);
   } catch (err) {
     console.error("Mollie fetch Fehler:", err.message);
+    // 200 zurückgeben damit Mollie NICHT wiederholt – bei "wrong mode" wäre ein Retry sinnlos
+    if (err.message.includes("404") || err.message.includes("wrong mode")) {
+      return { statusCode: 200, body: "OK – ignoriert (404/mode mismatch)" };
+    }
     return { statusCode: 500, body: "Fehler" };
   }
 
