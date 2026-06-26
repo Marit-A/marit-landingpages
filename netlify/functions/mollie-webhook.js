@@ -93,7 +93,7 @@ async function createSalesInvoice({ paymentId, firstName, lastName, email, compa
       }
     ],
     paymentDetails: {
-      source: "mollie",
+      source: "payment",
       paymentId
     },
     emailDetails: {
