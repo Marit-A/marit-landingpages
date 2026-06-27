@@ -84,14 +84,14 @@ async function createSalesInvoice({ paymentId, firstName, lastName, email, compa
     recipientIdentifier: email,
     recipient: {
       type: company ? "business" : "consumer",
-      name: recipientName,
+      ...(company
+        ? { organizationName: company, ...(vatId ? { vatNumber: vatId } : {}) }
+        : { givenName: firstName, familyName: lastName }),
       email,
-      address: {
-        streetAndNumber: street,
-        postalCode: zip,
-        city,
-        country: country || "DE"
-      }
+      streetAndNumber: street,
+      postalCode: zip,
+      city,
+      country: (country || "DE").toUpperCase()
     },
     lines: [
       {
