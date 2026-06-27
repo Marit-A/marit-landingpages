@@ -91,7 +91,8 @@ async function createSalesInvoice({ paymentId, firstName, lastName, email, compa
       streetAndNumber: street,
       postalCode: zip,
       city,
-      country: (country || "DE").toUpperCase()
+      country: (country || "DE").toUpperCase(),
+      locale: ({ DE: "de_DE", AT: "de_AT", CH: "de_CH", NL: "nl_NL", BE: "nl_BE", LU: "fr_LU" })[(country || "DE").toUpperCase()] || "de_DE"
     },
     lines: [
       {
