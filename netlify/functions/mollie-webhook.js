@@ -74,25 +74,28 @@ exports.handler = async (event) => {
 // ── Mollie Sales Invoice ──────────────────────────────────────────────────────
 
 async function createSalesInvoice({ paymentId, firstName, lastName, email, company, street, zip, city, country, vatId }) {
-  const recipientName = company || `${firstName} ${lastName}`;
-  const isEuBusiness  = !!vatId;
-  const vatRate       = isEuBusiness ? "0.00" : "19.00";
+  // type "business" nur bei EU-Ausland mit USt-IdNr. (Reverse Charge)
+  // Deutsche Firmenkunden (kein vatId) → type "consumer", Firmenname im memo
+  const isEuBusiness = !!vatId;
+  const vatRate      = isEuBusiness ? "0.00" : "19.00";
+  const localeMap    = { DE: "de_DE", AT: "de_AT", CH: "de_CH", NL: "nl_NL", BE: "nl_BE", LU: "fr_LU" };
+  const countryCode  = (country || "DE").toUpperCase();
 
   const body = {
     status: "paid",
     vatMode: "exclusive",
     recipientIdentifier: email,
     recipient: {
-      type: company ? "business" : "consumer",
-      ...(company
-        ? { organizationName: company, ...(vatId ? { vatNumber: vatId } : {}) }
+      type: isEuBusiness ? "business" : "consumer",
+      ...(isEuBusiness
+        ? { organizationName: company, vatNumber: vatId }
         : { givenName: firstName, familyName: lastName }),
       email,
       streetAndNumber: street,
       postalCode: zip,
       city,
-      country: (country || "DE").toUpperCase(),
-      locale: ({ DE: "de_DE", AT: "de_AT", CH: "de_CH", NL: "nl_NL", BE: "nl_BE", LU: "fr_LU" })[(country || "DE").toUpperCase()] || "de_DE"
+      country: countryCode,
+      locale: localeMap[countryCode] || "de_DE"
     },
     lines: [
       {
@@ -117,6 +120,8 @@ async function createSalesInvoice({ paymentId, firstName, lastName, email, compa
 
   if (isEuBusiness) {
     body.memo = `Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge). USt-IdNr.: ${vatId}`;
+  } else if (company) {
+    body.memo = `Firma: ${company}`;
   }
 
   await mollieRequest("POST", "/sales-invoices", body);
