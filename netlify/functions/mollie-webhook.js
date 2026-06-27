@@ -37,6 +37,8 @@ exports.handler = async (event) => {
   const { firstName = "", lastName = "", email = "", company = "",
           street = "", zip = "", city = "", country = "DE", vatId = "" } = payment.metadata || {};
 
+  console.log(`Metadata: email=${email} street="${street}" zip="${zip}" city="${city}" country="${country}"`);
+
   if (!email) {
     console.error("Keine E-Mail in Payment-Metadata");
     return { statusCode: 200, body: "OK" };
