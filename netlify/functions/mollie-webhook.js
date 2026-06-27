@@ -34,95 +34,25 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: "OK" };
   }
 
-  const { firstName = "", lastName = "", email = "", company = "",
-          street = "", zip = "", city = "", country = "DE", vatId = "" } = payment.metadata || {};
-
-  console.log(`Metadata: email=${email} street="${street}" zip="${zip}" city="${city}" country="${country}"`);
+  const { firstName = "", lastName = "", email = "" } = payment.metadata || {};
 
   if (!email) {
     console.error("Keine E-Mail in Payment-Metadata");
     return { statusCode: 200, body: "OK" };
   }
 
-  // 1. GetResponse
+  // GetResponse: Kontakt anlegen/taggen
+  // Rechnung: manuell in Lexoffice – siehe MOLLIE-SETUP.md
   try {
     const tagId = await getOrCreateTag(GR_TAG_NAME);
     await upsertContact(email, firstName, GR_CAMPAIGN_ID, tagId);
     console.log(`GetResponse OK: ${email}`);
   } catch (err) {
     console.error("GetResponse Fehler:", err.message);
-    // Nicht abbrechen – Rechnung trotzdem versuchen
-  }
-
-  // 2. Mollie Sales Invoice (Beta)
-  const missingFields = ["street", "zip", "city"].filter(f => !({ street, zip, city }[f]));
-  if (missingFields.length > 0) {
-    console.error(`Invoice übersprungen: Pflichtfelder fehlen (${missingFields.join(", ")}) – ${email} muss manuell berechnet werden`);
-  } else {
-    try {
-      await createSalesInvoice({ paymentId, firstName, lastName, email, company, street, zip, city, country, vatId });
-      console.log(`Rechnung erstellt: ${email}`);
-    } catch (err) {
-      console.error("Invoice Fehler:", err.message);
-      // Nicht fatal – Rechnung kann manuell nachgeholt werden
-    }
   }
 
   return { statusCode: 200, body: "OK" };
 };
-
-// ── Mollie Sales Invoice ──────────────────────────────────────────────────────
-
-async function createSalesInvoice({ paymentId, firstName, lastName, email, company, street, zip, city, country, vatId }) {
-  const countryCode   = (country || "DE").toUpperCase();
-  const localeMap     = { DE: "de_DE", AT: "de_AT", CH: "de_CH", NL: "nl_NL", BE: "nl_BE", LU: "fr_LU" };
-  const hasBusiness   = !!vatId;                          // USt-IdNr. vorhanden
-  const isReverseCharge = hasBusiness && countryCode !== "DE"; // EU-Ausland → Reverse Charge
-  const vatRate       = isReverseCharge ? "0.00" : "19.00";
-
-  const body = {
-    status: "paid",
-    vatMode: "exclusive",
-    recipientIdentifier: email,
-    recipient: {
-      type: hasBusiness ? "business" : "consumer",
-      ...(hasBusiness
-        ? { organizationName: company || `${firstName} ${lastName}`, vatNumber: vatId }
-        : { givenName: firstName, familyName: lastName }),
-      email,
-      streetAndNumber: street,
-      postalCode: zip,
-      city,
-      country: countryCode,
-      locale: localeMap[countryCode] || "de_DE"
-    },
-    lines: [
-      {
-        type: "digital",
-        name: "CCDD VIP-Letter",
-        description: "Exklusiver Newsletter mit Impulsen zu Claude Cowork und KI-Tools, 01.07.–31.12.2026",
-        quantity: 1,
-        unitPrice: { currency: "EUR", value: "39.00" },
-        vatRate
-      }
-    ],
-    paymentDetails: {
-      source: "payment",
-      sourceReference: paymentId,
-      paymentId
-    },
-    emailDetails: {
-      subject: "Deine Rechnung – CCDD VIP-Letter",
-      body: `Hallo ${firstName},\n\nvielen Dank für deine Bestellung! Im Anhang findest du deine Rechnung für den CCDD VIP-Letter (01.07.–31.12.2026).\n\nDu erhältst in Kürze eine weitere E-Mail mit allen Infos zum Newsletter.\n\nHerzliche Grüße\nMarit Alke`
-    }
-  };
-
-  if (isReverseCharge) {
-    body.memo = `Steuerschuldnerschaft des Leistungsempfängers (Reverse Charge). USt-IdNr.: ${vatId}`;
-  }
-
-  await mollieRequest("POST", "/sales-invoices", body);
-}
 
 // ── GetResponse ───────────────────────────────────────────────────────────────
 

@@ -29,9 +29,13 @@ exports.handler = async (event) => {
 
   const metadata = { firstName, lastName, email, company, street, zip, city, country, vatId };
 
+  // Preis: vatId vorhanden + nicht-DE = 39,00 € netto (Reverse Charge / Drittland), sonst 46,41 € brutto
+  const isNetPrice = !!vatId && country.toUpperCase() !== "DE";
+  const amount = isNetPrice ? "39.00" : "46.41";
+
   try {
     const payment = await mollieRequest("POST", "/payments", {
-      amount: { currency: "EUR", value: "46.41" },
+      amount: { currency: "EUR", value: amount },
       description: "CCDD VIP-Letter 01.07.–31.12.2026",
       redirectUrl: `${BASE_URL}/ccdd-vip-newsletter/danke.html`,
       webhookUrl:  `${BASE_URL}/.netlify/functions/mollie-webhook`,
