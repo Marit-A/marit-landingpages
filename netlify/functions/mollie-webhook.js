@@ -53,12 +53,17 @@ exports.handler = async (event) => {
   }
 
   // 2. Mollie Sales Invoice (Beta)
-  try {
-    await createSalesInvoice({ paymentId, firstName, lastName, email, company, street, zip, city, country, vatId });
-    console.log(`Rechnung erstellt: ${email}`);
-  } catch (err) {
-    console.error("Invoice Fehler:", err.message);
-    // Nicht fatal – Rechnung kann manuell nachgeholt werden
+  const missingFields = ["street", "zip", "city"].filter(f => !({ street, zip, city }[f]));
+  if (missingFields.length > 0) {
+    console.error(`Invoice übersprungen: Pflichtfelder fehlen (${missingFields.join(", ")}) – ${email} muss manuell berechnet werden`);
+  } else {
+    try {
+      await createSalesInvoice({ paymentId, firstName, lastName, email, company, street, zip, city, country, vatId });
+      console.log(`Rechnung erstellt: ${email}`);
+    } catch (err) {
+      console.error("Invoice Fehler:", err.message);
+      // Nicht fatal – Rechnung kann manuell nachgeholt werden
+    }
   }
 
   return { statusCode: 200, body: "OK" };
