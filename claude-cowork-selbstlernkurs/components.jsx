@@ -218,7 +218,7 @@ const Testimonial = ({ children, author, authorUrl }) => (
     <div style={{ fontFamily: 'Georgia, serif', fontWeight: 700, fontSize: 60, color: C.orange, lineHeight: 0.4, height: '0.4em' }}>"</div>
     <blockquote style={{
       fontFamily: BODY, fontWeight: 400, fontStyle: 'normal',
-      fontSize: 'clamp(1.15rem, 1.4vw, 1.3rem)', lineHeight: 1.65,
+      fontSize: 16.5, lineHeight: 1.65,
       color: C.text, margin: 0,
     }}>{children}</blockquote>
     <figcaption style={{ fontFamily: BODY, fontSize: 15, color: C.mid, fontWeight: 700 }}>

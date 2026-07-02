@@ -30,12 +30,13 @@
     .grid-formats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
     .grid-fit { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
     .grid-quotes { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .grid-quotes-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
     .about-grid { display: grid; grid-template-columns: 4fr 7fr; gap: clamp(32px, 5vw, 64px); align-items: center; }
     @media (max-width: 680px) { .about-marit-img { width: 140px !important; } }
 
     @media (max-width: 920px) {
       .grid-cap { grid-template-columns: repeat(2, 1fr); }
-      .grid-formats, .grid-fit, .grid-quotes { grid-template-columns: 1fr; }
+      .grid-formats, .grid-fit, .grid-quotes, .grid-quotes-3 { grid-template-columns: 1fr; }
       .about-grid { grid-template-columns: 1fr; }
       .br-wide { display: none; }
       .grid-extras { grid-template-columns: 1fr !important; }
@@ -215,6 +216,26 @@ function App() {
         </div>
       </Section>
 
+      {/* TESTIMONIALS BLOCK 1 — Gruppenkurs */}
+      <Section bg="gray" max={1040}>
+        <Eyebrow center>Erfahrungsberichte</Eyebrow>
+        <H2 style={{ marginBottom: 16 }}>Das sagen Teilnehmer:innen des Programms</H2>
+        <p style={{ fontFamily: BODY, fontSize: 15, color: C.mid, fontStyle: 'italic', textAlign: 'center', maxWidth: 640, margin: '0 auto 44px' }}>
+          Viele Kundenstimmen stammen aktuell noch aus dem begleiteten Gruppenkurs (Claude Cowork Deep Dive Programm) - die Lerninhalte sind identisch mit dem Selbstlernkurs.
+        </p>
+        <div className="grid-quotes-3">
+          <Testimonial author="Susanne Biwer · Teilnehmerin Gruppenkurs">
+            Selten so viel in so kurzer Zeit gelernt. Natürlich liegt das auch am Thema. Claude Cowork hat mich brennend interessiert, weil ich als Solo-Selbstständige endlich meine Prozesse automatisieren wollte, damit nicht mehr so viel Zeit täglich für Handarbeit drauf geht. (Spoiler: das hat auch geklappt, beziehungsweise klappt immer noch) Marit hat mich ganz toll auf den Weg gebracht, wie ich mit der KI am besten kommuniziere. Und wenn wir eigene Wege gingen, ganz wunderbar immer wieder die Fäden zusammengeführt.
+          </Testimonial>
+          <Testimonial author="Oliver Teufel · Teilnehmer Gruppenkurs">
+            Durch den Kurs weiß ich nun wirklich, wie ich Cowork sinnvoll in mein Business integriere, was alles möglich ist, wie ich meine Ergebnisse verbessere und mir gleichzeitig die Arbeit enorm erleichtere. Der Kurs ist didaktisch sehr gut aufgebaut. Die Kombination aus Wissensvermittlung und konkretem Experimentieren ist gelungen, und die Begleitung durch Marit einfach toll.
+          </Testimonial>
+          <Testimonial author="Tanja Priefling · Teilnehmerin Gruppenkurs">
+            Vom ersten Moment an war ich begeistert - und bin es noch. Du gehst total in diesem Thema auf, experimentierst herum, hast so ständig neue Ideen und bereitest uns diese in kleinen Häppchen und sehr gut verständlich auf. Ich habe mich über jede neue Lektion und jede E-Mail von dir gefreut!
+          </Testimonial>
+        </div>
+      </Section>
+
       {/* FOR WHOM — two columns */}
       <Section bg="gray" max={1040}>
         <Eyebrow center>Für wen ist dieser Kurs?</Eyebrow>
@@ -245,12 +266,15 @@ function App() {
       <Section bg="white" max={1040}>
         <Eyebrow center>Was meine Teilnehmer sagen</Eyebrow>
         <H2 style={{ marginBottom: 44 }}>Stimmen aus dem Deep Dive Programm</H2>
-        <div className="grid-quotes">
+        <div className="grid-quotes-3">
           <Testimonial author="Daniela Keller" authorUrl="https://statistik-und-beratung.de">
             Dieser Kurs hat mir die Welt von Claude Cowork eröffnet. Als Einzelunternehmerin hatte ich vorher kaum Berührungspunkte mit Claude, wenn dann nur im Chat. Durch die Praxislektionen mit glasklarer Anleitung habe ich Stück für Stück ein ganzes Repertoire an Möglichkeiten kennengelernt. Jede Lektion ist super praxisnah: schrittweise Anleitung, Prompt-Vorlagen, und am Ende Ideen, wie man das im eigenen Business nutzen kann. Ich kann Claude Cowork jetzt schon wie einen Mitarbeiter einsetzen und meine Prozesse laufen so viel schneller und effizienter.
           </Testimonial>
           <Testimonial author="Silke van Beuningen" authorUrl="https://silkevanbeuningen.de">
             Meine Video-Aufgaben laufen jetzt per Knopfdruck. Vor dem Deep Dive war bei mir vieles chaotisch: Systeme, Aufgaben, alles hat Energie gezogen. Ich wollte am liebsten eine Assistentin, der ich jederzeit Arbeit abgeben kann - am Schreibtisch genauso wie mit den Füßen auf dem Sofa. Heute ist Claude mit Dispatch für mich wie ein zweites Gehirn: Thumbnail erstellen, Video hochladen, Aufgaben erledigen - vieles geht per Sprachnachricht oder ist nur noch einen Knopfdruck entfernt!
+          </Testimonial>
+          <Testimonial author="Maria Kosmala" authorUrl="https://mariakosmala.com">
+            Marit bringt einen klaren roten Faden in ein komplexes Thema - ihre Freude, Kompetenz und langjährige Erfahrung sind in jeder Lektion spürbar. Nach nur zwei halben Tagen mit Marits Kurs hat Claude Cowork für mich Dinge erledigt, die ich früher anstrengend fand: interne Verlinkungen im Blog, einen fertigen Blogartikel, einen Entwurf für eine neue Angebotsseite. Ich bin hin und weg und empfehle Marit von Herzen weiter.
           </Testimonial>
         </div>
       </Section>
@@ -288,6 +312,26 @@ function App() {
         </div>
       </Section>
 
+      {/* TESTIMONIALS BLOCK 2 — Gruppenkurs */}
+      <Section bg="white" max={1040}>
+        <Eyebrow center>Erfahrungsberichte</Eyebrow>
+        <H2 style={{ marginBottom: 44 }}>Weitere Stimmen aus dem Programm</H2>
+        <div className="grid-quotes">
+          <Testimonial author="Sandra · Teilnehmerin Gruppenkurs">
+            Ich hatte tatsächlich etwas Berührungsängste mit der KI, da ich sie nicht so ohne weiteres auf meinen Rechner lassen wollte. Also habe ich mir ein Laptop für die KI gekauft, so als hätte ich eine neue Assistentin und würde ihr ein Laptop für die Zusammenarbeit zur Verfügung stellen. [...] Am meisten geflasht bin ich nach wie vor, dass Claude Cowork einfach viele Aufgaben parallel bearbeiten kann und ich meine täglichen ToDos auf diese Weise einfach „abgeben" lerne. Deine Lernvideos sind super einfach erklärt und strukturiert, damit kommen mein Assistent und ich gut weiter. Danke vielmals!
+          </Testimonial>
+          <Testimonial author="Jörg · Teilnehmer Gruppenkurs">
+            KI in allen Ausprägungen ist für meine Anwenderfragen als Solounternehmer ein ziemlicher Brocken - oder besser: der Mount Everest schlechthin. Marit ist für mich die richtige Sherpani, auch wenn sie mit der Spitzengruppe schon weit voraus ist. Ich fühle mich bestens aufgehoben mit meinen Fragen und Übungsergebnissen auch abseits der Hauptroute. Bin zuversichtlich, dass alle Pfade zum Gipfel führen.
+          </Testimonial>
+          <Testimonial author="Marion Kellner · Teilnehmerin Gruppenkurs">
+            Mich hat besonders beeindruckt, welche Möglichkeiten sich dadurch eröffnen. [...] Dank Marits Inspirationen habe ich mich sogar getraut, eine eigene Sprachlern-App zu erstellen, ohne Programmier-Kenntnisse zu haben. Auch die Begleitung durch Marit war einfach hervorragend: Sie ist sehr strukturiert, verfügt über ein beeindruckend tiefes Wissen und bringt gleichzeitig eine große Neugier mit, neue Dinge auszuprobieren und Zusammenhänge wirklich zu verstehen.
+          </Testimonial>
+          <Testimonial author="Andrea · Teilnehmerin Gruppenkurs">
+            Ich habe sehr viel erreicht, und was noch viel wichtiger ist: Ich weiß, dass ich durch den Kurs noch viel, viel mehr erreichen kann. Liebe Marit, vielen Dank für die tollen neuen Möglichkeiten, die du mir durch den Kurs eröffnet hast. Ich kann deinen Kurs absolut empfehlen.
+          </Testimonial>
+        </div>
+      </Section>
+
       {/* BANNER */}
       <div style={{ background: '#ffb000', color: '#fff', textAlign: 'center', padding: 'clamp(14px, 2vw, 22px) 32px', fontFamily: "'Open Sans', sans-serif", fontWeight: 600, fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', lineHeight: 1.2 }}>Deine Investition:</div>
 
@@ -307,13 +351,13 @@ function App() {
             <div style={{ background: C.white, borderRadius: 5, padding: 'clamp(32px, 4vw, 44px)', boxShadow: '0 18px 50px rgba(0,0,0,0.28)', textAlign: 'center' }}>
               <div style={{ fontFamily: BODY, fontSize: 20, color: C.mid, textDecoration: 'line-through', marginBottom: 4 }}>Regulär 249 €</div>
               <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(3rem, 7vw, 4.25rem)', color: C.heading, lineHeight: 1, margin: '4px 0 10px' }}>175 €</div>
-              <div style={{ fontFamily: BODY, fontSize: 16, color: C.mid, marginBottom: 16 }}>Einführungspreis · einmalige Zahlung · zzgl. MwSt.</div>
-              <div style={{ fontFamily: BODY, fontSize: 15, color: C.teal, background: '#f0faf9', border: '1px solid #b2e0d8', borderRadius: 6, padding: '10px 16px', marginBottom: 24, lineHeight: 1.5 }}>
-                Mit Code <strong>WEBINARCC</strong> nochmal <strong>25 € Rabatt</strong> — den Code direkt beim Checkout eingeben.
-              </div>
+              <div style={{ fontFamily: BODY, fontSize: 16, color: C.mid, marginBottom: 24 }}>Einführungspreis · einmalige Zahlung · netto zzgl. MwSt.</div>
               <CtaButton variant="teal" big full>Jetzt buchen und direkt loslegen →</CtaButton>
               <p style={{ fontFamily: BODY, fontSize: 14.5, color: C.text, lineHeight: 1.6, margin: '22px 0 0', textAlign: 'left', paddingTop: 22, borderTop: '1px solid #eee' }}>
                 <strong style={{ color: C.heading }}>14 Tage Zufriedenheitsgarantie</strong> - wenn du merkst, dass der Kurs nicht das Richtige für dich ist, erstatte ich dir den Kaufpreis abzüglich einer Bearbeitungspauschale von 20 €.
+              </p>
+              <p style={{ fontFamily: BODY, fontSize: 13, color: C.mid, lineHeight: 1.6, margin: '14px 0 0', textAlign: 'left' }}>
+                Die Zahlungsabwicklung und Rechnungsstellung erfolgt über unseren Zahlungsdienstleister CopeCart.
               </p>
             </div>
           </div>
@@ -379,6 +423,23 @@ function App() {
               Die Praxislektionen entstehen gerade parallel zu meinem laufenden Claude Cowork Deep Dive Programm. Du bekommst sofort Zugang zu allen aktuell fertigen Lektionen - und alle weiteren werden bis spätestens <strong style={{ color: C.white }}>Mitte Juli 2026</strong> ergänzt. Über den "Newsletter" informiere ich regelmäßig über neu freigeschaltete Lektionen.
             </p>
           </div>
+        </div>
+      </Section>
+
+      {/* TESTIMONIALS BLOCK 3 — Gruppenkurs */}
+      <Section bg="gray" max={1040}>
+        <Eyebrow center>Erfahrungsberichte</Eyebrow>
+        <H2 style={{ marginBottom: 44 }}>Noch mehr Stimmen aus dem Programm</H2>
+        <div className="grid-quotes-3">
+          <Testimonial author="Laura Sander · Teilnehmerin Gruppenkurs">
+            Vor der Challenge bei Marit kannte ich Claude noch gar nicht. [...] Was mich neugierig gemacht hat, war das kostenfreie Webinar von Marit und wie sie gezeigt hat, dass man sich mit Claude einen eigenen Assistenten bauen kann, der die eigenen Prozesse abbildet. In den acht Wochen habe ich eine Landingpage für ein Thema gebaut, das ich schon lange vor mir hergeschoben hatte, meinen Newsletter gestartet, bestehende Seiten SEO-optimiert und eine funktionierende Ordnerstruktur etabliert. [...] Für Soloselbstständige lohnt sich das auf jeden Fall: Man baut sich einen eigenen digitalen Assistenten auf, der die eigenen Prozesse kennt.
+          </Testimonial>
+          <Testimonial author="Dr. Martina Nohl · Teilnehmerin Gruppenkurs" authorUrl="https://genial-leben.com">
+            Das war ein wilder Ritt für mich, ein Intensivkurs, der mich vom technischen Verständnis und der Umsetzung wirklich herausgefordert hat. Vermutlich hätte ich abgebrochen, wenn Marit uns als Nicht-Techies nicht so gut durch die „KI-Prärie" geführt hätte. Ihre mutige und freudige Einstellung gegenüber diesem Mega-Tool mit seinen für „normale Cowboys" unglaublichen Möglichkeiten hat mich auf dem Weg gehalten. Ich freue mich darauf, meine Kreativität und Produktivität an den richtigen Stellen damit deutlich zu erweitern. Danke für dieses Zukunfts-Geschenk!
+          </Testimonial>
+          <Testimonial author="Bianca · Teilnehmerin Gruppenkurs">
+            Ich habe meine Berührungsängste mit Claude verloren, erste Landingpages programmiert, ein paar Routineaufgaben ausgelagert und vor allem verstanden, wie viel mehr noch möglich ist, das ich nach und nach umsetzen werde. Danke Marit, dass du uns eine so steile Lernkurve ermöglicht und immer für alle Fragen dagewesen bist - ohne dass wir dabei von dir „abhängig" wurden. Du hast mich sehr ermutigt, meinen eigenen Weg zu gehen mit Claude und nicht so schnell locker zu lassen, wenn etwas nicht gleich funktioniert. Denn oft kann Claude selbst mir helfen, die Lösung zu finden. Und das ist wirklich faszinierend.
+          </Testimonial>
         </div>
       </Section>
 
