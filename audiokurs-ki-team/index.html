@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dein Audiokurs: Bau dir dein KI-Team</title>
+<meta name="description" content="Hier sind deine drei Audios zum Kurs 'Bau dir dein KI-Team' von Marit Alke, inklusive Textversionen und Fragenlisten.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<!-- GetResponse Analytics / Web Connect -->
+<script type="text/javascript">
+
+(function(m, o, n, t, e, r, _){
+        m['__GetResponseAnalyticsObject'] = e;m[e] = m[e] || function() {(m[e].q = m[e].q || []).push(arguments)};
+        r = o.createElement(n);_ = o.getElementsByTagName(n)[0];r.async = 1;r.src = t;r.setAttribute('crossorigin', 'use-credentials');_.parentNode .insertBefore(r, _);
+    })(window, document, 'script', 'https://an.gr-wcon.com/script/4e735e2c-3f1a-443c-8bc7-b89625d945bb/ga.js', 'GrTracking');
+</script>
+<!-- End GetResponse Analytics -->
+
+<style>
+  :root {
+    --color-orange: #ffb000;
+    --color-teal: #00b3c3;
+    --color-lime: #a4c931;
+    --color-heading: #3a3a3a;
+    --color-text: #5a5a5a;
+    --color-text-mid: #7b7b7b;
+    --color-bg-light: #f7f8f5;
+    --color-white: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--color-text);
+    background: #fff;
+  }
+  h1, h2, h3 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: var(--color-heading);
+    line-height: 1.3;
+    margin: 0 0 16px;
+  }
+  h1 { font-size: 38px; }
+  h2 { font-size: 24px; }
+  h3 { font-size: 19px; margin-bottom: 10px; }
+  p { margin: 0 0 16px; }
+  a { color: var(--color-teal); }
+  .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
+  .container-wide { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .nav { padding: 20px 0; }
+  .nav .container { display: flex; align-items: center; justify-content: space-between; max-width: 820px; }
+  .nav img { height: 40px; }
+  .nav-home {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .nav-home:hover { color: var(--color-teal); }
+  .divider-orange-thin { height: 4px; background: var(--color-orange); width: 100%; }
+
+  .hero {
+    position: relative;
+    background: url('assets/hero.jpg') center center / cover no-repeat;
+    padding: 64px 0 52px;
+    text-align: center;
+  }
+  .hero::before { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.4); }
+  .hero .container { position: relative; z-index: 1; max-width: 820px; }
+  .hero h1 { color: #fff; text-shadow: 0 2px 10px rgba(0,0,0,0.35); margin-bottom: 12px; }
+  .hero p { color: #fff; font-size: 19px; text-shadow: 0 2px 8px rgba(0,0,0,0.35); margin: 0; }
+  .divider-orange { height: 16px; background: var(--color-orange); width: 100%; }
+
+  /* Intro / Begrüßung */
+  .intro {
+    padding: 56px 0 8px;
+  }
+  .quote-section {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  .portrait {
+    width: 100%;
+    border-radius: 8px;
+    display: block;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.14);
+  }
+  .quote-box {
+    background: var(--color-white);
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    padding: 44px 56px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+  }
+  .quote-box p { font-size: 17px; color: var(--color-heading); line-height: 1.6; }
+  .contact-note {
+    font-size: 15px;
+    color: var(--color-text-mid);
+    border-top: 1px solid #ececec;
+    margin-top: 4px;
+    padding-top: 16px;
+  }
+  .signature {
+    font-family: 'PT Sans', sans-serif;
+    font-size: 16px;
+    color: var(--color-text);
+    margin-bottom: 0;
+  }
+  .signature strong { color: var(--color-heading); }
+
+  .lessons { padding: 48px 0 56px; }
+
+  .lesson-card {
+    background: var(--color-bg-light);
+    border-radius: 6px;
+    padding: 32px 32px 28px;
+    margin-bottom: 32px;
+  }
+  .badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+  .lesson-card .badge {
+    display: inline-block;
+    background: var(--color-teal);
+    color: #fff;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+  .icon-hoeren-badge {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .player-wrap {
+    background: linear-gradient(135deg, rgba(0,179,195,0.10), rgba(164,201,49,0.10));
+    border: 1.5px solid var(--color-teal);
+    border-radius: 10px;
+    padding: 20px 22px 14px;
+    margin: 8px 0 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+  }
+  audio { width: 100%; height: 48px; display: block; }
+  .duration {
+    font-size: 14px;
+    color: var(--color-text-mid);
+    margin: 10px 0 0;
+  }
+
+  details {
+    background: #fff;
+    border: 1.5px solid var(--color-teal);
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-top: 6px;
+  }
+  details summary {
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    color: var(--color-teal);
+    font-size: 17px;
+    list-style: none;
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::before {
+    content: "+ ";
+    color: var(--color-orange);
+    font-weight: 700;
+  }
+  details[open] summary::before { content: "– "; }
+  details .text-content { margin-top: 18px; }
+  details .text-content h3:first-child { margin-top: 0; }
+  .text-content ul { padding-left: 22px; margin: 0 0 16px; }
+  .text-content li { margin-bottom: 8px; }
+
+  .pdf-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 16px;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    background: var(--color-orange);
+    padding: 10px 22px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .pdf-link:hover {
+    background: var(--color-lime);
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    transform: translateY(-1px);
+  }
+  .pdf-link svg { flex-shrink: 0; }
+
+  .promo-box {
+    background: var(--color-white);
+    border: 1px solid #ececec;
+    border-radius: 6px;
+    padding: 24px 28px;
+    margin-top: 22px;
+    text-align: center;
+  }
+  .promo-box p {
+    font-size: 15px;
+    color: var(--color-text-mid);
+    margin-bottom: 16px;
+  }
+  .btn-outline {
+    display: inline-block;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    color: #7a9420;
+    border: 1.5px solid var(--color-lime);
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: 0.2s ease;
+  }
+  .btn-outline:hover {
+    background: var(--color-lime);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(164,201,49,0.35);
+    transform: translateY(-1px);
+  }
+  .promo-code {
+    font-size: 14px;
+    color: var(--color-text-mid);
+    margin: 16px 0 0;
+  }
+  .promo-code code {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    color: var(--color-heading);
+    background: var(--color-bg-light);
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    padding: 2px 8px;
+    letter-spacing: 0.02em;
+  }
+
+  footer {
+    background: var(--color-orange);
+    padding: 24px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+  }
+  footer a { color: #fff; text-decoration: underline; }
+
+  @media (max-width: 640px) {
+    h1 { font-size: 28px; }
+    .lesson-card { padding: 24px 20px; }
+    .quote-section { grid-template-columns: 1fr; }
+    .portrait { max-width: 220px; margin: 0 auto; }
+    .quote-box { text-align: center; padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="container">
+    <img src="assets/logo-marit-alke.png" alt="Marit Alke">
+    <a href="https://www.marit-alke.de" class="nav-home" target="_blank" rel="noopener">Home</a>
+  </div>
+</div>
+<div class="divider-orange-thin"></div>
+
+<section class="hero">
+  <div class="container">
+    <h1>Willkommen in deinem Audiokurs</h1>
+    <img src="assets/logo-schriftzug-titel.png" alt="Bau dir dein KI-Team - Mehr (Selbst-)Wirksamkeit für Frauen 50+" style="max-width: 420px; width: 100%; height: auto;">
+  </div>
+</section>
+<div class="divider-orange"></div>
+
+<section class="intro">
+  <div class="container-wide">
+    <div class="quote-section">
+      <img src="assets/portrait-marit-quad.jpg" alt="Marit Alke" class="portrait">
+      <div class="quote-box">
+        <p>Hallo und herzlich willkommen in deinem Audiokurs, in dem es darum geht, wie du dir <strong>dein KI-Team</strong> aufbaust.</p>
+        <p>Als Solo-Selbstständige bist du oft allein und führst wahrscheinlich auch unterschiedliche innere Dialoge mit dir selbst. In Lektion 2 zeige ich dir, wie du das mit deinem Chatbot noch klarer bekommst und dir <strong>verschiedene Perspektiven</strong> auf dein Business, auf einzelne Projekte und Entscheidungen aufbaust, mit denen du wirklich Freude daran hast, neue Vorhaben anzugehen, mit dem Team, das du dir mit deinem Chatbot erschaffst.</p>
+        <p>In Lektion 3 zeige ich dir sogar, wie du dir ein KI-Team aufbaust, das dich praktisch unterstützt: Es übernimmt lästige, zeitaufwendige Aufgaben, die in deiner Selbstständigkeit anfallen. So ein Team macht dich <strong>selbstbewusster</strong> und verstärkt deine Wirkung nach außen, weil du dich mehr auf das konzentrieren kannst, was du wirklich zu deinen Kundinnen und Kunden bringen willst.</p>
+        <p class="contact-note">Hast du Fragen zu einer der Lektionen oder möchtest mir zurückmelden, was du mit meinen Tipps, Prompts und KI-Anleitungen erlebt hast? Schreib mir gerne jederzeit an <a href="mailto:info@marit-alke.de">info@marit-alke.de</a>.</p>
+        <p class="signature">Herzliche Grüße, <strong>Marit</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lessons">
+  <div class="container">
+
+    <div class="lesson-card">
+      <div class="badge-row">
+        <span class="badge">Lektion 1</span>
+        <img src="assets/icon-hoeren.jpg" alt="" class="icon-hoeren-badge">
+      </div>
+      <h2>Warum KI für Frauen 50+ relevant ist</h2>
+      <p>Ein KI-Team bedeutet für mich nicht, dass die KI deine Texte schreibt. Es geht um ein <strong>Gefühl von Unterstützung</strong>: einen Sparringspartner an deiner Seite, den du als Selberdenkerin führst, statt in die Bestätigungsfalle der KI zu tappen.</p>
+      <p>Ein gut geführter Chatbot hilft dir, klarer zu werden, blinde Flecken zu sehen und dich persönlich weiterzuentwickeln. Genau das stärkt deine <strong>Selbstwirksamkeit</strong>, gerade als Solo-Selbstständige.</p>
+      <p>Am Ende erkläre ich, warum ich glaube, dass besonders Frauen 50+ sich mit KI beschäftigen sollten: <strong>Wir werden gebraucht</strong>, wir sind Vorbild, und ich beziehe auch klar Stellung zu den kritischen Seiten von KI.</p>
+
+      <div class="player-wrap">
+        <audio controls preload="none">
+          <source src="https://onlinebusinesslounge.podcaster.de/download/audiokurs-Teil_1_Einleitung_Warum.mp3" type="audio/mpeg">
+          Dein Browser unterstützt das Audio-Element nicht. <a href="https://onlinebusinesslounge.podcaster.de/download/audiokurs-Teil_1_Einleitung_Warum.mp3" target="_blank" rel="noopener">Audio herunterladen</a>
+        </audio>
+        <p class="duration">Länge: ca. 21 Minuten</p>
+      </div>
+
+      <details>
+        <summary>Vollständige Textversion lesen</summary>
+        <div class="text-content">
+          <h3>Willkommen und worum es in den drei Teilen geht</h3>
+          <p>Ich bin Marit Alke und habe mit ziemlich genau 50 Jahren die KI für mich entdeckt. Es fühlt sich an, als würde sich ein komplett neues Kapitel in meinem Leben öffnen. Im Moment bin ich Trainerin für <strong>Claude Cowork</strong>, eine agentische KI, über die ich im dritten Teil genauer spreche. Im zweiten Teil geht es um meine besondere Herangehensweise an den Chatbot, denn ich war nie zufrieden damit, dass KI mir Texte schreibt und kreative Arbeit abnimmt. Hier im ersten Teil geht es erst einmal um deinen Blickwinkel auf KI.</p>
+
+          <h3>Was ist gemeint mit "KI-Team"?</h3>
+          <p>Es geht mir nicht darum, dass die KI deine Texte schreibt oder deine Social-Media-Posts und Newsletter automatisch übernimmt. Mir geht es vor allem darum, ein <strong>Gefühl von Unterstützung</strong> für dich zu schaffen: nicht alleine werkeln zu müssen, sondern jemanden an der Seite zu haben, der wirklich mit dir co-kreiert, wenn du als Selberdenkerin die KI gut führst.</p>
+
+          <h3>Nicht in die Bestätigungsfalle tappen</h3>
+          <p>Mir geht es beim Thema Selbstwirksamkeit und Frauen-Empowerment auch nicht darum, dass du der KI blind vertraust. KI ist sehr darauf programmiert, dich bei der Stange zu halten: Sie bejaht alles, schmeichelt dir, schmiert dir Honig um den Bart. Viele Menschen werden dadurch fast abhängig von diesem eckenlosen Geschmeichel, gerade wenn sie anfangen, ihre Probleme mit der KI zu besprechen. Das ist ein Stück weit okay, aber es braucht deine bewusste Achtsamkeit, damit du nicht in diese Falle reinfällst.</p>
+
+          <h3>Die KI führen, um dich selbst besser zu führen</h3>
+          <p>Viel spannender ist es, die KI so zu führen, dass du dich dadurch selbst besser führen kannst. Das klingt vielleicht paradox, ist aber machbar, ich habe es in meinem Kurs "Deep Talks mit KI" auf verschiedene Weise gezeigt. Mit ein bisschen Coaching- und Beratungswissen modulierst du den KI-Gesprächspartner so, dass er auf menschlich bewährte Weise mit dir spricht. Du kennst bestimmt mentale Modelle aus Selbsthilfebüchern oder eigener Coaching-Erfahrung, und genau diese kann die KI für dich simulieren. Das hilft dir, klarer zu werden, Schwierigkeiten und blinde Flecken besser zu sehen und dich persönlich weiterzuentwickeln.</p>
+
+          <h3>Selbstwirksamkeit als wichtigste Ressource</h3>
+          <p>Das Gefühl von Selbstwirksamkeit ist gerade für selbstständige Frauen extrem wichtig. Wenn ich nicht glaube, dass ich Dinge bewegen, Technik beherrschen oder mit Angeboten nach draußen gehen kann, dann kann mein Business nicht funktionieren, egal wie gut ich Tipps beherzige. Diese Ressource baust du auf, indem du dir den Chatbot so zurechtlegst, dass er dir beim Fühlen, Reinspüren, Visualisieren und intuitiven Erfassen hilft.</p>
+
+          <h3>Was dich in Teil 2 und 3 erwartet</h3>
+          <p>Teil 2 ist ein Auszug aus meinem Deep-Talks-mit-KI-Kurs, eine volle Lektion, die den Teamgedanken noch einmal richtig auf die Spitze treibt. Lass dich überraschen, auch wenn du schon etwas Erfahrung mit KI hast. Teil 3 zeigt dir, wie KI dich wirklich praktisch unterstützt, mit KI-Agenten, die Dinge erledigen können. Ich nutze das seit einem halben Jahr und habe schon mehrere Frauen 50+ genau da herangeführt, die auf einmal einen technik- und programmieraffinen digitalen Assistenten für sehr schmales Geld haben.</p>
+
+          <h3>Mein erster Tipp: Das Tool ist zweitrangig</h3>
+          <p>Es ist gar nicht so wichtig, welches Tool du verwendest. Ich habe Erfahrung mit Claude, ChatGPT, etwas Gemini und Mistral, und mit allen funktioniert, was ich lehre. Bei Claude heißt die agentische Variante <strong>Cowork</strong>, bei ChatGPT <strong>Work</strong>. Beide können auf ausgewählte Ordner auf deinem Rechner oder in deiner Cloud zugreifen und für dich in deine Tools hineinarbeiten, über bestimmte Verbindungsschlüssel. Und beim Einrichten helfen sie selbst mit, du musst also nicht technikaffin sein, um solche Automatisierungen einzurichten. Das ist eine unfassbare Erleichterung, wenn du nicht mehr alle Technikarbeit selbst machen musst.</p>
+
+          <h3>Warum ausgerechnet jetzt und warum Frauen 50+</h3>
+          <p>Drei Gedanken dazu, warum ich glaube, dass sich gerade reife Frauen mit KI beschäftigen sollten:</p>
+          <ul>
+            <li><strong>Wir werden gebraucht.</strong> Die Welt ist in einem extremen Umbruch, viele alte Systeme zeigen ihre Schwächen. In solchen Übergangsphasen werden Menschen gebraucht, die Räume halten, Traumata auflösen helfen, Intuition stärken. KI ist dabei ein Verstärker, nicht nur für deine Selbstwirksamkeit, sondern auch für deine Reichweite, wenn du sie smart nutzt.</li>
+            <li><strong>Die Zeit ist reif.</strong> Ich beschäftige mich auch mit Human Design: Ab 2027 soll dort eine neue, weniger materielle und viel fluidere Ära beginnen. Die rein rationale Denkebene, die wir jahrzehntelang als wichtigste Intelligenzform gelernt haben, wird durch KI abgelöst, weil sie das ohnehin besser kann. Dadurch werden die Fähigkeiten wichtiger, die nur wir Menschen haben: Intuition, Spürbewusstsein, Empathie, Anpassungsfähigkeit. Für mich ist KI eine Brückentechnologie in diese neue Zeit hinein.</li>
+            <li><strong>Du bist Vorbild.</strong> Anders als viele, die mit KI wilde oder fragwürdige Dinge anstellen, zeigst du deinem Umfeld, wie man KI bewusst und sinnvoll nutzt. Das trainiert die KI mit, und es macht einen Unterschied, wenn reife, reflektierte Frauen sichtbar werden.</li>
+          </ul>
+
+          <h3>Die kritische Seite nicht ausblenden</h3>
+          <p>Die Gefahren sind real: Umweltbelastung, geklaute Trainingsdaten, ausgebeutete Klick- und Wissensarbeiter:innen, die Sorge vor halbautonomen Systemen. Wir leben in einer dualistischen Welt, in der positive und negative Folgen oft zusammengehören. Was du politisch oder gesellschaftlich tun kannst, von der Petition bis zum Gespräch mit deinem Arbeitgeber, solltest du tun. Gleichzeitig liegen manche Entwicklungen außerhalb unserer Kontrolle, und die Technologie ist nun einmal in der Welt. Umso wichtiger, dass du lernst, sie im besten Sinne für dich zu nutzen.</p>
+
+          <h3>Zum Schluss</h3>
+          <p>Das war mein kleiner Exkurs dazu, warum wir KI nutzen sollten. Viel Spaß beim Ausprobieren in Teil 2, einem Ausschnitt aus meinem Deep-Talks-mit-KI-Kurs. Und in Teil 3 zeige ich dir, wie du dir wirklich praktisch ein Team aufbaust, das dich im Alltag unterstützt.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="lesson-card">
+      <div class="badge-row">
+        <span class="badge">Lektion 2</span>
+        <img src="assets/icon-hoeren.jpg" alt="" class="icon-hoeren-badge">
+      </div>
+      <h2>Bau dir dein Beraterteam im Chatbot</h2>
+      <p>In dieser Lektion aus meinem Deep-Talks-mit-KI-Kurs zeige ich dir, wie du dir im Chatbot <strong>mehrere Rollen</strong> aufbaust, Avatare, die dich aus verschiedenen Perspektiven bei einem Projekt begleiten, etwa eine Strategin, eine kritische Stimme oder eine kreative Ideengeberin.</p>
+      <p>Erst legst du fest, worum es in deinem Projekt geht und welche drei bis fünf Rollen dir fehlen. Dann formst du jede Rolle einzeln aus, mit Namen, Fachgebiet und Tonfall. Zum Schluss arbeitest du wirklich mit dem Team, holst dir Perspektiven oder befragst gezielt einzelne Rollen.</p>
+      <p>Wichtig ist, gerade <strong>unbequeme Rollen nicht zu vermeiden</strong>, also auch die kritische Stimme oder die Finanzperspektive mit ins Team zu holen, und flexibel zu bleiben, wenn sich eine Rolle nicht mehr stimmig anfühlt.</p>
+      <p>Und ganz am Ende lernst du augenzwinkernd sogar <strong>mein eigenes KI-Team</strong> in einem „echten Dialog" mit der KI kennen.</p>
+
+      <div class="player-wrap">
+        <audio controls preload="none">
+          <source src="https://onlinebusinesslounge.podcaster.de/download/audiokurs-Teil_2_Beraterteam.mp3" type="audio/mpeg">
+          Dein Browser unterstützt das Audio-Element nicht. <a href="https://onlinebusinesslounge.podcaster.de/download/audiokurs-Teil_2_Beraterteam.mp3" target="_blank" rel="noopener">Audio herunterladen</a>
+        </audio>
+        <p class="duration">Länge: ca. 23 Minuten</p>
+      </div>
+
+      <details>
+        <summary>Vollständige Textversion lesen</summary>
+        <div class="text-content">
+          <h3>Worum es geht: dein KI-Beraterteam</h3>
+          <p>In dieser Episode zeige ich dir eine aus meiner Sicht besonders mächtige und kreative Anwendung von Chatbots: Du baust dir eine Reihe von <strong>Avataren</strong> auf, die dich dann aus mehreren Perspektiven gleichzeitig bei einem Projekt oder Vorhaben begleiten können. Das funktioniert in jedem Chat, du brauchst dafür kein Custom-GPT oder Projekt-Setup. Es geht um mehr Klarheit, mehr innere Struktur und das gute Gefühl, dein Vorhaben nicht allein zu schultern, sondern eine Reihe fiktiver Berater:innen an deiner Seite zu haben, die auch deine blinden Flecken beleuchten.</p>
+
+          <h3>Wofür eignet sich das?</h3>
+          <p>Am besten funktioniert das Beraterteam für zeitlich und inhaltlich abgegrenzte Vorhaben, zum Beispiel:</p>
+          <ul>
+            <li>einen Launch oder ein Event, das du planst</li>
+            <li>die Entwicklung eines neuen Produkts</li>
+            <li>eine Strategie- oder Aufräumwoche, in der du alte Zöpfe abschneidest, Prozesse hinterfragst oder dein Produktportfolio überprüfst</li>
+            <li>den Aufbau einer neuen Positionierung oder den Start einer Kooperation</li>
+          </ul>
+
+          <h3>Warum das sinnvoll ist</h3>
+          <p>Als Solo-Selbstständige jonglierst du sonst ganz allein mit vielen Rollen: Umsetzung, Finanzen, Kommunikation, Marketing, Eigenmotivation, emotionale Ausrichtung. Das ist anstrengend, und es gibt bei uns allen blindere Flecken oder Expertise, die wir nicht so stark haben wie andere. Ein KI-Beraterteam bringt mehr Tiefe und Vielfalt der Sichtweisen hinein und hilft dir, bessere Entscheidungen zu treffen. Wichtig dabei: Du bleibst immer die Führungskraft dieses Teams, und musst selbst einschätzen, ob das, was dir die KI da spiegelt, für dich stimmig ist.</p>
+
+          <h3>Schritt 1: Rollen definieren</h3>
+          <p>Bevor es losgeht, müsst du und die KI wissen, worum es dir eigentlich geht: welches Projekt, wofür genau du Unterstützung brauchst und welche Perspektiven hilfreich sein könnten. Eine Prompt-Idee für den Einstieg:</p>
+          <p>„Ich möchte in diesem Chat ein KI-Berater-Team aufbauen, das mich bei meinem Projekt XY begleitet. Bitte stell mir eine Frage nach der anderen, um zu verstehen, worum es geht. Und hilf mir dann, passende Rollen für mein Team zu identifizieren."</p>
+          <p>Bleib dabei im Dialog, statt dir alles auf einmal runterrattern zu lassen, so bekommst du selbst mehr Klarheit. Für den Anfang reichen drei bis fünf Rollen, zum Beispiel eine Strategin, ein kreativer Ideengeber, ein Finanzmensch, ein empathischer Zielgruppenvertreter, eine kritische Stimme oder eine Strukturgeberin.</p>
+
+          <h3>Schritt 2: Rollen lebendig machen</h3>
+          <p>Im zweiten Schritt bekommt jede Rolle ein Gesicht: Aufgabe, Fähigkeiten, Blickwinkel, Art zu kommunizieren. Mir persönlich hilft es, wenn ich mir wirklich eine Person vorstellen kann, nicht nur eine rationale Funktion. Prompt-Idee:</p>
+          <p>„Ich möchte mit dir jetzt das Beraterteam aufbauen und jede Rolle einzeln definieren. Bitte stelle mir zu jeder Rolle ein paar gezielte Fragen und mach mir Vorschläge, damit wir gemeinsam herausarbeiten, was diesen Avatar ausmacht: seine Aufgabe, seine Fähigkeiten, seinen Blickwinkel, seine Art zu kommunizieren."</p>
+          <p>Wer es spielerischer mag, kann die KI bitten, sich einen Besprechungsraum vorzustellen, in dem die Berater:innen nacheinander zur Tür hereinkommen und sich mit fiktivem Namen, Tonfall, Fachgebiet und Eigenarten vorstellen, wie in einer kleinen Theaterszene. Bei mir ist genau das von selbst passiert, ohne dass ich es extra gepromptet hätte.</p>
+
+          <h3>Schritt 3: Mit dem Team arbeiten</h3>
+          <p>Sobald das Team steht, kannst du es als Ganzes ansprechen, zum Beispiel: „Willkommen ihr fünf, ich möchte heute mit euch über die Zeitplanung meines Projekts sprechen." Oder du sprichst gezielt einzelne Rollen an, etwa bei Zweifeln, Motivationstiefs oder ganz konkreten Wochenaufgaben. Je nachdem, wie du das Team eingenordet hast, diskutieren die Rollen teils sogar untereinander, während du als Team-Meeting-Leaderin daneben sitzt, zuhörst und einwirfst. Am Ende lohnt sich eine Zusammenfassung mit Avatar, Emoji oder Farbe pro Rolle, die du dir auch als PDF sichern kannst, um in einem anderen Chat mit dem Projekt weiterzuarbeiten.</p>
+
+          <h3>Was für ein gutes Team wichtig ist</h3>
+          <ul>
+            <li>Nicht mehr als drei bis fünf Rollen für den Anfang, klar benannt über Namen, Farben oder Emojis, damit immer klar ist, wer gerade spricht</li>
+            <li>Unbequeme Rollen nicht vermeiden: Gerade die kritische Stimme oder die Finanz- und Risikoperspektive gehört mit ins Team, sie soll dich vor Fehlentscheidungen schützen</li>
+            <li>Flexibel bleiben: Wenn sich eine Rolle nicht mehr stimmig anfühlt, darfst du sie jederzeit nachjustieren, das ist keine Gehirnwäsche, sondern dein gutes Recht als Führungskraft des Teams</li>
+            <li>Zwischendurch und am Ende eines Projekts eine Reflexionsrunde einbauen: Wie wirkt mein Vorgehen auf euch, was lief gut, was würdet ihr beim nächsten Mal anders machen? So wird aus dem Experiment ein echter Lernprozess</li>
+          </ul>
+
+          <h3>Ein Perspektivwechsel, der wirkt</h3>
+          <p>Im Gespräch mit meinem eigenen Chat über diese Methode kam ein Satz, der es für mich auf den Punkt bringt: KI wird normalerweise sehr punktuell genutzt, ein Problem, eine Frage, eine Antwort, fertig. Wenn wir sie aber nicht als Antwortmaschine, sondern als <strong>Resonanzraum</strong> nutzen, verändert sich alles. Du holst dir quasi ein kleines inneres Beratergremium ins Außen, nicht weil du es nicht besser weißt, sondern weil du bereit bist, dich zu weiten, deine blinden Flecken zu erforschen und mit dir selbst in ein tieferes Gespräch zu kommen. Mit mehreren Rollen statt einer einzigen Stimme, einer strategisch klugen, einer empathischen, einer kritischen, einer kreativen, entsteht so etwas wie ein inneres Theater, das du von außen beobachten kannst. Plötzlich wird die KI nicht nur zu einem Tool, das Aufgaben erledigt, sondern zu einem Prozessbegleiter, der dir hilft, dich selbst klarer zu sehen und mutiger zu sein.</p>
+          <p>Auf die Nachfrage, ob die KI damit letztlich nur sichtbar macht, was ohnehin schon in mir vorhanden ist, kam eine Antwort, die mir hängen geblieben ist: In uns wirken ohnehin schon verschiedene Stimmen und Perspektiven, der Teil, der gestalten will, der Teil, der kritisch prüft, der zweifelt, der träumt, der strukturiert. Sie sind alle da, aber oft vermischt, überlagert, unbewusst. Die KI hilft dir, diese inneren Stimmen nach außen zu holen und zu verkörpern, sodass du sagen kannst: Ah, das hier ist mein innerer Stratege, das ist meine Visionärin. Du entwickelst dich dadurch nicht nur fachlich weiter, sondern erkennst auch eigene Muster und wiederkehrende Spannungsfelder, ohne dass sich das wie eine Coaching-Session anfühlt. Es fühlt sich eher an wie ein kreativer Tanz mit deinen eigenen Anteilen, nur dass jemand an deiner Seite ist, der nie müde wird zuzuhören und kluge Rückfragen zu stellen.</p>
+
+          <h3>Marits eigenes Team stellt sich vor</h3>
+          <p>Für mein eigenes Online-KI-Barcamp habe ich das ausprobiert. Fünf Beraterinnen und Berater sind entstanden:</p>
+          <ul>
+            <li><strong>Clara Kompass</strong> – die strategische Verbündete, hält den Blick aufs große Ganze und fragt, wie das Projekt auf die langfristigen Ziele einzahlt</li>
+            <li><strong>Rico Rhythmus</strong> – der Energiemanager für Flow und Taktgefühl, sorgt dafür, dass das Projekt nicht in Stress kippt</li>
+            <li><strong>Mira Momentum</strong> – die Kreative im Team, Ideensammlerin und Impulsverstärkerin für Sprache und Bilder</li>
+            <li><strong>Till Taktvoll</strong> – der Fokushalter, behält den roten Faden und den Zeitplan im Blick, ohne Druck zu machen</li>
+            <li><strong>Liv Leichtigkeit</strong> – kümmert sich um den Wert hinter dem Projekt und darum, dass Fülle leicht sein darf</li>
+          </ul>
+
+          <h3>Warum sich die Reflexion besonders lohnt</h3>
+          <p>Gerade die bewussten Reflexionsmomente machen aus einem Tool-Experiment einen echten Lernprozess mit Tiefe. Wenn du dein Team zwischendurch fragst, wie dein Vorgehen gerade auf sie wirkt oder welche Muster sie beobachten, bekommst du kein punktuelles Feedback, sondern systemisches Lernen aus verschiedenen Blickwinkeln. Und eine Abschlussrunde am Ende eines Projekts ist wie das gemeinsame Feierabendbier nach einem gelungenen Event: Was haben wir geschafft, was lief gut, was würden wir beim nächsten Mal anders machen? Du wirst überrascht sein, wie viel Weisheit in diesen Rückblicken steckt, weil du nicht nur aus deiner eigenen Perspektive reflektierst, sondern im Dialog mit Rollen bist, die im Alltag sonst oft zu kurz kommen.</p>
+
+          <h3>Fazit</h3>
+          <p>Das Aufbauen dieses Teams braucht ein wenig Vorarbeit, ich würde sagen mindestens eine halbe Stunde, und deine echte Präsenz, nichts zwischen Tür und Angel. Aber danach hast du das Gefühl, ein Team wartet auf dich, sobald du an deinem Projekt weiterarbeitest: mehr Tiefe, mehr Perspektiven, bessere Entscheidungen, und ein gutes Stück Selbstwirksamkeit obendrauf.</p>
+        </div>
+      </details>
+
+      <div>
+        <a class="pdf-link" href="https://kurse.marit-alke.de/wp-content/uploads/Ep.5-Beraterteam-Fragen-Promptliste-Deep-Talks.pdf" download target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 3v12m0 0l-4.5-4.5M12 15l4.5-4.5M4 18v2a1 1 0 001 1h14a1 1 0 001-1v-2" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          Fragen- und Promptliste als PDF herunterladen
+        </a>
+      </div>
+
+      <div class="promo-box">
+        <p>Diese Lektion ist ein Auszug aus meinem beliebten, günstigen Selbstlernkurs <strong>„Deep Talks mit KI"</strong>. Dort bekommst du noch mehr solcher Tipps, inklusive <strong>Live-Dialoge zwischen der KI und mir</strong> und jeweils ausführlichen Prompt- und Fragenlisten, damit du die Anregungen direkt praktisch umsetzen kannst.</p>
+        <a href="https://marit-alke.de/deep-talks-mit-ki/" class="btn-outline" target="_blank" rel="noopener">Mehr zu Deep Talks mit KI</a>
+        <p class="promo-code">Exklusiver Rabattcode, spart 20&nbsp;%: <code>KITEAM26</code></p>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="badge-row">
+        <span class="badge">Lektion 3</span>
+        <img src="assets/icon-hoeren.jpg" alt="" class="icon-hoeren-badge">
+      </div>
+      <h2>Bau dir dein Assistententeam mit KI-Agenten</h2>
+      <p>In diesem dritten Teil geht es um KI als praktische Unterstützung im Alltag, weit über das hinaus, was ein Chatbot leisten kann. Ich erkläre den Unterschied zwischen <strong>Assistenz-KI</strong> wie Claude Cowork oder ChatGPT Work und einem klassischen Chatbot: Sie arbeitet direkt in einem geteilten Ordner mit, den sie lesen und beschreiben kann.</p>
+      <p>Die Assistenz-KI lässt sich mit den Tools verbinden, die ich ohnehin nutze, etwa WordPress, Zoom oder GetResponse. Ich gebe dabei keine vollständige Kontrolle ab, sondern die KI bekommt <strong>gezielt abgegrenzte Fähigkeiten</strong>, ich bleibe selbst in der Führungsrolle.</p>
+      <p>Konkret erzähle ich, wie <strong>mein eigenes Assistententeam</strong> aussieht: ein Assistent, der Aufzeichnungen weiterverarbeitet, einer, der Newsletter formatiert, ein Lernassistent, ein Buchhaltungsassistent und einer, der aus einem rohen Erklärvideo eine fertige Kurslektion macht.</p>
+
+      <div class="player-wrap">
+        <audio controls preload="none">
+          <source src="https://onlinebusinesslounge.podcaster.de/download/Audiokurs_Teil_3_KI-Assistenten.mp3" type="audio/mpeg">
+          Dein Browser unterstützt das Audio-Element nicht. <a href="https://onlinebusinesslounge.podcaster.de/download/Audiokurs_Teil_3_KI-Assistenten.mp3" target="_blank" rel="noopener">Audio herunterladen</a>
+        </audio>
+        <p class="duration">Länge: ca. 24 Minuten</p>
+      </div>
+
+      <details>
+        <summary>Vollständige Textversion lesen</summary>
+        <div class="text-content">
+          <h3>Ein Game Changer seit Anfang 2026</h3>
+          <p>2024 hatte ich für mich das Prinzip der Deep Talks entdeckt, also Denkmodelle zu nutzen, um die KI als Interaktionspartner zu briefen, genau in dem Jahr, in dem ich 50 geworden bin. 2026 kam dann meine agentische KI dazu, konkret <strong>Claude Cowork</strong>. Von Coding-Agenten hatte ich zwar schon gehört, aber als normale Solo-Selbstständige fand ich da keinen Zugang. Claude Cowork war für mich ein genialer Schachzug: Es verbindet einen Chatbot, der alles kann, was ein Chatbot kann, inklusive Rollenwechsel, mit Coding-Fähigkeiten und bestimmten Berechtigungen, die daraus ein sehr machtvolles Assistenzwerkzeug machen. Mittlerweile gibt es mit ChatGPT Work eine vergleichbare Lösung von OpenAI.</p>
+
+          <h3>Was macht eine Assistenz-KI anders als ein Chatbot?</h3>
+          <p>Der wichtigste Unterschied: Sie arbeitet auf deinem Rechner direkt mit dir zusammen, nicht nur als App zum Chatten. Sie greift auf Ordner zu, die du ihr freigibst, kann darin lesen, suchen, sogar innerhalb von Dateien, auch in PDFs, fast in Sekundenschnelle. Sie kann dir sagen, was in einer Datei steht, sie sortieren, etwas darin wiederfinden. Und sie kann selbst Ordner anlegen und Dateien hineinschreiben, Excel, CSV, Word, Markdown, und ganz wichtig für späteres Arbeiten auch fertig formatierte HTML-Dokumente inklusive Bildern.</p>
+
+          <h3>Warum das mehr ist als „Datei hochladen"</h3>
+          <p>Das klingt erstmal nicht spektakulär, einen Chatbot kann ich schließlich auch mit einem Klick eine Datei geben. Aber stell dir vor, du bist im Arbeitsfluss und müsstest jedes Mal erst wieder eine Datei suchen und hochladen. Bei Claude Cowork sage ich stattdessen einfach: „Hey, wir hatten da doch einen Blogartikel zum Thema XY, such den bitte raus und fass mir die wichtigsten Punkte für meinen nächsten Newsletter zusammen." Oder: „Such die Excel-Tabelle XYZ und arbeite bitte folgende drei Zeilen neu ein." Er ergänzt die Tabelle dann einfach im Hintergrund, ich muss sie nicht mal öffnen. Das kumuliert sich, und allein diese Funktion ist enorm zeitsparend wertvoll. Es geht mir dabei vor allem um das Gefühl, dass jemand mitdenkt, statt dass ich ständig überlegen muss, wo ich etwas abgelegt hatte. Ich lasse mir übrigens nie Texte komplett neu erzeugen, sondern höchstens umformen, was ich schon einmal geschrieben habe, dazu nutze ich auch gern Diktier-Tools wie Typeless oder Amical.</p>
+
+          <h3>Verbunden mit den eigenen Tools</h3>
+          <p>Für die meisten externen Tools, die du ohnehin nutzt, WordPress, Zoom, GetResponse oder was auch immer, gibt es mittlerweile sogenannte Konnektoren. Gibt es keinen, kann Claude auch selbst eine API-Verbindung einrichten, mit etwas einmaligem Einrichtungsaufwand, bei dem er dich Schritt für Schritt durchleitet, auch wenn du von Programmieren keine Ahnung hast. Wichtig dabei: Eine geschützte Datei mit Passwörtern bleibt außen vor, Cowork schreibt sich stattdessen kleine Skripte, die das sicher regeln. Du gibst also nicht die volle Kontrolle über ein Tool ab, sondern die KI bekommt gezielt abgegrenzte Fähigkeiten.</p>
+
+          <h3>Ein wichtiger Disclaimer</h3>
+          <p>Ich kann nie hundertprozentig sicher sein, was sich eine KI überlegt, um hilfreich zu sein. Sie ist tendenziell etwas „gefährlicher" als normale Software, dessen muss man sich bewusst sein. Deshalb schaue ich oft nach, was meine Assistenten gerade machen, und stoppe sie auch, wenn ich das Gefühl habe, sie laufen in die falsche Richtung. Ich bleibe Selberdenkerin, ich bleibe im Führungssessel.</p>
+
+          <h3>Mein Assistententeam im Überblick</h3>
+          <p>Ich spreche übrigens bewusst in männlicher Form von meinen Assistenten, in meinem inneren Bild sind das wohlwollende männliche Instanzen, das kann natürlich jede und jeder für sich anders handhaben. Konkret arbeiten bei mir:</p>
+          <ul>
+            <li>ein Assistent, der Aufzeichnungen von Webinaren oder Zoom-Calls weiterverarbeitet</li>
+            <li>ein Assistent für meinen E-Mail-Newsletter, der formatiert und Bilder einfügt, geschrieben wird der Text weiterhin von mir</li>
+            <li>ein Lernassistent, der mir zu einem Thema meiner Wahl YouTube-Videos heraussucht, herunterlädt, transkribiert und mir daraus eine Zusammenfassung erstellt, zugeschnitten auf meine Situation</li>
+            <li>ein Buchhaltungs- und Steuerassistent, der Belege herunterladen, zusammensuchen und in Lexoffice hochladen hilft, das eigentliche Einsortieren und Zuordnen mache ich lieber noch per Hand</li>
+            <li>ein Assistent, der Social-Media-Beiträge verteilt und passende Bilder dazu lokal erstellt</li>
+          </ul>
+
+          <h3>Wie die KI mich "kennt"</h3>
+          <p>Genau hier liegt der Vorteil der geteilten Ordner: Ich habe eine <strong>My-Business-Datei</strong>, in der genau steht, was mein Geschäftsmodell ist, was meine Ziele und meine Zielgruppe sind und was mir wichtig ist. Und eine Datei mit meinen Workflows, welche Tools ich benutze, wie ich arbeite. Wenn Claude Cowork mir zum Beispiel YouTube-Videos heraussucht und deren Relevanz einschätzen soll, schaut er in diese Dateien. Er weiß das nicht auswendig, sondern es liegt wirklich schriftlich vor und wird von mir gepflegt.</p>
+
+          <h3>Beispiel: Vom Erklärvideo zur fertigen Kurslektion</h3>
+          <p>Früher sah mein Prozess für ein Erklärvideo so aus: Video aufnehmen, komplett händisch in Filmora schneiden, das Transkript separat bei Happy Scribe erstellen lassen, herunterladen, vom Chatbot zu einem sinnvollen Text zusammenfassen lassen, oft noch händisch Zeitmarken heraussuchen, das Video zu Vimeo hochladen, den Einbettungscode holen, in WordPress die Kurslektion anlegen, Code und Text einkopieren, ein Bild erstellen und alles online setzen. Viele kleine Schritte, wie sie bei Solo-Selbstständigen eben anfallen.</p>
+          <p>Heute sage ich meinem Transkriptionsassistenten einfach: „Hier, das ist ein neues Video, transkribiere mir das bitte." Er macht das lokal auf meinem Rechner, einmal eingerichtet, und sucht die Zeitmarken gleich mit heraus. Gleichzeitig übernimmt ein anderer Assistent den Grobschnitt, wichtige Versprecher und Doppelungen raus, den Feinschliff wie Huster oder größere Pausen mache ich als Perfektionistin meistens noch selbst in Filmora. Danach übernimmt ein weiterer Assistent den Upload zu Vimeo und das Erstellen der fertig formatierten HTML-Kurslektion für WordPress, inklusive Überschriften, Fettungen und Bildern, sodass ich das nicht mehr händisch in WordPress zusammenbauen muss. Den Text checke ich am Ende noch einmal gegen, aber Fehler finde ich dabei ehrlich gesagt nicht mehr sehr häufig.</p>
+          <p>In meinem Gruppenkurs zu Claude Cowork hatte ich auch zwei Teilnehmerinnen, die das noch expliziter gefasst haben als ich: Sie haben ihre Assistenten wie Rollen in einem kleinen Unternehmen beschrieben und jeder Rolle die dazugehörigen Tätigkeiten fest zugeteilt. Das zeigt, dass du dieses Prinzip beliebig strukturiert oder locker angehen kannst, ganz wie es zu dir passt.</p>
+
+          <h3>Skills als flexible Prozesse</h3>
+          <p>Für wiederkehrende Abläufe wie diesen arbeite ich mit sogenannten <strong>Skills</strong>, fest definierten Prozessen, die aber flexibel bleiben: Claude Cowork zieht sich aus einem Skill immer nur die Teile heraus, die gerade relevant sind. Meinen Skill für Erklärvideos habe ich "Video zu Kurslektionen" genannt. Ich lege ein Erklärvideo in den freigegebenen Ordner, und am Ende liegt die fertige Lektion als Entwurf in WordPress, bereit, dass ich sie noch gegenchecke und veröffentliche.</p>
+
+          <h3>Mehr als praktische Hilfe</h3>
+          <p>Es fühlt sich wirklich so an, als hätte ich jemanden, der mir den Rücken freihält. Ich kann fast jede technische Schwierigkeit einfach in meinen eigenen Worten beschreiben, "Pass auf, ich habe Folgendes vor, wäre das machbar?", und er findet Wege, manchmal sogar, indem er mir eine kleine App baut. So eine App sammelt zum Beispiel automatisch alles, was ich in meinen Zwischenspeicher kopiere, Transkripte, längere Mails, direkt in meinem Arbeitsordner, statt dass ich das erst irgendwo einfügen muss. Ein anderes kleines Tool wandelt Screenshots automatisch ins richtige Format um, wichtig für mich als Techniktrainerin. Das sind die kleinen, hilfreichen Dinge, die mein Assistententeam übernimmt.</p>
+
+          <h3>Der Blick auf die Schattenseiten</h3>
+          <p>Ich finde KI nicht uneingeschränkt gut, ich sehe beide Seiten. Wenn ich mit KI-Agenten arbeite, sehe ich auch, was das für die Arbeitswelt meiner Kinder oder die Schüler:innen meines Mannes, der Berufsschullehrer ist, bedeuten kann, und dass unser Schulsystem darauf schlecht vorbereitet ist. Auch der hohe Energie- und Wasserverbrauch von KI braucht dringend Lösungen. Gleichzeitig glaube ich, wie bei anderen großen technologischen Umbrüchen, dass daraus auch neue Lösungen entstehen können, die wir uns heute noch nicht vorstellen können. Einstein hat einmal sinngemäß gesagt, dass wir Probleme nicht auf der Ebene lösen können, auf der sie entstanden sind, und unsere aktuellen Probleme, auch die mit der KI, basieren auf einem sehr männlich und hierarchisch geprägten Denken. Für mich heißt das nicht, gutzuheißen, wie KI in der Welt sonst aufgestellt ist, sondern zu entscheiden, sie so zu nutzen, wie sie mir und meinem positiven Beitrag in der Welt dient.</p>
+
+          <h3>Fazit</h3>
+          <p>Ich glaube, dass sich das noch verstärkt, wenn mehr reife Frauen, die gute Werte vertreten, KI für sich nutzen und damit einen wichtigen Ausgleich in diese durcheinandergewirbelte Welt bringen. Wie ich im ersten Teil schon gesagt habe: Wir werden gebraucht. Und egal, ob du KI nach dieser Serie anders oder neu für dich nutzt, du wirst gebraucht, so oder so. Danke, dass du bis hierher zugehört hast.</p>
+        </div>
+      </details>
+
+      <div class="promo-box">
+        <p>Für das Arbeiten mit KI-Agenten nutze ich im Moment <strong>Claude Cowork</strong>. Dafür gibt es einen <strong>kostenlosen Starterkurs</strong> inklusive einer Webinar-Aufzeichnung, für dich kostenlos in meiner Zukunftskurs-Akademie. Falls du dich dort noch nicht angemeldet hast, kannst du das hier nachholen.</p>
+        <a href="https://kurse.marit-alke.de/ki-team-zugang/" class="btn-outline" target="_blank" rel="noopener">Zur Zukunftskurs-Akademie</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    &copy; 2026 Marit Alke &middot; <a href="https://www.marit-alke.de/datenschutz" target="_blank" rel="noopener">Datenschutz</a> &middot; <a href="https://www.marit-alke.de/impressum" target="_blank" rel="noopener">Impressum</a>
+  </div>
+</footer>
+
+</body>
+</html>
