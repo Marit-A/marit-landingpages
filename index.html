@@ -1,18 +1,204 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landingpages – Marit Alke</title>
-  <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 60px auto; padding: 0 20px; }
-    a { color: #0d9488; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landingpages – Marit Alke</title>
+<meta name="description" content="Übersicht der aktuellen Angebote und Landingpages von Marit Alke.">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  @font-face { font-family:'PT Sans'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/subset-PTSans-Regular.woff2') format('woff2'); }
+  @font-face { font-family:'PT Sans'; font-style:italic; font-weight:400; font-display:swap; src:url('fonts/subset-PTSans-Italic.woff2') format('woff2'); }
+  @font-face { font-family:'PT Sans'; font-style:normal; font-weight:700; font-display:swap; src:url('fonts/subset-PTSans-Bold.woff2') format('woff2'); }
+  @font-face { font-family:'PT Sans'; font-style:italic; font-weight:700; font-display:swap; src:url('fonts/subset-PTSans-BoldItalic.woff2') format('woff2'); }
+
+  :root {
+    --orange: #ffb000;
+    --teal: #00b3c3;
+    --lime: #a4c931;
+    --heading: #3a3a3a;
+    --text: #5a5a5a;
+    --text-mid: #7b7b7b;
+    --bg-light: #f7f8f5;
+    --white: #ffffff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'PT Sans', sans-serif;
+    color: var(--text);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  h1, h2, h3 { font-family: 'Open Sans', sans-serif; color: var(--heading); }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 32px;
+    background: var(--white);
+  }
+  nav a { text-decoration: none; }
+  .nav-logo img { height: 34px; display: block; }
+  .nav-home {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--heading);
+    text-decoration: underline;
+    text-decoration-color: var(--orange);
+    text-underline-offset: 3px;
+  }
+
+  main {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: clamp(32px, 6vw, 64px) 24px clamp(56px, 8vw, 96px);
+  }
+
+  .intro {
+    max-width: 680px;
+    margin: 0 auto clamp(40px, 6vw, 64px);
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.7;
+  }
+  .intro a {
+    color: var(--teal);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+  }
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; max-width: 440px; margin: 0 auto; }
+  }
+
+  .card {
+    background: var(--white);
+    border: 1.5px solid #ecefe7;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);
+    display: flex;
+    flex-direction: column;
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    display: block;
+  }
+  .card-body {
+    padding: 22px 22px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    flex: 1;
+  }
+  .card h2 {
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .card p {
+    font-size: 15.5px;
+    line-height: 1.65;
+    flex: 1;
+  }
+  .btn {
+    align-self: flex-start;
+    margin-top: 4px;
+    display: inline-block;
+    font-family: 'PT Sans', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--white);
+    background: var(--teal);
+    padding: 11px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .btn:hover {
+    background: #009aa8;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.14);
+    transform: translateY(-2px);
+  }
+
+  footer {
+    background: var(--orange);
+    padding: 24px 0;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+  }
+  footer a { color: #fff; text-decoration: underline; }
+</style>
 </head>
 <body>
-  <h1>Landingpages – Marit Alke</h1>
-  <ul>
-    <li><a href="claude-cowork-selbstlernkurs/index.html">CCDD Selbstlernkurs</a></li>
-  </ul>
+
+<nav>
+  <a class="nav-logo" href="https://www.marit-alke.de" aria-label="Zur Hauptwebseite von Marit Alke">
+    <img src="assets/logo-marit-alke-schriftzug.png" alt="Marit Alke">
+  </a>
+  <a class="nav-home" href="https://www.marit-alke.de">Home</a>
+</nav>
+
+<main>
+  <p class="intro">
+    Hier eine Übersicht meiner aktuellen Landingpages. Zu meiner Webseite gelangst
+    du <a href="https://www.marit-alke.de">hier</a> oder über den Home-Link oben.
+  </p>
+
+  <div class="grid">
+
+    <article class="card">
+      <img src="assets/kachel-quad-ccdd.jpg" alt="Claude Cowork Deep Dive Selbstlernkurs">
+      <div class="card-body">
+        <h2>Claude Cowork Deep Dive – Selbstlernkurs</h2>
+        <p>Schritt für Schritt zu einem KI-System, das im Hintergrund mitarbeitet.
+          Acht Themenfelder, Praxislektionen und ein wachsender Werkzeugkasten –
+          einmalig 195&nbsp;€ netto, 24 Monate Zugang.</p>
+        <a class="btn" href="/claude-cowork-selbstlernkurs/">Zum Selbstlernkurs</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="assets/kachel-quad-audiokurs.jpg" alt="KI-Team Audiokurs">
+      <div class="card-body">
+        <h2>Bau dir dein KI-Team</h2>
+        <p>Kostenloser dreiteiliger Audiokurs für Frauen 50+, die KI aktiv für
+          sich nutzen statt nur passiv zu konsumieren – für mehr
+          Selbstwirksamkeit und Klarheit im eigenen Business.</p>
+        <a class="btn" href="/ki-team-audiokurs/">Jetzt kostenlos eintragen</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img src="assets/kachel-quad-aufzeichnung.jpg" alt="Aufzeichnung Claude Cowork Webinar">
+      <div class="card-body">
+        <h2>Webinar-Aufzeichnung: Claude Cowork</h2>
+        <p>Wie Claude Cowork als KI-Assistentin Aufgaben übernimmt – mit
+          Live-Demos und praktischen Beispielen fürs eigene Business. Ein guter
+          Einstieg, um Claude Cowork unverbindlich kennenzulernen.</p>
+        <a class="btn" href="/aufzeichnung-claude-cowork-5.6/">Aufzeichnung ansehen</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer>
+  <div>
+    &copy; 2026 Marit Alke &middot; <a href="https://www.marit-alke.de/datenschutz" target="_blank" rel="noopener">Datenschutz</a> &middot; <a href="https://www.marit-alke.de/impressum" target="_blank" rel="noopener">Impressum</a>
+  </div>
+</footer>
+
 </body>
 </html>
