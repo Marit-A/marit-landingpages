@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bestellung eingegangen – DEEP DESIGN Workshop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ffb000;
+      --teal:   #00b3c3;
+      --heading: #3a3a3a;
+      --text:    #5a5a5a;
+      --text-mid: #7b7b7b;
+      --bg-light: #f7f8f5;
+      --white:   #ffffff;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'PT Sans', 'Open Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 520px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .card-top { background: var(--teal); padding: 2.5rem 2rem 2rem; color: var(--white); }
+    .checkmark {
+      width: 56px; height: 56px; background: var(--orange); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem; font-size: 1.5rem;
+    }
+    .card-top h1 { font-family: 'Open Sans', sans-serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .card-top p { font-size: 0.95rem; opacity: 0.92; line-height: 1.6; }
+    .orange-bar { height: 10px; background: var(--orange); }
+    .card-body { padding: 2rem; }
+    .steps { text-align: left; margin-top: 0.5rem; }
+    .step { display: flex; gap: 0.9rem; align-items: flex-start; margin-bottom: 1rem; }
+    .step-icon {
+      width: 2rem; height: 2rem; min-width: 2rem; background: var(--bg-light);
+      border: 1.5px solid var(--teal); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85rem; font-weight: 700; color: var(--teal); margin-top: 0.1rem;
+    }
+    .step-text { font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+    .step-text strong { color: var(--heading); }
+    .footer-note {
+      margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #e8e8e8;
+      font-size: 0.82rem; color: var(--text-mid); line-height: 1.6;
+    }
+    .footer-note a { color: var(--teal); }
+    .footer { margin-top: 2rem; font-size: 0.78rem; color: var(--text-mid); text-align: center; }
+    .footer a { color: var(--text-mid); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="checkmark">✓</div>
+      <h1>Deine Bestellung ist eingegangen!</h1>
+      <p>Sobald die Zahlung bestätigt ist, erhältst du automatisch eine Anmeldebestätigung per E-Mail.</p>
+    </div>
+    <div class="orange-bar"></div>
+    <div class="card-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">1</div>
+          <div class="step-text"><strong>Bestätigung folgt in Kürze</strong><br>Bei den meisten Zahlungsarten (Kreditkarte, PayPal) landet die Bestätigungsmail innerhalb weniger Minuten in deinem Postfach. Bei SEPA-Überweisung kann es etwas länger dauern.</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">2</div>
+          <div class="step-text"><strong>Rechnung per E-Mail</strong><br>Du erhältst deine Rechnung separat in den nächsten Tagen an die angegebene E-Mail-Adresse.</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">3</div>
+          <div class="step-text"><strong>Alle Infos vor dem Start</strong><br>Etwa drei Tage vor Workshop-Beginn (24.09.2026) bekommst du ein Vorbereitungsvideo mit allen weiteren Details.</div>
+        </div>
+      </div>
+      <div class="footer-note">
+        Noch keine Bestätigungsmail erhalten, obwohl die Zahlung schon eine Weile zurückliegt? Schreib mir an <a href="mailto:info@marit-alke.de">info@marit-alke.de</a>, ich schau mir das an.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.marit-alke.de/impressum" target="_blank">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutz</a>
+  </div>
+
+</body>
+</html>
