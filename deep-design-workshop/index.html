@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DEEP DESIGN Workshop – Jetzt anmelden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ffb000;
+      --teal:   #00b3c3;
+      --lime:   #a4c931;
+      --heading: #3a3a3a;
+      --text:    #5a5a5a;
+      --text-mid: #7b7b7b;
+      --bg-light: #f7f8f5;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Open Sans', sans-serif;
+      background: var(--bg-light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    .banner {
+      width: 100%;
+      max-width: 560px;
+      border-radius: 6px;
+      display: block;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+
+    .card-header { padding: 1.5rem 2rem 1.25rem; }
+
+    .card-header .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--teal);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-header h1 {
+      font-family: 'PT Sans', 'Open Sans', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--heading);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-header .description {
+      font-size: 0.92rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .orange-bar { height: 6px; background: var(--orange); }
+
+    .price-box {
+      background: var(--bg-light);
+      border-left: 4px solid var(--orange);
+      margin: 1.25rem 2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .price-box .price-main {
+      font-family: 'PT Sans', 'Open Sans', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    .price-box .price-detail {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      margin-top: 0.2rem;
+      line-height: 1.5;
+    }
+
+    .price-box .price-gross {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text-mid);
+    }
+
+    .price-box .price-was {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      text-decoration: line-through;
+      margin-top: 0.35rem;
+    }
+
+    .price-box .price-was-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-left: 0.4rem;
+      text-decoration: none;
+    }
+
+    .price-box .price-tier-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      background: var(--orange);
+      color: var(--white);
+      padding: 0.15rem 0.55rem;
+      border-radius: 3px;
+      margin-bottom: 0.4rem;
+    }
+
+    .benefits-row {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .benefits { list-style: none; padding: 0; font-size: 0.87rem; color: var(--text); flex: 1; }
+
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      margin-bottom: 0.45rem;
+      line-height: 1.45;
+    }
+
+    .benefits li::before {
+      content: "\2713";
+      color: var(--lime);
+      font-weight: 700;
+      flex: none;
+    }
+
+    .mockup-slot {
+      flex: none;
+      width: 108px;
+    }
+
+    .mockup-slot img {
+      width: 108px;
+      height: 108px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid #e8e8e8;
+      display: block;
+    }
+
+    .mockup-slot .caption {
+      font-size: 0.68rem;
+      color: var(--text-mid);
+      text-align: center;
+      margin-top: 0.3rem;
+      line-height: 1.3;
+    }
+
+    .form-body { padding: 0 2rem 2rem; }
+
+    .form-section-title {
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-mid);
+      margin: 1.4rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-group { margin-bottom: 0.75rem; }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--heading);
+      margin-bottom: 0.3rem;
+    }
+
+    label .optional { font-weight: 400; color: var(--text-mid); font-size: 0.8rem; }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid #d8d8d8;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--heading);
+      background: var(--white);
+      transition: border-color 0.15s;
+    }
+
+    input:focus, select:focus { outline: none; border-color: var(--teal); }
+
+    .hint { font-size: 0.78rem; color: var(--text-mid); margin-top: 0.3rem; line-height: 1.4; }
+
+    .info-box {
+      background: #eef7f8;
+      border: 1px solid #cdeaec;
+      border-radius: 4px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .info-box strong { color: var(--heading); }
+
+    .info-box ul { margin: 0.3rem 0 0 1.1rem; padding: 0; }
+
+    .note-box {
+      background: #fff8e6;
+      border: 1px solid #ffe1a3;
+      border-radius: 4px;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.8rem;
+      color: #7a5a12;
+      line-height: 1.5;
+      margin-top: 0.5rem;
+    }
+
+    .checkbox-group { margin-top: 1.5rem; }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 1.1rem; height: 1.1rem; min-width: 1.1rem;
+      margin-top: 0.1rem; accent-color: var(--teal);
+    }
+
+    .checkbox-label a { color: var(--teal); text-decoration: underline; }
+
+    .btn-pay {
+      display: block;
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.9rem 1.5rem;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-pay:hover { background: #009aaa; }
+    .btn-pay:disabled { background: #aaa; cursor: not-allowed; }
+
+    .security-note { text-align: center; font-size: 0.78rem; color: var(--text-mid); margin-top: 0.75rem; line-height: 1.5; }
+
+    .footer { margin-top: 2rem; font-size: 0.78rem; color: var(--text-mid); text-align: center; }
+    .footer a { color: var(--text-mid); }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .card-header { padding: 1.25rem 1.5rem 1rem; }
+      .form-body { padding: 0 1.5rem 1.5rem; }
+      .price-box { margin: 1.1rem 1.5rem; }
+      .benefits-row { margin: 0 1.5rem 1.1rem; flex-direction: column-reverse; align-items: center; }
+      .mockup-slot { width: 100%; max-width: 200px; }
+      .mockup-slot img { width: 100%; height: auto; aspect-ratio: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <img class="banner" src="checkout-banner.jpg" alt="DEEP DESIGN Workshop">
+
+  <div class="card">
+    <div class="card-header">
+      <div class="label">5-tägiger Live-Workshop · 24.–30.09.2026</div>
+      <h1>DEEP DESIGN Workshop</h1>
+      <div class="description">Erstelle dein individuelles Design-System, mit dem du jede KI so briefst, dass sie Landingpages, Webseiten, Folien und Visuals verlässlich in deinem Design (oder noch schöner 😉) erstellt.<br><br>In meinem Workshop erarbeitest du dir das <strong>einmalig</strong> und mit meinem Feedback &ndash; und sparst dadurch künftig viel Zeit. Wir werden schwerpunktmäßig an deinen Landingpages arbeiten und ich zeige, wie du das auf andere Design-Projekte überträgst.</div>
+    </div>
+    <div class="orange-bar"></div>
+
+    <div class="price-box">
+      <div class="price-tier-badge" id="tierBadge">Frühbucherpreis</div>
+      <div class="price-main" id="priceMain">395,00 &euro; zzgl. MwSt. <span class="price-gross">(470,05 &euro; inkl. MwSt.)</span></div>
+      <div class="price-was" id="priceWas">495,00 &euro; netto <span class="price-was-label">Regulärpreis</span></div>
+      <div class="price-detail" id="priceDetail">Frühbucherpreis gültig bis einschließlich 16.09.2026</div>
+    </div>
+
+    <div class="benefits-row">
+      <ul class="benefits">
+        <li>3 Live-Online-Workshops ("Webinare"), in denen ich dir zeige, wie es funktioniert und dir deine Aufgabe genau erkläre</li>
+        <li>plus: 3 Fragen-Antwort-Sprechstunden für Feedback und um Hürden aus dem Weg zu räumen</li>
+        <li>Alle Aufzeichnungen und weiteren Materialien wie Vorlagen, Promptlisten, Skills etc. bleiben für mindestens 12 Monate zugänglich</li>
+        <li>In unserem Teilnehmer-Forum kannst du rund um unseren Workshop jederzeit Fragen stellen und deine Zwischenergebnisse für Feedback einreichen</li>
+        <li>Nach dem Workshop hast du ein ausführliches, KI-lesbares Design-Briefing-Dokument inklusive Bild-Assets, das du jeder KI geben kannst für konsistente Design-Ergebnisse</li>
+      </ul>
+      <div class="mockup-slot" id="mockupSlot">
+        <img src="mockup-preview.png" alt="Beispiel-Ergebnis" onerror="document.getElementById('mockupSlot').style.display='none'">
+        <div class="caption">Beispiel aus dem Workshop</div>
+      </div>
+    </div>
+
+    <div class="info-box">
+      <strong>Hinweis:</strong>
+      <ul>
+        <li>Für das Design-System brauchst du für mindestens einen Monat den Pro-Plan von Claude, um Claude Design nutzen zu können (&euro; 18,- netto)</li>
+        <li>Du solltest bereits deine Branding-Farben und -Fonts klar haben, in dem Workshop wollen wir das als Grundlage nehmen und weiter verfeinern und zu einem Design-System vervollständigen</li>
+      </ul>
+    </div>
+
+    <form class="form-body" method="POST" action="/.netlify/functions/create-payment-deep-design" id="checkoutForm">
+
+      <div class="form-section-title">Deine Angaben</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Vorname *</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nachname *</label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="form-section-title">Rechnungsadresse</div>
+
+      <div class="form-group">
+        <label for="company">Firma <span class="optional">(optional)</span></label>
+        <input type="text" id="company" name="company" autocomplete="organization">
+      </div>
+
+      <div class="form-group">
+        <label for="street">Straße und Hausnummer *</label>
+        <input type="text" id="street" name="street" required autocomplete="street-address">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zip">PLZ *</label>
+          <input type="text" id="zip" name="zip" required autocomplete="postal-code">
+        </div>
+        <div class="form-group">
+          <label for="city">Ort *</label>
+          <input type="text" id="city" name="city" required autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Land *</label>
+        <select id="country" name="country" required autocomplete="country">
+          <option value="DE" selected>Deutschland</option>
+          <option value="AT">Österreich</option>
+          <option value="CH">Schweiz</option>
+          <option value="BE">Belgien</option>
+          <option value="BG">Bulgarien</option>
+          <option value="HR">Kroatien</option>
+          <option value="CY">Zypern</option>
+          <option value="CZ">Tschechien</option>
+          <option value="DK">Dänemark</option>
+          <option value="EE">Estland</option>
+          <option value="FI">Finnland</option>
+          <option value="FR">Frankreich</option>
+          <option value="GR">Griechenland</option>
+          <option value="HU">Ungarn</option>
+          <option value="IE">Irland</option>
+          <option value="IT">Italien</option>
+          <option value="LV">Lettland</option>
+          <option value="LT">Litauen</option>
+          <option value="LU">Luxemburg</option>
+          <option value="MT">Malta</option>
+          <option value="NL">Niederlande</option>
+          <option value="PL">Polen</option>
+          <option value="PT">Portugal</option>
+          <option value="RO">Rumänien</option>
+          <option value="SK">Slowakei</option>
+          <option value="SI">Slowenien</option>
+          <option value="ES">Spanien</option>
+          <option value="SE">Schweden</option>
+          <option value="GB">Vereinigtes Königreich</option>
+          <option value="US">USA</option>
+          <option value="XX">Sonstiges Land</option>
+        </select>
+        <div class="hint">Bitte wähle dein Land aus, es entscheidet über die Steuerbehandlung deiner Rechnung.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="vatId">USt-IdNr. <span class="optional">(optional, für EU-Reverse-Charge)</span></label>
+        <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678" autocomplete="off">
+        <div class="hint"><strong>Nur für Käufer von außerhalb Deutschland relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, d.h. du zahlst den Preis ohne deutsche MwSt. Die UST-ID wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird.</div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" name="agb" required>
+          <span>Ich habe die <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a> und die <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie.</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-pay" id="submitBtn">
+        Jetzt zahlungspflichtig bestellen
+      </button>
+
+      <p class="security-note">🔒 Sichere Zahlung über Mollie &nbsp;·&nbsp; PayPal, Kreditkarte, SEPA und mehr<br>Am unkompliziertesten für uns beide: PayPal.</p>
+    </form>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.marit-alke.de/impressum" target="_blank">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutz</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a>
+  </div>
+
+  <script>
+    // Nur Anzeige – die verbindliche Preislogik läuft serverseitig in create-payment-deep-design.js
+    var cutoff = new Date("2026-09-16T21:59:59Z");
+    if (new Date() > cutoff) {
+      document.getElementById("tierBadge").textContent = "Regulärer Preis";
+      document.getElementById("priceMain").innerHTML = "495,00 \u20ac zzgl. MwSt. <span class=\"price-gross\">(589,05 \u20ac inkl. MwSt.)</span>";
+      document.getElementById("priceWas").style.display = "none";
+      document.getElementById("priceDetail").textContent = "Frühbucherphase ist beendet.";
+    }
+
+    document.getElementById("checkoutForm").addEventListener("submit", function() {
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Weiterleitung zur Zahlung...";
+    });
+  </script>
+
+</body>
+</html>
