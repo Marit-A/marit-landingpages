@@ -107,7 +107,7 @@ exports.handler = async (event) => {
     const payment = await mollieRequest("POST", "/payments", {
       amount: { currency: "EUR", value: finalPrice },
       description: `DEEP DESIGN Workshop (${isEarlyBird ? "Frühbucher" : "Regulär"}, 24.–30.09.2026) – ${vatNote}`,
-      redirectUrl: `${BASE_URL}/deep-design-workshop/danke.html`,
+      redirectUrl: `${BASE_URL}/deep-design-checkout/danke.html`,
       webhookUrl:  `${BASE_URL}/.netlify/functions/mollie-webhook-deep-design`,
       metadata,
       locale: "de_DE"
