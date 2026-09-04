@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DEEP DESIGN Workshop: Bau dir deinen KI-Designassistenten</title>
+<meta name="description" content="In fünf Tagen baust du dir dein eigenes KI-Designsystem auf und erstellst damit Landingpages, Folien und Visuals verlässlich in deinem eigenen Design. Frühbucherpreis 395 € zzgl. MwSt. bis 16.09.2026.">
+<meta name="robots" content="index, follow">
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<link rel="canonical" href="https://lp.marit-alke.de/deep-design-workshop/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="Marit Alke">
+<meta property="og:url" content="https://lp.marit-alke.de/deep-design-workshop/">
+<meta property="og:title" content="DEEP DESIGN Workshop: Bau dir deinen KI-Designassistenten">
+<meta property="og:description" content="In fünf Tagen baust du dir dein eigenes KI-Designsystem auf und erstellst damit Landingpages, Folien und Visuals verlässlich in deinem eigenen Design. Frühbucherpreis 395 € zzgl. MwSt. bis 16.09.2026.">
+<meta property="og:image" content="https://lp.marit-alke.de/deep-design-workshop/vorschaubild-newsletter-deep-design.jpeg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="519">
+<meta property="og:image:alt" content="DEEP DESIGN Workshop – Bau dir deinen KI-Designassistenten">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="DEEP DESIGN Workshop: Bau dir deinen KI-Designassistenten">
+<meta name="twitter:description" content="In fünf Tagen baust du dir dein eigenes KI-Designsystem auf und erstellst damit Landingpages, Folien und Visuals verlässlich in deinem eigenen Design.">
+<meta name="twitter:image" content="https://lp.marit-alke.de/deep-design-workshop/vorschaubild-newsletter-deep-design.jpeg">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "DEEP DESIGN Workshop",
+  "description": "In fünf Tagen baust du dir dein eigenes KI-Designsystem auf und erstellst damit Landingpages, Folien und Visuals verlässlich in deinem eigenen Design.",
+  "provider": {
+    "@type": "Person",
+    "name": "Marit Alke",
+    "url": "https://www.marit-alke.de"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "online",
+    "startDate": "2026-09-24",
+    "endDate": "2026-09-30",
+    "inLanguage": "de",
+    "offers": {
+      "@type": "Offer",
+      "price": "395",
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+      "url": "https://lp.marit-alke.de/deep-design-checkout/",
+      "validThrough": "2026-09-16"
+    }
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --orange:#ffb000;
+  --teal:#00b3c3;
+  --teal-dark:#009aa8;
+  --teal-wash:rgba(0,179,195,0.10);
+  --lime:#a4c931;
+  --heading:#3a3a3a;
+  --text:#5a5a5a;
+  --text-mid:#7b7b7b;
+  --navy:#03557f;
+  --bg-light:#f7f8f5;
+  --white:#ffffff;
+  --shadow-card:0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);
+  --shadow-card-hover:0 8px 22px rgba(0,0,0,.13), 0 14px 34px rgba(0,0,0,.12);
+  --shadow-on-color:0 4px 16px rgba(0,0,0,0.15);
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;overflow-x:hidden;width:100%;}
+body{
+  margin:0;
+  font-family:'PT Sans',Helvetica,Arial,sans-serif;
+  font-size:19px;
+  line-height:1.7;
+  color:var(--text);
+  background:var(--white);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  width:100%;
+}
+section{overflow:hidden;}
+h1,h2,h3,h4{font-family:'Open Sans',Helvetica,Arial,sans-serif;font-weight:600;color:var(--heading);margin:0 0 .6em;line-height:1.25;}
+h1{font-size:2.7rem;}
+h2{font-size:2rem;}
+h3{font-size:1.3rem;}
+p{margin:0 0 1.1em;}
+a{color:var(--teal);}
+strong{color:var(--heading);}
+img{max-width:100%;height:auto;display:block;}
+
+.wrap{max-width:1050px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+.narrow{max-width:720px;margin-left:auto;margin-right:auto;}
+section{padding:64px 0;position:relative;}
+.sec-light{background:var(--bg-light);}
+.sec-teal{background:var(--teal-wash);}
+.bar{height:12px;background:var(--orange);}
+.bar-hero{height:16px;background:var(--orange);}
+
+.center{text-align:center;}
+
+/* ---------- Texthervorhebung ---------- */
+.hl{
+  background-image:linear-gradient(rgba(255,176,0,.4), rgba(255,176,0,.4));
+  background-repeat:no-repeat;background-size:100% 58%;background-position:0 78%;
+  padding:.02em .18em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.hl-teal{
+  background-image:linear-gradient(rgba(0,179,195,.3), rgba(0,179,195,.3));
+  background-repeat:no-repeat;background-size:100% 58%;background-position:0 78%;
+  padding:.02em .18em;border-radius:2px;box-decoration-break:clone;-webkit-box-decoration-break:clone;
+}
+.grad-text{
+  background:linear-gradient(90deg,var(--teal),var(--lime));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+
+/* ---------- Dezente Deko-Blobs ---------- */
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.28;z-index:0;pointer-events:none;}
+.blob-teal{background:var(--teal);}
+.blob-lime{background:var(--lime);}
+.blob-orange{background:var(--orange);}
+
+/* ---------- Scroll-Reveal ---------- */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+.reveal-stagger.is-visible{transition-delay:var(--d,0s);}
+
+/* ---------- Buttons ---------- */
+.btn{
+  display:inline-block;font-family:'PT Sans',sans-serif;font-weight:700;font-size:20px;
+  line-height:1.3;text-decoration:none;border:0;cursor:pointer;
+  padding:16px 34px;border-radius:5px;
+  transition:all .2s ease;
+}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.18);text-shadow:0 1px 4px rgba(0,0,0,.35);}
+.btn-orange:hover{background:var(--lime);color:#fff;transform:translateY(-3px) scale(1.02);box-shadow:0 10px 22px rgba(0,0,0,.24);}
+.btn-teal{background:var(--teal);color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.10);}
+.btn-teal:hover{background:var(--teal-dark);transform:translateY(-3px) scale(1.02);box-shadow:0 10px 22px rgba(0,0,0,.18);}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;overflow:hidden;padding:54px 0 74px;text-align:center;}
+.hero-bg{
+  position:absolute;inset:-10px;background-image:url('hero-inseln-gemalt.jpg');
+  background-size:cover;background-position:center 55%;
+  background-attachment:fixed;
+}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.52), rgba(0,0,0,0.04) 65%);
+}
+@keyframes heroZoom{from{transform:scale(1);}to{transform:scale(1.09);}}
+@keyframes bgZoomSoft{from{transform:scale(1);}to{transform:scale(1.03);}}
+.hero .logo{height:200px;width:auto;margin:0 auto 12px;}
+.hero h1,.hero p{color:#fff;text-shadow:0 2px 10px rgba(0,0,0,0.45);}
+.hero h1{max-width:820px;margin:0 auto .35em;}
+.hero .sub{max-width:680px;margin:0 auto 20px;font-size:1.38rem;}
+.hero .meta{font-size:.98rem;color:#fff;opacity:.92;margin-top:14px;}
+@media (max-width:820px){.hero-bg{background-attachment:scroll;}}
+
+/* ---------- Zitatkasten mit Foto ---------- */
+.quote-box{
+  margin:36px auto 0;max-width:840px;
+  background:var(--white);border:1.5px solid var(--orange);border-radius:5px;
+  padding:clamp(26px,3vw,38px);box-shadow:0 3px 12px rgba(0,0,0,.06);
+  display:flex;gap:26px;align-items:center;flex-wrap:wrap;text-align:left;
+}
+.quote-box img{
+  width:110px;height:110px;border-radius:5px;flex-shrink:0;object-fit:cover;
+  box-shadow:0 4px 14px rgba(0,0,0,.12);
+}
+.quote-box-text{flex:1;min-width:240px;}
+.quote-box-quote{
+  color:var(--heading);
+  font-size:1.19rem;line-height:1.65;margin:0 0 12px;
+}
+.quote-box-close{
+  font-family:'Open Sans',sans-serif;font-weight:600;color:var(--heading);
+  font-size:1.08rem;line-height:1.5;margin:0;
+}
+
+/* ---------- Credo / wichtigster Satz ---------- */
+.credo{position:relative;overflow:hidden;padding:80px 0;text-align:center;}
+.credo-bg{
+  position:absolute;inset:-10px;background-image:url('credo-ausschnitt.jpg');
+  background-size:cover;background-position:center;
+  animation:bgZoomSoft 28s ease-in-out infinite alternate;
+}
+.credo-overlay{position:absolute;inset:0;background:rgba(0,55,64,0.30);}
+@media (prefers-reduced-motion: reduce){.credo-bg{animation:none;}}
+.credo-card{
+  background:var(--white);border-radius:6px;padding:46px 44px;
+  box-shadow:var(--shadow-on-color);max-width:780px;margin:0 auto;
+}
+.credo-card h2{max-width:100%;}
+.credo-card .lead{max-width:100%;margin:0 auto 1.1em;font-size:1.19rem;}
+
+/* ---------- Claude-Pro-Hinweis unter den Karten ---------- */
+.claude-pro-hint{
+  max-width:600px;margin:28px auto 0;
+  background:var(--white);border:1.5px solid var(--orange);border-radius:6px;
+  padding:20px 26px;box-shadow:var(--shadow-card);
+}
+.claude-pro-hint p{margin:0;font-size:1rem;}
+
+/* ---------- 3er-Karten ---------- */
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:36px;}
+.card3{
+  background:var(--white);border-radius:6px;padding:30px 26px;
+  box-shadow:var(--shadow-card);text-align:left;border:1.5px solid var(--orange);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.card3:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover);}
+.card3 .icn-img{width:64px;height:64px;margin-bottom:16px;transition:transform .3s ease;}
+.card3:hover .icn-img{transform:scale(1.1) rotate(-4deg);}
+.card3 h3{font-size:1.12rem;margin-bottom:.5em;}
+.card3 p{margin-bottom:0;font-size:1rem;}
+
+/* ---------- Zwei Bloecke mit Pfeil ---------- */
+.twoblocks{display:grid;grid-template-columns:1fr auto 1fr;gap:22px;align-items:center;margin-top:36px;}
+.tb-block{background:var(--white);border-radius:6px;padding:28px 26px;box-shadow:var(--shadow-card);transition:transform .25s ease, box-shadow .25s ease;}
+.tb-block:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover);}
+.tb-block .icn-img{width:52px;height:52px;margin-bottom:14px;}
+.tb-block .tag{
+  font-family:'Open Sans',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--teal);display:block;margin-bottom:8px;
+}
+.tb-block h3{margin-bottom:.5em;}
+.tb-block p{margin-bottom:0;font-size:1rem;}
+.tb-arrow{font-size:1.8rem;color:var(--orange);text-align:center;transition:transform .3s ease;}
+.twoblocks:hover .tb-arrow{transform:translateX(6px);}
+
+/* ---------- Haupt-CTA-Block ---------- */
+.ctasec{
+  position:relative;overflow:hidden;
+  padding:70px 0;text-align:center;
+}
+.ctasec-bg{
+  position:absolute;inset:-40px;background-image:url('mosaik-ausschnitt.jpg');
+  background-size:cover;background-position:center;
+  filter:blur(9px);
+  animation:bgZoomSoft 30s ease-in-out infinite alternate;
+}
+.ctasec-overlay{position:absolute;inset:0;background:rgba(0,55,64,0.10);}
+.ctasec h2,.ctasec .lead{color:#fff;}
+.ctasec h2{text-shadow:0 2px 8px rgba(0,0,0,.28);max-width:700px;margin-left:auto;margin-right:auto;}
+.ctasec .lead{max-width:600px;margin:0 auto 30px;font-size:1.19rem;text-shadow:0 1px 6px rgba(0,0,0,.28);}
+.ctasec-card{
+  background:var(--white);border-radius:6px;padding:44px 42px;
+  box-shadow:var(--shadow-on-color);max-width:760px;margin:0 auto;text-align:center;
+}
+.ctasec-card h2{color:var(--heading);text-shadow:none;}
+.ctasec-card .lead{color:var(--text);text-shadow:none;}
+.ctasec-card em{font-style:italic;}
+@media (prefers-reduced-motion: reduce){.ctasec-bg{animation:none;}}
+
+/* ---------- Ablauf-Zeitstrahl ---------- */
+.timeline{max-width:760px;margin:40px auto 0;position:relative;}
+.timeline::before{
+  content:"";position:absolute;left:23px;top:6px;bottom:6px;width:2px;background:#d9e2d4;
+}
+.tl-item{position:relative;padding-left:64px;margin-bottom:26px;}
+.tl-item:last-child{margin-bottom:0;}
+.tl-dot{
+  position:absolute;left:0;top:2px;width:48px;height:48px;border-radius:50%;
+  background:var(--white);border:2.5px solid var(--teal);color:var(--teal);
+  display:flex;align-items:center;justify-content:center;flex-direction:column;
+  font-family:'Open Sans',sans-serif;font-weight:700;font-size:.72rem;line-height:1.1;
+  box-shadow:var(--shadow-card);transition:transform .25s ease;
+}
+.tl-item.main .tl-dot{
+  width:60px;height:60px;left:-6px;top:-6px;background:var(--orange);border-color:var(--orange);color:#fff;font-size:.8rem;
+  text-shadow:0 1px 3px rgba(0,0,0,.3);
+}
+.tl-item.main{padding-left:74px;}
+.tl-card{
+  background:var(--white);border-radius:6px;padding:20px 22px;box-shadow:var(--shadow-card);
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.tl-item:hover .tl-dot{transform:scale(1.08);}
+.tl-item:hover .tl-card{transform:translateX(4px);box-shadow:var(--shadow-card-hover);}
+.tl-item.main .tl-card{border:1.5px solid var(--orange);}
+.tl-item.rest .tl-card{background:var(--bg-light);box-shadow:none;padding:16px 20px;}
+.tl-item.rest:hover .tl-card{box-shadow:var(--shadow-card);}
+.tl-card .tl-label{
+  font-family:'Open Sans',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--orange);display:block;margin-bottom:4px;
+}
+.tl-item.rest .tl-card .tl-label{color:var(--teal);}
+.tl-card h3{font-size:1.08rem;margin-bottom:.35em;}
+.tl-card p{margin-bottom:0;font-size:.98rem;}
+
+.tl-footnote{max-width:600px;margin:26px auto 0;color:var(--text);font-size:1rem;}
+
+/* ---------- Passt / passt nicht ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:36px;}
+.fit{background:var(--white);border-radius:6px;padding:30px 28px;box-shadow:var(--shadow-card);transition:transform .25s ease, box-shadow .25s ease;}
+.fit:hover{transform:translateY(-6px);box-shadow:var(--shadow-card-hover);}
+.fit.yes{border-top:5px solid #5c8a1f;}
+.fit.no{border-top:5px solid #d9480f;}
+.fit .tag{
+  display:inline-block;font-family:'Open Sans',sans-serif;font-size:1rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;color:var(--text-mid);margin-bottom:12px;
+}
+.fit.yes .tag{color:#5c8a1f;}
+.fit.no .tag{color:#b36b00;}
+.fit ul{list-style:none;margin:0;padding:0;}
+.fit li{position:relative;padding-left:28px;margin-bottom:12px;font-size:.98rem;}
+.fit li:last-child{margin-bottom:0;}
+.fit.yes li::before{content:"✓";position:absolute;left:0;color:var(--lime);font-weight:700;}
+.fit.no li::before{content:"–";position:absolute;left:2px;color:var(--text-mid);font-weight:700;}
+
+/* ---------- Checkliste ---------- */
+ul.checks{list-style:none;margin:0;padding:0;}
+ul.checks li{position:relative;padding-left:38px;margin-bottom:15px;transition:transform .2s ease;}
+ul.checks li::before{
+  content:"";position:absolute;left:0;top:.30em;width:22px;height:22px;
+  background:var(--lime);border-radius:50%;
+}
+ul.checks li::after{
+  content:"";position:absolute;left:7px;top:.62em;width:8px;height:13px;
+  border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg);
+}
+ul.checks li:hover{transform:translateX(4px);}
+ul.checks li:last-child{margin-bottom:0;}
+
+/* ---------- Ueber mich ---------- */
+.about{display:grid;grid-template-columns:230px 1fr;gap:40px;align-items:center;}
+.about-img-wrap{position:relative;}
+.about img{border-radius:8px;box-shadow:var(--shadow-card);width:230px;transition:transform .35s ease, box-shadow .35s ease;}
+.about-img-wrap:hover img{transform:scale(1.03) rotate(-1deg);box-shadow:var(--shadow-card-hover);}
+.about h2{font-size:1.7rem;}
+.about p:last-child{margin-bottom:0;}
+
+/* ---------- FAQ ---------- */
+.faq{max-width:820px;margin:40px auto 0;}
+.faq details{border-bottom:1px solid #e2e5df;padding:16px 0;}
+.faq details:first-of-type{border-top:1px solid #e2e5df;}
+.faq summary{
+  cursor:pointer;list-style:none;font-family:'Open Sans',sans-serif;font-weight:600;
+  font-size:1.08rem;color:var(--heading);position:relative;padding-left:34px;
+  transition:color .2s ease;
+}
+.faq summary:hover{color:var(--teal);}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::before{
+  content:"?";position:absolute;left:0;top:-1px;width:24px;height:24px;border-radius:50%;
+  background:var(--orange);color:#fff;font-size:.9rem;line-height:24px;text-align:center;
+  transition:transform .25s ease;
+}
+.faq details[open] summary::before{transform:rotate(180deg);}
+.faq details:first-of-type summary::before{top:9px;}
+.faq details p{margin:12px 0 0;padding-left:34px;}
+.faq details p:last-child{margin-bottom:0;}
+
+/* ---------- Preis & Schluss-CTA ---------- */
+.pricesec{
+  position:relative;overflow:hidden;
+  padding:76px 0;text-align:center;
+}
+.pricesec-bg{
+  position:absolute;inset:-10px;background-image:url('hintergrund-bild-gradient.jpg');
+  background-size:cover;background-position:center;
+  animation:heroZoom 26s ease-in-out infinite alternate;
+}
+.pricesec-overlay{position:absolute;inset:0;background:rgba(0,48,54,0.16);}
+@media (prefers-reduced-motion: reduce){.pricesec-bg{animation:none;}}
+.pricesec h2,.pricesec .lead{color:#fff;}
+.pricesec h2{text-shadow:0 2px 8px rgba(0,0,0,.28);}
+.pricesec .lead{max-width:620px;margin:0 auto 36px;font-size:1.19rem;text-shadow:0 1px 6px rgba(0,0,0,.28);}
+.pricecard{
+  background:var(--white);border-radius:6px;box-shadow:var(--shadow-on-color);
+  max-width:460px;margin:0 auto;padding:36px 34px 32px;
+  transition:transform .3s ease;
+}
+.pricecard:hover{transform:translateY(-4px);}
+.pricecard .price-badge{
+  display:inline-block;font-family:'Open Sans',sans-serif;font-size:.78rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.05em;background:var(--orange);color:#fff;
+  padding:4px 12px;border-radius:3px;margin-bottom:12px;
+}
+.pricecard .price-now{font-family:'Open Sans',sans-serif;font-weight:700;font-size:2.3rem;color:var(--heading);}
+.pricecard .price-now .price-unit{font-size:1rem;font-weight:600;}
+.pricecard .price-gross{display:block;font-size:1.05rem;font-weight:400;color:var(--text-mid);margin-top:4px;}
+.pricecard .price-note{font-size:.95rem;color:var(--text-mid);margin:2px 0 22px;}
+.pricecard .price-was{font-size:1.2rem;font-weight:700;color:var(--text-mid);text-decoration:line-through;margin-bottom:22px;}
+.pricecard .price-was-label{
+  display:inline-block;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;
+  margin-left:8px;text-decoration:none;color:var(--text-mid);
+}
+.pricecard .btn{width:100%;text-align:center;}
+.pricecard .fineprint{font-size:.9rem;color:var(--text-mid);margin:16px 0 0;line-height:1.55;}
+.pricesec .below{color:#fff;font-size:.98rem;margin:26px auto 0;max-width:580px;text-shadow:0 1px 6px rgba(0,0,0,.28);}
+
+/* ---------- Hinweiskasten fuer Marit ---------- */
+.hinweis-marit{
+  background:#fff8e6;border:1.5px dashed var(--orange);border-radius:6px;
+  padding:18px 22px;margin:0 0 28px;font-size:.92rem;color:var(--heading);text-align:left;
+}
+.hinweis-marit strong{color:var(--heading);}
+
+/* ---------- Footer ---------- */
+footer{background:var(--bg-light);padding:34px 0;text-align:center;font-size:.95rem;color:var(--text-mid);}
+footer a{color:var(--text-mid);}
+
+/* ---------- Mobil ---------- */
+@media (max-width:820px){
+  body{font-size:18px;}
+  h1{font-size:2rem;}
+  h2{font-size:1.6rem;}
+  section{padding:48px 0;}
+  .hero{padding:44px 0 60px;}
+  .hero .logo{height:110px;margin:0 auto 10px;}
+  .hero .sub{font-size:1.15rem;}
+  .grid3,.two{grid-template-columns:1fr;}
+  .twoblocks{grid-template-columns:1fr;}
+  .tb-arrow{transform:rotate(90deg);padding:4px 0;}
+  .btn{font-size:19px;padding:15px 26px;}
+  .pricecard{padding:28px 24px 26px;}
+  .wrap{padding:0 20px;}
+  .about{grid-template-columns:1fr;justify-items:center;text-align:center;gap:22px;}
+  .about img{width:190px;}
+  .blob{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<header class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="wrap">
+    <img class="logo" src="logo-deep-design-workshop.png" alt="DEEP DESIGN Workshop">
+    <h1>Bau dir deinen KI-Designassistenten</h1>
+    <p class="sub">Erstelle Landingpages, Webseiten, Folien, Visuals und Co. verlässlich in deinem eigenen Design!</p>
+    <a class="btn btn-orange" href="https://lp.marit-alke.de/deep-design-checkout/">Für den Workshop anmelden</a>
+    <p class="meta">24. bis 30. September 2026 · online · Frühbucherpreis 395&nbsp;€ netto</p>
+  </div>
+</header>
+<div class="bar-hero"></div>
+
+<!-- ===== Einladung statt Problem ===== -->
+<section>
+  <div class="wrap narrow reveal">
+    <h2>Was passiert, wenn du deiner KI sagst, sie soll dir eine Landingpage in deinem Design bauen?</h2>
+    <p>Vielleicht bekommst du schon nach kurzer Zeit eine erstaunlich vollständige Seite präsentiert. Die Farben stimmen ungefähr, vielleicht ist sogar deine Schrift dabei. Und trotzdem schaust du darauf und denkst: <strong>„Irgendwie fühlt sich das nicht nach mir an.“</strong> Die Gestaltung ist dir zu verspielt, zu glatt, oder die Bildsprache passt einfach nicht zu dem, was du sonst ausstrahlst.</p>
+    <p>Also erklärst du der KI, was dir nicht gefällt, und startest einen neuen Versuch. Und dann noch einen. Irgendwann hast du so viel Zeit ins Erklären und Nachbearbeiten gesteckt, dass du überlegst, die Seite doch gleich wieder selbst zu bauen.</p>
+  </div>
+  <div class="wrap reveal">
+    <div class="quote-box">
+      <img src="portrait-marit-haende-2.png" alt="Marit Alke">
+      <div class="quote-box-text">
+        <p class="quote-box-quote">„Dabei könnte die KI dir genau bei dieser Arbeit eine enorme Unterstützung sein, wenn sie dein Design nur wirklich verstehen würde. Deshalb nimmst du dir jetzt bewusst die Zeit, dein Design in Ruhe <span class="hl">in Worte zu fassen</span>, mit Feedback aus der Gruppe und deiner KI als Sparringspartnerin. Dein bisheriges Design ist ja nicht falsch, es steht nur noch nirgendwo so aufgeschrieben, dass eine KI damit arbeiten kann.“</p>
+        <p class="quote-box-close">Genau das ist die Einladung meines DEEP Design Workshops 🤗</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Das Ergebnis: ein Briefing fuer jede KI ===== -->
+<section class="sec-light">
+  <div class="blob blob-teal" style="width:340px;height:340px;top:-60px;right:-100px;"></div>
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <h2>Am Ende hast du ein Briefing, das <span class="grad-text">jede KI</span> versteht</h2>
+      <p>Mit Claude Design arbeitest du dein bestehendes Branding Schritt für Schritt durch und übersetzt es in ein ausführliches Designsystem, das du deiner KI jederzeit als Briefing mitgeben kannst. Dazu kommt eine Bibliothek an visuellen Assets und vor allem: funktionierende Prozesse und Workflows, die dich unterstützen und schneller machen.</p>
+    </div>
+    <div class="grid3">
+      <div class="card3 reveal">
+        <img class="icn-img" src="icon-werkzeug.png" alt="">
+        <h3>Claude Design als Werkzeug</h3>
+        <p>Claude Design ist ein mächtiges und komplexes Tool, das wir im Workshop nutzen, um dein Designsystem sauber herauszuarbeiten und zu optimieren. Als Grundlage hierfür nutzt du das, was du an Design-Vorlagen bereits hast und/oder weitere Design-Inspirationen aus dem Netz.</p>
+      </div>
+      <div class="card3 reveal" style="transition-delay:.08s;">
+        <img class="icn-img" src="icon-briefing.png" alt="">
+        <h3>Ein Briefing für jede KI</h3>
+        <p>Wenn dein System und deine Assetbibliothek einmal stehen, kannst du sie mit jeder KI anwenden und bist nicht an Claude gebunden. Damit lässt du in jedem KI-System Landingpages, Webseiten, Folien oder Ähnliches entwickeln, verlässlich in deinem Design.</p>
+      </div>
+      <div class="card3 reveal" style="transition-delay:.16s;">
+        <img class="icn-img" src="icon-branding.png" alt="">
+        <h3>Ein aufgefrischtes Branding</h3>
+        <p>Nebenbei frischst du im Workshop dein Branding auf und machst es endlich vollständig. Das kostet sonst bei jeder neuen Landingpage wieder Zeit, jetzt nimmst du dir einmal bewusst Raum dafür.</p>
+      </div>
+    </div>
+    <div class="claude-pro-hint center reveal">
+      <p><strong style="color:var(--navy);">Hinweis:</strong> Die Nutzung von Claude Design ist inklusive im Claude Pro-Preisplan (18&nbsp;€). Den brauchst du für diesen Workshop für mindestens einen Monat.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Der wichtigste Punkt ===== -->
+<section class="credo">
+  <div class="credo-bg"></div>
+  <div class="credo-overlay"></div>
+  <div class="wrap">
+    <div class="credo-card narrow center reveal">
+      <h2>Einmal richtig erklärt. Für immer verstanden.</h2>
+      <p class="lead">Viele Solo-Selbstständige <em>haben</em> längst ein Design. Sie wenden es an, sie können ungefähr sagen, was ihnen gefällt, wenn sie ein Design sehen - und sie merken sofort, wenn etwas <em>nicht</em> zu ihnen passt. Nur in Worte gefasst haben sie es nie, jedenfalls nicht so genau, dass eine KI damit begeisternde Ergebnisse erzeugt. Deshalb <strong><em>rät</em> die KI bisher eher</strong> - sie kennt zwar deine Farben und Schriften, aber alles andere (Abstände, Schatten, visuelle Hervorhebungen usw.) improvisiert sie. Was dann oft zu diesem Störgefühl führt, wenn die KI dir etwas designt.</p>
+      <p class="lead">Nach diesem Workshop gibst du deiner KI nicht ein paar Stichworte und hoffst auf das Beste. Du gibst ihr klare, detaillierte Regeln und eine aufgeräumte Bild- und Promptbibliothek, sodass <strong>die Ergebnisse schon beim ersten Versuch einen kleinen Glücksmoment auslösen!</strong> Und weil du dir dafür jetzt in Ruhe die Zeit nimmst, mit Feedback aus der Gruppe, von mir und mit deiner KI, hast du danach eine Basis, die bleibt. <strong>Ein Designsystem, das du immer wieder verwendest und das im Laufe der Zeit immer besser wird.</strong></p>
+    </div>
+  </div>
+</section>
+<div class="bar"></div>
+
+<!-- ===== Fokus des Workshops ===== -->
+<section>
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <h2><span class="grad-text">Landingpages</span> zuerst. Der Rest folgt daraus.</h2>
+      <p>Die praktische Arbeit im Workshop dreht sich am Anfang erstmal um Landingpages (alternative einzelne Webseiten), weil das der häufigste Anwendungsfall ist. Außerdem laufen hier Struktur, Text, Bildsprache, Typografie und Abstände zusammen, deshalb ist eine Landingpage das ideale Übungsfeld für dein neues Designsystem.</p>
+      <p>Danach widmen wir uns dann dem Aufbau deiner <strong>Bild- und Asset-Bibliothek</strong>, wie z.B. Icons, Piktogramme, Hintergründe, Schmuckelemente etc. - sowie dem Erstellen von weiteren Design-Vorlagen, z.B. für Folien oder Visuals.</p>
+    </div>
+    <div class="twoblocks reveal">
+      <div class="tb-block">
+        <img class="icn-img" src="icon-landingpage.png" alt="">
+        <span class="tag">Erste Workshop-Hälfte</span>
+        <h3>Dein Designsystem und Landingpages</h3>
+        <p>Du entwickelst dein Designsystem und wendest es direkt auf eine konkrete Landingpage an. So merkst du sofort, was schon trägt und wo du dein System noch schärfen willst.</p>
+      </div>
+      <div class="tb-arrow">→</div>
+      <div class="tb-block">
+        <img class="icn-img" src="icon-visuals.png" alt="">
+        <span class="tag">Zweite Workshop-Hälfte</span>
+        <h3>Designbibliothek und Assets</h3>
+        <p>Daraus leitest du Vorlagen und Regeln für Folien, Social-Media-Visuals, Icons und andere wiederkehrende Business-Assets ab.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Haupt-CTA-Block ===== -->
+<section class="ctasec">
+  <div class="ctasec-bg"></div>
+  <div class="ctasec-overlay"></div>
+  <div class="wrap">
+    <div class="ctasec-card reveal">
+      <h2>Du <em>fühlst</em> dein stimmiges Design längst! Zeit, es für die KI explizit aufzuschreiben.</h2>
+      <p class="lead">Sei dabei bei meinem Deep Design Workshop und lerne, wie du mit der KI wirklich GUTES Design hinbekommst. Nicht nur "irgendwie beeindruckend", sondern so, dass <strong>deine Energie und der Kern deiner Botschaft von deinem Design gut unterstützt wird.</strong></p>
+      <p class="lead">Es macht Spaß, sich solche Dinge gemeinsam mit anderen zu erarbeiten - ich werde einen schönen Raum für unsere Gruppe schaffen!</p>
+      <a class="btn btn-teal" href="https://lp.marit-alke.de/deep-design-checkout/">Für den Workshop anmelden</a>
+    </div>
+  </div>
+</section>
+<div class="bar"></div>
+
+<!-- ===== Ablauf ===== -->
+<section class="sec-light">
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <h2>So läuft der Workshop ab</h2>
+      <p>Fünf Tage, Donnerstag bis Mittwoch. Der <span class="hl">Donnerstag ist der Haupttag</span>: Da legst du gemeinsam mit mir das Fundament, alles Weitere baut direkt darauf auf.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item main reveal">
+        <div class="tl-dot">DO<br>24.9.</div>
+        <div class="tl-card">
+          <span class="tl-label">Live-Workshop 1</span>
+          <h3>Designsystem mit Claude Design</h3>
+          <p>Hier bekommst du das komplette Handwerkszeug für dein Designsystem: 90 Minuten Input, in denen wir Schritt für Schritt durchgehen, wie du dein Design in ein Briefing verwandelst, mit dem jede KI arbeiten kann. Direkt im Anschluss legst du los und baust deine erste Landingpage zum Testen, und am Nachmittag bekommst du in der Sprechstunde persönliches Feedback dazu.</p>
+        </div>
+      </div>
+      <div class="tl-item rest reveal">
+        <div class="tl-dot">FR<br>25.9.</div>
+        <div class="tl-card">
+          <span class="tl-label">Sprechstunde</span>
+          <h3>Ergebnisse zeigen, vertiefen</h3>
+          <p>Du bekommst bei Bedarf mittags direktes Feedback zu dem, was du dir seit Donnerstag erarbeitet hast, stellst deine Fragen - und schärfst danach dein System weiter.</p>
+        </div>
+      </div>
+      <div class="tl-item main reveal">
+        <div class="tl-dot">MO<br>28.9.</div>
+        <div class="tl-card">
+          <span class="tl-label">Live-Workshop 2</span>
+          <h3>Pimp up your Design</h3>
+          <p>An diesem Tag geht es um alles, was dein Design im Alltag greifbar macht: eine eigene Bibliothek an Bild-Prompts und Icons, Hintergrundbildern, Pictogrammen oder ähnliches, mit denen du künftig in Minuten statt Stunden Landingpages, Folien etc. bauen lässt. Außerdem erkläre ich dir, welche Möglichkeiten du hast, deine fertige Seite anschließend online zu stellen.</p>
+        </div>
+      </div>
+      <div class="tl-item rest reveal">
+        <div class="tl-dot">DI<br>29.9.</div>
+        <div class="tl-card">
+          <span class="tl-label">Umsetzungstag</span>
+          <h3>Selbstständig arbeiten</h3>
+          <p>Zeit, ganz in deinem Tempo umzusetzen: Du baust Landingpages und weitere Designelemente eigenständig weiter und holst dir bei Bedarf Feedback im Forum. Kein Live-Termin.</p>
+        </div>
+      </div>
+      <div class="tl-item main reveal">
+        <div class="tl-dot">MI<br>30.9.</div>
+        <div class="tl-card">
+          <span class="tl-label">Live-Workshop 3</span>
+          <h3>Vorlagen für Folien &amp; Visuals</h3>
+          <p>Zum Abschluss geht dein Designsystem über die Landingpage hinaus: Du lernst, wie du daraus Vorlagen für Folien und weitere Visuals ableitest, damit du auch bei ganz anderen Aufgaben schnell und stimmig unterwegs bist. Danach triffst du dich noch einmal mit mir und der Gruppe im Abschluss-Meeting, um alles Offene zu klären.</p>
+        </div>
+      </div>
+    </div>
+    <p class="tl-footnote center">Insgesamt sind es 3 Input-Webinare und 3 optionale Sprech- und Feedback-Meetings.</p>
+  </div>
+</section>
+
+<!-- ===== Fuer wen ===== -->
+<section>
+  <div class="blob blob-lime" style="width:300px;height:300px;bottom:-40px;left:-90px;"></div>
+  <div class="wrap">
+    <div class="narrow center reveal">
+      <h2>Passt das zu dir?</h2>
+      <p>Mit diesem Workshop richte ich mich an Solo-Selbständige, die häufiger Webseiten, Landingpages, Kurs-Lektionen, Arbeitsblätter, Foliensätze oder Social-Media-Visuals gestalten - und sich dabei gern mehr von der KI unterstützen lassen wollen.</p>
+      <p>Dabei spielt es keine Rolle, ob du ChatGPT, Gemini oder noch ein anderes KI-Tool nutzt. Und es ist auch egal, ob du schon Erfahrungen damit hast, dir bspw. Webseiten von KI erstellen zu lassen - das lernst du im Workshop!</p>
+      <p>Es gibt aber ein paar Punkte, die wichtig sind, um zu entscheiden, ob der Workshop das Richtige für dich ist:</p>
+    </div>
+    <div class="two">
+      <div class="fit yes reveal">
+        <span class="tag">Passt gut</span>
+        <ul>
+          <li>Du bist bereit, einmalig etwas mehr (Lern-)Zeit zu investieren, um langfristig Zeit zu sparen.</li>
+          <li>Du hast bereits ein Branding, also eigene Farben und Schriftarten festgelegt, worauf wir aufbauen können.</li>
+          <li>Du nutzt KI schon und willst sie jetzt wirklich sinnvoll für deine Gestaltungsaufgaben einsetzen.</li>
+          <li>Du willst deiner KI dein Design nicht bei jedem neuen Projekt wieder neu erklären.</li>
+          <li>Dir ist wichtig, dass dein Design konsistent und vor allem stimmig ist und sich nach dir anfühlt - und nicht nur professionell aussieht.</li>
+          <li>Du hast Lust auf einen Live-Workshop mit Austausch und Feedback.</li>
+        </ul>
+      </div>
+      <div class="fit no reveal" style="transition-delay:.08s;">
+        <span class="tag">Passt nicht</span>
+        <ul>
+          <li>Du hast noch kein Branding und startest bei null.</li>
+          <li>Du suchst einen kompletten Relaunch oder eine Markenentwicklung von Grund auf (das kann ich im Workshop nicht leisten, aber sprich mich gern im Zweifel vorher an).</li>
+          <li>Du willst KI komplett automatisiert für dich entscheiden lassen, ohne selbst mitzugestalten.</li>
+          <li>Du bist Autodidakt und bringst dir solche Dinge lieber allein bei.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Mitnahme ===== -->
+<section class="sec-light">
+  <div class="wrap narrow reveal">
+    <h2 class="center">Was du mitnimmst</h2>
+    <ul class="checks">
+      <li><strong>Dein KI-Designsystem:</strong> deine zentralen Designregeln, Referenzen und wichtigsten Assets in einer Form, mit der KI arbeiten kann.</li>
+      <li><strong>Ein Briefing für jede KI:</strong> nicht an Claude gebunden, du kannst es jedem anderen Chatbot übergeben.</li>
+      <li><strong>Wenn du mit Claude Cowork oder -Code arbeitest:</strong> Designaufgaben deutlich schneller und zuverlässiger erledigen lassen.</li>
+      <li><strong>Aufgefrischte Brand-Assets:</strong> vervollständigt und einmal wirklich in Ordnung gebracht.</li>
+      <li><strong>Eine Landingpage:</strong> an einem echten Beispiel entwickelt und getestet.</li>
+      <li><strong>Bausteine für weitere Assets:</strong> Folien, Social-Media-Visuals, Icons und mehr.</li>
+      <li><strong>Einen wiederverwendbaren Workflow:</strong> du weißt, was du einmalig einrichten musst, damit du künftig von einer Idee viel schneller zu einem fertigen Ergebnis kommst.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Ueber Marit ===== -->
+<section>
+  <div class="wrap">
+    <div class="about reveal">
+      <div class="about-img-wrap">
+        <img src="marit-portrait.png" alt="Marit Alke">
+      </div>
+      <div>
+        <h2>Hallo, ich bin Marit Alke</h2>
+        <p>und seit über 13 Jahren soloselbstständig. Ich kann also die Landingpages, Vorschaubilder, Arbeitsblätter und Webinarfolien gar nicht mehr zählen, die ich im Laufe der Zeit gestaltet habe. 😅 Gutes Design ist mir wirklich wichtig - für mich steckt da auch mein innerer Ausdruck drin - daher war es lange Zeit keine echte Option, die KI dafür um Hilfe zu bitten. Zu unzuverlässig waren die Ergebnisse... Meist eher frustrierend - also habe ich es dann doch wieder per Hand gemacht (Landingpages bspw. in Wordpress mit Thrive Architect).</p>
+        <p>Und jetzt endlich, seit ich mir mit Claude Design einmal intensiv die Zeit genommen habe, ein tragfähiges System aus Design-Regeln, Vorlagen und visuellen Assets aufzubauen, kann ich diese Aufgaben zu einem Großteil an die KI delegieren! Und das ist sehr entlastend.</p>
+        <p>Ich bin keine ausgebildete Designerin, aber habe ein gutes Gespür für stimmiges Design - und vor allem kann ich dir beibringen, wie du den Design-Prozess so aufbaust, dass er für DICH ganz persönlich gut funktioniert, Spaß macht und dich in deine Kraft bringt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec-light">
+  <div class="wrap">
+    <h2 class="center reveal">Die wichtigsten Fragen</h2>
+    <div class="faq reveal">
+      <details>
+        <summary>Ich habe schon so viel mit KI probiert, damit mein Design vernünftig aussieht. Funktioniert das jetzt wirklich?</summary>
+        <p>Ja, die KI trifft deinen Geschmack und deinen Stil danach viel genauer. Der Unterschied ist, dass du dir einmalig die Mühe machst, dein bisher eher implizites Wissen darüber, was gutes Design für dich ausmacht, in Worte zu fassen. Danach muss die KI nicht mehr raten, was dir gefallen könnte. Sie arbeitet nach deinen klaren Regeln, die du natürlich jederzeit verfeinern und ergänzen kannst.</p>
+      </details>
+      <details>
+        <summary>Ich habe noch nie etwas mit KI designed, sondern bisher Canva, Divi o.ä. benutzt. Passt das für mich?</summary>
+        <p>Wenn du mit deinem Design-Prozess zufrieden bist, brauchst du natürlich nichts zu ändern. Wenn du mit Hilfe der KI schneller werden willst, macht mein Workshop absolut Sinn für dich. Du machst es dann von Anfang an gleich "richtig", so wie du auch eine neue Designerin erst briefen würdest, bevor sie für dich arbeitet.</p>
+        <p>Canvas eigene KI-Funktion überzeugt mich bisher nicht, aber wir können Canva trotzdem weiterhin gut für einzelne Aufgaben nutzen, darauf gehe ich im Workshop auch ein.</p>
+      </details>
+      <details>
+        <summary>Wann finden die Live-Workshops und Sprechstunden genau statt?</summary>
+        <p>Donnerstag, 24.09.: 9:30 bis 11:00 Uhr Live-Workshop 1, 17:00 bis 18:00 Uhr Sprechstunde (optional).<br>
+        Freitag, 25.09.: 13:00 bis 14:00 Uhr Sprechstunde &amp; Feedback.<br>
+        Montag, 28.09.: 9:30 bis 11:00 Uhr Live-Workshop 2.<br>
+        Dienstag, 29.09.: kein Live-Termin, ganztägig eigenständige Umsetzung.<br>
+        Mittwoch, 30.09.: 9:30 bis 11:00 Uhr Live-Workshop 3, 17:00 bis 18:00 Uhr Abschluss-Meeting &amp; Sprechstunde.</p>
+      </details>
+      <details>
+        <summary>Was ist, wenn ich an einem der Live-Termine nicht dabei sein kann?</summary>
+        <p>Alle Input-Webinare stehen dir zeitnah als Aufzeichnung zur Verfügung, inklusive Transkript, das du direkt mit deiner eigenen KI zum Nacharbeiten nutzen kannst. Besonders wichtig ist der Donnerstag, an dem ich das gesamte System und Vorgehen erkläre, den solltest du wenn möglich live oder kurz danach mitnehmen.</p>
+      </details>
+      <details>
+        <summary>Muss ich dafür zwingend Claude Cowork oder Claude Code verwenden?</summary>
+        <p>Nein, das brauchst du nicht. Das ist zwar eine super Ergänzung für Claudes KI-Assistenten, aber das Designsystem, das wir im Workshop entwickeln, kannst du mit jedem Chatbot oder jedem anderen KI-System verwenden, zum Beispiel Gemini, ChatGPT oder anderen. Du erstellst dann für eine Landingpage eine HTML-Seite, und im Workshop zeige ich dir, wie du diese manuell ins Internet bringst.</p>
+        <p>Wenn du einen KI-Assistenten wie Claude Cowork verwendest, kannst du diese Aufgabe an die KI delegieren, und sie stellt dir die Seite automatisch ins Netz. Das ist aber nicht zwingend nötig. Allerdings brauchst du für diesen Workshop mindestens einen Monat Claude Pro für 18&nbsp;€ im Monat.</p>
+      </details>
+      <details>
+        <summary>Ich habe schon deinen Claude Cowork Deep Dive Selbstlernkurs, da sind doch zwei Tutorials zum Claude Design System drin?</summary>
+        <p>Stimmt. Wenn du sehr autodidaktisch bist, kommst du damit zurecht. Dieser DEEP Design-Workshop geht tiefer: Wir verfeinern dein Designsystem gemeinsam, es gibt direktes Feedback von mir und den anderen Teilnehmenden - und wir werden eine richtige Bibliothek an visuellen Assets für dich aufbauen.</p>
+        <p>Außerdem gibt so ein zeitlich terminierter Workshop ja auch eine gewisse Verbindlichkeit vor, damit du diese Aufgabe auch tatsächlich angehst, die sonst im Alltag untergeht. 😉</p>
+      </details>
+      <details>
+        <summary>Ich bin Webdesignerin. Machst du damit meine Arbeit überflüssig?</summary>
+        <p>Nein, im Gegenteil. Der Workshop zeigt dir, wie du deinen Kund:innen ein System an die Hand gibst, mit dem sie das gemeinsam entwickelte Design selbstwirksam und selbstbewusst weiter umsetzen können, statt es im DIY-Alltag nach und nach zu verwässern. Für den Aufbau des ursprünglichen Designs braucht es weiterhin dich, das bleibt ein strategischer Prozess. Ist das Design einmal da, lässt es sich der KI in ihrer Sprache übergeben.</p>
+      </details>
+      <details>
+        <summary>Bist du Designerin, Marit?</summary>
+        <p>Nein, keine Ausbildung in der Richtung. Aber ich habe eine überdurchschnittliche Affinität und ein gutes Gespür für stimmiges Design, dazu einige selbst erarbeitete Designregeln. Gutes Design ist mir persönlich wichtig, deshalb kann ich dich mit meinem Feedback gut dabei unterstützen, dein Branding zu verfeinern.</p>
+      </details>
+      <details>
+        <summary>Kann ich zurücktreten?</summary>
+        <p>Dieser Workshop richtet sich ausschließlich an Selbstständige und Unternehmer:innen, deshalb gibt es grundsätzlich kein Rückgaberecht. Schreib mir aber gern bis eine Woche vor Workshop-Start eine Mail mit deiner Begründung, dann sprechen wir über einen Rücktritt.</p>
+      </details>
+    </div>
+    <p class="center" style="margin:38px 0 0;">
+      <a class="btn btn-teal" href="https://lp.marit-alke.de/deep-design-checkout/">Für den Workshop anmelden</a>
+    </p>
+  </div>
+</section>
+
+<!-- ===== Preis & Schluss-CTA ===== -->
+<section class="pricesec" id="preis">
+  <div class="pricesec-bg"></div>
+  <div class="pricesec-overlay"></div>
+  <div class="wrap">
+    <h2>Sei dabei beim DEEP Design Workshop!</h2>
+    <p class="lead">Wenn deine KI dein Design wirklich verstehen soll, ist jetzt ein guter Moment, die Grundlage dafür zu bauen.</p>
+    <div class="pricecard reveal">
+      <div class="price-badge">Frühbucherpreis</div>
+      <div class="price-now">395&nbsp;€ <span class="price-unit">zzgl. MwSt.</span></div>
+      <span class="price-gross">(470,05&nbsp;€ inkl. MwSt.)</span>
+      <p class="price-note">Frühbucherpreis, gültig bis einschließlich 16.09.2026</p>
+      <p class="price-was">495&nbsp;€ netto <span class="price-was-label">Regulärpreis</span></p>
+      <a class="btn btn-orange" href="https://lp.marit-alke.de/deep-design-checkout/">Jetzt anmelden</a>
+      <p class="fineprint">Vorbereitungsphase · 3 Online-Workshops · 3 Fragen- &amp; Feedback-Meetings · Forum für Austausch · alle Materialien und Aufzeichnungen</p>
+      <p class="fineprint"><strong style="color:var(--navy);">Hinweis:</strong> Für den Workshop brauchst du mindestens einen Monat Claude Pro (ca. 18&nbsp;€/Monat).</p>
+    </div>
+    <p class="below">Dein Design steckt längst in deinem Business. Jetzt darf deine KI es auch verstehen.</p>
+  </div>
+</section>
+<div class="bar"></div>
+
+<!-- ===== Footer ===== -->
+<footer>
+  <p style="margin:0;">© 2026 Marit Alke &nbsp;·&nbsp;
+    <a href="https://marit-alke.de/impressum">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://marit-alke.de/datenschutz">Datenschutz</a>
+  </p>
+</footer>
+
+<script>
+(function(){
+  if (!('IntersectionObserver' in window)) return;
+  var els = document.querySelectorAll('.reveal');
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(function(el){ io.observe(el); });
+})();
+</script>
+
+</body>
+</html>
