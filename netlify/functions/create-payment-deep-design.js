@@ -6,10 +6,19 @@ const BASE_URL = "https://lp.marit-alke.de";
 // Frühbucher gilt bis einschließlich 16.09.2026, 23:59:59 Uhr (Europe/Berlin = UTC+2 im September)
 const EARLY_BIRD_CUTOFF = new Date("2026-09-16T21:59:59Z");
 
-const PRICE_EARLY_NET    = "395.00";
-const PRICE_EARLY_GROSS  = "470.05"; // 395,00 € + 19% MwSt.
-const PRICE_REGULAR_NET   = "495.00";
-const PRICE_REGULAR_GROSS = "589.05"; // 495,00 € + 19% MwSt.
+// Preise in Cent (Integer-Rechnung, um Fließkomma-Rundungsfehler bei Geldbeträgen zu vermeiden)
+const PRICE_EARLY_NET_CENTS    = 39500;
+const PRICE_REGULAR_NET_CENTS  = 49500;
+
+// Rabattcodes: Code (Groß-/Kleinschreibung + Leerraum werden vor dem Vergleich normalisiert) → Netto-Rabatt in Cent
+const DISCOUNT_CODES = {
+  "CCDD70": { amountCents: 7000,  label: "CCDD-Selbstlernkurs" },
+  "VIP100": { amountCents: 10000, label: "VIP-Letter" }
+};
+
+function centsToStr(cents) {
+  return (cents / 100).toFixed(2);
+}
 
 // Mitgliedsstaaten, die die EU-VIES-Datenbank abdeckt (inkl. "EL" für Griechenland und "XI" für Nordirland)
 const VIES_COUNTRIES = ["AT","BE","BG","CY","CZ","DE","DK","EE","EL","ES","FI","FR","HR","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK","XI"];
@@ -37,8 +46,22 @@ exports.handler = async (event) => {
 
   const isEarlyBird = new Date() <= EARLY_BIRD_CUTOFF;
   const priceTier    = isEarlyBird ? "early_bird" : "regular";
-  const priceNet      = isEarlyBird ? PRICE_EARLY_NET   : PRICE_REGULAR_NET;
-  const priceGross     = isEarlyBird ? PRICE_EARLY_GROSS : PRICE_REGULAR_GROSS;
+
+  // ── Rabattcode ───────────────────────────────────────────────────────────
+  // Wird serverseitig autoritativ neu berechnet, ein vom Client mitgeschickter
+  // Preis wird nirgends übernommen – nur der Code-String zählt.
+  const discountCodeRaw = (params.get("discountCode") || "").trim().toUpperCase();
+  const discountEntry = discountCodeRaw ? DISCOUNT_CODES[discountCodeRaw] : undefined;
+  const discountApplied = discountEntry ? discountCodeRaw : "";
+
+  let priceNetCents = isEarlyBird ? PRICE_EARLY_NET_CENTS : PRICE_REGULAR_NET_CENTS;
+  if (discountEntry) {
+    priceNetCents = Math.max(0, priceNetCents - discountEntry.amountCents);
+  }
+  const priceGrossCents = Math.round(priceNetCents * 1.19);
+
+  const priceNet   = centsToStr(priceNetCents);
+  const priceGross = centsToStr(priceGrossCents);
 
   // ── USt-IdNr.-Prüfung ────────────────────────────────────────────────────
   // Reverse Charge gilt nur für grenzüberschreitende B2B-Geschäfte innerhalb der EU
@@ -100,7 +123,9 @@ exports.handler = async (event) => {
   const metadata = {
     product: "deep_design_workshop",
     priceTier, firstName, lastName, email, company, street, zip, city, country,
-    vatId, reverseCharge: String(reverseCharge), vatValidated: String(vatValidated), vatCheckNote
+    vatId, reverseCharge: String(reverseCharge), vatValidated: String(vatValidated), vatCheckNote,
+    discountCode: discountApplied,
+    discountAmountNet: discountEntry ? centsToStr(discountEntry.amountCents) : "0.00"
   };
 
   try {

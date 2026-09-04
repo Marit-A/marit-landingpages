@@ -134,6 +134,53 @@
       margin-bottom: 0.4rem;
     }
 
+    .discount-row {
+      margin-top: 0.75rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed #d8d8d8;
+    }
+
+    .discount-row label {
+      font-size: 0.78rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .discount-input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .discount-input-row input {
+      flex: 1;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+    }
+
+    .discount-input-row button {
+      flex: none;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .discount-input-row button:hover { background: #009aaa; }
+
+    .discount-feedback {
+      font-size: 0.8rem;
+      margin-top: 0.4rem;
+      min-height: 1.1em;
+    }
+
+    .discount-feedback.discount-success { color: #4a7a1a; font-weight: 600; }
+    .discount-feedback.discount-error   { color: #b34700; }
+
     .benefits-row {
       display: flex;
       gap: 1.25rem;
@@ -319,6 +366,15 @@
       <div class="price-main" id="priceMain">395,00 &euro; zzgl. MwSt. <span class="price-gross">(470,05 &euro; inkl. MwSt.)</span></div>
       <div class="price-was" id="priceWas">495,00 &euro; netto <span class="price-was-label">Regulärpreis</span></div>
       <div class="price-detail" id="priceDetail">Frühbucherpreis gültig bis einschließlich 16.09.2026</div>
+
+      <div class="discount-row">
+        <label for="discountInput">Rabattcode <span class="optional">(optional)</span></label>
+        <div class="discount-input-row">
+          <input type="text" id="discountInput" placeholder="Code eingeben" autocomplete="off">
+          <button type="button" id="discountApplyBtn">Einlösen</button>
+        </div>
+        <div class="discount-feedback" id="discountFeedback"></div>
+      </div>
     </div>
 
     <div class="benefits-row">
@@ -344,6 +400,7 @@
     </div>
 
     <form class="form-body" method="POST" action="/.netlify/functions/create-payment-deep-design" id="checkoutForm">
+      <input type="hidden" name="discountCode" id="discountCodeField" value="">
 
       <div class="form-section-title">Deine Angaben</div>
 
@@ -452,14 +509,92 @@
   </div>
 
   <script>
-    // Nur Anzeige – die verbindliche Preislogik läuft serverseitig in create-payment-deep-design.js
+    // Nur Anzeige – die verbindliche Preislogik läuft serverseitig in create-payment-deep-design.js.
+    // Ein hier "gültiger" Rabattcode ist nur eine Vorschau; der Server prüft den Code-String
+    // erneut gegen seine eigene Liste und übernimmt keinen vom Client berechneten Preis.
     var cutoff = new Date("2026-09-16T21:59:59Z");
-    if (new Date() > cutoff) {
-      document.getElementById("tierBadge").textContent = "Regulärer Preis";
-      document.getElementById("priceMain").innerHTML = "495,00 \u20ac zzgl. MwSt. <span class=\"price-gross\">(589,05 \u20ac inkl. MwSt.)</span>";
-      document.getElementById("priceWas").style.display = "none";
-      document.getElementById("priceDetail").textContent = "Frühbucherphase ist beendet.";
+    var isEarlyBird = new Date() <= cutoff;
+    var currentTierNet   = isEarlyBird ? 395 : 495;
+    var currentTierLabel = isEarlyBird ? "Frühbucherpreis" : "Regulärer Preis";
+
+    var DISCOUNT_CODES = {
+      "CCDD70": { amount: 70,  label: "CCDD-Selbstlernkurs" },
+      "VIP100": { amount: 100, label: "VIP-Letter" }
+    };
+
+    function formatEuro(n) {
+      return n.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " \u20ac";
     }
+
+    function renderPrice(discountEntry) {
+      var tierBadge   = document.getElementById("tierBadge");
+      var priceMain   = document.getElementById("priceMain");
+      var priceWas    = document.getElementById("priceWas");
+      var priceDetail = document.getElementById("priceDetail");
+
+      if (discountEntry) {
+        var discNet   = Math.max(0, currentTierNet - discountEntry.amount);
+        var discGross = Math.round(discNet * 1.19 * 100) / 100;
+        tierBadge.textContent = currentTierLabel + " + Rabatt";
+        priceMain.innerHTML = formatEuro(discNet) + " zzgl. MwSt. <span class=\"price-gross\">(" + formatEuro(discGross) + " inkl. MwSt.)</span>";
+        priceWas.style.display = "";
+        priceWas.innerHTML = formatEuro(currentTierNet) + " netto <span class=\"price-was-label\">" + currentTierLabel + " ohne Rabatt</span>";
+        priceDetail.textContent = isEarlyBird
+          ? "Frühbucherpreis gültig bis einschließlich 16.09.2026, Rabattcode zusätzlich angewendet."
+          : "Rabattcode angewendet.";
+      } else {
+        tierBadge.textContent = currentTierLabel;
+        var grossNormal = Math.round(currentTierNet * 1.19 * 100) / 100;
+        priceMain.innerHTML = formatEuro(currentTierNet) + " zzgl. MwSt. <span class=\"price-gross\">(" + formatEuro(grossNormal) + " inkl. MwSt.)</span>";
+        if (isEarlyBird) {
+          priceWas.style.display = "";
+          priceWas.innerHTML = "495,00 \u20ac netto <span class=\"price-was-label\">Regulärpreis</span>";
+          priceDetail.textContent = "Frühbucherpreis gültig bis einschließlich 16.09.2026";
+        } else {
+          priceWas.style.display = "none";
+          priceDetail.textContent = "Frühbucherphase ist beendet.";
+        }
+      }
+    }
+
+    function applyDiscount() {
+      var input    = document.getElementById("discountInput");
+      var feedback = document.getElementById("discountFeedback");
+      var hidden    = document.getElementById("discountCodeField");
+      var raw = input.value.trim().toUpperCase();
+
+      if (!raw) {
+        hidden.value = "";
+        feedback.textContent = "";
+        feedback.className = "discount-feedback";
+        renderPrice();
+        return;
+      }
+
+      var entry = DISCOUNT_CODES[raw];
+      if (!entry) {
+        hidden.value = "";
+        feedback.textContent = "Dieser Code ist leider nicht gültig.";
+        feedback.className = "discount-feedback discount-error";
+        renderPrice();
+        return;
+      }
+
+      hidden.value = raw;
+      feedback.textContent = "Rabattcode gültig: \u2212" + formatEuro(entry.amount) + " (" + entry.label + ")";
+      feedback.className = "discount-feedback discount-success";
+      renderPrice(entry);
+    }
+
+    document.getElementById("discountApplyBtn").addEventListener("click", applyDiscount);
+    document.getElementById("discountInput").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        applyDiscount();
+      }
+    });
+
+    renderPrice();
 
     document.getElementById("checkoutForm").addEventListener("submit", function() {
       var btn = document.getElementById("submitBtn");
