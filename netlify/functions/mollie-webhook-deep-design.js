@@ -19,6 +19,17 @@ const NOTIFY_TO       = "info@marit-alke.de";
 // ist Beta und instabil, s. MOLLIE-SETUP.md). Marit erstellt Rechnungen manuell in
 // Lexoffice anhand der Mollie-Benachrichtigungsmail bzw. des Mollie-Dashboards.
 
+// 07.09.2026: Erster echter Kauf (mit VIP100) hat KEINE Benachrichtigungsmail ausgelöst,
+// obwohl POSTEO_EMAIL/POSTEO_PASSWORD korrekt gesetzt waren und der Code (mock-)getestet
+// war. Wahrscheinlichste Ursache: Netlify-Functions haben ein Zeitlimit für synchrone
+// Aufrufe (Berichten zufolge im Bereich von 10 Sekunden auf dem aktuellen Plan) – GetResponse
+// (2 sequentielle HTTPS-Calls) + eine volle SMTP-Handshake-Sequenz zu einem deutschen Server
+// (mehrere Round-Trips über TLS, dazu bei einem "kalten" Funktionsaufruf noch Cold-Start-
+// Overhead) summierten sich vermutlich über das Limit, sodass Netlify die Funktion beendet
+// hat, bevor die Mail verschickt war – ohne dass das als JS-Fehler sichtbar wurde. Fix:
+// GetResponse-Update und Mail-Versand laufen jetzt parallel (statt nacheinander), und der
+// SMTP-Login nutzt AUTH PLAIN (ein Round-Trip) statt AUTH LOGIN (zwei Round-Trips).
+
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
@@ -54,6 +65,15 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: "OK" };
   }
 
+  // GetResponse-Update und Benachrichtigungsmail sind voneinander unabhängig – parallel
+  // statt nacheinander ausführen, damit die Gesamtlaufzeit nicht die Summe, sondern nur
+  // das Maximum beider Vorgänge ist (wichtig wegen Netlifys Zeitlimit für Functions).
+  await Promise.all([updateGetResponse(email, firstName), sendNotificationMail(payment)]);
+
+  return { statusCode: 200, body: "OK" };
+};
+
+async function updateGetResponse(email, firstName) {
   try {
     const tagId = await getOrCreateTag(GR_TAG_NAME);
     await upsertContact(email, firstName, GR_CAMPAIGN_ID, tagId);
@@ -61,33 +81,33 @@ exports.handler = async (event) => {
   } catch (err) {
     console.error("GetResponse Fehler:", err.message);
   }
+}
 
-  if (POSTEO_EMAIL && POSTEO_PASSWORD) {
-    try {
-      const { subject, text } = buildNotificationEmail(payment);
-      await sendMail({
-        host: "smtp.posteo.de",
-        port: 465,
-        user: POSTEO_EMAIL,
-        pass: POSTEO_PASSWORD,
-        from: POSTEO_EMAIL,
-        to: NOTIFY_TO,
-        subject,
-        text
-      });
-      console.log("Bestell-Benachrichtigung OK");
-    } catch (err) {
-      // Nie den Webhook scheitern lassen, wenn nur die Benachrichtigungsmail fehlschlägt –
-      // die eigentliche Bestellung (GetResponse) ist bereits durch, das ist nur ein
-      // zusätzlicher Komfort-Hinweis für Marit.
-      console.error("Benachrichtigungsmail Fehler:", err.message);
-    }
-  } else {
+async function sendNotificationMail(payment) {
+  if (!(POSTEO_EMAIL && POSTEO_PASSWORD)) {
     console.log("Benachrichtigungsmail übersprungen: POSTEO_EMAIL/POSTEO_PASSWORD nicht gesetzt");
+    return;
   }
-
-  return { statusCode: 200, body: "OK" };
-};
+  try {
+    const { subject, text } = buildNotificationEmail(payment);
+    await sendMail({
+      host: "smtp.posteo.de",
+      port: 465,
+      user: POSTEO_EMAIL,
+      pass: POSTEO_PASSWORD,
+      from: POSTEO_EMAIL,
+      to: NOTIFY_TO,
+      subject,
+      text
+    });
+    console.log("Bestell-Benachrichtigung OK");
+  } catch (err) {
+    // Nie den Webhook scheitern lassen, wenn nur die Benachrichtigungsmail fehlschlägt –
+    // die eigentliche Bestellung (GetResponse) ist bereits durch, das ist nur ein
+    // zusätzlicher Komfort-Hinweis für Marit.
+    console.error("Benachrichtigungsmail Fehler:", err.message);
+  }
+}
 
 // ── Bestell-Benachrichtigung per E-Mail ─────────────────────────────────────────
 
@@ -129,13 +149,14 @@ function buildNotificationEmail(payment) {
 }
 
 // ── Minimaler SMTP-Client (Posteo, kein npm-Paket) ──────────────────────────────
-// Getestet gegen einen lokalen Mock-SMTP-Server (Mehrzeilen-EHLO-Antwort, AUTH LOGIN,
+// Getestet gegen einen lokalen Mock-SMTP-Server (Mehrzeilen-EHLO-Antwort, AUTH PLAIN,
 // Dot-Stuffing bei Zeilen, die mit "." beginnen, UTF-8-Betreff via MIME encoded-word).
 // Gegen den echten smtp.posteo.de konnte das nicht getestet werden, da weder die
 // Cloud-Sandbox noch die Geräte-Shell rohes TCP auf Port 465 erlauben (nur erlaubte
 // HTTPS-Hosts) – Netlify Functions haben aber uneingeschränkten Outbound-Zugriff
 // (dieselbe Umgebung ruft bereits erfolgreich api.mollie.com/api.getresponse.com auf),
-// daher sollte die Verbindung dort funktionieren.
+// daher sollte die Verbindung dort funktionieren. AUTH PLAIN statt AUTH LOGIN spart
+// zwei Round-Trips gegenüber dem transatlantischen/deutschen Mailserver.
 
 function sendMail({ host, port, user, pass, from, to, subject, text }) {
   return new Promise((resolve, reject) => {
@@ -159,7 +180,10 @@ function sendMail({ host, port, user, pass, from, to, subject, text }) {
     function send(line) { socket.write(line + "\r\n"); }
     const b64 = s => Buffer.from(s, "utf8").toString("base64");
 
-    socket.setTimeout(15000, () => fail(new Error("SMTP Timeout")));
+    // Kürzer als Mollies eigenes Webhook-Timeout (15s) und deutlich unter dem Zeitlimit
+    // für synchrone Netlify Functions, damit im Fehlerfall garantiert noch rechtzeitig
+    // 200 OK an Mollie zurückgegeben werden kann, statt dass die ganze Function abbricht.
+    socket.setTimeout(8000, () => fail(new Error("SMTP Timeout")));
     socket.on("error", fail);
 
     socket.on("data", (chunk) => {
@@ -184,35 +208,27 @@ function sendMail({ host, port, user, pass, from, to, subject, text }) {
             break;
           case 1:
             if (code !== "250") throw new Error("EHLO fehlgeschlagen: " + last);
-            send("AUTH LOGIN");
+            // AUTH PLAIN: ein einziger Base64-Block "\0Username\0Passwort" statt der
+            // zwei separaten Round-Trips von AUTH LOGIN.
+            send(`AUTH PLAIN ${b64(`\0${user}\0${pass}`)}`);
             step = 2;
             break;
           case 2:
-            if (code !== "334") throw new Error("AUTH LOGIN fehlgeschlagen: " + last);
-            send(b64(user));
+            if (code !== "235") throw new Error("Login fehlgeschlagen: " + last);
+            send(`MAIL FROM:<${from}>`);
             step = 3;
             break;
           case 3:
-            if (code !== "334") throw new Error("Username abgelehnt: " + last);
-            send(b64(pass));
+            if (code !== "250") throw new Error("MAIL FROM fehlgeschlagen: " + last);
+            send(`RCPT TO:<${to}>`);
             step = 4;
             break;
           case 4:
-            if (code !== "235") throw new Error("Login fehlgeschlagen: " + last);
-            send(`MAIL FROM:<${from}>`);
+            if (code !== "250") throw new Error("RCPT TO fehlgeschlagen: " + last);
+            send("DATA");
             step = 5;
             break;
           case 5:
-            if (code !== "250") throw new Error("MAIL FROM fehlgeschlagen: " + last);
-            send(`RCPT TO:<${to}>`);
-            step = 6;
-            break;
-          case 6:
-            if (code !== "250") throw new Error("RCPT TO fehlgeschlagen: " + last);
-            send("DATA");
-            step = 7;
-            break;
-          case 7:
             if (code !== "354") throw new Error("DATA fehlgeschlagen: " + last);
             {
               const subjEnc = `=?UTF-8?B?${Buffer.from(subject, "utf8").toString("base64")}?=`;
@@ -228,14 +244,14 @@ function sendMail({ host, port, user, pass, from, to, subject, text }) {
               const escapedBody = text.replace(/\r\n/g, "\n").replace(/\n/g, "\r\n").replace(/^\./gm, "..");
               socket.write(headers + "\r\n" + escapedBody + "\r\n.\r\n");
             }
-            step = 8;
+            step = 6;
             break;
-          case 8:
+          case 6:
             if (code !== "250") throw new Error("Senden fehlgeschlagen: " + last);
             send("QUIT");
-            step = 9;
+            step = 7;
             break;
-          case 9:
+          case 7:
             done();
             break;
         }
@@ -295,6 +311,10 @@ function mollieRequest(method, path, body) {
       });
     });
     req.on("error", reject);
+    // Kein HTTPS-Call darf unbegrenzt hängen bleiben – zusammen mit dem SMTP-Timeout
+    // stellt das sicher, dass die Function insgesamt nicht am Netlify-Zeitlimit scheitert,
+    // ohne dass irgendwo ein Fehler geloggt wird.
+    req.setTimeout(8000, () => req.destroy(new Error(`Mollie-Anfrage Timeout: ${path}`)));
     if (payload) req.write(payload);
     req.end();
   });
@@ -315,6 +335,7 @@ function grRequestWithStatus(method, path, body) {
     };
     const req = https.request(options, (res) => { res.resume(); res.on("end", () => resolve(res.statusCode)); });
     req.on("error", reject);
+    req.setTimeout(8000, () => req.destroy(new Error(`GetResponse-Anfrage Timeout: ${path}`)));
     if (payload) req.write(payload);
     req.end();
   });
@@ -342,6 +363,7 @@ function grRequest(method, path, body) {
       });
     });
     req.on("error", reject);
+    req.setTimeout(8000, () => req.destroy(new Error(`GetResponse-Anfrage Timeout: ${path}`)));
     if (payload) req.write(payload);
     req.end();
   });
