@@ -81,7 +81,7 @@ async function sendNotificationMail(payment) {
   try {
     const { subject, text } = buildNotificationEmail(payment);
     await sendMail({
-      host: "smtp.posteo.de",
+      host: "posteo.de",  // nicht "smtp.posteo.de", diesen Namen gibt es nicht (Ursache der fehlenden Info-Mails, 11.09.2026)
       port: 465,
       user: POSTEO_EMAIL,
       pass: POSTEO_PASSWORD,

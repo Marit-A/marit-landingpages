@@ -19,16 +19,13 @@ const NOTIFY_TO       = "info@marit-alke.de";
 // ist Beta und instabil, s. MOLLIE-SETUP.md). Marit erstellt Rechnungen manuell in
 // Lexoffice anhand der Mollie-Benachrichtigungsmail bzw. des Mollie-Dashboards.
 
-// 07.09.2026: Erster echter Kauf (mit VIP100) hat KEINE Benachrichtigungsmail ausgelöst,
-// obwohl POSTEO_EMAIL/POSTEO_PASSWORD korrekt gesetzt waren und der Code (mock-)getestet
-// war. Wahrscheinlichste Ursache: Netlify-Functions haben ein Zeitlimit für synchrone
-// Aufrufe (Berichten zufolge im Bereich von 10 Sekunden auf dem aktuellen Plan) – GetResponse
-// (2 sequentielle HTTPS-Calls) + eine volle SMTP-Handshake-Sequenz zu einem deutschen Server
-// (mehrere Round-Trips über TLS, dazu bei einem "kalten" Funktionsaufruf noch Cold-Start-
-// Overhead) summierten sich vermutlich über das Limit, sodass Netlify die Funktion beendet
-// hat, bevor die Mail verschickt war – ohne dass das als JS-Fehler sichtbar wurde. Fix:
-// GetResponse-Update und Mail-Versand laufen jetzt parallel (statt nacheinander), und der
-// SMTP-Login nutzt AUTH PLAIN (ein Round-Trip) statt AUTH LOGIN (zwei Round-Trips).
+// 07.09.2026: Erster echter Kauf (mit VIP100) hat KEINE Benachrichtigungsmail ausgelöst.
+// Vermutet wurde damals Netlifys Zeitlimit für Functions, deshalb laufen GetResponse-Update
+// und Mail-Versand seitdem parallel, und der SMTP-Login nutzt AUTH PLAIN (ein Round-Trip).
+// 11.09.2026: Tatsächliche Ursache gefunden: Als Mailserver stand hier "smtp.posteo.de",
+// diesen Namen gibt es nicht (DNS: NXDOMAIN). Jeder Versand schlug deshalb sofort mit
+// "getaddrinfo ENOTFOUND" fehl, sichtbar nur im Netlify-Log. Richtig ist "posteo.de",
+// per Test vom Mac aus mit genau diesem Code bestätigt (Versand in rund 0,5 Sekunden).
 
 exports.handler = async (event) => {
   if (event.httpMethod !== "POST") {
@@ -91,7 +88,7 @@ async function sendNotificationMail(payment) {
   try {
     const { subject, text } = buildNotificationEmail(payment);
     await sendMail({
-      host: "smtp.posteo.de",
+      host: "posteo.de",
       port: 465,
       user: POSTEO_EMAIL,
       pass: POSTEO_PASSWORD,
@@ -150,13 +147,9 @@ function buildNotificationEmail(payment) {
 
 // ── Minimaler SMTP-Client (Posteo, kein npm-Paket) ──────────────────────────────
 // Getestet gegen einen lokalen Mock-SMTP-Server (Mehrzeilen-EHLO-Antwort, AUTH PLAIN,
-// Dot-Stuffing bei Zeilen, die mit "." beginnen, UTF-8-Betreff via MIME encoded-word).
-// Gegen den echten smtp.posteo.de konnte das nicht getestet werden, da weder die
-// Cloud-Sandbox noch die Geräte-Shell rohes TCP auf Port 465 erlauben (nur erlaubte
-// HTTPS-Hosts) – Netlify Functions haben aber uneingeschränkten Outbound-Zugriff
-// (dieselbe Umgebung ruft bereits erfolgreich api.mollie.com/api.getresponse.com auf),
-// daher sollte die Verbindung dort funktionieren. AUTH PLAIN statt AUTH LOGIN spart
-// zwei Round-Trips gegenüber dem transatlantischen/deutschen Mailserver.
+// Dot-Stuffing bei Zeilen, die mit "." beginnen, UTF-8-Betreff via MIME encoded-word)
+// und am 11.09.2026 gegen den echten Posteo-Server (posteo.de, Port 465) vom Mac aus.
+// AUTH PLAIN statt AUTH LOGIN spart einen Round-Trip zum Mailserver.
 
 function sendMail({ host, port, user, pass, from, to, subject, text }) {
   return new Promise((resolve, reject) => {
