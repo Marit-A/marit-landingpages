@@ -10,6 +10,7 @@
     :root {
       --orange: #ffb000;
       --blue:   #2f5fa8;
+      --teal:   #00b3c3;
       --lime:   #a4c931;
       --heading: #3a3a3a;
       --text:    #5a5a5a;
@@ -217,7 +218,7 @@
       width: 100%;
       margin-top: 1.5rem;
       padding: 0.9rem 1.5rem;
-      background: var(--blue);
+      background: var(--teal);
       color: var(--white);
       border: none;
       border-radius: 5px;
@@ -227,7 +228,7 @@
       transition: background 0.2s;
     }
 
-    .btn-pay:hover { background: #244d8b; }
+    .btn-pay:hover { background: var(--orange); }
     .btn-pay:disabled { background: #aaa; cursor: not-allowed; }
 
     .security-note { text-align: center; font-size: 0.78rem; color: var(--text-mid); margin-top: 0.75rem; line-height: 1.5; }
@@ -251,7 +252,7 @@
 
   <div class="card">
     <div class="card-header">
-      <div class="label">3-tägiger Live-Workshop · 17. / 18. / 21.09.2026, jeweils 17 Uhr</div>
+      <div class="label">3-tägiger Live-Workshop · 5. / 6. / 9.11.2026, jeweils 17 Uhr</div>
       <h1>Vibe-Coding Experimentiertage</h1>
       <div class="description">Apps, kleine Programme, WordPress-Plugins, interaktive Webseiten: Wage dich mit Claude Code an die große Welt des Vibe-Codings &ndash; auch wenn du bisher nichts mit Programmieren am Hut hattest.<br><br>An drei Live-Terminen zeige ich dir zusammen mit Claude Code, wie es geht, dazwischen hast du Zeit zum eigenen Ausprobieren.</div>
     </div>
@@ -259,26 +260,22 @@
 
     <div class="price-box">
       <div class="price-main" id="priceMain">99,00 &euro; netto zzgl. gesetzl. MwSt.</div>
-      <div class="price-detail">Bei Bestellungen aus Deutschland (oder ohne gültige EU-USt-IdNr.) kommen 19&nbsp;% MwSt. hinzu. Mit gültiger EU-USt-IdNr. außerhalb Deutschlands gilt Reverse Charge (Steuerschuldnerschaft des Leistungsempfängers, dann zahlst du den Nettobetrag).</div>
+      <div class="price-detail">Das entspricht 117,81&nbsp;&euro; inkl. 19&nbsp;% MwSt.</div>
     </div>
 
     <ul class="benefits">
-      <li>3 Live-Online-Termine, an denen wir gemeinsam mit Claude Code experimentieren</li>
+      <li>Die drei Erklär- und Anleitungsvideos, jeweils am Nachmittag vor dem Workshop-Tag verfügbar, zum eigenen Bearbeiten</li>
+      <li>Drei Live-Online-Termine für Inspiration, Feedback und Austausch</li>
+      <li>Feedback von mir in einem geschützten Community-Forum</li>
       <li>Aufzeichnungen aller Termine, mindestens 6 Monate zugänglich</li>
-      <li>Austausch und Feedback in der Gruppe</li>
     </ul>
 
     <div class="info-box">
-      <strong>Das solltest du vorher schon eingerichtet haben:</strong>
-      <ul>
-        <li>Ein Claude Pro Abo</li>
-        <li>Die Claude Desktop-App</li>
-        <li>Claude Code (bitte schon vor dem Workshop installieren, damit wir direkt loslegen können)</li>
-      </ul>
+      Dieser Workshop erfordert ein Claude Pro Abo (18&nbsp;€ pro Monat) sowie die Claude-Desktop-App. Du erhältst vorher von mir eine Anleitung, wie du das installierst.
     </div>
 
     <div class="note-box">
-      <strong>Hinweis zur Zahlung:</strong> Die Bezahlung läuft sicher über den Zahlungsdienstleister <strong>Mollie</strong> (Kreditkarte, PayPal, SEPA u.&nbsp;a.). Deine Rechnung erhältst du separat per E-Mail &ndash; da die Rechnungsstellung aktuell noch manuell erfolgt, kann das ein paar Tage dauern.
+      <strong>Hinweis zur Zahlung:</strong> Die Bezahlung läuft sicher über den Zahlungsdienstleister <strong>Mollie</strong>. Am einfachsten für mich: PayPal. Deine Rechnung erhältst du separat per E-Mail &ndash; da die Rechnungsstellung aktuell noch manuell erfolgt, kann das ein paar Tage dauern.
     </div>
 
     <form class="form-body" method="POST" action="/.netlify/functions/create-payment-vibe-coding" id="checkoutForm">
@@ -363,9 +360,9 @@
       </div>
 
       <div class="form-group">
-        <label for="vatId">USt-IdNr. <span class="optional">(optional, für EU-Reverse-Charge)</span></label>
+        <label for="vatId">USt-IdNr. / Unternehmensnummer <span class="optional">(optional; nur relevant für Käufer außerhalb Deutschlands)</span></label>
         <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678" autocomplete="off">
-        <div class="hint"><strong>Nur für Käufer von außerhalb Deutschland relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, d.h. du zahlst den Preis ohne deutsche MwSt. Die UST-ID wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird.</div>
+        <div class="hint">Bei gültiger EU-USt-IdNr. gilt Reverse Charge, d.h. du zahlst den Preis ohne deutsche MwSt. &ndash; die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft. Bei einer entsprechenden Unternehmens- oder Steuernummer außerhalb der EU (z.&nbsp;B. Schweiz) gilt das Gleiche, hier ohne automatische Prüfung. Bei Fragen bitte im Zweifel vorab bei mir melden.</div>
       </div>
 
       <div class="checkbox-group">
