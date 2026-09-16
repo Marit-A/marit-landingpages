@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karussell Variante A – Bergsee</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --orange:#ffb000; --teal:#00b3c3; --lime:#a4c931; --heading:#3a3a3a; --text:#5a5a5a; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'PT Sans', Arial, sans-serif;
+  background: #14181a;
+  padding: 56px 20px 72px;
+  display: flex; flex-direction: column; align-items: center; gap: 34px;
+}
+.head { text-align: center; color: #cfd8da; }
+.head h1 { font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: 20px; color: #fff; letter-spacing: 0.02em; }
+.head p { font-size: 14px; color: #8d9a9d; margin-top: 6px; }
+.row { display: flex; gap: 26px; flex-wrap: wrap; justify-content: center; }
+.frame { width: 432px; height: 540px; overflow: hidden; border-radius: 4px; box-shadow: 0 14px 44px rgba(0,0,0,0.55); }
+.cap { text-align: center; color: #8d9a9d; font-size: 13px; margin-top: 10px; }
+
+/* ── Slide 1080 × 1350, im Preview auf 0.4 skaliert ── */
+.slide {
+  width: 1080px; height: 1350px;
+  transform: scale(0.4); transform-origin: top left;
+  position: relative; overflow: hidden;
+  font-family: 'Open Sans', Arial, sans-serif;
+  background-image: url('../assets/hero-bergsee.jpeg');
+  background-size: cover; background-position: center 42%;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 90px 80px 170px;
+}
+.slide::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,20,26,0.88) 0%, rgba(0,20,26,0.55) 42%, rgba(0,20,26,0.18) 78%, rgba(0,20,26,0.08) 100%);
+}
+.slide > * { position: relative; }
+.slide .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 26px; background: var(--orange); }
+
+.kick {
+  align-self: flex-start;
+  background: rgba(0,179,195,0.92); color: #fff;
+  font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 12px 26px; border-radius: 5px; margin-bottom: 40px;
+}
+.script { line-height: 0; margin-bottom: 34px; }
+.script img { width: 800px; height: auto; display: block; filter: drop-shadow(0 4px 20px rgba(0,0,0,0.45)); }
+.head1 { font-weight: 800; font-size: 78px; line-height: 1.15; color: #fff; text-shadow: 0 3px 18px rgba(0,0,0,0.5); margin-bottom: 28px; }
+.head2 { font-weight: 700; font-size: 58px; line-height: 1.2; color: #fff; text-shadow: 0 3px 16px rgba(0,0,0,0.5); margin-bottom: 34px; }
+.body { font-family: 'PT Sans', Arial, sans-serif; font-size: 36px; line-height: 1.55; color: #eefafb; text-shadow: 0 2px 10px rgba(0,0,0,0.6); }
+
+.pts { list-style: none; margin: 0 0 10px; }
+.pts li {
+  position: relative; padding-left: 60px; margin-bottom: 30px;
+  font-family: 'PT Sans', Arial, sans-serif; font-size: 38px; line-height: 1.45; color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+.pts li::before { content: '\2713'; position: absolute; left: 0; top: -2px; color: var(--lime); font-size: 44px; font-weight: 700; }
+
+.cta {
+  display: inline-block; align-self: flex-start;
+  background: var(--orange); color: #fff;
+  font-family: 'PT Sans', Arial, sans-serif; font-weight: 700; font-size: 40px;
+  padding: 26px 54px; border-radius: 6px;
+  text-shadow: 0 0 8px rgba(20,20,20,0.5);
+  margin-top: 16px;
+}
+.swipe {
+  position: absolute; right: 80px; bottom: 60px;
+  color: #fff; font-family: 'PT Sans', Arial, sans-serif; font-size: 30px;
+  opacity: 0.85; text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+}
+.handle { position: absolute; left: 80px; top: 80px; color: #fff; font-size: 28px; font-family: 'PT Sans', Arial, sans-serif; opacity: 0.9; text-shadow: 0 2px 8px rgba(0,0,0,0.6); }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Karussell · Variante A: Bergsee</h1>
+  <p>Foto als Vollbild, Text unten, Logo auf Slide 1 · 1080 × 1350 px · alle Texte sind Platzhalter</p>
+</div>
+
+<div class="row">
+
+  <div>
+    <div class="frame">
+      <div class="slide">
+        <span class="handle">@deinhandle</span>
+        <span class="kick">Kostenlos</span>
+        <div class="script"><img src="../assets/logo-titel-weiss.svg" alt="Titel deines Freebies"></div>
+        <p class="body">Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</p>
+        <span class="swipe">weiterwischen ›</span>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <p class="cap">Slide 1 · Hook</p>
+  </div>
+
+  <div>
+    <div class="frame">
+      <div class="slide" style="background-position: 30% 60%">
+        <span class="handle">@deinhandle</span>
+        <h2 class="head2">Hier steht eine Platzhalter-Überschrift</h2>
+        <ul class="pts">
+          <li>Hier steht ein Platzhalterpunkt.</li>
+          <li>Hier steht noch ein Platzhalterpunkt.</li>
+          <li>Und hier der dritte.</li>
+        </ul>
+        <span class="swipe">weiterwischen ›</span>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <p class="cap">Slide 2 · Inhalt</p>
+  </div>
+
+  <div>
+    <div class="frame">
+      <div class="slide" style="background-position: 70% 30%">
+        <span class="handle">@deinhandle</span>
+        <h2 class="head1">Hier steht der Call to Action</h2>
+        <p class="body" style="margin-bottom:34px">Hier steht ein Platzhaltersatz, der sagt, wo es den Videokurs gibt.</p>
+        <span class="cta">Platzhalter-Button</span>
+        <div class="bar"></div>
+      </div>
+    </div>
+    <p class="cap">Slide 3 · Call to Action</p>
+  </div>
+
+</div>
+
+</body>
+</html>

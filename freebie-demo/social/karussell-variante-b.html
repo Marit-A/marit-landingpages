@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karussell Variante B – Hell und ruhig</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root { --orange:#ffb000; --teal:#00b3c3; --lime:#a4c931; --heading:#3a3a3a; --text:#5a5a5a; --light:#f7f8f5; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'PT Sans', Arial, sans-serif;
+  background: #14181a;
+  padding: 56px 20px 72px;
+  display: flex; flex-direction: column; align-items: center; gap: 34px;
+}
+.head { text-align: center; }
+.head h1 { font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: 20px; color: #fff; }
+.head p { font-size: 14px; color: #8d9a9d; margin-top: 6px; }
+.row { display: flex; gap: 26px; flex-wrap: wrap; justify-content: center; }
+.frame { width: 432px; height: 540px; overflow: hidden; border-radius: 4px; box-shadow: 0 14px 44px rgba(0,0,0,0.55); }
+.cap { text-align: center; color: #8d9a9d; font-size: 13px; margin-top: 10px; }
+
+/* ── Slide 1080 × 1350 ── */
+.slide {
+  width: 1080px; height: 1350px;
+  transform: scale(0.4); transform-origin: top left;
+  position: relative; overflow: hidden;
+  background: #fff;
+  font-family: 'Open Sans', Arial, sans-serif;
+  display: flex; flex-direction: column;
+  padding: 120px 90px 150px;
+}
+.slide .topbar { position: absolute; left: 0; right: 0; top: 0; height: 26px; background: var(--orange); }
+.slide .footbar { position: absolute; left: 0; right: 0; bottom: 0; height: 90px; background: var(--light); display: flex; align-items: center; justify-content: space-between; padding: 0 90px; }
+.footbar span { font-family: 'PT Sans', Arial, sans-serif; font-size: 28px; color: #8d948d; }
+.footbar .brand { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 28px; color: var(--teal); }
+
+.num {
+  font-weight: 800; font-size: 150px; line-height: 1;
+  color: var(--teal); opacity: 0.18; margin-bottom: -20px;
+}
+.kick {
+  align-self: flex-start;
+  border: 3px solid var(--teal); color: var(--teal);
+  font-weight: 700; font-size: 26px; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 10px 24px; border-radius: 5px; margin-bottom: 44px;
+}
+.script { line-height: 0; margin-bottom: 36px; }
+.script img { width: 760px; height: auto; display: block; }
+.h-big { font-weight: 800; font-size: 74px; line-height: 1.16; color: var(--heading); margin-bottom: 30px; }
+.h-mid { font-weight: 700; font-size: 56px; line-height: 1.2; color: var(--heading); margin-bottom: 34px; }
+.body { font-family: 'PT Sans', Arial, sans-serif; font-size: 36px; line-height: 1.6; color: var(--text); }
+
+.accent {
+  border-left: 8px solid var(--orange);
+  padding-left: 30px;
+  font-family: 'PT Sans', Arial, sans-serif; font-size: 38px; line-height: 1.5; color: var(--heading);
+  margin: 10px 0 0;
+}
+
+.steps { list-style: none; margin: 10px 0 0; }
+.steps li {
+  position: relative; padding-left: 92px; margin-bottom: 44px;
+  font-family: 'PT Sans', Arial, sans-serif; font-size: 38px; line-height: 1.45; color: var(--text);
+  counter-increment: s;
+}
+.steps { counter-reset: s; }
+.steps li::before {
+  content: counter(s);
+  position: absolute; left: 0; top: -6px;
+  width: 62px; height: 62px; border-radius: 50%;
+  background: var(--teal); color: #fff;
+  font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: 32px;
+  display: flex; align-items: center; justify-content: center;
+}
+.steps li:nth-child(2)::before { background: var(--orange); }
+.steps li:nth-child(3)::before { background: var(--lime); }
+
+.cta {
+  display: inline-block; align-self: flex-start;
+  background: var(--teal); color: #fff;
+  font-family: 'PT Sans', Arial, sans-serif; font-weight: 700; font-size: 40px;
+  padding: 26px 54px; border-radius: 6px;
+  text-shadow: 0 0 8px rgba(20,20,20,0.5);
+  margin-top: 14px;
+}
+.photo-strip {
+  position: absolute; left: 0; right: 0; bottom: 90px; height: 430px;
+  background-image: url('../assets/hero-bergsee.jpeg');
+  background-size: cover; background-position: center 45%;
+}
+.spacer { flex: 1; }
+</style>
+</head>
+<body>
+
+<div class="head">
+  <h1>Karussell · Variante B: Hell und ruhig</h1>
+  <p>Weiße Fläche, orangener Balken oben, Foto nur als Streifen auf Slide 3 · 1080 × 1350 px · alle Texte sind Platzhalter</p>
+</div>
+
+<div class="row">
+
+  <div>
+    <div class="frame">
+      <div class="slide">
+        <div class="topbar"></div>
+        <span class="kick">Kostenlos</span>
+        <div class="script"><img src="../assets/logo-titel-tuerkis.svg" alt="Titel deines Freebies"></div>
+        <p class="body">Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</p>
+        <div class="spacer"></div>
+        <p class="accent">Hier steht ein Platzhaltersatz, der neugierig macht.</p>
+        <div class="footbar"><span>weiterwischen ›</span><span class="brand">@deinhandle</span></div>
+      </div>
+    </div>
+    <p class="cap">Slide 1 · Hook</p>
+  </div>
+
+  <div>
+    <div class="frame">
+      <div class="slide">
+        <div class="topbar"></div>
+        <div class="num">01</div>
+        <h2 class="h-mid">Hier steht eine Platzhalter-Überschrift</h2>
+        <ul class="steps">
+          <li>Hier steht ein Platzhalterpunkt, der auch zwei Zeilen lang sein darf.</li>
+          <li>Hier steht noch ein Platzhalterpunkt.</li>
+          <li>Und hier der dritte.</li>
+        </ul>
+        <div class="spacer"></div>
+        <p class="accent">Hier steht ein Platzhaltersatz, der zum letzten Slide überleitet.</p>
+        <div class="footbar"><span>weiterwischen ›</span><span class="brand">@deinhandle</span></div>
+      </div>
+    </div>
+    <p class="cap">Slide 2 · Inhalt</p>
+  </div>
+
+  <div>
+    <div class="frame">
+      <div class="slide" style="padding-bottom: 560px">
+        <div class="topbar"></div>
+        <h2 class="h-big">Hier steht der Call to Action</h2>
+        <p class="body" style="margin-bottom:36px">Hier steht ein Platzhaltersatz, der sagt, wo es den Videokurs gibt.</p>
+        <span class="cta">Platzhalter-Button</span>
+        <div class="photo-strip"></div>
+        <div class="footbar"><span>Link in der Bio</span><span class="brand">@deinhandle</span></div>
+      </div>
+    </div>
+    <p class="cap">Slide 3 · Call to Action</p>
+  </div>
+
+</div>
+
+</body>
+</html>

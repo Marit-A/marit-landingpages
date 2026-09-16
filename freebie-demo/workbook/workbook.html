@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<title>Workbook – Titel deines Freebies</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #ffb000;
+  --teal:   #00b3c3;
+  --lime:   #a4c931;
+  --heading:#3a3a3a;
+  --text:   #5a5a5a;
+  --mid:    #7b7b7b;
+  --navy:   #03557f;
+  --light:  #f7f8f5;
+}
+
+@page { size: A4; margin: 0; }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'PT Sans', Arial, sans-serif;
+  font-size: 11.5pt;
+  line-height: 1.6;
+  color: var(--text);
+  background: #e9ecea;
+}
+
+.page {
+  width: 210mm;
+  height: 297mm;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  margin: 0 auto 12mm;
+  display: flex;
+  flex-direction: column;
+}
+.page:last-child { page-break-after: auto; margin-bottom: 0; }
+
+h1, h2, h3, h4 { font-family: 'Open Sans', Arial, sans-serif; color: var(--heading); line-height: 1.25; }
+
+/* ── Titelseite ───────────────────────────────── */
+.cover-photo {
+  height: 132mm;
+  background-image: url('../assets/hero-bergsee.jpeg');
+  background-size: cover;
+  background-position: center 40%;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.cover-photo::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,20,26,0.66), rgba(0,20,26,0.14) 70%, rgba(0,20,26,0.06));
+}
+.cover-text { position: relative; text-align: center; padding: 0 18mm; }
+.cover-kicker {
+  display: inline-block;
+  background: rgba(0,179,195,0.88);
+  color: #fff; font-weight: 700; font-size: 9.5pt;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 4px 14px; border-radius: 3px; margin-bottom: 8mm;
+}
+.cover-title { margin-bottom: 7mm; line-height: 0; }
+.cover-title img {
+  width: 132mm; height: auto; display: block; margin: 0 auto;
+  filter: drop-shadow(0 2px 10px rgba(0,0,0,0.42));
+}
+.cover-sub {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 600; font-size: 14pt; color: #fff;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+}
+.bar { height: 5mm; background: var(--orange); flex: 0 0 auto; }
+.bar-thin { height: 2.5mm; }
+
+.cover-body { flex: 1; padding: 14mm 22mm; text-align: center; display: flex; flex-direction: column; justify-content: space-between; }
+.cover-body h2 { font-size: 17pt; font-weight: 600; margin-bottom: 5mm; }
+.cover-meta { font-size: 10pt; color: var(--mid); }
+
+/* ── Inhaltsseiten ────────────────────────────── */
+.page-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 9mm 18mm 6mm;
+  border-bottom: 1.5px solid #e6eae5;
+}
+.page-head .label {
+  font-family: 'Open Sans', Arial, sans-serif; font-weight: 700;
+  font-size: 9pt; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #fff; background: var(--teal); padding: 3px 11px; border-radius: 3px;
+}
+.page-head .brand { line-height: 0; }
+.page-head .brand img { width: 58mm; height: auto; display: block; }
+.page-body { flex: 1; padding: 9mm 18mm 8mm; }
+.page-body h2 { font-size: 19pt; font-weight: 600; margin-bottom: 4mm; }
+.page-body h3 { font-size: 12.5pt; font-weight: 600; margin: 7mm 0 3mm; }
+.page-body p { margin-bottom: 4mm; }
+.intro { color: var(--mid); font-size: 10.5pt; margin-bottom: 6mm; }
+
+.qbox {
+  border: 1.5px solid #e2e7e1;
+  border-left: 4px solid var(--orange);
+  border-radius: 4px;
+  padding: 5mm 6mm;
+  margin-bottom: 6mm;
+  background: #fff;
+}
+.qbox.teal { border-left-color: var(--teal); }
+.qbox.lime { border-left-color: var(--lime); }
+.qbox .q {
+  font-family: 'Open Sans', Arial, sans-serif; font-weight: 600;
+  font-size: 11.5pt; color: var(--heading); margin-bottom: 4mm;
+}
+.lines { list-style: none; }
+.lines li { border-bottom: 1px solid #dfe4de; height: 11mm; }
+.lines li:last-child { border-bottom: 1px solid #dfe4de; }
+
+.freebox {
+  border: 1.5px dashed #ccd4cd;
+  border-radius: 4px;
+  background: var(--light);
+  height: 42mm;
+  margin-bottom: 6mm;
+  padding: 4mm 5mm;
+  color: #a8b0a8; font-size: 9.5pt;
+}
+
+.note {
+  background: var(--light);
+  border-radius: 4px;
+  padding: 5mm 6mm;
+  font-size: 10.5pt;
+}
+.note strong { color: var(--heading); }
+
+.checklist { list-style: none; }
+.checklist li { position: relative; padding-left: 9mm; margin-bottom: 4mm; }
+.checklist li::before {
+  content: ''; position: absolute; left: 0; top: 1.2mm;
+  width: 5mm; height: 5mm; border: 1.5px solid var(--lime); border-radius: 2px;
+}
+
+.page-foot {
+  padding: 4mm 18mm 6mm;
+  font-size: 8.5pt; color: var(--mid);
+  display: flex; justify-content: space-between;
+  border-top: 1px solid #eef0ed;
+}
+
+/* ── Abschlussseite ───────────────────────────── */
+.closing {
+  flex: 1;
+  background-image: url('../assets/hero-bergsee.jpeg');
+  background-size: cover;
+  background-position: 70% 70%;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
+.closing::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(0,20,26,0.62);
+}
+.closing-inner { position: relative; text-align: center; color: #fff; padding: 0 22mm; }
+.closing-inner h2 { color: #fff; font-size: 20pt; margin-bottom: 5mm; }
+.closing-inner p { color: #eefafb; margin-bottom: 5mm; }
+.closing-sign {
+  font-family: 'Open Sans', Arial, sans-serif; font-weight: 600;
+  font-size: 15pt; line-height: 1.4; color: #fff;
+}
+.closing-sign span { display: block; font-weight: 400; font-size: 10.5pt; opacity: 0.85; margin-top: 2mm; }
+.closing-portrait {
+  width: 26mm; height: 26mm; border-radius: 50%; object-fit: cover;
+  border: 3px solid #fff; margin: 0 auto 4mm; display: block;
+}
+</style>
+</head>
+<body>
+
+<!-- ══ Seite 1 · Titel ══════════════════════════ -->
+<div class="page">
+  <div class="cover-photo">
+    <div class="cover-text">
+      <span class="cover-kicker">Workbook · 3-teiliger Videokurs</span>
+      <div class="cover-title"><img src="../assets/logo-titel-weiss.svg" alt="Titel deines Freebies"></div>
+      <div class="cover-sub">Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</div>
+    </div>
+  </div>
+  <div class="bar"></div>
+  <div class="cover-body">
+    <div>
+      <h2>Hier steht eine Überschrift für die Titelseite</h2>
+      <p>Hier steht ein Platzhalterabsatz, der in drei bis vier Sätzen erklärt, wie dieses Workbook zu den drei Videos gehört und wie man am besten damit arbeitet.</p>
+      <div class="note" style="text-align:left;margin-top:8mm">
+        <strong>So arbeitest du damit:</strong> Hier steht ein Platzhaltertext. Nach jedem Video gibt es eine Seite mit zwei bis drei Fragen und Platz zum Schreiben. Zehn Minuten pro Seite reichen.
+      </div>
+    </div>
+    <div class="cover-meta">Platzhalter · Dein Name · deine-domain.de</div>
+  </div>
+  <div class="bar bar-thin"></div>
+</div>
+
+<!-- ══ Seite 2 · Video 1 ════════════════════════ -->
+<div class="page">
+  <div class="page-head">
+    <span class="label">Video 1 · Die Herausforderung</span>
+    <span class="brand"><img src="../assets/logo-titel-tuerkis.svg" alt="Titel deines Freebies"></span>
+  </div>
+  <div class="page-body">
+    <h2>Hier steht der Titel der Arbeitsseite</h2>
+    <p class="intro">Hier steht ein Platzhaltersatz, der die Seite einleitet. Eine Zeile reicht.</p>
+
+    <div class="qbox">
+      <div class="q">1. Hier steht die erste Platzhalter-Frage?</div>
+      <ul class="lines"><li></li><li></li><li></li></ul>
+    </div>
+
+    <div class="qbox teal">
+      <div class="q">2. Hier steht die zweite Platzhalter-Frage?</div>
+      <ul class="lines"><li></li><li></li><li></li></ul>
+    </div>
+
+    <div class="qbox lime">
+      <div class="q">3. Hier steht die dritte Platzhalter-Frage?</div>
+      <ul class="lines"><li></li><li></li><li></li></ul>
+    </div>
+
+    <div class="note"><strong>Merksatz aus Video 1:</strong> Hier steht der eine Satz, den man sich merken sollte. Platzhaltertext.</div>
+  </div>
+  <div class="page-foot"><span>Workbook · Platzhalter</span><span>Seite 2</span></div>
+  <div class="bar bar-thin"></div>
+</div>
+
+<!-- ══ Seite 3 · Video 2 ════════════════════════ -->
+<div class="page">
+  <div class="page-head">
+    <span class="label">Video 2 · Der Weg</span>
+    <span class="brand"><img src="../assets/logo-titel-tuerkis.svg" alt="Titel deines Freebies"></span>
+  </div>
+  <div class="page-body">
+    <h2>Hier steht der Titel der Arbeitsseite</h2>
+    <p class="intro">Hier steht ein Platzhaltersatz, der die Seite einleitet.</p>
+
+    <h3>Deine vier Schritte</h3>
+    <ul class="checklist">
+      <li>Schritt 1: Hier steht ein Platzhaltertext.</li>
+      <li>Schritt 2: Hier steht ein Platzhaltertext.</li>
+      <li>Schritt 3: Hier steht ein Platzhaltertext.</li>
+      <li>Schritt 4: Hier steht ein Platzhaltertext.</li>
+    </ul>
+
+    <h3>Dein eigener Weg, skizziert</h3>
+    <div class="freebox">Platz für deine Notizen, Skizze oder Stichpunkte</div>
+
+    <div class="qbox teal">
+      <div class="q">Woran merkst du, dass es funktioniert?</div>
+      <ul class="lines"><li></li><li></li><li></li></ul>
+    </div>
+  </div>
+  <div class="page-foot"><span>Workbook · Platzhalter</span><span>Seite 3</span></div>
+  <div class="bar bar-thin"></div>
+</div>
+
+<!-- ══ Seite 4 · Video 3 ════════════════════════ -->
+<div class="page">
+  <div class="page-head">
+    <span class="label">Video 3 · Das Fallbeispiel</span>
+    <span class="brand"><img src="../assets/logo-titel-tuerkis.svg" alt="Titel deines Freebies"></span>
+  </div>
+  <div class="page-body">
+    <h2>Hier steht der Titel der Arbeitsseite</h2>
+    <p class="intro">Hier steht ein Platzhaltersatz, der die Seite einleitet.</p>
+
+    <div class="qbox">
+      <div class="q">Was aus dem Fallbeispiel passt zu deiner Situation?</div>
+      <ul class="lines"><li></li><li></li><li></li></ul>
+    </div>
+
+    <h3>Dein erster konkreter Schritt</h3>
+    <div class="freebox">Was machst du in den nächsten sieben Tagen?</div>
+
+    <div class="qbox lime">
+      <div class="q">Was hält dich bisher davon ab?</div>
+      <ul class="lines"><li></li><li></li><li></li></ul>
+    </div>
+  </div>
+  <div class="page-foot"><span>Workbook · Platzhalter</span><span>Seite 4</span></div>
+  <div class="bar bar-thin"></div>
+</div>
+
+<!-- ══ Seite 5 · Abschluss ══════════════════════ -->
+<div class="page">
+  <div class="page-head">
+    <span class="label">Zum Schluss</span>
+    <span class="brand"><img src="../assets/logo-titel-tuerkis.svg" alt="Titel deines Freebies"></span>
+  </div>
+  <div class="closing">
+    <div class="closing-inner">
+      <img src="../assets/portrait-marit.jpg" alt="" class="closing-portrait">
+      <h2>Hier steht eine Überschrift zum Abschluss</h2>
+      <p>Hier steht ein Platzhalterabsatz: Danke fürs Mitmachen, so kannst du dich melden, und das wäre der nächste Schritt, wenn du weitergehen möchtest.</p>
+      <p class="closing-sign">Herzliche Grüße,<br>Marit<span>Platzhalter für deine Signatur</span></p>
+    </div>
+  </div>
+  <div class="bar"></div>
+</div>
+
+</body>
+</html>

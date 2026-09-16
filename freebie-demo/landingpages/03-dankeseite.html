@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Titel deines Freebies – Danke</title>
+<link rel="stylesheet" href="../assets/freebie-demo.css">
+</head>
+<body>
+
+<div class="demo-bar"><strong>DEMO</strong> &nbsp;·&nbsp; Dankeseite (3 von 3) &nbsp;·&nbsp; alle Texte sind Platzhalter</div>
+
+<nav class="nav">
+  <img src="../assets/logo-marit-alke.png" alt="Marit Alke">
+  <span class="nav-meta">Kostenloser 3-teiliger Videokurs</span>
+</nav>
+<hr class="divider divider-nav">
+
+<header class="hero hero-slim">
+  <div class="hero-inner">
+    <span class="hero-kicker">Anmeldung bestätigt</span>
+    <h1 class="hero-title"><img src="../assets/logo-titel-weiss.svg" alt="Titel deines Freebies"></h1>
+    <p class="hero-sub-short">Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</p>
+  </div>
+</header>
+<hr class="divider divider-hero">
+
+<section class="section">
+  <div class="wrap-text center">
+    <h2 class="reveal">Schön, dass du dabei bist</h2>
+    <p class="reveal">Hier steht ein Platzhaltertext in zwei Sätzen: Alles ist bestätigt, Video 1 wartet schon, die beiden anderen Teile kommen per Mail.</p>
+  </div>
+
+  <div class="wrap reveal" style="margin-top:34px">
+    <div class="card" style="max-width:760px;margin:0 auto;text-align:center">
+      <span class="placeholder-tag">PLATZHALTER · Vorschaubild oder Videostart</span>
+      <h3 style="text-align:center">Video 1: Hier steht der Platzhalter-Titel</h3>
+      <p>Hier steht ein kurzer Satz dazu, worum es in Teil 1 geht. Dauer: ca. 12 Minuten.</p>
+      <a href="../kursseiten/video-1.html" class="btn btn-primary btn-pulse">Jetzt Video 1 ansehen</a>
+    </div>
+  </div>
+</section>
+
+<div class="banner">So geht es in den nächsten Tagen weiter</div>
+
+<section class="section section-light">
+  <div class="wrap">
+    <div class="grid-3">
+      <div class="takeaway reveal">
+        <span class="num">1</span>
+        <h4>Heute · Video 1</h4>
+        <p>Hier steht ein Platzhaltersatz zu Teil 1.</p>
+      </div>
+      <div class="takeaway t-orange reveal">
+        <span class="num">2</span>
+        <h4>Morgen · Video 2</h4>
+        <p>Hier steht ein Platzhaltersatz zu Teil 2.</p>
+      </div>
+      <div class="takeaway t-lime reveal">
+        <span class="num">3</span>
+        <h4>Übermorgen · Video 3</h4>
+        <p>Hier steht ein Platzhaltersatz zu Teil 3.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2 class="reveal">Du möchtest schon jetzt mehr?</h2>
+    <div class="wrap-text reveal">
+      <p class="center">Hier steht ein kurzer Platzhaltertext, der überleitet: Für alle, die nicht warten wollen, gibt es dieses Angebot.</p>
+    </div>
+
+    <div class="offer reveal" style="margin-top:30px">
+      <div class="offer-head">Nur für neue Teilnehmerinnen · Platzhalter-Hinweis</div>
+      <div class="offer-body">
+        <div class="grid-40-60">
+          <div class="center">
+            <img src="../assets/gradient.jpg" alt="Platzhalter Produktbild" style="border-radius:6px;box-shadow:0 4px 16px rgba(0,0,0,0.15)">
+          </div>
+          <div>
+            <h3>Name deines Zusatzangebots</h3>
+            <p>Hier steht ein Platzhalterabsatz über das Angebot: Was ist es, für wen ist es, was verändert sich damit. Drei bis vier Sätze.</p>
+            <ul class="list list-check">
+              <li>Hier steht ein Platzhalter-Baustein.</li>
+              <li>Hier steht noch ein Platzhalter-Baustein.</li>
+              <li>Und hier der dritte.</li>
+            </ul>
+            <p class="offer-price">XX €<small>Platzhalter · statt XX €, gilt XX Stunden</small></p>
+            <a href="#" class="btn btn-ondark btn-shimmer">Platzhalter für deinen Button</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<hr class="divider">
+
+<section class="echo">
+  <div class="echo-inner reveal">
+    <h2>Eine Bitte zum Schluss</h2>
+    <p>Hier steht ein Platzhaltertext, zum Beispiel die Einladung, direkt auf die erste Mail zu antworten und zu erzählen, woran du gerade arbeitest.</p>
+    <div class="portrait-row" style="margin-top:22px">
+      <img src="../assets/portrait-marit.jpg" alt="Platzhalter Portrait" class="portrait">
+      <p class="signature">Herzliche Grüße,<br>Marit<span>Platzhalter für deine Signatur</span></p>
+    </div>
+  </div>
+</section>
+<hr class="divider divider-hero">
+
+<footer class="footer">
+  <p>© Platzhalter · Dein Name</p>
+  <p><a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+</footer>
+
+<script>
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('is-visible'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

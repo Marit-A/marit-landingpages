@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folien Video 3 – Das Fallbeispiel</title>
+<link rel="stylesheet" href="../assets/folien.css">
+</head>
+<body>
+
+<div class="deck">
+  <div class="stage" id="stage">
+
+    <!-- Folie 1 -->
+    <section class="slide slide-title is-active">
+      <span class="kicker">Video 3 von 3</span>
+      <h1>Das Fallbeispiel</h1>
+      <p>Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</p>
+    </section>
+
+    <!-- Folie 2 -->
+    <section class="slide slide-content">
+      <h2>Von der Ausgangslage zum Ergebnis</h2>
+      <div class="rule"></div>
+      <p class="lead">Hier steht ein Platzhaltersatz, der das Fallbeispiel einordnet.</p>
+      <div class="slide-body">
+        <div class="timeline">
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <h4>Ausgangslage</h4>
+            <p>Hier steht ein Platzhaltertext in zwei Sätzen. So sah es vorher aus.</p>
+          </div>
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <h4>Umsetzung</h4>
+            <p>Hier steht ein Platzhaltertext in zwei Sätzen. Das wurde konkret gemacht.</p>
+          </div>
+          <div class="tl-item">
+            <span class="tl-dot"></span>
+            <h4>Ergebnis</h4>
+            <p>Hier steht ein Platzhaltertext in zwei Sätzen. Das kam dabei heraus.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bar-bottom"></div>
+    </section>
+
+    <!-- Folie 3 -->
+    <section class="slide slide-content">
+      <h2>Übertragen auf dich</h2>
+      <div class="rule"></div>
+      <div class="slide-body center">
+        <div class="two-col" style="align-items:center">
+          <div>
+            <ul class="check-list">
+              <li>Hier steht ein Platzhalterpunkt zum Mitnehmen.</li>
+              <li>Hier steht noch ein Platzhalterpunkt.</li>
+              <li>Und hier der dritte.</li>
+            </ul>
+          </div>
+          <div class="statement" style="font-size:1.5em;max-width:none">
+            <span class="star">✦</span> Hier steht dein erster konkreter Schritt für die nächsten sieben Tage. Platzhaltertext.
+          </div>
+        </div>
+      </div>
+      <div class="bar-bottom"></div>
+    </section>
+
+  </div>
+
+  <div class="deck-bar">
+    <span class="title">Video 3 · Das Fallbeispiel &nbsp;·&nbsp; Demo, alle Texte sind Platzhalter</span>
+    <span class="nav-btns">
+      <button class="nav-btn" id="prev">‹ zurück</button>
+      <span class="counter" id="counter">1 / 3</span>
+      <button class="nav-btn" id="next">weiter ›</button>
+    </span>
+  </div>
+</div>
+
+<script>
+(function () {
+  var slides = document.querySelectorAll('.slide');
+  var counter = document.getElementById('counter');
+  var i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+  }
+  document.getElementById('next').addEventListener('click', function () { show(i + 1); });
+  document.getElementById('prev').addEventListener('click', function () { show(i - 1); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  });
+  document.getElementById('stage').addEventListener('click', function (e) {
+    var r = this.getBoundingClientRect();
+    show(e.clientX - r.left > r.width / 2 ? i + 1 : i - 1);
+  });
+  show(0);
+})();
+</script>
+
+</body>
+</html>

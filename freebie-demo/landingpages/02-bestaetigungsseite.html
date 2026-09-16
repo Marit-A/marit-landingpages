@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Titel deines Freebies – Fast geschafft</title>
+<link rel="stylesheet" href="../assets/freebie-demo.css">
+</head>
+<body>
+
+<div class="demo-bar"><strong>DEMO</strong> &nbsp;·&nbsp; Bestätigungsseite (2 von 3) &nbsp;·&nbsp; alle Texte sind Platzhalter</div>
+
+<nav class="nav">
+  <img src="../assets/logo-marit-alke.png" alt="Marit Alke">
+  <span class="nav-meta">Kostenloser 3-teiliger Videokurs</span>
+</nav>
+<hr class="divider divider-nav">
+
+<header class="hero hero-slim">
+  <div class="hero-inner">
+    <span class="hero-kicker">Noch ein Schritt</span>
+    <h1 class="hero-title"><img src="../assets/logo-titel-weiss.svg" alt="Titel deines Freebies"></h1>
+    <p class="hero-sub-short">Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</p>
+  </div>
+</header>
+<hr class="divider divider-hero">
+
+<section class="section">
+  <div class="wrap-text center">
+    <h2 class="reveal">Fast geschafft: Bitte bestätige deine Anmeldung</h2>
+    <p class="reveal">Hier steht ein Platzhaltertext, der in zwei Sätzen erklärt, warum jetzt noch eine Bestätigungsmail kommt und was darin steht.</p>
+  </div>
+
+  <div class="wrap reveal" style="margin-top:36px">
+    <div class="card-bordered card-teal" style="max-width:720px;margin:0 auto">
+      <ol class="list list-num" style="margin:0">
+        <li><strong>Postfach öffnen.</strong> Hier steht ein kurzer Platzhaltersatz dazu.</li>
+        <li><strong>Mail mit dem Betreff „Platzhalter-Betreff" suchen.</strong> Hier steht ein kurzer Platzhaltersatz dazu.</li>
+        <li><strong>Auf den Bestätigungslink klicken.</strong> Danach landest du direkt bei Video 1.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<div class="banner">Nichts angekommen? Hier steht ein Platzhalter-Hinweis</div>
+
+<section class="section section-light">
+  <div class="wrap-text">
+    <p class="reveal">Hier steht ein Platzhalterabsatz für den Fall, dass die Mail nicht ankommt: Spam-Ordner, Werbung-Tab, Tippfehler in der Adresse. Zwei bis drei Sätze.</p>
+    <p class="reveal highlight-star">Hier steht ein hervorgehobener Platzhaltersatz, zum Beispiel die Bitte, den Absender ins Adressbuch aufzunehmen.</p>
+    <div class="center reveal" style="margin-top:26px">
+      <a href="01-anmeldeseite.html" class="btn btn-primary">Platzhalter: nochmal eintragen</a>
+    </div>
+  </div>
+</section>
+
+<section class="echo">
+  <div class="echo-inner reveal">
+    <h2>Und dann?</h2>
+    <p>Hier steht ein Platzhaltertext, der beschreibt, was direkt nach der Bestätigung passiert: Video 1 ist sofort da, Video 2 und 3 folgen an den nächsten beiden Tagen.</p>
+  </div>
+</section>
+<hr class="divider divider-hero">
+
+<footer class="footer">
+  <p>© Platzhalter · Dein Name</p>
+  <p><a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+</footer>
+
+<script>
+(function () {
+  var els = document.querySelectorAll('.reveal');
+  if (!('IntersectionObserver' in window)) { els.forEach(function (el) { el.classList.add('is-visible'); }); return; }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  els.forEach(function (el) { io.observe(el); });
+})();
+</script>
+
+</body>
+</html>

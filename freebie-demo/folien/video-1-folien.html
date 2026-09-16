@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Folien Video 1 – Die Herausforderung</title>
+<link rel="stylesheet" href="../assets/folien.css">
+</head>
+<body>
+
+<div class="deck">
+  <div class="stage" id="stage">
+
+    <!-- Folie 1 -->
+    <section class="slide slide-title is-active">
+      <span class="kicker">Video 1 von 3</span>
+      <h1>Die Herausforderung</h1>
+      <p>Hier steht eine kurze Subline, die den Nutzen auf den Punkt bringt.</p>
+    </section>
+
+    <!-- Folie 2 -->
+    <section class="slide slide-content">
+      <h2>Hier steht eine Platzhalter-Überschrift</h2>
+      <div class="rule"></div>
+      <p class="lead">Hier steht ein Platzhaltersatz, der die drei Punkte einleitet.</p>
+      <div class="slide-body">
+        <div class="cards">
+          <div class="c-card">
+            <span class="n">01</span>
+            <h3>Platzhalter-Titel</h3>
+            <p>Hier steht die Erklärung in ein bis zwei Sätzen. Platzhaltertext.</p>
+          </div>
+          <div class="c-card o">
+            <span class="n">02</span>
+            <h3>Platzhalter-Titel</h3>
+            <p>Hier steht die Erklärung in ein bis zwei Sätzen. Platzhaltertext.</p>
+          </div>
+          <div class="c-card l">
+            <span class="n">03</span>
+            <h3>Platzhalter-Titel</h3>
+            <p>Hier steht die Erklärung in ein bis zwei Sätzen. Platzhaltertext.</p>
+          </div>
+        </div>
+      </div>
+      <div class="bar-bottom"></div>
+    </section>
+
+    <!-- Folie 3 -->
+    <section class="slide slide-content">
+      <h2>Und darum ist das so hartnäckig</h2>
+      <div class="rule"></div>
+      <div class="slide-body center">
+        <div class="statement">
+          <span class="star">✦</span> Hier steht der eine Satz, um den sich das ganze erste Video dreht. Platzhaltertext.
+        </div>
+        <p class="lead" style="margin:1.6em auto 0;text-align:center">Hier steht ein Platzhaltersatz, der zu Video 2 überleitet.</p>
+      </div>
+      <div class="bar-bottom"></div>
+    </section>
+
+  </div>
+
+  <div class="deck-bar">
+    <span class="title">Video 1 · Die Herausforderung &nbsp;·&nbsp; Demo, alle Texte sind Platzhalter</span>
+    <span class="nav-btns">
+      <button class="nav-btn" id="prev">‹ zurück</button>
+      <span class="counter" id="counter">1 / 3</span>
+      <button class="nav-btn" id="next">weiter ›</button>
+    </span>
+  </div>
+</div>
+
+<script>
+(function () {
+  var slides = document.querySelectorAll('.slide');
+  var counter = document.getElementById('counter');
+  var i = 0;
+  function show(n) {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach(function (s, k) { s.classList.toggle('is-active', k === i); });
+    counter.textContent = (i + 1) + ' / ' + slides.length;
+  }
+  document.getElementById('next').addEventListener('click', function () { show(i + 1); });
+  document.getElementById('prev').addEventListener('click', function () { show(i - 1); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); show(i + 1); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); show(i - 1); }
+  });
+  document.getElementById('stage').addEventListener('click', function (e) {
+    var r = this.getBoundingClientRect();
+    show(e.clientX - r.left > r.width / 2 ? i + 1 : i - 1);
+  });
+  show(0);
+})();
+</script>
+
+</body>
+</html>

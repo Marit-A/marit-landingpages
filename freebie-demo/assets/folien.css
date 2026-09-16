@@ -1,0 +1,211 @@
+/* ============================================================
+   Freebie Demo - Präsentationsfolien (16:9)
+   Marit Alke Design System · alle Texte sind Platzhalter
+   Navigation: Pfeiltasten, Leertaste oder Klick auf die Pfeile
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap');
+
+:root {
+  --orange: #ffb000;
+  --teal:   #00b3c3;
+  --lime:   #a4c931;
+  --heading:#3a3a3a;
+  --text:   #5a5a5a;
+  --mid:    #7b7b7b;
+  --navy:   #03557f;
+  --light:  #f7f8f5;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'PT Sans', Arial, sans-serif;
+  background: #14181a;
+  color: var(--text);
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  padding: 24px;
+}
+
+.deck { width: min(1280px, 96vw); }
+
+.stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  /* Basis für die Skalierung: alle Innenmaße in em von --u */
+  container-type: inline-size;
+}
+
+.slide {
+  position: absolute; inset: 0;
+  display: none;
+  flex-direction: column;
+  font-size: clamp(10px, 1.42cqw, 22px);
+}
+.slide.is-active { display: flex; }
+
+/* ── Titelfolie ──────────────────────────────── */
+.slide-title {
+  background-image: url('hero-bergsee.jpeg');
+  background-size: cover;
+  background-position: center 40%;
+  align-items: center; justify-content: center;
+  text-align: center;
+  position: absolute;
+}
+.slide-title::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,20,26,0.70), rgba(0,20,26,0.24) 70%, rgba(0,20,26,0.10));
+}
+.slide-title > * { position: relative; }
+.slide-title .kicker {
+  font-family: 'Open Sans', sans-serif; font-weight: 700;
+  font-size: 1.1em; letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: rgba(0,179,195,0.88);
+  padding: 0.45em 1.2em; border-radius: 3px; margin-bottom: 1.4em;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+}
+.slide-title h1 {
+  font-family: 'Open Sans', sans-serif; font-weight: 700;
+  font-size: 3.4em; line-height: 1.16; color: #fff;
+  text-shadow: 0 3px 18px rgba(0,0,0,0.55);
+  margin-bottom: 0.5em;
+  padding: 0 1em;
+}
+.slide-title p {
+  font-family: 'Open Sans', sans-serif; font-weight: 600;
+  font-size: 1.5em; color: #fff; max-width: 26em;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.55);
+}
+
+/* ── Inhaltsfolie ────────────────────────────── */
+.slide-content { background: #fff; padding: 2.8em 3.4em 3.6em; }
+.slide-content h2 {
+  font-family: 'Open Sans', sans-serif; font-weight: 600;
+  font-size: 2.5em; line-height: 1.2; color: var(--heading);
+  margin-bottom: 0.3em;
+}
+.slide-content .rule { height: 3px; width: 100%; background: var(--teal); margin-bottom: 1.5em; }
+.slide-content .lead { font-size: 1.25em; line-height: 1.55; color: var(--text); margin-bottom: 1.4em; max-width: 46em; }
+.slide-body { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+.slide-body.center { justify-content: center; }
+
+.bar-bottom { position: absolute; left: 0; right: 0; bottom: 0; height: 1.1em; background: var(--orange); }
+
+/* ── Bausteine ───────────────────────────────── */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6em; }
+.c-card {
+  background: #fff; border: 2px solid #e6eae5; border-top: 5px solid var(--teal);
+  border-radius: 6px; padding: 2em 1.7em;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+.c-card.o { border-top-color: var(--orange); }
+.c-card.l { border-top-color: var(--lime); }
+.c-card .n {
+  font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: 2.6em;
+  line-height: 1; color: var(--teal); opacity: 0.3; display: block; margin-bottom: 0.2em;
+}
+.c-card.o .n { color: var(--orange); }
+.c-card.l .n { color: var(--lime); }
+.c-card h3 { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 1.35em; color: var(--heading); margin-bottom: 0.4em; }
+.c-card p { font-size: 1.12em; line-height: 1.55; }
+
+.statement {
+  border: 2px solid var(--lime); border-radius: 6px;
+  padding: 1.8em 2.2em; text-align: center;
+  font-family: 'Open Sans', sans-serif; font-weight: 600;
+  font-size: 1.8em; line-height: 1.4; color: var(--heading);
+  max-width: 34em; margin: 0 auto;
+}
+.statement .star { color: var(--orange); }
+
+.flow { display: flex; align-items: stretch; gap: 0.9em; }
+.flow-step {
+  flex: 1; background: var(--light); border-radius: 6px;
+  padding: 1.8em 1.3em; text-align: center;
+  border-bottom: 4px solid var(--teal);
+}
+.flow-step:nth-child(4n+3) { border-bottom-color: var(--orange); }
+.flow-step:nth-child(4n+5) { border-bottom-color: var(--lime); }
+.flow-step .dot {
+  width: 2.4em; height: 2.4em; border-radius: 50%;
+  background: var(--teal); color: #fff;
+  font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: 1.1em;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 0.7em;
+}
+.flow-step:nth-child(4n+3) .dot { background: var(--orange); }
+.flow-step:nth-child(4n+5) .dot { background: var(--lime); }
+.flow-step h4 { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 1.15em; color: var(--heading); margin-bottom: 0.3em; }
+.flow-step p { font-size: 1.05em; line-height: 1.5; }
+.flow-arrow {
+  align-self: center; color: var(--orange);
+  font-size: 1.8em; font-weight: 700; line-height: 1;
+}
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.8em; }
+.col-box { border: 2px solid #dfe4de; border-radius: 6px; padding: 1.9em 1.8em; }
+.col-box.good { border-color: var(--lime); }
+.col-box h3 { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 1.3em; margin-bottom: 0.6em; color: var(--heading); }
+.col-box.muted h3 { color: var(--mid); }
+.col-box ul { list-style: none; }
+.col-box li { position: relative; padding-left: 1.7em; margin-bottom: 0.8em; font-size: 1.15em; line-height: 1.55; }
+.col-box.good li::before { content: '\2713'; position: absolute; left: 0; color: var(--lime); font-weight: 700; }
+.col-box.muted li::before { content: '\2022'; position: absolute; left: 0.3em; color: #c2c8c2; font-weight: 700; }
+
+.timeline { display: flex; gap: 0; align-items: stretch; }
+.tl-item { flex: 1; text-align: center; padding: 0 1em; position: relative; }
+.tl-item::after {
+  content: ''; position: absolute; top: 1.0em; left: 50%; right: -50%;
+  height: 3px; background: #e2e7e1; z-index: 0;
+}
+.tl-item:last-child::after { display: none; }
+.tl-dot {
+  display: block;
+  position: relative; z-index: 1;
+  width: 2.3em; height: 2.3em; border-radius: 50%;
+  background: #fff; border: 3px solid var(--teal);
+  margin: 0 auto 0.9em;
+}
+.tl-item:nth-child(2) .tl-dot { border-color: var(--orange); }
+.tl-item:nth-child(3) .tl-dot { border-color: var(--lime); background: var(--lime); }
+.tl-item h4 { font-family: 'Open Sans', sans-serif; font-weight: 600; font-size: 1.3em; color: var(--heading); margin-bottom: 0.35em; }
+.tl-item p { font-size: 1.12em; line-height: 1.55; }
+
+.check-list { list-style: none; font-size: 1.2em; }
+.check-list li { position: relative; padding-left: 2em; margin-bottom: 0.8em; line-height: 1.5; }
+.check-list li::before {
+  content: ''; position: absolute; left: 0; top: 0.22em;
+  width: 1.1em; height: 1.1em; border: 2px solid var(--lime); border-radius: 3px;
+}
+
+/* ── Navigation ──────────────────────────────── */
+.deck-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 16px; margin-top: 16px;
+  font-family: 'PT Sans', Arial, sans-serif; color: #b9c2c4; font-size: 14px;
+}
+.deck-bar .title { letter-spacing: 0.04em; }
+.nav-btns { display: flex; gap: 8px; align-items: center; }
+.nav-btn {
+  background: #222a2d; border: 1px solid #3a4448; color: #dfe7e8;
+  border-radius: 4px; padding: 7px 16px; font-size: 15px; cursor: pointer;
+  font-family: 'PT Sans', Arial, sans-serif;
+  transition: background 0.2s ease;
+}
+.nav-btn:hover { background: #00b3c3; border-color: #00b3c3; color: #fff; }
+.counter { min-width: 56px; text-align: center; color: #eef4f5; font-size: 15px; }
+
+@media print {
+  body { background: #fff; display: block; padding: 0; }
+  .deck-bar { display: none; }
+  .deck { width: 100%; }
+  .stage { box-shadow: none; border-radius: 0; page-break-after: always; }
+  .slide { display: flex !important; position: relative; }
+}

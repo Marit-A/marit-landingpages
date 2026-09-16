@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Startseiten-Highlight zum Einbetten</title>
+<style>
+  body { margin: 0; background: #fff; font-family: -apple-system, system-ui, Arial, sans-serif; }
+  .demo-hint { max-width: 1040px; margin: 0 auto; padding: 34px 24px 0; color: #6b736b; font-size: 14px; line-height: 1.6; }
+  .demo-hint strong { color: #3a3a3a; }
+  .demo-stage { padding: 0 0 60px; }
+</style>
+</head>
+<body>
+
+<div class="demo-hint">
+  <p><strong>Startseiten-Highlight zum Einbetten.</strong> Alles zwischen den Markierungen kopieren und auf der Startseite einsetzen. Das Vorschaubild ist ein Screenshot des Hero-Headers der Anmeldeseite. Alle Texte sind Platzhalter.</p>
+</div>
+
+<div class="demo-stage">
+
+<!-- ═══════════ AB HIER KOPIEREN ═══════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+.ma-highlight {
+  background: #f7f8f5;
+  padding: 64px 24px;
+  font-family: 'PT Sans', Tahoma, Arial, sans-serif;
+  color: #5a5a5a;
+  position: relative;
+}
+.ma-highlight-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 52% 1fr;
+  gap: 44px;
+  align-items: center;
+}
+.ma-highlight .ma-shot {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1.5px solid #e2e7e1;
+  box-shadow: 0 6px 26px rgba(0,0,0,0.16);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ma-highlight a:hover .ma-shot {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 34px rgba(0,0,0,0.2);
+}
+.ma-highlight .ma-kick {
+  display: inline-block;
+  background: #00b3c3;
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 4px;
+  margin: 0 0 16px;
+}
+.ma-highlight h2 {
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.25;
+  color: #3a3a3a;
+  margin: 0 0 14px;
+  text-align: left;
+}
+.ma-highlight p {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  margin: 0 0 16px;
+}
+.ma-highlight .ma-list {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+}
+.ma-highlight .ma-list li {
+  position: relative;
+  padding-left: 30px;
+  margin-bottom: 9px;
+  font-size: 1.02rem;
+}
+.ma-highlight .ma-list li::before {
+  content: '\2713';
+  position: absolute; left: 0; top: -1px;
+  color: #a4c931; font-weight: 700; font-size: 1.15rem;
+}
+.ma-highlight .ma-btn {
+  display: inline-block;
+  background: #00b3c3;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-decoration: none;
+  padding: 15px 36px;
+  border-radius: 5px;
+  text-shadow: 0 0 6px rgba(20,20,20,0.55);
+  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ma-highlight .ma-btn:hover {
+  background: #a4c931;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+.ma-highlight .ma-note {
+  display: block;
+  margin: 12px 0 0;
+  font-size: 0.85rem;
+  color: #7b7b7b;
+}
+.ma-highlight .ma-bar {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  height: 10px; background: #ffb000;
+}
+@media (max-width: 820px) {
+  .ma-highlight-inner { grid-template-columns: 1fr; gap: 28px; }
+  .ma-highlight { padding: 48px 20px; }
+}
+</style>
+
+<section class="ma-highlight">
+  <div class="ma-highlight-inner">
+    <a href="../landingpages/01-anmeldeseite.html">
+      <img src="../assets/hero-vorschau.jpg" alt="Vorschau: Titel deines Freebies" class="ma-shot">
+    </a>
+    <div>
+      <span class="ma-kick">Kostenlos · 3 Videos</span>
+      <h2>Hier steht die Überschrift für dein Startseiten-Highlight</h2>
+      <p>Hier steht ein Platzhalterabsatz in zwei bis drei Sätzen, der sagt, worum es geht und für wen der Videokurs gedacht ist.</p>
+      <ul class="ma-list">
+        <li>Hier steht ein Platzhalterpunkt.</li>
+        <li>Hier steht noch ein Platzhalterpunkt.</li>
+        <li>Und hier der dritte.</li>
+      </ul>
+      <a href="../landingpages/01-anmeldeseite.html" class="ma-btn">Platzhalter für deinen Button</a>
+      <span class="ma-note">Hier steht ein Platzhalter-Hinweis, zum Beispiel die Dauer: dreimal 12 Minuten.</span>
+    </div>
+  </div>
+  <div class="ma-bar"></div>
+</section>
+<!-- ═══════════ BIS HIER KOPIEREN ═══════════ -->
+
+</div>
+
+</body>
+</html>

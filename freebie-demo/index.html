@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freebie Demo – Übersicht</title>
+<link rel="stylesheet" href="assets/freebie-demo.css">
+<style>
+  .tiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+  .tile {
+    display: block; text-decoration: none;
+    background: #fff; border: 1.5px solid #e6eae5; border-top: 5px solid var(--color-teal);
+    border-radius: 6px; padding: 22px 22px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .tile:hover { transform: translateY(-3px); box-shadow: var(--shadow-card); }
+  .tile.o { border-top-color: var(--color-orange); }
+  .tile.l { border-top-color: var(--color-lime); }
+  .tile h4 { margin-bottom: 6px; }
+  .tile p { font-size: 0.98rem; color: var(--color-text-mid); margin: 0; }
+  .group { margin-bottom: 44px; }
+  .group > h3 { margin-bottom: 16px; border-bottom: 2px solid var(--color-orange); padding-bottom: 8px; }
+  .file { font-family: monospace; font-size: 0.82rem; color: #9aa39a; display: block; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="demo-bar"><strong>DEMO</strong> &nbsp;·&nbsp; Materialien für ein 3-teiliges Freebie &nbsp;·&nbsp; alle Texte sind Platzhalter</div>
+
+<header class="hero hero-slim">
+  <div class="hero-inner">
+    <span class="hero-kicker">Demomaterial · Deep Design Workshop</span>
+    <h1 class="hero-title"><img src="assets/logo-titel-weiss.svg" alt="Titel deines Freebies"></h1>
+    <p class="hero-sub-short">Alle Bausteine eines 3-teiligen Videokurses, im Design-System gebaut.</p>
+  </div>
+</header>
+<hr class="divider divider-hero">
+
+<section class="section">
+  <div class="wrap">
+
+    <div class="group">
+      <h3>Landingpages</h3>
+      <div class="tiles">
+        <a class="tile" href="landingpages/01-anmeldeseite.html">
+          <h4>Anmeldeseite</h4>
+          <p>Hero, Inhalte, Formular-Platzhalter, FAQ.</p>
+          <span class="file">landingpages/01-anmeldeseite.html</span>
+        </a>
+        <a class="tile" href="landingpages/02-bestaetigungsseite.html">
+          <h4>Bestätigungsseite</h4>
+          <p>Drei Schritte bis zur bestätigten Anmeldung.</p>
+          <span class="file">landingpages/02-bestaetigungsseite.html</span>
+        </a>
+        <a class="tile" href="landingpages/03-dankeseite.html">
+          <h4>Dankeseite</h4>
+          <p>Link zu Video 1 plus fiktives Zusatzangebot.</p>
+          <span class="file">landingpages/03-dankeseite.html</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Kursseiten</h3>
+      <div class="tiles">
+        <a class="tile o" href="kursseiten/video-1.html">
+          <h4>Video 1 · Die Herausforderung</h4>
+          <p>Videoplatzhalter, Zeitmarken, Takeaways, Workbook eingebettet.</p>
+          <span class="file">kursseiten/video-1.html</span>
+        </a>
+        <a class="tile o" href="kursseiten/video-2.html">
+          <h4>Video 2 · Der Weg</h4>
+          <p>Vier Schritte, Takeaways, kleine Aufgabe.</p>
+          <span class="file">kursseiten/video-2.html</span>
+        </a>
+        <a class="tile o" href="kursseiten/video-3.html">
+          <h4>Video 3 · Das Fallbeispiel</h4>
+          <p>Vorher/Nachher, Takeaways, Angebotsblock.</p>
+          <span class="file">kursseiten/video-3.html</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Autoresponder-Mails</h3>
+      <div class="tiles">
+        <a class="tile l" href="mails/mail-0-bestaetigung.html">
+          <h4>Mail 0 · Bestätigung</h4>
+          <p>Double-Opt-In mit Header und Portrait.</p>
+          <span class="file">mails/mail-0-bestaetigung.html</span>
+        </a>
+        <a class="tile l" href="mails/mail-1-video-1.html">
+          <h4>Mail 1 · Video 1</h4>
+          <p>Freischaltung Teil 1, türkis hervorgehobener Abschnitt.</p>
+          <span class="file">mails/mail-1-video-1.html</span>
+        </a>
+        <a class="tile l" href="mails/mail-2-video-2.html">
+          <h4>Mail 2 · Video 2</h4>
+          <p>Freischaltung Teil 2.</p>
+          <span class="file">mails/mail-2-video-2.html</span>
+        </a>
+        <a class="tile l" href="mails/mail-3-video-3.html">
+          <h4>Mail 3 · Video 3</h4>
+          <p>Freischaltung Teil 3, grün hervorgehobener Abschnitt.</p>
+          <span class="file">mails/mail-3-video-3.html</span>
+        </a>
+        <a class="tile l" href="mails/mail-4-abschluss-angebot.html">
+          <h4>Mail 4 · Abschluss und Angebot</h4>
+          <p>Zusammenfassung plus Einladung, orange hervorgehoben.</p>
+          <span class="file">mails/mail-4-abschluss-angebot.html</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Workbook und Folien</h3>
+      <div class="tiles">
+        <a class="tile" href="workbook/Workbook-Freebie-Demo.pdf">
+          <h4>Workbook (PDF, 5 Seiten)</h4>
+          <p>Titelseite, drei Arbeitsseiten, Abschluss. Auf der Seite zu Video 1 eingebettet.</p>
+          <span class="file">workbook/Workbook-Freebie-Demo.pdf</span>
+        </a>
+        <a class="tile o" href="folien/video-1-folien.html">
+          <h4>Folien Video 1</h4>
+          <p>Die Herausforderung · 3 Folien.</p>
+          <span class="file">folien/video-1-folien.html</span>
+        </a>
+        <a class="tile o" href="folien/video-2-folien.html">
+          <h4>Folien Video 2</h4>
+          <p>Der Weg · 3 Folien.</p>
+          <span class="file">folien/video-2-folien.html</span>
+        </a>
+        <a class="tile o" href="folien/video-3-folien.html">
+          <h4>Folien Video 3</h4>
+          <p>Das Fallbeispiel · 3 Folien.</p>
+          <span class="file">folien/video-3-folien.html</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="group">
+      <h3>Social Media und Einbettung</h3>
+      <div class="tiles">
+        <a class="tile l" href="social/karussell-variante-a.html">
+          <h4>Karussell A · Bergsee</h4>
+          <p>Foto als Vollbild, Text unten.</p>
+          <span class="file">social/karussell-variante-a.html</span>
+        </a>
+        <a class="tile l" href="social/karussell-variante-b.html">
+          <h4>Karussell B · Hell und ruhig</h4>
+          <p>Weiße Fläche, Foto nur als Streifen.</p>
+          <span class="file">social/karussell-variante-b.html</span>
+        </a>
+        <a class="tile l" href="social/karussell-variante-c.html">
+          <h4>Karussell C · Karte auf Foto</h4>
+          <p>Weiße Karte mit farbiger Kante.</p>
+          <span class="file">social/karussell-variante-c.html</span>
+        </a>
+        <a class="tile" href="einbettung/freebie-kasten.html">
+          <h4>Freebie-Kasten</h4>
+          <p>Auffälliger HTML-Block mit Button zum Einbetten.</p>
+          <span class="file">einbettung/freebie-kasten.html</span>
+        </a>
+        <a class="tile" href="einbettung/startseiten-highlight.html">
+          <h4>Startseiten-Highlight</h4>
+          <p>Vorschaubild plus Text und Button.</p>
+          <span class="file">einbettung/startseiten-highlight.html</span>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Demomaterial für das Marketingvideo zum DEEP DESIGN Workshop</p>
+  <p>Gebaut mit dem Marit Alke Design System</p>
+</footer>
+
+</body>
+</html>
