@@ -365,7 +365,7 @@
       <div class="price-tier-badge" id="tierBadge">Frühbucherpreis</div>
       <div class="price-main" id="priceMain">395,00 &euro; zzgl. MwSt. <span class="price-gross">(470,05 &euro; inkl. MwSt.)</span></div>
       <div class="price-was" id="priceWas">495,00 &euro; netto <span class="price-was-label">Regulärpreis</span></div>
-      <div class="price-detail" id="priceDetail">Frühbucherpreis gültig bis einschließlich 16.09.2026</div>
+      <div class="price-detail" id="priceDetail">Frühbucherpreis gültig bis einschließlich 18.09.2026</div>
 
       <div class="discount-row">
         <label for="discountInput">Rabattcode <span class="optional">(optional)</span></label>
@@ -512,14 +512,18 @@
     // Nur Anzeige – die verbindliche Preislogik läuft serverseitig in create-payment-deep-design.js.
     // Ein hier "gültiger" Rabattcode ist nur eine Vorschau; der Server prüft den Code-String
     // erneut gegen seine eigene Liste und übernimmt keinen vom Client berechneten Preis.
-    var cutoff = new Date("2026-09-16T21:59:59Z");
+    var cutoff = new Date("2026-09-18T21:59:59Z");
     var isEarlyBird = new Date() <= cutoff;
-    var currentTierNet   = isEarlyBird ? 395 : 495;
+    var PRICE_EARLY_NET   = 395;
+    var PRICE_REGULAR_NET = 495;
+    var currentTierNet   = isEarlyBird ? PRICE_EARLY_NET : PRICE_REGULAR_NET;
     var currentTierLabel = isEarlyBird ? "Frühbucherpreis" : "Regulärer Preis";
 
+    // basisFruehbucher: true → der Rabatt wird immer vom Frühbucherpreis abgezogen,
+    // auch nach Ablauf des Frühbucherfensters (VIP und CCDD behalten den Frühbucherpreis).
     var DISCOUNT_CODES = {
-      "CCDD70": { amount: 70,  label: "CCDD-Selbstlernkurs" },
-      "VIP100": { amount: 100, label: "VIP-Letter" }
+      "CCDD70": { amount: 70,  label: "CCDD-Selbstlernkurs", basisFruehbucher: true },
+      "VIP100": { amount: 100, label: "VIP-Letter",          basisFruehbucher: true }
     };
 
     function formatEuro(n) {
@@ -533,23 +537,29 @@
       var priceDetail = document.getElementById("priceDetail");
 
       if (discountEntry) {
-        var discNet   = Math.max(0, currentTierNet - discountEntry.amount);
+        var basisNet   = discountEntry.basisFruehbucher ? PRICE_EARLY_NET : currentTierNet;
+        var basisLabel = discountEntry.basisFruehbucher ? "Frühbucherpreis" : currentTierLabel;
+        var discNet   = Math.max(0, basisNet - discountEntry.amount);
         var discGross = Math.round(discNet * 1.19 * 100) / 100;
-        tierBadge.textContent = currentTierLabel + " + Rabatt";
+        tierBadge.textContent = basisLabel + " + Rabatt";
         priceMain.innerHTML = formatEuro(discNet) + " zzgl. MwSt. <span class=\"price-gross\">(" + formatEuro(discGross) + " inkl. MwSt.)</span>";
         priceWas.style.display = "";
-        priceWas.innerHTML = formatEuro(currentTierNet) + " netto <span class=\"price-was-label\">" + currentTierLabel + " ohne Rabatt</span>";
-        priceDetail.textContent = isEarlyBird
-          ? "Frühbucherpreis gültig bis einschließlich 16.09.2026, Rabattcode zusätzlich angewendet."
-          : "Rabattcode angewendet.";
+        priceWas.innerHTML = formatEuro(basisNet) + " netto <span class=\"price-was-label\">" + basisLabel + " ohne Rabatt</span>";
+        if (isEarlyBird) {
+          priceDetail.textContent = "Frühbucherpreis gültig bis einschließlich 18.09.2026, Rabattcode zusätzlich angewendet.";
+        } else if (discountEntry.basisFruehbucher) {
+          priceDetail.textContent = "Rabattcode angewendet, du bekommst weiterhin den Frühbucherpreis.";
+        } else {
+          priceDetail.textContent = "Rabattcode angewendet.";
+        }
       } else {
         tierBadge.textContent = currentTierLabel;
         var grossNormal = Math.round(currentTierNet * 1.19 * 100) / 100;
         priceMain.innerHTML = formatEuro(currentTierNet) + " zzgl. MwSt. <span class=\"price-gross\">(" + formatEuro(grossNormal) + " inkl. MwSt.)</span>";
         if (isEarlyBird) {
           priceWas.style.display = "";
-          priceWas.innerHTML = "495,00 \u20ac netto <span class=\"price-was-label\">Regulärpreis</span>";
-          priceDetail.textContent = "Frühbucherpreis gültig bis einschließlich 16.09.2026";
+          priceWas.innerHTML = formatEuro(PRICE_REGULAR_NET) + " netto <span class=\"price-was-label\">Regulärpreis</span>";
+          priceDetail.textContent = "Frühbucherpreis gültig bis einschließlich 18.09.2026";
         } else {
           priceWas.style.display = "none";
           priceDetail.textContent = "Frühbucherphase ist beendet.";

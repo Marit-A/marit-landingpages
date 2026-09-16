@@ -3,17 +3,21 @@ const https = require("https");
 const MOLLIE_API_KEY = process.env.MOLLIE_API_KEY_DEEP_DESIGN;
 const BASE_URL = "https://lp.marit-alke.de";
 
-// Frühbucher gilt bis einschließlich 16.09.2026, 23:59:59 Uhr (Europe/Berlin = UTC+2 im September)
-const EARLY_BIRD_CUTOFF = new Date("2026-09-16T21:59:59Z");
+// Frühbucher gilt bis einschließlich 18.09.2026, 23:59:59 Uhr (Europe/Berlin = UTC+2 im September)
+// Am 16.09.2026 von 16.09. auf 18.09. verlängert.
+const EARLY_BIRD_CUTOFF = new Date("2026-09-18T21:59:59Z");
 
 // Preise in Cent (Integer-Rechnung, um Fließkomma-Rundungsfehler bei Geldbeträgen zu vermeiden)
 const PRICE_EARLY_NET_CENTS    = 39500;
 const PRICE_REGULAR_NET_CENTS  = 49500;
 
 // Rabattcodes: Code (Groß-/Kleinschreibung + Leerraum werden vor dem Vergleich normalisiert) → Netto-Rabatt in Cent
+// basisFruehbucher: true bedeutet, der Rabatt wird immer vom Frühbucherpreis abgezogen,
+// auch nach Ablauf des Frühbucherfensters. VIP-Letter- und CCDD-Käuferinnen behalten damit
+// dauerhaft den Frühbucherpreis: 295 € (VIP100) bzw. 325 € (CCDD70) netto.
 const DISCOUNT_CODES = {
-  "CCDD70": { amountCents: 7000,  label: "CCDD-Selbstlernkurs" },
-  "VIP100": { amountCents: 10000, label: "VIP-Letter" }
+  "CCDD70": { amountCents: 7000,  label: "CCDD-Selbstlernkurs", basisFruehbucher: true },
+  "VIP100": { amountCents: 10000, label: "VIP-Letter",          basisFruehbucher: true }
 };
 
 function centsToStr(cents) {
@@ -56,7 +60,8 @@ exports.handler = async (event) => {
 
   let priceNetCents = isEarlyBird ? PRICE_EARLY_NET_CENTS : PRICE_REGULAR_NET_CENTS;
   if (discountEntry) {
-    priceNetCents = Math.max(0, priceNetCents - discountEntry.amountCents);
+    const basisCents = discountEntry.basisFruehbucher ? PRICE_EARLY_NET_CENTS : priceNetCents;
+    priceNetCents = Math.max(0, basisCents - discountEntry.amountCents);
   }
   const priceGrossCents = Math.round(priceNetCents * 1.19);
 
