@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Block-Bibliothek für Landingpages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ================================================================
+   BIBLIOTHEKS-OBERFLÄCHE
+   Neue Varianten: einfach ein weiteres <template class="block"> unten
+   einfügen (data-cat, data-name, data-desc, data-tags). Fertig.
+   ================================================================ */
+:root{
+  --teal:#00b3c3; --orange:#ffb000; --lime:#a4c931; --navy:#03557f;
+  --heading:#3a3a3a; --text:#5a5a5a; --line:#e6e8e2; --bg:#f2f3ef;
+  --font-h:'Open Sans',Arial,sans-serif; --font-b:'PT Sans',Arial,sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--bg);font-family:var(--font-b);color:var(--text);font-size:1rem;line-height:1.6}
+h1,h2,h3{font-family:var(--font-h);color:var(--heading);margin:0}
+button{font:inherit;cursor:pointer}
+
+.lib-head{background:#fff;border-bottom:1px solid var(--line);padding:40px 24px 0}
+.lib-head-inner{max-width:1240px;margin:0 auto}
+.lib-kicker{font-family:var(--font-h);font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.lib-head h1{font-size:clamp(1.7rem,3.4vw,2.4rem);margin:6px 0 8px}
+.lib-head p{max-width:680px;margin:0 0 24px}
+
+.lib-tabs{display:flex;gap:4px;flex-wrap:wrap}
+.lib-tab{border:0;background:none;padding:12px 18px;font-family:var(--font-h);font-weight:700;font-size:.95rem;color:#8a8a8a;border-bottom:3px solid transparent}
+.lib-tab .count{display:inline-block;min-width:22px;padding:0 6px;margin-left:6px;border-radius:20px;background:#eceee8;font-size:.75rem;color:var(--heading)}
+.lib-tab[aria-selected="true"]{color:var(--heading);border-bottom-color:var(--teal)}
+.lib-tab:disabled{cursor:default;opacity:.55}
+
+.lib-bar{position:sticky;top:0;z-index:20;background:rgba(242,243,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.lib-bar-inner{max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:100px;padding:3px}
+.seg button{border:0;background:none;padding:7px 16px;border-radius:100px;font-family:var(--font-h);font-weight:600;font-size:.85rem;color:var(--text)}
+.seg button[aria-pressed="true"]{background:var(--heading);color:#fff}
+.pager{display:none;align-items:center;gap:10px;margin-left:auto}
+.pager button{border:1px solid var(--line);background:#fff;border-radius:100px;width:38px;height:38px;font-size:1.1rem;color:var(--heading)}
+.pager span{font-family:var(--font-h);font-weight:700;font-size:.9rem;color:var(--heading);min-width:54px;text-align:center}
+.lib.is-browse .pager{display:inline-flex}
+
+.lib-list{max-width:1240px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:36px}
+.lib.is-browse .variant{display:none}
+.lib.is-browse .variant.is-current{display:block}
+
+.variant{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.v-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
+.v-num{font-family:var(--font-h);font-weight:800;font-size:.8rem;color:#fff;background:var(--heading);border-radius:100px;padding:4px 12px}
+.v-title{font-size:1.05rem}
+.v-desc{font-size:.9rem;color:#7b7b7b;flex:1 1 260px}
+.v-tags{display:flex;gap:6px;flex-wrap:wrap}
+.v-tag{font-size:.72rem;font-weight:700;font-family:var(--font-h);padding:3px 9px;border-radius:100px;background:rgba(0,179,195,.1);color:#047b86}
+.v-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;font-family:var(--font-h);font-weight:600;font-size:.8rem;color:var(--heading)}
+.btn:hover{border-color:#c9ccc3}
+.btn-copy{background:var(--teal);border-color:var(--teal);color:#fff}
+.btn-copy:hover{background:#019fae;border-color:#019fae}
+.btn-copy.done{background:var(--lime);border-color:var(--lime)}
+.btn[aria-pressed="true"]{background:var(--heading);color:#fff;border-color:var(--heading)}
+
+.v-stage{background:repeating-conic-gradient(#f6f6f4 0 25%,#fff 0 50%) 0 0/18px 18px;display:flex;justify-content:center}
+.v-stage iframe{display:block;width:100%;border:0;min-height:200px;transition:width .35s ease;background:#fff}
+.variant.is-mobile .v-stage{padding:24px 0}
+.variant.is-mobile iframe{width:390px;max-width:100%;border-radius:22px;box-shadow:0 0 0 10px #2b2b2b}
+
+.soon{max-width:1240px;margin:0 auto;padding:60px 24px;text-align:center;color:#8a8a8a}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--heading);color:#fff;padding:12px 20px;border-radius:10px;font-family:var(--font-h);font-weight:600;font-size:.9rem;transition:transform .35s ease;z-index:50}
+.toast.show{transform:translate(-50%,0)}
+@media(max-width:700px){.pager{margin-left:0}}
+</style>
+</head>
+<body>
+
+<header class="lib-head">
+  <div class="lib-head-inner">
+    <div class="lib-kicker">Marit Alke · Design-Bausteine</div>
+    <h1>Block-Bibliothek für Landingpages</h1>
+    <p>Varianten zum Durchblättern und Vergleichen. Jeder Block ist in sich geschlossen: "Code kopieren" liefert HTML, CSS und JavaScript als ein Stück, das du direkt in eine Seite einfügen kannst.</p>
+    <nav class="lib-tabs" role="tablist" id="tabs"></nav>
+  </div>
+</header>
+
+<div class="lib" id="lib">
+  <div class="lib-bar">
+    <div class="lib-bar-inner">
+      <div class="seg" aria-label="Ansicht">
+        <button type="button" data-view="list" aria-pressed="true">Alle untereinander</button>
+        <button type="button" data-view="browse" aria-pressed="false">Blättern</button>
+      </div>
+      <div class="pager">
+        <button type="button" data-step="-1" aria-label="Vorherige Variante">&#8592;</button>
+        <span id="pagerInfo">1 / 1</span>
+        <button type="button" data-step="1" aria-label="Nächste Variante">&#8594;</button>
+      </div>
+    </div>
+  </div>
+  <main class="lib-list" id="list"></main>
+</div>
+
+<div class="toast" id="toast">Block kopiert</div>
+
+<!-- ================================================================
+     KATEGORIEN
+     ================================================================ -->
+<script>
+const CATEGORIES = [
+  { id: 'features', label: 'Feature-Blöcke' },
+  { id: 'lead',     label: 'Leadgenerierung' }
+];
+</script>
+
+<!-- ================================================================
+     FEATURE-BLÖCKE
+     ================================================================ -->
+
+<!-- V1 --------------------------------------------------------- -->
+<template class="block" data-cat="features" data-name="Klassische Karten"
+  data-desc="Ruhig und vertraut. Drei Karten mit Icon, sanftes Anheben beim Hover."
+  data-tags="ruhig,hell,ohne JS">
+<style>
+.fb-karten{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
+  padding:88px 24px;background:#f7f8f5;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65}
+.fb-karten *{box-sizing:border-box}
+.fb-karten .fbk-inner{max-width:1080px;margin:0 auto;text-align:center}
+.fb-karten .fbk-kicker{font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.fb-karten h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:10px 0 14px}
+.fb-karten .fbk-lead{max-width:620px;margin:0 auto;font-size:1.1rem}
+.fb-karten .fbk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:52px;text-align:left}
+.fb-karten .fbk-card{background:#fff;border-radius:16px;padding:34px 28px;box-shadow:0 2px 8px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.07);transition:transform .3s ease,box-shadow .3s ease}
+.fb-karten .fbk-card:hover{transform:translateY(-6px);box-shadow:0 4px 12px rgba(0,0,0,.06),0 18px 40px rgba(0,0,0,.1)}
+.fb-karten .fbk-icon{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px}
+.fb-karten .fbk-icon svg{width:28px;height:28px}
+.fb-karten .c1 .fbk-icon{background:rgba(0,179,195,.12);color:var(--teal)}
+.fb-karten .c2 .fbk-icon{background:rgba(255,176,0,.15);color:#c98800}
+.fb-karten .c3 .fbk-icon{background:rgba(164,201,49,.18);color:#6f8f14}
+.fb-karten h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.25rem;margin:0 0 8px}
+.fb-karten p{margin:0}
+@media(max-width:820px){.fb-karten .fbk-grid{grid-template-columns:1fr}}
+</style>
+<section class="fb-karten">
+  <div class="fbk-inner">
+    <div class="fbk-kicker">Was du bekommst</div>
+    <h2>Drei Dinge, die sich für dich verändern</h2>
+    <p class="fbk-lead">Ein kurzer Einleitungssatz, der den Nutzen zusammenfasst. Platzhalter, ein bis zwei Zeilen.</p>
+    <div class="fbk-grid">
+      <div class="fbk-card c1">
+        <div class="fbk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div>
+        <h3>Klarheit im Kopf</h3>
+        <p>Platzhaltertext für das erste Feature. Zwei bis drei Sätze, die den konkreten Nutzen beschreiben.</p>
+      </div>
+      <div class="fbk-card c2">
+        <div class="fbk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg></div>
+        <h3>Ein fertiger Plan</h3>
+        <p>Platzhaltertext für das zweite Feature. Zwei bis drei Sätze, die den konkreten Nutzen beschreiben.</p>
+      </div>
+      <div class="fbk-card c3">
+        <div class="fbk-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Mehr Zeit</h3>
+        <p>Platzhaltertext für das dritte Feature. Zwei bis drei Sätze, die den konkreten Nutzen beschreiben.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- V2 --------------------------------------------------------- -->
+<template class="block" data-cat="features" data-name="Der Weg (Pfad mit Stationen)"
+  data-desc="Wie auf der mutigen Anmeldeseite: eine Linie zeichnet sich, die Stationen poppen nacheinander auf."
+  data-tags="Scroll-Animation,Reihenfolge,mutig">
+<style>
+.fb-pfad{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
+  padding:96px 24px;background:#fff;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65;overflow:hidden}
+.fb-pfad *{box-sizing:border-box}
+.fb-pfad .fbp-inner{max-width:1080px;margin:0 auto}
+.fb-pfad .fbp-head{text-align:center;max-width:700px;margin:0 auto 64px}
+.fb-pfad h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 14px}
+.fb-pfad h2 em{font-style:normal;color:var(--teal)}
+.fb-pfad .fbp-track{position:relative}
+.fb-pfad .fbp-line{position:absolute;top:44px;left:16.66%;right:16.66%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--orange),var(--lime));transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.65,0,.35,1)}
+.fb-pfad .fbp-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center}
+.fb-pfad .fbp-node{opacity:0;transform:translateY(24px) scale(.9);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
+.fb-pfad .fbp-dot{width:88px;height:88px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:1.8rem;color:#fff;border:6px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.fb-pfad .n1 .fbp-dot{background:var(--teal)}
+.fb-pfad .n2 .fbp-dot{background:var(--orange)}
+.fb-pfad .n3 .fbp-dot{background:var(--lime)}
+.fb-pfad h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.25rem;margin:0 0 8px}
+.fb-pfad p{margin:0 auto;max-width:300px}
+.fb-pfad.is-in .fbp-line{transform:scaleX(1)}
+.fb-pfad.is-in .fbp-node{opacity:1;transform:none}
+.fb-pfad.is-in .n1{transition-delay:.15s}
+.fb-pfad.is-in .n2{transition-delay:.6s}
+.fb-pfad.is-in .n3{transition-delay:1.05s}
+@media(max-width:820px){
+  .fb-pfad .fbp-grid{grid-template-columns:1fr;gap:44px}
+  .fb-pfad .fbp-line{top:0;bottom:0;left:50%;right:auto;width:4px;height:auto;transform:scaleY(0);transform-origin:top;margin-left:-2px;opacity:.35}
+  .fb-pfad.is-in .fbp-line{transform:scaleY(1)}
+  .fb-pfad .fbp-node{background:#fff;padding:8px 0}
+}
+@media(prefers-reduced-motion:reduce){.fb-pfad .fbp-line,.fb-pfad .fbp-node{transition:none}}
+</style>
+<section class="fb-pfad">
+  <div class="fbp-inner">
+    <div class="fbp-head">
+      <h2>Kein Theorie-Kurs. <em>Drei Schritte</em>, die du sofort anwendest.</h2>
+      <p>Ein kurzer Einleitungstext, der erklärt, wie die drei Schritte aufeinander aufbauen. Platzhalter.</p>
+    </div>
+    <div class="fbp-track">
+      <div class="fbp-line"></div>
+      <div class="fbp-grid">
+        <div class="fbp-node n1"><div class="fbp-dot">1</div><h3>Klarheit im Kopf</h3><p>Platzhaltertext für die erste Station. Zwei Sätze zum Nutzen.</p></div>
+        <div class="fbp-node n2"><div class="fbp-dot">2</div><h3>Ein fertiger Plan</h3><p>Platzhaltertext für die zweite Station. Zwei Sätze zum Nutzen.</p></div>
+        <div class="fbp-node n3"><div class="fbp-dot">3</div><h3>Mehr Zeit</h3><p>Platzhaltertext für die dritte Station. Zwei Sätze zum Nutzen.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.fb-pfad').forEach(function(el){
+    if(!('IntersectionObserver' in window)){el.classList.add('is-in');return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){el.classList.add('is-in');o.disconnect();}},{threshold:.3}).observe(el);
+  });
+})();
+</script>
+</template>
+
+<!-- V3 --------------------------------------------------------- -->
+<template class="block" data-cat="features" data-name="Dunkel mit Leuchtkarten"
+  data-desc="Tiefblauer Hintergrund, Karten mit Farbverlaufs-Rand. Ein Lichtschein folgt der Maus."
+  data-tags="dunkel,Maus-Effekt,Scroll-Animation">
+<style>
+.fb-glow{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;
+  padding:100px 24px;background:radial-gradient(ellipse at 50% 0%,#064a6e 0%,#022e46 60%,#01202f 100%);font-family:'PT Sans',Arial,sans-serif;color:rgba(255,255,255,.78);line-height:1.65}
+.fb-glow *{box-sizing:border-box}
+.fb-glow .fbg-inner{max-width:1100px;margin:0 auto;text-align:center}
+.fb-glow .fbg-kicker{display:inline-block;font-family:'Open Sans',Arial,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(164,201,49,.4);border-radius:100px;padding:6px 16px}
+.fb-glow h2{font-family:'Open Sans',Arial,sans-serif;color:#fff;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.2;margin:18px 0 56px}
+.fb-glow .fbg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left}
+.fb-glow .fbg-card{--mx:50%;--my:50%;position:relative;border-radius:20px;padding:2px;
+  background:linear-gradient(140deg,rgba(0,179,195,.8),rgba(255,176,0,.35) 50%,rgba(164,201,49,.7));
+  opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
+.fb-glow .fbg-body{position:relative;height:100%;border-radius:18px;padding:34px 28px;background:#032a40;overflow:hidden}
+.fb-glow .fbg-body::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx) var(--my),rgba(0,179,195,.28),transparent 60%);opacity:0;transition:opacity .3s}
+.fb-glow .fbg-card:hover .fbg-body::before{opacity:1}
+.fb-glow .fbg-num{position:relative;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:3.2rem;line-height:1;background:linear-gradient(135deg,var(--teal),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
+.fb-glow h3{position:relative;font-family:'Open Sans',Arial,sans-serif;color:#fff;font-size:1.25rem;margin:0 0 8px}
+.fb-glow p{position:relative;margin:0}
+.fb-glow.is-in .fbg-card{opacity:1;transform:none}
+.fb-glow.is-in .fbg-card:nth-child(2){transition-delay:.15s}
+.fb-glow.is-in .fbg-card:nth-child(3){transition-delay:.3s}
+@media(max-width:820px){.fb-glow .fbg-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.fb-glow .fbg-card{transition:none}}
+</style>
+<section class="fb-glow">
+  <div class="fbg-inner">
+    <span class="fbg-kicker">Das steckt drin</span>
+    <h2>Drei Bausteine für deinen nächsten Schritt</h2>
+    <div class="fbg-grid">
+      <div class="fbg-card"><div class="fbg-body"><div class="fbg-num">01</div><h3>Klarheit im Kopf</h3><p>Platzhaltertext für das erste Feature. Zwei bis drei Sätze zum konkreten Nutzen.</p></div></div>
+      <div class="fbg-card"><div class="fbg-body"><div class="fbg-num">02</div><h3>Ein fertiger Plan</h3><p>Platzhaltertext für das zweite Feature. Zwei bis drei Sätze zum konkreten Nutzen.</p></div></div>
+      <div class="fbg-card"><div class="fbg-body"><div class="fbg-num">03</div><h3>Mehr Zeit</h3><p>Platzhaltertext für das dritte Feature. Zwei bis drei Sätze zum konkreten Nutzen.</p></div></div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.fb-glow').forEach(function(el){
+    el.querySelectorAll('.fbg-card').forEach(function(c){
+      c.addEventListener('pointermove',function(e){var r=c.getBoundingClientRect();c.style.setProperty('--mx',(e.clientX-r.left)+'px');c.style.setProperty('--my',(e.clientY-r.top)+'px');});
+    });
+    if(!('IntersectionObserver' in window)){el.classList.add('is-in');return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){el.classList.add('is-in');o.disconnect();}},{threshold:.25}).observe(el);
+  });
+})();
+</script>
+</template>
+
+<!-- V4 --------------------------------------------------------- -->
+<template class="block" data-cat="features" data-name="Zickzack mit Farbflächen"
+  data-desc="Jedes Feature bekommt eine eigene Zeile. Farbfläche und Text wechseln die Seite und gleiten ins Bild."
+  data-tags="viel Raum,Scroll-Animation,bildtauglich">
+<style>
+.fb-zickzack{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
+  padding:96px 24px;background:#fff;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.7;overflow:hidden}
+.fb-zickzack *{box-sizing:border-box}
+.fb-zickzack .fbz-inner{max-width:1040px;margin:0 auto}
+.fb-zickzack .fbz-head{text-align:center;margin-bottom:64px}
+.fb-zickzack h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0}
+.fb-zickzack .fbz-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:72px}
+.fb-zickzack .fbz-row:last-child{margin-bottom:0}
+.fb-zickzack .fbz-row:nth-child(even) .fbz-visual{order:2}
+.fb-zickzack .fbz-visual{position:relative;aspect-ratio:4/3;border-radius:24px;overflow:hidden;display:grid;place-items:center;
+  opacity:0;transform:translateX(-60px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
+.fb-zickzack .fbz-row:nth-child(even) .fbz-visual{transform:translateX(60px)}
+.fb-zickzack .fbz-visual::after{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.18);right:-18%;bottom:-30%}
+.fb-zickzack .fbz-visual span{position:relative;z-index:1;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:clamp(4rem,10vw,7rem);color:#fff;line-height:1}
+.fb-zickzack .r1 .fbz-visual{background:linear-gradient(135deg,#00b3c3,#03557f)}
+.fb-zickzack .r2 .fbz-visual{background:linear-gradient(135deg,#ffb000,#f07f00)}
+.fb-zickzack .r3 .fbz-visual{background:linear-gradient(135deg,#a4c931,#4f8f2a)}
+.fb-zickzack .fbz-text{opacity:0;transform:translateY(24px);transition:opacity .8s ease .2s,transform .8s ease .2s}
+.fb-zickzack .fbz-label{font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+.fb-zickzack h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.6rem;margin:6px 0 12px}
+.fb-zickzack p{margin:0}
+.fb-zickzack .fbz-row.is-in .fbz-visual,.fb-zickzack .fbz-row.is-in .fbz-text{opacity:1;transform:none}
+@media(max-width:820px){
+  .fb-zickzack .fbz-row{grid-template-columns:1fr;gap:24px}
+  .fb-zickzack .fbz-row:nth-child(even) .fbz-visual{order:0}
+}
+@media(prefers-reduced-motion:reduce){.fb-zickzack .fbz-visual,.fb-zickzack .fbz-text{transition:none}}
+</style>
+<section class="fb-zickzack">
+  <div class="fbz-inner">
+    <div class="fbz-head"><h2>Was sich für dich verändert</h2></div>
+    <div class="fbz-row r1"><div class="fbz-visual"><span>01</span></div><div class="fbz-text"><div class="fbz-label">Schritt eins</div><h3>Klarheit im Kopf</h3><p>Platzhaltertext für das erste Feature. Hier ist Platz für drei bis vier Sätze, weil jede Zeile viel Raum bekommt. Die Farbfläche lässt sich später durch ein Foto oder einen Screenshot ersetzen.</p></div></div>
+    <div class="fbz-row r2"><div class="fbz-visual"><span>02</span></div><div class="fbz-text"><div class="fbz-label">Schritt zwei</div><h3>Ein fertiger Plan</h3><p>Platzhaltertext für das zweite Feature. Hier ist Platz für drei bis vier Sätze, weil jede Zeile viel Raum bekommt.</p></div></div>
+    <div class="fbz-row r3"><div class="fbz-visual"><span>03</span></div><div class="fbz-text"><div class="fbz-label">Schritt drei</div><h3>Mehr Zeit</h3><p>Platzhaltertext für das dritte Feature. Hier ist Platz für drei bis vier Sätze, weil jede Zeile viel Raum bekommt.</p></div></div>
+  </div>
+</section>
+<script>
+(function(){
+  var rows=document.querySelectorAll('.fb-zickzack .fbz-row');
+  if(!('IntersectionObserver' in window)){rows.forEach(function(r){r.classList.add('is-in');});return;}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('is-in');io.unobserve(e.target);}});},{threshold:.25});
+  rows.forEach(function(r){io.observe(r);});
+})();
+</script>
+</template>
+
+<!-- V5 --------------------------------------------------------- -->
+<template class="block" data-cat="features" data-name="Bento-Raster"
+  data-desc="Ein großes Hauptfeature, zwei kleinere daneben. Kacheln in Markenfarben, Icons drehen sich beim Hover."
+  data-tags="modern,Hierarchie,Hover">
+<style>
+.fb-bento{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
+  padding:96px 24px;background:#f7f8f5;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65}
+.fb-bento *{box-sizing:border-box}
+.fb-bento .fbb-inner{max-width:1080px;margin:0 auto}
+.fb-bento .fbb-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
+.fb-bento h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0;max-width:560px}
+.fb-bento .fbb-head p{max-width:360px;margin:0}
+.fb-bento .fbb-grid{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:20px}
+.fb-bento .fbb-tile{border-radius:24px;padding:34px;position:relative;overflow:hidden;transition:transform .35s ease}
+.fb-bento .fbb-tile:hover{transform:scale(1.015)}
+.fb-bento .fbb-tile:hover .fbb-icon{transform:rotate(-12deg) scale(1.08)}
+.fb-bento .fbb-big{grid-row:span 2;background:var(--teal);color:rgba(255,255,255,.9);display:flex;flex-direction:column;justify-content:flex-end;min-height:420px}
+.fb-bento .fbb-big::before{content:"";position:absolute;top:-90px;right:-90px;width:300px;height:300px;border-radius:50%;border:48px solid rgba(255,255,255,.14)}
+.fb-bento .fbb-big h3{color:#fff;font-size:2rem}
+.fb-bento .fbb-orange{background:#fff;border:2px solid rgba(255,176,0,.5)}
+.fb-bento .fbb-lime{background:var(--lime);color:#253300}
+.fb-bento .fbb-lime h3{color:#1c2700}
+.fb-bento .fbb-icon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;transition:transform .35s ease}
+.fb-bento .fbb-icon svg{width:26px;height:26px}
+.fb-bento .fbb-big .fbb-icon{background:rgba(255,255,255,.2);color:#fff;position:absolute;top:34px;left:34px}
+.fb-bento .fbb-orange .fbb-icon{background:var(--orange);color:#fff}
+.fb-bento .fbb-lime .fbb-icon{background:rgba(255,255,255,.4);color:#1c2700}
+.fb-bento h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.3rem;margin:0 0 8px;position:relative}
+.fb-bento p{margin:0;position:relative}
+@media(max-width:820px){.fb-bento .fbb-grid{grid-template-columns:1fr}.fb-bento .fbb-big{grid-row:auto;min-height:340px}}
+</style>
+<section class="fb-bento">
+  <div class="fbb-inner">
+    <div class="fbb-head">
+      <h2>Alles, was du für den Start brauchst</h2>
+      <p>Ein kurzer Satz, der die drei Bausteine einordnet. Platzhalter.</p>
+    </div>
+    <div class="fbb-grid">
+      <div class="fbb-tile fbb-big">
+        <div class="fbb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg></div>
+        <h3>Klarheit im Kopf</h3>
+        <p>Das Hauptfeature bekommt die große Kachel. Platzhaltertext mit zwei bis drei Sätzen zum wichtigsten Nutzen deines Angebots.</p>
+      </div>
+      <div class="fbb-tile fbb-orange">
+        <div class="fbb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg></div>
+        <h3>Ein fertiger Plan</h3>
+        <p>Platzhaltertext für das zweite Feature, kurz gehalten.</p>
+      </div>
+      <div class="fbb-tile fbb-lime">
+        <div class="fbb-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Mehr Zeit</h3>
+        <p>Platzhaltertext für das dritte Feature, kurz gehalten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- V6 --------------------------------------------------------- -->
+<template class="block" data-cat="features" data-name="Interaktive Reiter mit Autoplay"
+  data-desc="Links die Liste, rechts das Detail. Wechselt alle 5 Sekunden von selbst, Klick übernimmt die Steuerung."
+  data-tags="interaktiv,kompakt,JS">
+<style>
+.fb-tabs{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
+  padding:96px 24px;background:#fff;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65}
+.fb-tabs *{box-sizing:border-box}
+.fb-tabs .fbt-inner{max-width:1080px;margin:0 auto}
+.fb-tabs h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 48px;text-align:center}
+.fb-tabs .fbt-wrap{display:grid;grid-template-columns:380px 1fr;gap:40px;align-items:stretch}
+.fb-tabs .fbt-list{display:flex;flex-direction:column;gap:10px}
+.fb-tabs .fbt-btn{position:relative;overflow:hidden;text-align:left;border:1px solid #e6e8e2;background:#fff;border-radius:14px;padding:18px 20px;cursor:pointer;font:inherit;color:inherit;transition:border-color .3s,background .3s}
+.fb-tabs .fbt-btn b{display:block;font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.1rem}
+.fb-tabs .fbt-btn small{font-size:.9rem;color:#8a8a8a}
+.fb-tabs .fbt-btn[aria-selected="true"]{border-color:var(--c,var(--teal));background:#fbfcfa}
+.fb-tabs .fbt-bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--c,var(--teal))}
+.fb-tabs .fbt-btn[aria-selected="true"] .fbt-bar{animation:fbtProgress 5s linear forwards}
+.fb-tabs.is-paused .fbt-btn[aria-selected="true"] .fbt-bar{animation:none;width:100%}
+@keyframes fbtProgress{to{width:100%}}
+.fb-tabs .fbt-stage{position:relative;border-radius:24px;min-height:340px;overflow:hidden;background:var(--c,var(--teal));transition:background .5s ease}
+.fb-tabs .fbt-panel{position:absolute;inset:0;padding:44px;display:flex;flex-direction:column;justify-content:flex-end;color:rgba(255,255,255,.92);opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
+.fb-tabs .fbt-panel.is-active{opacity:1;transform:none;pointer-events:auto}
+.fb-tabs .fbt-big{position:absolute;top:20px;right:34px;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:9rem;line-height:1;color:rgba(255,255,255,.2)}
+.fb-tabs .fbt-panel h3{font-family:'Open Sans',Arial,sans-serif;color:#fff;font-size:1.8rem;margin:0 0 10px}
+.fb-tabs .fbt-panel p{margin:0;max-width:440px}
+@media(max-width:860px){.fb-tabs .fbt-wrap{grid-template-columns:1fr}.fb-tabs .fbt-stage{min-height:300px}.fb-tabs .fbt-panel{padding:30px}}
+@media(prefers-reduced-motion:reduce){.fb-tabs .fbt-panel{transition:none}}
+</style>
+<section class="fb-tabs">
+  <div class="fbt-inner">
+    <h2>Drei Bausteine, ein Ergebnis</h2>
+    <div class="fbt-wrap">
+      <div class="fbt-list" role="tablist">
+        <button class="fbt-btn" role="tab" aria-selected="true" style="--c:#00b3c3"><b>Klarheit im Kopf</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
+        <button class="fbt-btn" role="tab" aria-selected="false" style="--c:#ffb000"><b>Ein fertiger Plan</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
+        <button class="fbt-btn" role="tab" aria-selected="false" style="--c:#a4c931"><b>Mehr Zeit</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
+      </div>
+      <div class="fbt-stage">
+        <div class="fbt-panel is-active" role="tabpanel"><div class="fbt-big">01</div><h3>Klarheit im Kopf</h3><p>Ausführlicher Platzhaltertext für das erste Feature. Hier ist Platz für drei bis vier Sätze oder später ein Screenshot.</p></div>
+        <div class="fbt-panel" role="tabpanel"><div class="fbt-big">02</div><h3>Ein fertiger Plan</h3><p>Ausführlicher Platzhaltertext für das zweite Feature. Hier ist Platz für drei bis vier Sätze oder später ein Screenshot.</p></div>
+        <div class="fbt-panel" role="tabpanel"><div class="fbt-big">03</div><h3>Mehr Zeit</h3><p>Ausführlicher Platzhaltertext für das dritte Feature. Hier ist Platz für drei bis vier Sätze oder später ein Screenshot.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.fb-tabs').forEach(function(root){
+    var btns=root.querySelectorAll('.fbt-btn'),panels=root.querySelectorAll('.fbt-panel'),stage=root.querySelector('.fbt-stage'),i=0,timer;
+    function show(n){
+      i=n;btns.forEach(function(b,k){b.setAttribute('aria-selected',k===n?'true':'false');});
+      panels.forEach(function(p,k){p.classList.toggle('is-active',k===n);});
+      stage.style.setProperty('--c',btns[n].style.getPropertyValue('--c'));
+    }
+    function auto(){clearInterval(timer);timer=setInterval(function(){show((i+1)%btns.length);},5000);}
+    btns.forEach(function(b,k){b.addEventListener('click',function(){clearInterval(timer);root.classList.add('is-paused');show(k);});});
+    show(0);
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) auto(); else root.classList.add('is-paused');
+  });
+})();
+</script>
+</template>
+
+<!-- ================================================================
+     BIBLIOTHEKS-LOGIK
+     ================================================================ -->
+<script>
+(function(){
+  const FONTS = '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">';
+  const BASE  = '<style>html,body{margin:0}body{font-family:"PT Sans",Arial,sans-serif}</style>';
+  const blocks = [...document.querySelectorAll('template.block')];
+  const lib = document.getElementById('lib'), list = document.getElementById('list'), tabs = document.getElementById('tabs');
+  let cat = CATEGORIES[0].id, view = 'list', idx = 0;
+
+  const code = t => t.innerHTML.trim();
+  const clipText = t =>
+    '<!-- Block: ' + t.dataset.name + ' | Block-Bibliothek Marit Alke\n' +
+    '     Schriften: Open Sans + PT Sans (müssen auf der Seite geladen sein) -->\n' + code(t) + '\n';
+
+  // Tabs
+  CATEGORIES.forEach(c => {
+    const n = blocks.filter(b => b.dataset.cat === c.id).length;
+    const b = document.createElement('button');
+    b.className = 'lib-tab'; b.setAttribute('role','tab'); b.dataset.cat = c.id;
+    b.innerHTML = c.label + '<span class="count">' + (n || 'bald') + '</span>';
+    b.onclick = () => { cat = c.id; idx = 0; render(); };
+    tabs.appendChild(b);
+  });
+
+  // Vorschau erst laden, wenn sie ins Bild kommt (damit Animationen dann starten)
+  const lazy = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) { load(e.target); lazy.unobserve(e.target); }
+  }), { rootMargin: '0px 0px -15% 0px' });
+
+  function load(frame){
+    frame.srcdoc = '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + FONTS + BASE + '</head><body>' + code(frame._tpl) + '</body></html>';
+  }
+  function fit(frame){
+    const d = frame.contentDocument; if (!d || !d.body) return;
+    const set = () => { frame.style.height = d.documentElement.scrollHeight + 'px'; };
+    set(); new ResizeObserver(set).observe(d.body);
+    setTimeout(set, 600);
+  }
+
+  function render(){
+    tabs.querySelectorAll('.lib-tab').forEach(b => b.setAttribute('aria-selected', b.dataset.cat === cat));
+    list.innerHTML = '';
+    const items = blocks.filter(b => b.dataset.cat === cat);
+    if (!items.length){
+      list.innerHTML = '<div class="soon"><h2>Kommt als Nächstes</h2><p>Hier landen die Varianten für diesen Blocktyp.</p></div>';
+      updatePager(0); return;
+    }
+    items.forEach((t, i) => {
+      const v = document.createElement('article');
+      v.className = 'variant';
+      const tags = (t.dataset.tags || '').split(',').filter(Boolean).map(x => '<span class="v-tag">' + x.trim() + '</span>').join('');
+      v.innerHTML =
+        '<div class="v-head">' +
+          '<span class="v-num">V' + (i + 1) + '</span>' +
+          '<h2 class="v-title">' + t.dataset.name + '</h2>' +
+          '<span class="v-desc">' + (t.dataset.desc || '') + '</span>' +
+          '<div class="v-tags">' + tags + '</div>' +
+          '<div class="v-actions">' +
+            '<button class="btn" data-act="mobile" aria-pressed="false">Mobil</button>' +
+            '<button class="btn" data-act="replay">Animation neu</button>' +
+            '<button class="btn btn-copy" data-act="copy">Code kopieren</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="v-stage"><iframe title="Vorschau ' + t.dataset.name + '" loading="lazy"></iframe></div>';
+      const f = v.querySelector('iframe');
+      f._tpl = t;
+      f.addEventListener('load', () => fit(f));
+      v.querySelector('[data-act="copy"]').onclick = e => copy(clipText(t), e.currentTarget);
+      v.querySelector('[data-act="replay"]').onclick = () => load(f);
+      v.querySelector('[data-act="mobile"]').onclick = e => {
+        const on = v.classList.toggle('is-mobile');
+        e.currentTarget.setAttribute('aria-pressed', on);
+        setTimeout(() => fit(f), 400);
+      };
+      list.appendChild(v);
+      lazy.observe(f);
+    });
+    updatePager(items.length);
+  }
+
+  function updatePager(n){
+    const vs = list.querySelectorAll('.variant');
+    if (idx >= n) idx = 0;
+    vs.forEach((v, i) => v.classList.toggle('is-current', i === idx));
+    document.getElementById('pagerInfo').textContent = n ? (idx + 1) + ' / ' + n : '0 / 0';
+    if (view === 'browse' && vs[idx]) { const f = vs[idx].querySelector('iframe'); if (!f.srcdoc) load(f); }
+  }
+  function step(d){
+    const n = list.querySelectorAll('.variant').length; if (!n) return;
+    idx = (idx + d + n) % n; updatePager(n);
+    const f = list.querySelectorAll('.variant')[idx].querySelector('iframe'); load(f);
+    window.scrollTo({ top: lib.offsetTop, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll('.seg button').forEach(b => b.onclick = () => {
+    view = b.dataset.view;
+    document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
+    lib.classList.toggle('is-browse', view === 'browse');
+    updatePager(list.querySelectorAll('.variant').length);
+  });
+  document.querySelectorAll('.pager button').forEach(b => b.onclick = () => step(+b.dataset.step));
+  document.addEventListener('keydown', e => {
+    if (view !== 'browse') return;
+    if (e.key === 'ArrowRight') step(1);
+    if (e.key === 'ArrowLeft') step(-1);
+  });
+
+  const toast = document.getElementById('toast');
+  async function copy(text, btn){
+    try { await navigator.clipboard.writeText(text); }
+    catch (_) {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    btn.textContent = 'Kopiert ✓'; btn.classList.add('done');
+    toast.classList.add('show');
+    setTimeout(() => { btn.textContent = 'Code kopieren'; btn.classList.remove('done'); toast.classList.remove('show'); }, 1800);
+  }
+
+  render();
+})();
+</script>
+</body>
+</html>
