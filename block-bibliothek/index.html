@@ -6,88 +6,177 @@
 <title>Block-Bibliothek für Landingpages</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
-<style>
-/* ================================================================
-   BIBLIOTHEKS-OBERFLÄCHE
-   Neue Varianten: einfach ein weiteres <template class="block"> unten
-   einfügen (data-cat, data-name, data-desc, data-tags). Fertig.
-   ================================================================ */
-:root{
-  --teal:#00b3c3; --orange:#ffb000; --lime:#a4c931; --navy:#03557f;
-  --heading:#3a3a3a; --text:#5a5a5a; --line:#e6e8e2; --bg:#f2f3ef;
-  --font-h:'Open Sans',Arial,sans-serif; --font-b:'PT Sans',Arial,sans-serif;
-}
-*,*::before,*::after{box-sizing:border-box}
-body{margin:0;background:var(--bg);font-family:var(--font-b);color:var(--text);font-size:1rem;line-height:1.6}
-h1,h2,h3{font-family:var(--font-h);color:var(--heading);margin:0}
-button{font:inherit;cursor:pointer}
 
-.lib-head{background:#fff;border-bottom:1px solid var(--line);padding:40px 24px 0}
-.lib-head-inner{max-width:1240px;margin:0 auto}
-.lib-kicker{font-family:var(--font-h);font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
+<!-- =====================================================================
+     DIESE DATEI WIRD AUS src/ GEBAUT (python3 build.py).
+     Bitte die Quelldateien in src/ bearbeiten, nicht diese Datei.
+     ===================================================================== -->
+
+<style id="design-tokens">
+/* =====================================================================
+   DESIGN-TOKENS · Marit Alke
+   Das sind nur die Grundwerte (Farben, Schriften, Radius, Schatten).
+   Die vollständigen Regeln (welche Farbe auf welchem Hintergrund,
+   Linienstärken, Schattenregeln, Bildstil, Bildordner ...) stehen im
+   Designsystem und haben IMMER Vorrang vor diesen Werten.
+   Eigene Version: siehe Reiter "Für deine eigene Version".
+   ===================================================================== */
+:root{
+  --color-primary:   #00b3c3;  /* Türkis: CTAs auf Weiß, Icon-Kreise, Akzente */
+  --color-accent:    #ffb000;  /* Orange: Trennbalken, Buttons auf Türkis/Verlauf */
+  --color-accent-2:  #a4c931;  /* Limette: nur Icons, Bullets, Ränder, einzelne Buttons. Nie große Fläche */
+  --color-secondary: #03557f;  /* Navy: sparsame Akzente, Hover */
+  --color-dark:      #022e46;  /* Tiefblau */
+  --color-heading:   #3a3a3a;  /* Überschriften */
+  --color-text:      #5a5a5a;  /* Fließtext */
+  --color-text-mid:  #7b7b7b;  /* Captions, Meta-Info */
+  --color-bg-soft:   #f7f8f5;  /* hellgrauer Sektionshintergrund */
+
+  --font-heading: 'Open Sans', Arial, sans-serif;
+  --font-body:    'PT Sans', Arial, sans-serif;
+  --font-size-button: 20px;
+
+  --radius-card:   6px;
+  --radius-button: 6px;
+  --shadow-card:          0 2px 8px rgba(0,0,0,.08), 0 6px 24px rgba(0,0,0,.10);
+  --shadow-card-on-color: 0 4px 16px rgba(0,0,0,.15);
+  --btn-text-shadow:      0 0 6px rgba(20,20,20,.55);
+
+  --container:  1050px;  /* maximale Inhaltsbreite */
+  --text-width: 700px;   /* Fließtext einspaltig */
+
+  /* Bilder: im Designsystem liegen die Originale, hier die Kopien im Ordner assets/ */
+  --image-gradient: url('assets/hintergrund-gradient.jpg');
+  --image-hero:     url('assets/hintergrund-see.jpg');
+}
+</style>
+
+<style>
+/* ================= BIBLIOTHEKS-OBERFLÄCHE ================= */
+:root{ --ui-line:#e6e8e2; --ui-bg:#f2f3ef; --ui-muted:#7b7b7b; }
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0;background:var(--ui-bg);font-family:var(--font-body);color:var(--color-text);font-size:1rem;line-height:1.6}
+h1,h2,h3,h4{font-family:var(--font-heading);color:var(--color-heading);margin:0}
+button{font:inherit;cursor:pointer}
+a{color:var(--color-primary)}
+
+.lib-head{background:#fff;border-bottom:1px solid var(--ui-line);padding:40px 24px 0}
+.wrap{max-width:1240px;margin:0 auto}
+.lib-kicker{font-family:var(--font-heading);font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-primary)}
 .lib-head h1{font-size:clamp(1.7rem,3.4vw,2.4rem);margin:6px 0 8px}
-.lib-head p{max-width:680px;margin:0 0 24px}
+.lib-head p{max-width:760px;margin:0 0 18px}
+
+.tokens{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:14px 16px;margin:0 0 22px;border:1px dashed #cfd3c8;border-radius:12px;background:#fafbf8;font-size:.88rem}
+.tokens b{font-family:var(--font-heading);color:var(--color-heading);font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+.swatches{display:flex;gap:6px}
+.sw{width:26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
+.tokens .note{flex:1 1 320px;color:var(--ui-muted)}
 
 .lib-tabs{display:flex;gap:4px;flex-wrap:wrap}
-.lib-tab{border:0;background:none;padding:12px 18px;font-family:var(--font-h);font-weight:700;font-size:.95rem;color:#8a8a8a;border-bottom:3px solid transparent}
-.lib-tab .count{display:inline-block;min-width:22px;padding:0 6px;margin-left:6px;border-radius:20px;background:#eceee8;font-size:.75rem;color:var(--heading)}
-.lib-tab[aria-selected="true"]{color:var(--heading);border-bottom-color:var(--teal)}
-.lib-tab:disabled{cursor:default;opacity:.55}
+.lib-tab{border:0;background:none;padding:12px 18px;font-family:var(--font-heading);font-weight:700;font-size:.95rem;color:#8a8a8a;border-bottom:3px solid transparent}
+.lib-tab .count{display:inline-block;min-width:22px;padding:0 6px;margin-left:6px;border-radius:20px;background:#eceee8;font-size:.75rem;color:var(--color-heading)}
+.lib-tab[aria-selected="true"]{color:var(--color-heading);border-bottom-color:var(--color-primary)}
 
-.lib-bar{position:sticky;top:0;z-index:20;background:rgba(242,243,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.lib-bar-inner{max-width:1240px;margin:0 auto;padding:12px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
-.seg{display:inline-flex;background:#fff;border:1px solid var(--line);border-radius:100px;padding:3px}
-.seg button{border:0;background:none;padding:7px 16px;border-radius:100px;font-family:var(--font-h);font-weight:600;font-size:.85rem;color:var(--text)}
-.seg button[aria-pressed="true"]{background:var(--heading);color:#fff}
+.lib-bar{position:sticky;top:0;z-index:20;background:rgba(242,243,239,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--ui-line)}
+.lib-bar .wrap{padding:12px 24px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.seg{display:inline-flex;background:#fff;border:1px solid var(--ui-line);border-radius:100px;padding:3px}
+.seg button{border:0;background:none;padding:7px 16px;border-radius:100px;font-family:var(--font-heading);font-weight:600;font-size:.85rem;color:var(--color-text)}
+.seg button[aria-pressed="true"]{background:var(--color-heading);color:#fff}
 .pager{display:none;align-items:center;gap:10px;margin-left:auto}
-.pager button{border:1px solid var(--line);background:#fff;border-radius:100px;width:38px;height:38px;font-size:1.1rem;color:var(--heading)}
-.pager span{font-family:var(--font-h);font-weight:700;font-size:.9rem;color:var(--heading);min-width:54px;text-align:center}
+.pager button{border:1px solid var(--ui-line);background:#fff;border-radius:100px;width:38px;height:38px;font-size:1.1rem;color:var(--color-heading)}
+.pager span{font-family:var(--font-heading);font-weight:700;font-size:.9rem;color:var(--color-heading);min-width:54px;text-align:center}
 .lib.is-browse .pager{display:inline-flex}
+.lib.is-page .lib-bar{display:none}
 
-.lib-list{max-width:1240px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:36px}
+.lib-list{max-width:1240px;margin:0 auto;padding:28px 24px 80px;display:flex;flex-direction:column;gap:40px}
 .lib.is-browse .variant{display:none}
 .lib.is-browse .variant.is-current{display:block}
 
-.variant{background:#fff;border:1px solid var(--line);border-radius:14px;overflow:hidden}
-.v-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--line)}
-.v-num{font-family:var(--font-h);font-weight:800;font-size:.8rem;color:#fff;background:var(--heading);border-radius:100px;padding:4px 12px}
+.variant{background:#fff;border:1px solid var(--ui-line);border-radius:14px;overflow:hidden;scroll-margin-top:80px}
+.v-head{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid var(--ui-line)}
+.v-num{font-family:var(--font-heading);font-weight:800;font-size:.8rem;color:#fff;background:var(--color-heading);border-radius:100px;padding:4px 12px}
 .v-title{font-size:1.05rem}
-.v-desc{font-size:.9rem;color:#7b7b7b;flex:1 1 260px}
+.v-desc{font-size:.9rem;color:var(--ui-muted);flex:1 1 260px}
 .v-tags{display:flex;gap:6px;flex-wrap:wrap}
-.v-tag{font-size:.72rem;font-weight:700;font-family:var(--font-h);padding:3px 9px;border-radius:100px;background:rgba(0,179,195,.1);color:#047b86}
+.v-tag{font-size:.72rem;font-weight:700;font-family:var(--font-heading);padding:3px 9px;border-radius:100px;background:color-mix(in srgb,var(--color-primary) 10%,transparent);color:color-mix(in srgb,var(--color-primary) 70%,black)}
 .v-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 12px;font-family:var(--font-h);font-weight:600;font-size:.8rem;color:var(--heading)}
+.btn{border:1px solid var(--ui-line);background:#fff;border-radius:8px;padding:7px 12px;font-family:var(--font-heading);font-weight:600;font-size:.8rem;color:var(--color-heading)}
 .btn:hover{border-color:#c9ccc3}
-.btn-copy{background:var(--teal);border-color:var(--teal);color:#fff}
-.btn-copy:hover{background:#019fae;border-color:#019fae}
-.btn-copy.done{background:var(--lime);border-color:var(--lime)}
-.btn[aria-pressed="true"]{background:var(--heading);color:#fff;border-color:var(--heading)}
+.btn[aria-pressed="true"]{background:var(--color-heading);color:#fff;border-color:var(--color-heading)}
 
 .v-stage{background:repeating-conic-gradient(#f6f6f4 0 25%,#fff 0 50%) 0 0/18px 18px;display:flex;justify-content:center}
-.v-stage iframe{display:block;width:100%;border:0;min-height:200px;transition:width .35s ease;background:#fff}
+.v-stage iframe{display:block;width:100%;border:0;min-height:220px;transition:width .35s ease;background:#fff}
 .variant.is-mobile .v-stage{padding:24px 0}
 .variant.is-mobile iframe{width:390px;max-width:100%;border-radius:22px;box-shadow:0 0 0 10px #2b2b2b}
 
-.soon{max-width:1240px;margin:0 auto;padding:60px 24px;text-align:center;color:#8a8a8a}
-.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--heading);color:#fff;padding:12px 20px;border-radius:10px;font-family:var(--font-h);font-weight:600;font-size:.9rem;transition:transform .35s ease;z-index:50}
+.v-foot{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--ui-line)}
+.v-vocab{padding:18px 20px;border-right:1px solid var(--ui-line);background:#fbfcfa}
+.v-vocab summary{cursor:pointer;font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:.92rem;list-style:none;display:flex;align-items:center;gap:8px}
+.v-vocab summary::-webkit-details-marker{display:none}
+.v-vocab summary::before{content:"i";display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--color-primary);color:#fff;font-size:.8rem;font-style:italic}
+.v-vocab summary small{font-weight:400;color:var(--ui-muted)}
+.v-vocab dl{margin:14px 0 0}
+.v-vocab dt{font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:.9rem;margin-top:12px}
+.v-vocab dt span{font-weight:400;color:var(--ui-muted)}
+.v-vocab dd{margin:2px 0 0;font-size:.9rem}
+.v-vocab dd q{display:block;margin-top:4px;padding:6px 10px;border-left:3px solid var(--color-accent);background:#fff;font-style:normal;quotes:none}
+.v-wish{padding:18px 20px}
+.v-wish label{display:block;font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:.92rem;margin-bottom:8px}
+.v-wish textarea{width:100%;min-height:86px;resize:vertical;padding:10px 12px;border:1.5px solid var(--ui-line);border-radius:10px;font:inherit;font-size:.92rem;color:var(--color-heading)}
+.v-wish textarea:focus{outline:none;border-color:var(--color-primary)}
+.v-copy{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.cbtn{border:0;border-radius:8px;padding:10px 14px;font-family:var(--font-heading);font-weight:700;font-size:.85rem;color:#fff;background:var(--color-primary)}
+.cbtn.alt{background:var(--color-heading)}
+.cbtn:hover{filter:brightness(1.08)}
+.cbtn.done{background:var(--color-accent-2)}
+.v-hint{font-size:.8rem;color:var(--ui-muted);margin:8px 0 0}
+
+/* Glossar */
+.page{max-width:1240px;margin:0 auto;padding:32px 24px 80px}
+.gl-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.gl-top input{flex:0 1 360px;padding:11px 14px;border:1.5px solid var(--ui-line);border-radius:10px;font:inherit;background:#fff}
+.gl-top input:focus{outline:none;border-color:var(--color-primary)}
+.gl-group{margin-top:34px}
+.gl-group h2{font-size:1.2rem;margin-bottom:14px}
+.gl-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.gl-card{background:#fff;border:1px solid var(--ui-line);border-radius:12px;padding:16px 18px}
+.gl-card h3{font-size:1rem}
+.gl-card .alias{font-size:.85rem;color:var(--ui-muted);margin:2px 0 8px}
+.gl-card p{margin:0;font-size:.93rem}
+.gl-card q{display:block;margin-top:10px;padding:6px 10px;border-left:3px solid var(--color-accent);background:#fbfcfa;font-size:.9rem;quotes:none}
+.gl-card .used{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.gl-card .used a{font-size:.75rem;font-family:var(--font-heading);font-weight:700;text-decoration:none;padding:3px 8px;border-radius:100px;background:color-mix(in srgb,var(--color-primary) 10%,transparent)}
+
+/* Anleitung */
+.guide{max-width:860px}
+.guide h2{font-size:1.5rem;margin:0 0 10px}
+.guide h3{font-size:1.1rem;margin:28px 0 8px}
+.guide ol{padding-left:22px}
+.guide li{margin-bottom:6px}
+.prompt{position:relative;background:#fff;border:1px solid var(--ui-line);border-left:4px solid var(--color-primary);border-radius:10px;padding:18px 20px;white-space:pre-wrap;font-size:.93rem;margin:12px 0}
+.prompt-actions{display:flex;gap:10px;align-items:center}
+
+.soon{text-align:center;color:#8a8a8a;padding:60px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140px);background:var(--color-heading);color:#fff;padding:12px 20px;border-radius:10px;font-family:var(--font-heading);font-weight:600;font-size:.9rem;transition:transform .35s ease;z-index:50;max-width:90vw;text-align:center}
 .toast.show{transform:translate(-50%,0)}
-@media(max-width:700px){.pager{margin-left:0}}
+@media(max-width:820px){.v-foot{grid-template-columns:1fr}.v-vocab{border-right:0;border-bottom:1px solid var(--ui-line)}.pager{margin-left:0}}
 </style>
 </head>
 <body>
 
 <header class="lib-head">
-  <div class="lib-head-inner">
+  <div class="wrap">
     <div class="lib-kicker">Marit Alke · Design-Bausteine</div>
     <h1>Block-Bibliothek für Landingpages</h1>
-    <p>Varianten zum Durchblättern und Vergleichen. Jeder Block ist in sich geschlossen: "Code kopieren" liefert HTML, CSS und JavaScript als ein Stück, das du direkt in eine Seite einfügen kannst.</p>
+    <p>Varianten zum Durchblättern, Vergleichen und Lernen. Zu jedem Block findest du die Fachbegriffe der Effekte, ein Feld für deine Änderungswünsche und zwei Kopier-Buttons.</p>
+    <div class="tokens" id="tokens"></div>
     <nav class="lib-tabs" role="tablist" id="tabs"></nav>
   </div>
 </header>
 
 <div class="lib" id="lib">
   <div class="lib-bar">
-    <div class="lib-bar-inner">
+    <div class="wrap">
       <div class="seg" aria-label="Ansicht">
         <button type="button" data-view="list" aria-pressed="true">Alle untereinander</button>
         <button type="button" data-view="browse" aria-pressed="false">Blättern</button>
@@ -99,46 +188,371 @@ button{font:inherit;cursor:pointer}
       </div>
     </div>
   </div>
-  <main class="lib-list" id="list"></main>
+  <main id="main"></main>
 </div>
 
-<div class="toast" id="toast">Block kopiert</div>
+<div class="toast" id="toast"></div>
 
-<!-- ================================================================
-     KATEGORIEN
-     ================================================================ -->
+<!-- ===================== ANLEITUNG (Reiter "Für deine eigene Version") ===================== -->
+<template id="guide">
+<div class="page guide">
+  <h2>So wird daraus deine eigene Bibliothek</h2>
+  <p>Diese Datei ist ein Gerüst in Marits Design. Die Grundwerte stehen ganz oben im Bereich <b>DESIGN-TOKENS</b>. Das reicht aber nicht für ein stimmiges Ergebnis: Dein Designsystem enthält viel mehr Regeln, zum Beispiel welche Farbe auf welchem Hintergrund stehen darf, wie Schatten und Linien aussehen und welche Bilder aus welchem Ordner kommen. Deshalb bekommt deine KI nicht nur neue Farben, sondern den Auftrag, dein <b>ganzes Designsystem</b> zu lesen und anzuwenden.</p>
+
+  <h3>1. Bibliothek umbauen lassen</h3>
+  <p>Leg die Datei in deinen Arbeitsordner, ersetze im Prompt den Pfad und gib ihn deiner KI:</p>
+  <div class="prompt" id="guidePrompt">Ich habe hier eine Design-Block-Bibliothek als HTML-Datei (block-bibliothek.html). Ich möchte dieselbe Bibliothek in meinem eigenen Design.
+
+So gehst du vor:
+1. Lies zuerst meinen Designsystem-Ordner vollständig: [PFAD ZU DEINEM DESIGNSYSTEM]. Dort stehen meine Farben, Schriften und die ausführlichen Regeln (welche Farbe auf welchem Hintergrund, Schatten, Linienstärken, Eckenradien, Bildstil, welche Bilder aus welchem Ordner).
+2. Ersetze oben in der Datei den Bereich DESIGN-TOKENS durch meine Grundwerte.
+3. Geh danach jeden Block einzeln durch und setze auch die Regeln aus meinem Designsystem um, die über Farben und Schriften hinausgehen. Nicht nur Werte austauschen.
+4. Behalte alle Blocktypen, Varianten, Effekte und Funktionen bei: Vorschau, Kopier-Buttons, Wunschfeld, Glossar. Die Fachbegriffe im Glossar bleiben gleich.
+5. Wenn ein Effekt meinem Designsystem widerspricht (z. B. ich nutze keine Farbverläufe), pass ihn an und vermerke das in der Beschreibung der Variante.
+6. Ersetze Marits Namen in der Kopfzeile durch meinen und speichere die Datei unter einem neuen Namen.
+7. Zeig mir am Ende eine kurze Liste, was du angepasst hast.</div>
+  <div class="prompt-actions"><button class="cbtn" id="copyGuide">Prompt kopieren</button><span class="v-hint">Tipp: Ändert sich dein Designsystem, lass die KI diesen Schritt einfach wiederholen.</span></div>
+
+  <h3>2. Einzelne Blöcke verwenden</h3>
+  <ol>
+    <li><b>Unverändert kopieren</b> nimmt den Block so, wie er ist (HTML, CSS und JavaScript in einem Stück). Füge ihn in den Chat ein und schreib dazu, wo er auf deiner Seite hin soll.</li>
+    <li><b>Mit Änderungswünschen kopieren</b> packt deinen Text aus dem Wunschfeld und den Code zusammen, inklusive des Hinweises, dass dein Designsystem gilt. Einfach in den Chat einfügen, fertig.</li>
+    <li>Das <b>Designvokabular</b> unter jedem Block zeigt dir, wie die Effekte heißen. Mit diesen Begriffen kannst du jeder KI sehr genau sagen, was du willst. Alle Begriffe findest du im Reiter <b>Glossar</b>.</li>
+  </ol>
+
+  <h3>3. Formulare anschließen</h3>
+  <p>Die Anmeldeblöcke haben <code>action="#"</code> und zeigen nur eine Demo-Bestätigung. Für den echten Einsatz die Formular-Adresse deines Newsletter-Tools eintragen lassen und die Feldnamen daran anpassen.</p>
+</div>
+</template>
+
+<!-- ===================== KATEGORIEN ===================== -->
 <script>
 const CATEGORIES = [
-  { id: 'features', label: 'Feature-Blöcke' },
-  { id: 'lead',     label: 'Leadgenerierung' }
+  { id: 'features', label: 'Features' },
+  { id: 'lead',     label: 'Leadgenerierung' },
+  { id: 'angebot',  label: 'Angebot & Preis' },
+  { id: 'stimmen',  label: 'Stimmen' },
+  { id: 'ueber',    label: 'Über mich' },
+  { id: 'faq',      label: 'FAQ' },
+  { id: 'cta',      label: 'Abschluss-CTA' }
 ];
 </script>
 
-<!-- ================================================================
-     FEATURE-BLÖCKE
-     ================================================================ -->
+<!-- ===================== GLOSSAR ===================== -->
+<script>
+/* =====================================================================
+   DESIGN-GLOSSAR
+   Jeder Begriff: name (Fachbegriff), alias (deutsch/umgangssprachlich),
+   group, what (was ist das), brief (so sagst du es der KI).
+   Blöcke verweisen über data-terms="schluessel,schluessel" auf diese Liste.
+   ===================================================================== */
+const TERMS = {
+  /* ---------- Layout ---------- */
+  'grid-3':            { group:'Layout', name:'Dreispalter (3-Column Grid)', alias:'drei gleich breite Spalten',
+    what:'Drei gleich breite Spalten nebeneinander, auf dem Handy untereinander.',
+    brief:'"Zeig die drei Features als Dreispalter, auf Mobil untereinander gestapelt."' },
+  'split-layout':      { group:'Layout', name:'Split Layout', alias:'geteilte Ansicht, Zweispalter',
+    what:'Die Fläche ist in zwei Hälften geteilt, meist Bild oder Grafik auf einer Seite, Text auf der anderen.',
+    brief:'"Mach ein Split Layout: links das Mockup, rechts Text und Formular."' },
+  'alternating':       { group:'Layout', name:'Zickzack-Layout (Alternating Rows)', alias:'abwechselnde Zeilen',
+    what:'Bild und Text wechseln von Zeile zu Zeile die Seite. Das führt das Auge im Zickzack nach unten.',
+    brief:'"Ordne die Features im Zickzack an, Bild und Text wechseln jede Zeile die Seite."' },
+  'bento':             { group:'Layout', name:'Bento-Grid', alias:'Kachelraster wie eine Bento-Box',
+    what:'Unterschiedlich große Kacheln in einem Raster, benannt nach der japanischen Lunchbox. Eine große Kachel setzt den Schwerpunkt.',
+    brief:'"Baue ein Bento-Grid mit einer großen Kachel links und zwei kleinen rechts."' },
+  'full-bleed':        { group:'Layout', name:'Full Bleed', alias:'randlos, volle Breite',
+    what:'Eine Fläche läuft ohne Rand über die ganze Bildschirmbreite, der Inhalt bleibt trotzdem mittig.',
+    brief:'"Das Band soll full bleed sein, der Text aber auf 1080px Breite zentriert."' },
+  'visual-hierarchy':  { group:'Layout', name:'Visuelle Hierarchie', alias:'Rangordnung der Elemente',
+    what:'Größe, Farbe und Position zeigen, was am wichtigsten ist und was zuerst gelesen wird.',
+    brief:'"Stärkere Hierarchie bitte: das Hauptfeature deutlich größer als die beiden anderen."' },
+  'whitespace':        { group:'Layout', name:'Weißraum (Whitespace)', alias:'Luft, Abstand',
+    what:'Leere Fläche zwischen Elementen. Viel Weißraum wirkt ruhig und hochwertig, wenig wirkt dicht und laut.',
+    brief:'"Gib dem Abschnitt mehr Weißraum, oben und unten je 120px."' },
+  'timeline':          { group:'Layout', name:'Timeline / Stepper', alias:'Zeitstrahl, Schritte',
+    what:'Nummerierte Stationen auf einer Linie. Zeigt eine Reihenfolge oder einen Weg.',
+    brief:'"Stell die drei Schritte als horizontale Timeline mit nummerierten Kreisen dar."' },
 
-<!-- V1 --------------------------------------------------------- -->
-<template class="block" data-cat="features" data-name="Klassische Karten"
+  /* ---------- Flächen & Farbe ---------- */
+  'linear-gradient':   { group:'Flächen & Farbe', name:'Linearer Farbverlauf (Linear Gradient)', alias:'Verlauf von einer Farbe in die andere',
+    what:'Zwei oder mehr Farben gehen entlang einer Richtung ineinander über, z. B. von oben links nach unten rechts.',
+    brief:'"Hintergrund als linearer Verlauf von Türkis nach Navy, 135 Grad."' },
+  'radial-gradient':   { group:'Flächen & Farbe', name:'Radialer Verlauf (Radial Gradient)', alias:'kreisförmiger Verlauf, Lichtkegel',
+    what:'Der Verlauf geht kreisförmig von einem Punkt nach außen. Wirkt wie ein Lichtschein.',
+    brief:'"Leg einen radialen Verlauf oben in die Mitte, heller als der Rest."' },
+  'gradient-overlay':  { group:'Flächen & Farbe', name:'Gradient Overlay', alias:'Verlaufsschleier über einem Foto',
+    what:'Ein halbtransparenter Farbverlauf liegt über einem Bild, damit Text darauf lesbar wird, ohne das Foto ganz zu verdecken.',
+    brief:'"Leg über das Hero-Foto ein Gradient Overlay von unten dunkel nach oben transparent."' },
+  'dark-section':      { group:'Flächen & Farbe', name:'Dunkle Sektion (Dark Section)', alias:'Farbwechsel ins Dunkle',
+    what:'Ein Abschnitt mit dunklem Hintergrund und heller Schrift. Unterbricht den Lesefluss und setzt einen Schwerpunkt.',
+    brief:'"Mach diesen Abschnitt als dunkle Sektion, Schrift weiß, Akzente in Limette."' },
+  'gradient-text':     { group:'Flächen & Farbe', name:'Verlaufsschrift (Gradient Text)', alias:'Text mit Farbverlauf',
+    what:'Die Buchstaben selbst sind mit einem Farbverlauf gefüllt. Gut für große Zahlen oder einzelne Wörter.',
+    brief:'"Die großen Zahlen 01, 02, 03 bitte als Gradient Text von Türkis nach Limette."' },
+  'contrast':          { group:'Flächen & Farbe', name:'Kontrast', alias:'Hell-Dunkel-Unterschied',
+    what:'Wie stark sich Schrift und Hintergrund unterscheiden. Zu wenig Kontrast ist schlecht lesbar, besonders für ältere Augen.',
+    brief:'"Prüf den Kontrast: weiße Schrift auf Orange ist zu schwach, nimm dort dunkle Schrift."' },
+
+  /* ---------- Formen & Tiefe ---------- */
+  'card':              { group:'Formen & Tiefe', name:'Karte (Card)', alias:'Kasten, Kachel',
+    what:'Ein abgegrenzter Kasten, der Inhalte bündelt, meist mit Hintergrund, Rundung und Schatten.',
+    brief:'"Pack jedes Feature in eine eigene weiße Card."' },
+  'border-radius':     { group:'Formen & Tiefe', name:'Eckenradius (Border Radius)', alias:'Rundung der Ecken',
+    what:'Wie stark die Ecken abgerundet sind. 0 ist eckig und sachlich, 16px freundlich, 100px macht Pillenform.',
+    brief:'"Ecken weniger rund, border-radius 8px statt 16px."' },
+  'box-shadow':        { group:'Formen & Tiefe', name:'Schlagschatten (Box Shadow)', alias:'Schatten unter Kästen',
+    what:'Ein weicher Schatten unter einem Element, der es vom Hintergrund abhebt. Größe, Unschärfe und Deckkraft sind einstellbar.',
+    brief:'"Stärkerer Schatten unter den Karten, weicher und etwas weiter nach unten versetzt."' },
+  'drop-shadow':       { group:'Formen & Tiefe', name:'Tiefenschatten', alias:'Schatten, der Tiefe erzeugt',
+    what:'Ein großer, versetzter Schatten, der ein Objekt über der Fläche schweben lässt, z. B. bei Mockups.',
+    brief:'"Gib dem Mockup einen großen weichen Schatten nach rechts unten, damit es schwebt."' },
+  'gradient-border':   { group:'Formen & Tiefe', name:'Verlaufsrahmen (Gradient Border)', alias:'Rand mit Farbverlauf',
+    what:'Der Rahmen um eine Karte ist ein Farbverlauf statt einer Einzelfarbe.',
+    brief:'"Die Karten bekommen einen 2px Gradient Border von Türkis über Orange zu Limette."' },
+  'icon-badge':        { group:'Formen & Tiefe', name:'Icon-Badge', alias:'Icon auf farbigem Plättchen',
+    what:'Ein Icon sitzt auf einer kleinen, zart eingefärbten Fläche. Wirkt ordentlicher als ein freistehendes Icon.',
+    brief:'"Setz die Icons auf runde Icon-Badges in der jeweiligen Akzentfarbe, 10 % Deckkraft."' },
+  'deko-shape':        { group:'Formen & Tiefe', name:'Dekorative Formen (Deco Shapes)', alias:'Kreise, Ringe im Hintergrund',
+    what:'Halbtransparente Kreise oder Ringe, die angeschnitten am Rand liegen und der Fläche Tiefe geben.',
+    brief:'"Leg einen großen halbtransparenten Ring angeschnitten in die rechte obere Ecke."' },
+  'mockup':            { group:'Formen & Tiefe', name:'Mockup', alias:'Produktabbildung, Cover-Vorschau',
+    what:'Eine realistische Darstellung des Produkts, z. B. Workbook-Cover, Laptop oder Handy, damit man sich das Freebie vorstellen kann.',
+    brief:'"Zeig das Workbook als Mockup, leicht gekippt, mit Schatten."' },
+  'glassmorphism':     { group:'Formen & Tiefe', name:'Glassmorphism', alias:'Milchglas-Effekt',
+    what:'Eine halbtransparente Fläche, durch die der Hintergrund verschwommen durchscheint, wie Milchglas. Braucht einen farbigen Hintergrund.',
+    brief:'"Mach die Formularkarte im Glassmorphism-Stil: halbtransparent, mit Blur und hellem 1px-Rand."' },
+  'blur':              { group:'Formen & Tiefe', name:'Weichzeichner (Blur)', alias:'Unschärfe',
+    what:'Etwas wird absichtlich unscharf gemacht, z. B. ein Hintergrundbild oder Farbflecken. Lenkt den Blick auf das Scharfe davor.',
+    brief:'"Das Hintergrundfoto stark geblurrt, 20px, damit die Schrift davor ruhig steht."' },
+  'backdrop-blur':     { group:'Formen & Tiefe', name:'Backdrop Blur', alias:'Hintergrund hinter einer Fläche verwischen',
+    what:'Nur das, was hinter einer Fläche liegt, wird verschwommen. Grundlage für Milchglas und für Pop-ups.',
+    brief:'"Wenn das Pop-up aufgeht, soll die Seite dahinter mit Backdrop Blur verschwimmen."' },
+  'blob':              { group:'Formen & Tiefe', name:'Blobs / Farbflecken', alias:'weiche Lichtflecken',
+    what:'Große, stark weichgezeichnete Farbkreise im Hintergrund. Wirken wie Licht, oft langsam animiert.',
+    brief:'"Drei weiche Farb-Blobs im Hintergrund in meinen Markenfarben, die sich langsam bewegen."' },
+
+  /* ---------- Bewegung ---------- */
+  'scroll-reveal':     { group:'Bewegung', name:'Scroll-Reveal', alias:'Einblenden beim Scrollen',
+    what:'Elemente sind erst unsichtbar und erscheinen, sobald sie beim Scrollen ins Bild kommen.',
+    brief:'"Die Karten sollen per Scroll-Reveal von unten einblenden."' },
+  'staggered':         { group:'Bewegung', name:'Gestaffelte Animation (Staggered)', alias:'nacheinander statt gleichzeitig',
+    what:'Mehrere Elemente starten dieselbe Animation mit kleinem Zeitversatz, z. B. 0,15 Sekunden. Wirkt lebendig und geordnet.',
+    brief:'"Bitte staggered: jede Karte 150ms nach der vorherigen."' },
+  'slide-in':          { group:'Bewegung', name:'Slide-in', alias:'hereingleiten',
+    what:'Ein Element gleitet von der Seite ins Bild, statt nur aufzutauchen.',
+    brief:'"Die Bilder sollen abwechselnd von links und rechts hereingleiten."' },
+  'line-draw':         { group:'Bewegung', name:'Line Draw', alias:'Linie zeichnet sich',
+    what:'Eine Linie wächst von einem Ende zum anderen, als würde sie gerade gezeichnet.',
+    brief:'"Die Verbindungslinie soll sich von links nach rechts zeichnen, 1,4 Sekunden."' },
+  'bounce-easing':     { group:'Bewegung', name:'Easing mit Überschwinger (Bounce / Overshoot)', alias:'federnd, ploppt auf',
+    what:'Easing beschreibt den Tempoverlauf einer Bewegung. Mit Überschwinger schießt das Element kurz über das Ziel hinaus und federt zurück.',
+    brief:'"Die Kreise sollen mit leichtem Overshoot aufploppen, nicht linear."' },
+  'floating':          { group:'Bewegung', name:'Floating / Schwebe-Animation', alias:'sanftes Auf und Ab',
+    what:'Ein Element bewegt sich endlos und langsam auf und ab, als würde es schweben.',
+    brief:'"Lass das Mockup sanft floaten, 6 Sekunden pro Durchgang, nur 14px Weg."' },
+  'shimmer':           { group:'Bewegung', name:'Shimmer / Glanzlicht', alias:'Lichtreflex, der über den Button läuft',
+    what:'Ein heller Streifen wandert regelmäßig über ein Element. Zieht den Blick sanft auf den Button.',
+    brief:'"Gib dem Button einen dezenten Shimmer, alle 3 Sekunden."' },
+  'pulse':             { group:'Bewegung', name:'Pulse', alias:'pulsierender Ring',
+    what:'Ein Ring breitet sich wiederholt um ein Element aus und verblasst. Signalisiert: hier klicken.',
+    brief:'"Der Haupt-Button soll leicht pulsieren."' },
+  'scale-in':          { group:'Bewegung', name:'Scale-in', alias:'aus klein groß werden',
+    what:'Ein Element erscheint, indem es von etwas kleiner auf volle Größe wächst. Typisch für Pop-ups.',
+    brief:'"Das Pop-up soll mit Scale-in und leichtem Overshoot erscheinen."' },
+  'crossfade':         { group:'Bewegung', name:'Crossfade', alias:'Überblenden',
+    what:'Ein Inhalt blendet aus, während der nächste gleichzeitig einblendet.',
+    brief:'"Beim Tab-Wechsel bitte ein weicher Crossfade statt hartem Umschalten."' },
+  'count-up':          { group:'Bewegung', name:'Count-up / Zähler-Animation', alias:'Zahl zählt hoch',
+    what:'Eine Zahl zählt beim Sichtbarwerden von 0 bis zum Zielwert hoch.',
+    brief:'"Die 1.200 soll beim Reinscrollen hochzählen."' },
+  'parallax':          { group:'Bewegung', name:'Parallax', alias:'Ebenen bewegen sich unterschiedlich schnell',
+    what:'Beim Scrollen bewegt sich der Hintergrund langsamer als der Vordergrund. Erzeugt Tiefe.',
+    brief:'"Das Hintergrundbild mit leichtem Parallax-Effekt."' },
+  'reduced-motion':    { group:'Bewegung', name:'Reduced Motion', alias:'Rücksicht auf weniger Bewegung',
+    what:'Manche Menschen stellen am Gerät "Bewegung reduzieren" ein. Gute Seiten schalten Animationen dann ab. Alle Blöcke hier machen das.',
+    brief:'"Berücksichtige prefers-reduced-motion und schalte Animationen dann ab."' },
+
+  /* ---------- Interaktion ---------- */
+  'hover-lift':        { group:'Interaktion', name:'Hover-Lift', alias:'Anheben beim Drüberfahren',
+    what:'Fährt die Maus über eine Karte, hebt sie sich ein paar Pixel an und der Schatten wird größer.',
+    brief:'"Hover-Lift auf den Karten: 6px nach oben, Schatten wächst mit."' },
+  'hover-scale':       { group:'Interaktion', name:'Hover-Scale', alias:'leichtes Vergrößern beim Drüberfahren',
+    what:'Ein Element wird beim Drüberfahren minimal größer, z. B. um 1,5 %.',
+    brief:'"Die Kacheln beim Hover minimal vergrößern, Icon dreht sich leicht."' },
+  'cursor-glow':       { group:'Interaktion', name:'Cursor-Glow / Spotlight-Effekt', alias:'Lichtschein folgt der Maus',
+    what:'Ein weicher Lichtkreis folgt dem Mauszeiger über eine dunkle Fläche. Wirkt edel und verspielt zugleich.',
+    brief:'"Auf den dunklen Karten ein Spotlight-Effekt, der der Maus folgt, in Türkis."' },
+  'perspective-tilt':  { group:'Interaktion', name:'3D-Tilt (Perspective)', alias:'kippt zur Maus',
+    what:'Ein Element ist räumlich gekippt und neigt sich, wenn die Maus darüberfährt.',
+    brief:'"Das Cover soll mit 3D-Tilt auf die Mausbewegung reagieren."' },
+  'tabs':              { group:'Interaktion', name:'Tabs / Reiter', alias:'umschaltbare Inhalte',
+    what:'Mehrere Inhalte teilen sich eine Fläche, man schaltet per Klick um. Spart Platz.',
+    brief:'"Fasse die Features in Tabs zusammen: Liste links, Detail rechts."' },
+  'autoplay':          { group:'Interaktion', name:'Autoplay', alias:'wechselt von selbst',
+    what:'Inhalte wechseln automatisch im Takt. Sobald jemand klickt, sollte der Automatismus stoppen.',
+    brief:'"Tabs mit Autoplay alle 5 Sekunden, beim Klick anhalten."' },
+  'progress-bar':      { group:'Interaktion', name:'Fortschrittsbalken (Progress Bar)', alias:'Ladebalken',
+    what:'Ein Balken zeigt, wie weit etwas fortgeschritten ist, z. B. die Zeit bis zum nächsten Tab oder der Schritt im Formular.',
+    brief:'"Unter dem aktiven Tab ein dünner Progress Bar, der bis zum Wechsel voll läuft."' },
+  'modal':             { group:'Interaktion', name:'Modal / Pop-up', alias:'Fenster über der Seite',
+    what:'Ein Fenster erscheint über der Seite, der Rest wird abgedunkelt. Schließt per X, Klick daneben oder Esc-Taste.',
+    brief:'"Öffne das Formular in einem Modal, schließbar per X und Esc."' },
+  'interactive':       { group:'Interaktion', name:'Interaktives Element', alias:'reagiert auf Klick',
+    what:'Ein Block, der auf Klicks oder Mausbewegung reagiert, statt nur da zu sein. Braucht JavaScript.',
+    brief:'"Mach den Abschnitt interaktiv: Klick auf ein Feature zeigt das Detail."' },
+
+  /* ---------- Conversion ---------- */
+  'kicker':            { group:'Conversion', name:'Kicker / Eyebrow', alias:'kleine Überzeile',
+    what:'Eine kleine, meist farbige Zeile in Großbuchstaben über der Überschrift. Ordnet ein, bevor die Headline kommt.',
+    brief:'"Setz einen Kicker über die Headline: WAS DU BEKOMMST, in Türkis."' },
+  'inline-form':       { group:'Conversion', name:'Inline-Formular', alias:'Formular direkt im Abschnitt',
+    what:'Das Anmeldeformular steht direkt auf der Seite, ohne Klick auf einen Button vorher.',
+    brief:'"Name und E-Mail als Inline-Formular direkt unter dem Text."' },
+  'two-step-optin':    { group:'Conversion', name:'Two-Step Opt-in', alias:'Anmeldung in zwei Schritten',
+    what:'Erst ein Button, dann das Formular. Das erste kleine Ja senkt die Hürde für das zweite.',
+    brief:'"Mach die Anmeldung als Two-Step Opt-in mit Pop-up."' },
+  'microcopy':         { group:'Conversion', name:'Microcopy', alias:'kleiner Hinweistext',
+    what:'Kurze Texte direkt am Formular oder Button, die Sorgen nehmen: kein Spam, jederzeit abmelden.',
+    brief:'"Unter den Button Microcopy: kein Spam, Abmeldung jederzeit."' },
+  'checklist':         { group:'Conversion', name:'Nutzenliste mit Häkchen', alias:'Checkliste',
+    what:'Kurze Vorteile mit Häkchen-Symbol. Schnell erfassbar, besser als ein Absatz.',
+    brief:'"Drei Nutzenpunkte als Liste mit Häkchen in der Hauptfarbe."' },
+  'social-proof':      { group:'Conversion', name:'Social Proof', alias:'Beweis durch andere',
+    what:'Zeichen, dass andere schon dabei sind: Anzahl Anmeldungen, Sterne, Stimmen, Logos. Schafft Vertrauen.',
+    brief:'"Ergänze Social Proof neben dem Formular: Anzahl Anmeldungen und Sterne."' },
+  'avatar-stack':      { group:'Conversion', name:'Avatar-Stapel', alias:'überlappende Profilbilder',
+    what:'Kleine runde Profilbilder, die sich überlappen. Signalisiert: hier ist eine Gemeinschaft.',
+    brief:'"Zeig vier überlappende Avatare mit weißem Rand vor der Zahl."' },
+
+  /* ---------- Runde 2: Angebot, Stimmen, Über mich, FAQ, CTA ---------- */
+  'grid-2':            { group:'Layout', name:'Zweispalter (2-Column Grid)', alias:'zwei gleich breite Spalten',
+    what:'Zwei gleich breite Spalten, auf dem Handy untereinander. Gut für Fragen, Vergleiche oder Bild und Text.',
+    brief:'"Zeig die Fragen als Zweispalter, auf Mobil einspaltig."' },
+  'text-width':        { group:'Layout', name:'Textbreite (Measure)', alias:'Zeilenlänge',
+    what:'Wie breit eine Textspalte ist. Etwa 65 Zeichen pro Zeile (ca. 700px) liest sich am angenehmsten, breiter ermüdet.',
+    brief:'"Begrenze den Fließtext auf 700px Breite, zentriert."' },
+  'overlap':           { group:'Layout', name:'Überlappung (Overlap)', alias:'ein Element ragt über das andere',
+    what:'Ein Bild oder Element ragt über den Rand einer Karte oder Fläche hinaus. Bricht das starre Raster und wirkt lebendig.',
+    brief:'"Lass das Porträt 60px über den linken Kartenrand ragen."' },
+  'background-image':  { group:'Flächen & Farbe', name:'Hintergrundbild', alias:'Foto oder Grafik als Fläche',
+    what:'Ein Bild füllt die ganze Sektion, der Inhalt liegt darauf. Mit "cover" wird es passend beschnitten.',
+    brief:'"Nimm mein Verlaufsbild aus dem Designsystem als Hintergrund, nicht als CSS-Verlauf."' },
+  'image-echo':        { group:'Flächen & Farbe', name:'Bild-Echo', alias:'Hero-Bild taucht wieder auf',
+    what:'Das Hero-Bild erscheint weiter unten noch einmal, aber stark geblurrt und anders angeschnitten. Die Farbstimmung klingt nach, ohne Wiederholung.',
+    brief:'"Nutze das Hero-Foto im Abschluss-CTA als Echo: stark geblurrt, anderer Ausschnitt."' },
+  'text-shadow':       { group:'Flächen & Farbe', name:'Textschatten (Text Shadow)', alias:'weicher Schein hinter Schrift',
+    what:'Ein weicher, dunkler Schein hinter heller Schrift. Macht Text auf Fotos oder Farbflächen lesbar, ohne Overlay.',
+    brief:'"Weiße Überschrift mit dezentem Textschatten statt dunklem Overlay."' },
+  'divider-bar':       { group:'Formen & Tiefe', name:'Trennbalken', alias:'farbiger Streifen zwischen Sektionen',
+    what:'Ein schmaler Farbstreifen, der eine Sektion abschließt. Gliedert die Seite und setzt einen Farbakzent.',
+    brief:'"Schließ die Verlaufssektion unten mit einem 12px orangen Trennbalken ab."' },
+  'highlight-bar':     { group:'Formen & Tiefe', name:'Hervorhebungsbalken (Border Left)', alias:'farbiger Strich links am Text',
+    what:'Ein schmaler Farbbalken links neben einem Satz hebt ihn aus dem Fließtext heraus.',
+    brief:'"Den Kernsatz mit einem 4px orangen Balken links hervorheben."' },
+  'offset-frame':      { group:'Formen & Tiefe', name:'Versetzter Rahmen (Offset Frame)', alias:'Rahmen leicht verschoben hinter dem Bild',
+    what:'Ein farbiger Rahmen liegt versetzt hinter einem Foto. Wirkt wie eine zweite Ebene und rahmt das Bild spielerisch.',
+    brief:'"Gib dem Porträt einen orangen Rahmen, 18px nach rechts unten versetzt."' },
+  'object-fit':        { group:'Formen & Tiefe', name:'Bildzuschnitt (Object Fit)', alias:'Bild füllt die Form',
+    what:'Bestimmt, wie ein Foto in eine feste Form passt. "cover" füllt die Form ganz und schneidet über, ohne zu verzerren.',
+    brief:'"Porträt quadratisch mit object-fit cover, Gesicht im oberen Drittel."' },
+  'avatar':            { group:'Formen & Tiefe', name:'Avatar', alias:'kleines rundes Profilbild oder Initialen',
+    what:'Ein kleines rundes Bild oder Kürzel neben einem Namen. Gibt einer Stimme ein Gesicht.',
+    brief:'"Neben jedem Zitat ein runder Avatar, notfalls mit Initialen."' },
+  'seal':              { group:'Formen & Tiefe', name:'Siegel / Badge', alias:'rundes Gütesiegel',
+    what:'Ein rundes Element mit Text im Kreis, wie ein Stempel. Signalisiert Garantie oder Sicherheit.',
+    brief:'"Ein rundes Garantie-Siegel mit Schrift im Kreis neben dem Preis."' },
+  'rotate-loop':       { group:'Bewegung', name:'Endlos-Rotation', alias:'dreht sich langsam',
+    what:'Ein Element dreht sich endlos und sehr langsam. Zieht dezent Aufmerksamkeit, ohne zu stören.',
+    brief:'"Der Schriftring des Siegels soll sich langsam drehen, 20 Sekunden pro Runde."' },
+  'marquee':           { group:'Bewegung', name:'Marquee / Laufband', alias:'endlos laufende Reihe',
+    what:'Inhalte laufen endlos horizontal durch. Zeigt viele kurze Elemente, ohne Platz zu brauchen.',
+    brief:'"Stimmen als Marquee, zwei Reihen in entgegengesetzte Richtungen."' },
+  'mask-fade':         { group:'Flächen & Farbe', name:'Randausblendung (Mask Fade)', alias:'weich auslaufende Kanten',
+    what:'Die Ränder eines Bereichs laufen transparent aus, statt hart abgeschnitten zu sein.',
+    brief:'"Das Laufband links und rechts weich ausblenden."' },
+  'button-glow':       { group:'Bewegung', name:'Puls-Glow', alias:'atmender Leuchtschein am Button',
+    what:'Ein Leuchtschein um den Button wird regelmäßig stärker und schwächer. Macht den wichtigsten Button sichtbar, ohne zu blinken.',
+    brief:'"Der Haupt-Button bekommt einen sanften Puls-Glow, alle 2 bis 3 Sekunden."' },
+  'typing-indicator':  { group:'Bewegung', name:'Tipp-Anzeige (Typing Indicator)', alias:'hüpfende drei Pünktchen',
+    what:'Drei Punkte, die nacheinander hüpfen, wie wenn jemand gerade tippt.',
+    brief:'"Vor jeder Chatnachricht kurz die Tipp-Pünktchen zeigen."' },
+  'icon-rotate':       { group:'Bewegung', name:'Icon-Drehung', alias:'Plus wird zum Kreuz',
+    what:'Ein Icon dreht sich beim Klick, z. B. ein Plus um 45 Grad zum Kreuz. Zeigt den Zustand offen oder geschlossen.',
+    brief:'"Das Plus beim Aufklappen zum Kreuz drehen."' },
+  'signature':         { group:'Bewegung', name:'Gezeichnete Unterschrift', alias:'Handschrift erscheint Strich für Strich',
+    what:'Eine Unterschrift als Linie, die sich selbst zeichnet. Wirkt persönlich, wie ein handgeschriebener Brief.',
+    brief:'"Am Ende des Briefs zeichnet sich meine Unterschrift von selbst."' },
+  'pause-on-hover':    { group:'Interaktion', name:'Pause beim Drüberfahren', alias:'hält an, wenn die Maus darauf ist',
+    what:'Bewegte Inhalte halten an, sobald man mit der Maus darüberfährt, damit man in Ruhe lesen kann.',
+    brief:'"Das Laufband soll beim Hover anhalten."' },
+  'carousel':          { group:'Interaktion', name:'Karussell / Slider', alias:'zum Durchblättern',
+    what:'Mehrere Inhalte teilen sich eine Fläche und werden nacheinander gezeigt, per Pfeil, Punkt oder Wischen.',
+    brief:'"Stimmen als Karussell mit Pfeilen, Punkten und Wischen auf Mobil."' },
+  'pagination-dots':   { group:'Interaktion', name:'Punkt-Navigation (Dots)', alias:'kleine Punkte unter dem Slider',
+    what:'Punkte zeigen, wie viele Elemente es gibt und wo man ist. Der aktive Punkt ist länger oder farbig.',
+    brief:'"Unter dem Slider Punkte, der aktive als orange Pille."' },
+  'swipe':             { group:'Interaktion', name:'Wischgeste (Swipe)', alias:'mit dem Finger weiterwischen',
+    what:'Auf dem Handy wischt man seitlich, um zum nächsten Element zu kommen.',
+    brief:'"Auf Mobil soll man die Stimmen wischen können."' },
+  'accordion':         { group:'Interaktion', name:'Akkordeon', alias:'aufklappbare Fragen',
+    what:'Fragen sind untereinander, die Antwort klappt beim Klick auf. Spart Platz bei vielen Fragen.',
+    brief:'"FAQ als Akkordeon mit weich gleitendem Aufklappen."' },
+  'filter-search':     { group:'Interaktion', name:'Live-Suche / Filter', alias:'Einträge beim Tippen filtern',
+    what:'Beim Tippen bleiben nur passende Einträge sichtbar. Hilft bei langen Listen.',
+    brief:'"Über den Fragen ein Suchfeld, das live filtert."' },
+  'chips':             { group:'Interaktion', name:'Chips / Filter-Pillen', alias:'kleine Auswahlknöpfe',
+    what:'Kleine, runde Schaltflächen zum Filtern nach Themen. Die aktive ist eingefärbt.',
+    brief:'"Themen-Chips über der Liste: Alle, Ablauf, Technik, Zahlung."' },
+  'pricing-toggle':    { group:'Interaktion', name:'Preis-Umschalter (Pricing Toggle)', alias:'Einmalzahlung oder Raten',
+    what:'Ein Schalter wechselt zwischen zwei Preisdarstellungen, z. B. Einmalzahlung und Raten.',
+    brief:'"Über dem Preis ein Umschalter Einmalzahlung / 3 Raten, Preis blendet weich über."' },
+  'value-stack':       { group:'Conversion', name:'Wert-Stapel (Value Stack)', alias:'alle Bausteine mit Einzelwert',
+    what:'Alle Bestandteile des Angebots untereinander, jeweils mit ihrem Wert. Unten der Gesamtwert und dein tatsächlicher Preis.',
+    brief:'"Zeig das Angebot als Value Stack: Bausteine mit Einzelwert, Gesamtwert durchgestrichen, darunter mein Preis."' },
+  'price-anchor':      { group:'Conversion', name:'Preisanker', alias:'Vergleichswert vor dem Preis',
+    what:'Ein höherer Vergleichswert (z. B. Gesamtwert) wird vor dem Preis gezeigt. Der eigentliche Preis wirkt dadurch fairer. Nur mit ehrlichen Werten verwenden.',
+    brief:'"Setz den Gesamtwert als Preisanker durchgestrichen über meinen Preis."' },
+  'quote-mark':        { group:'Conversion', name:'Anführungszeichen als Gestaltungselement', alias:'großes Zitatzeichen',
+    what:'Ein großes, farbiges Anführungszeichen zeigt sofort: hier spricht jemand anderes.',
+    brief:'"Über jedem Zitat ein großes türkises Anführungszeichen."' },
+  'pull-quote':        { group:'Conversion', name:'Pull Quote', alias:'großes herausgestelltes Zitat',
+    what:'Ein einzelnes Zitat wird groß und mit viel Luft gesetzt. Wirkt stärker als drei kleine.',
+    brief:'"Mach aus der besten Stimme ein Pull Quote, groß und zentriert."' },
+  'chat-bubble':       { group:'Conversion', name:'Chat-Blase', alias:'Nachricht wie im Messenger',
+    what:'Rückmeldungen im Stil von Chatnachrichten. Wirkt spontan und nahbar. Nur echte, freigegebene Nachrichten verwenden.',
+    brief:'"Stimmen als Chat-Blasen, die nacheinander erscheinen."' },
+  'stat-row':          { group:'Conversion', name:'Zahlenleiste (Stats)', alias:'Kennzahlen nebeneinander',
+    what:'Drei bis vier große Zahlen mit kurzer Beschriftung. Schafft auf einen Blick Vertrauen.',
+    brief:'"Unter dem Über-mich-Text eine Zahlenleiste mit drei Kennzahlen, die hochzählen."' },
+  'bullet-star':       { group:'Conversion', name:'Stern-Aufzählung', alias:'✦ statt Punkt',
+    what:'Ein kleiner Stern in der Akzentfarbe ersetzt den normalen Aufzählungspunkt. Wirkt freundlicher und markenspezifisch.',
+    brief:'"Aufzählungen mit orangem ✦ statt Punkt."' },
+  'personal-signoff':  { group:'Conversion', name:'Persönlicher Gruß (Sign-off)', alias:'kleines Porträt mit Satz am Ende',
+    what:'Ein kleines Porträt mit einem persönlichen Satz unter dem Button. Macht deutlich, dass ein Mensch hinter dem Angebot steht.',
+    brief:'"Unter den Button ein kleines Porträt mit: Ich freue mich auf dich."' }
+};
+</script>
+
+<!-- ===================== BLÖCKE ===================== -->
+<template class="block" data-cat="features" data-id="fb-karten" data-terms="kicker,icon-badge,card,box-shadow,hover-lift,border-radius,grid-3" data-name="Klassische Karten"
   data-desc="Ruhig und vertraut. Drei Karten mit Icon, sanftes Anheben beim Hover."
   data-tags="ruhig,hell,ohne JS">
 <style>
-.fb-karten{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
-  padding:88px 24px;background:#f7f8f5;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65}
+.fb-karten{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);line-height:1.65}
 .fb-karten *{box-sizing:border-box}
 .fb-karten .fbk-inner{max-width:1080px;margin:0 auto;text-align:center}
-.fb-karten .fbk-kicker{font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-.fb-karten h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:10px 0 14px}
+.fb-karten .fbk-kicker{font-family:var(--font-heading);font-weight:800;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-primary)}
+.fb-karten h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:10px 0 14px}
 .fb-karten .fbk-lead{max-width:620px;margin:0 auto;font-size:1.1rem}
 .fb-karten .fbk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:52px;text-align:left}
-.fb-karten .fbk-card{background:#fff;border-radius:16px;padding:34px 28px;box-shadow:0 2px 8px rgba(0,0,0,.05),0 8px 28px rgba(0,0,0,.07);transition:transform .3s ease,box-shadow .3s ease}
+.fb-karten .fbk-card{background:#fff;border-radius:var(--radius-card);padding:34px 28px;box-shadow:var(--shadow-card);transition:transform .3s ease,box-shadow .3s ease}
 .fb-karten .fbk-card:hover{transform:translateY(-6px);box-shadow:0 4px 12px rgba(0,0,0,.06),0 18px 40px rgba(0,0,0,.1)}
 .fb-karten .fbk-icon{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px}
 .fb-karten .fbk-icon svg{width:28px;height:28px}
-.fb-karten .c1 .fbk-icon{background:rgba(0,179,195,.12);color:var(--teal)}
-.fb-karten .c2 .fbk-icon{background:rgba(255,176,0,.15);color:#c98800}
-.fb-karten .c3 .fbk-icon{background:rgba(164,201,49,.18);color:#6f8f14}
-.fb-karten h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.25rem;margin:0 0 8px}
+.fb-karten .c1 .fbk-icon{background:color-mix(in srgb,var(--color-primary) 12%,transparent);color:var(--color-primary)}
+.fb-karten .c2 .fbk-icon{background:color-mix(in srgb,var(--color-accent) 15%,transparent);color:color-mix(in srgb,var(--color-accent) 78%,black)}
+.fb-karten .c3 .fbk-icon{background:color-mix(in srgb,var(--color-accent-2) 18%,transparent);color:color-mix(in srgb,var(--color-accent-2) 68%,black)}
+.fb-karten h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.25rem;margin:0 0 8px}
 .fb-karten p{margin:0}
 @media(max-width:820px){.fb-karten .fbk-grid{grid-template-columns:1fr}}
 </style>
@@ -168,27 +582,25 @@ const CATEGORIES = [
 </section>
 </template>
 
-<!-- V2 --------------------------------------------------------- -->
-<template class="block" data-cat="features" data-name="Der Weg (Pfad mit Stationen)"
+<template class="block" data-cat="features" data-id="fb-pfad" data-terms="line-draw,scroll-reveal,staggered,bounce-easing,linear-gradient,timeline" data-name="Der Weg (Pfad mit Stationen)"
   data-desc="Wie auf der mutigen Anmeldeseite: eine Linie zeichnet sich, die Stationen poppen nacheinander auf."
   data-tags="Scroll-Animation,Reihenfolge,mutig">
 <style>
-.fb-pfad{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
-  padding:96px 24px;background:#fff;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65;overflow:hidden}
+.fb-pfad{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);line-height:1.65;overflow:hidden}
 .fb-pfad *{box-sizing:border-box}
 .fb-pfad .fbp-inner{max-width:1080px;margin:0 auto}
 .fb-pfad .fbp-head{text-align:center;max-width:700px;margin:0 auto 64px}
-.fb-pfad h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 14px}
-.fb-pfad h2 em{font-style:normal;color:var(--teal)}
+.fb-pfad h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 14px}
+.fb-pfad h2 em{font-style:normal;color:var(--color-primary)}
 .fb-pfad .fbp-track{position:relative}
-.fb-pfad .fbp-line{position:absolute;top:44px;left:16.66%;right:16.66%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--teal),var(--orange),var(--lime));transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.65,0,.35,1)}
+.fb-pfad .fbp-line{position:absolute;top:44px;left:16.66%;right:16.66%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--color-primary),var(--color-accent),var(--color-accent-2));transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.65,0,.35,1)}
 .fb-pfad .fbp-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center}
 .fb-pfad .fbp-node{opacity:0;transform:translateY(24px) scale(.9);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
-.fb-pfad .fbp-dot{width:88px;height:88px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:1.8rem;color:#fff;border:6px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.12)}
-.fb-pfad .n1 .fbp-dot{background:var(--teal)}
-.fb-pfad .n2 .fbp-dot{background:var(--orange)}
-.fb-pfad .n3 .fbp-dot{background:var(--lime)}
-.fb-pfad h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.25rem;margin:0 0 8px}
+.fb-pfad .fbp-dot{width:88px;height:88px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:var(--font-heading);font-weight:800;font-size:1.8rem;color:#fff;border:6px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.12)}
+.fb-pfad .n1 .fbp-dot{background:var(--color-primary)}
+.fb-pfad .n2 .fbp-dot{background:var(--color-accent)}
+.fb-pfad .n3 .fbp-dot{background:var(--color-accent-2)}
+.fb-pfad h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.25rem;margin:0 0 8px}
 .fb-pfad p{margin:0 auto;max-width:300px}
 .fb-pfad.is-in .fbp-line{transform:scaleX(1)}
 .fb-pfad.is-in .fbp-node{opacity:1;transform:none}
@@ -223,32 +635,30 @@ const CATEGORIES = [
 (function(){
   document.querySelectorAll('.fb-pfad').forEach(function(el){
     if(!('IntersectionObserver' in window)){el.classList.add('is-in');return;}
-    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){el.classList.add('is-in');o.disconnect();}},{threshold:.3}).observe(el);
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){el.classList.add('is-in');o.disconnect();}},{threshold:.15}).observe(el);
   });
 })();
 </script>
 </template>
 
-<!-- V3 --------------------------------------------------------- -->
-<template class="block" data-cat="features" data-name="Dunkel mit Leuchtkarten"
+<template class="block" data-cat="features" data-id="fb-glow" data-terms="dark-section,radial-gradient,gradient-border,gradient-text,cursor-glow,scroll-reveal,staggered" data-name="Dunkel mit Leuchtkarten"
   data-desc="Tiefblauer Hintergrund, Karten mit Farbverlaufs-Rand. Ein Lichtschein folgt der Maus."
   data-tags="dunkel,Maus-Effekt,Scroll-Animation">
 <style>
-.fb-glow{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;
-  padding:100px 24px;background:radial-gradient(ellipse at 50% 0%,#064a6e 0%,#022e46 60%,#01202f 100%);font-family:'PT Sans',Arial,sans-serif;color:rgba(255,255,255,.78);line-height:1.65}
+.fb-glow{padding:100px 24px;background:radial-gradient(ellipse at 50% 0%,var(--color-secondary) 0%,var(--color-dark) 60%,color-mix(in srgb,var(--color-dark) 70%,black) 100%);font-family:var(--font-body);color:rgba(255,255,255,.78);line-height:1.65}
 .fb-glow *{box-sizing:border-box}
 .fb-glow .fbg-inner{max-width:1100px;margin:0 auto;text-align:center}
-.fb-glow .fbg-kicker{display:inline-block;font-family:'Open Sans',Arial,sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--lime);border:1px solid rgba(164,201,49,.4);border-radius:100px;padding:6px 16px}
-.fb-glow h2{font-family:'Open Sans',Arial,sans-serif;color:#fff;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.2;margin:18px 0 56px}
+.fb-glow .fbg-kicker{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-2);border:1px solid color-mix(in srgb,var(--color-accent-2) 40%,transparent);border-radius:100px;padding:6px 16px}
+.fb-glow h2{font-family:var(--font-heading);color:#fff;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.2;margin:18px 0 56px}
 .fb-glow .fbg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left}
 .fb-glow .fbg-card{--mx:50%;--my:50%;position:relative;border-radius:20px;padding:2px;
-  background:linear-gradient(140deg,rgba(0,179,195,.8),rgba(255,176,0,.35) 50%,rgba(164,201,49,.7));
+  background:linear-gradient(140deg,color-mix(in srgb,var(--color-primary) 80%,transparent),color-mix(in srgb,var(--color-accent) 35%,transparent) 50%,color-mix(in srgb,var(--color-accent-2) 70%,transparent));
   opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
-.fb-glow .fbg-body{position:relative;height:100%;border-radius:18px;padding:34px 28px;background:#032a40;overflow:hidden}
-.fb-glow .fbg-body::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx) var(--my),rgba(0,179,195,.28),transparent 60%);opacity:0;transition:opacity .3s}
+.fb-glow .fbg-body{position:relative;height:100%;border-radius:18px;padding:34px 28px;background:color-mix(in srgb,var(--color-dark) 88%,var(--color-secondary));overflow:hidden}
+.fb-glow .fbg-body::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx) var(--my),color-mix(in srgb,var(--color-primary) 28%,transparent),transparent 60%);opacity:0;transition:opacity .3s}
 .fb-glow .fbg-card:hover .fbg-body::before{opacity:1}
-.fb-glow .fbg-num{position:relative;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:3.2rem;line-height:1;background:linear-gradient(135deg,var(--teal),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
-.fb-glow h3{position:relative;font-family:'Open Sans',Arial,sans-serif;color:#fff;font-size:1.25rem;margin:0 0 8px}
+.fb-glow .fbg-num{position:relative;font-family:var(--font-heading);font-weight:800;font-size:3.2rem;line-height:1;background:linear-gradient(135deg,var(--color-primary),var(--color-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
+.fb-glow h3{position:relative;font-family:var(--font-heading);color:#fff;font-size:1.25rem;margin:0 0 8px}
 .fb-glow p{position:relative;margin:0}
 .fb-glow.is-in .fbg-card{opacity:1;transform:none}
 .fb-glow.is-in .fbg-card:nth-child(2){transition-delay:.15s}
@@ -280,17 +690,15 @@ const CATEGORIES = [
 </script>
 </template>
 
-<!-- V4 --------------------------------------------------------- -->
-<template class="block" data-cat="features" data-name="Zickzack mit Farbflächen"
+<template class="block" data-cat="features" data-id="fb-zickzack" data-terms="alternating,slide-in,linear-gradient,deko-shape,scroll-reveal" data-name="Zickzack mit Farbflächen"
   data-desc="Jedes Feature bekommt eine eigene Zeile. Farbfläche und Text wechseln die Seite und gleiten ins Bild."
   data-tags="viel Raum,Scroll-Animation,bildtauglich">
 <style>
-.fb-zickzack{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
-  padding:96px 24px;background:#fff;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.7;overflow:hidden}
+.fb-zickzack{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);line-height:1.7;overflow:hidden}
 .fb-zickzack *{box-sizing:border-box}
 .fb-zickzack .fbz-inner{max-width:1040px;margin:0 auto}
 .fb-zickzack .fbz-head{text-align:center;margin-bottom:64px}
-.fb-zickzack h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0}
+.fb-zickzack h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0}
 .fb-zickzack .fbz-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:72px}
 .fb-zickzack .fbz-row:last-child{margin-bottom:0}
 .fb-zickzack .fbz-row:nth-child(even) .fbz-visual{order:2}
@@ -298,13 +706,13 @@ const CATEGORIES = [
   opacity:0;transform:translateX(-60px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
 .fb-zickzack .fbz-row:nth-child(even) .fbz-visual{transform:translateX(60px)}
 .fb-zickzack .fbz-visual::after{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.18);right:-18%;bottom:-30%}
-.fb-zickzack .fbz-visual span{position:relative;z-index:1;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:clamp(4rem,10vw,7rem);color:#fff;line-height:1}
-.fb-zickzack .r1 .fbz-visual{background:linear-gradient(135deg,#00b3c3,#03557f)}
-.fb-zickzack .r2 .fbz-visual{background:linear-gradient(135deg,#ffb000,#f07f00)}
-.fb-zickzack .r3 .fbz-visual{background:linear-gradient(135deg,#a4c931,#4f8f2a)}
+.fb-zickzack .fbz-visual span{position:relative;z-index:1;font-family:var(--font-heading);font-weight:800;font-size:clamp(4rem,10vw,7rem);color:#fff;line-height:1}
+.fb-zickzack .r1 .fbz-visual{background:linear-gradient(135deg,var(--color-primary),var(--color-secondary))}
+.fb-zickzack .r2 .fbz-visual{background:linear-gradient(135deg,var(--color-accent),color-mix(in srgb,var(--color-accent) 80%,#e04000))}
+.fb-zickzack .r3 .fbz-visual{background:linear-gradient(135deg,var(--color-accent-2),color-mix(in srgb,var(--color-accent-2) 60%,black))}
 .fb-zickzack .fbz-text{opacity:0;transform:translateY(24px);transition:opacity .8s ease .2s,transform .8s ease .2s}
-.fb-zickzack .fbz-label{font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal)}
-.fb-zickzack h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.6rem;margin:6px 0 12px}
+.fb-zickzack .fbz-label{font-family:var(--font-heading);font-weight:800;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-primary)}
+.fb-zickzack h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.6rem;margin:6px 0 12px}
 .fb-zickzack p{margin:0}
 .fb-zickzack .fbz-row.is-in .fbz-visual,.fb-zickzack .fbz-row.is-in .fbz-text{opacity:1;transform:none}
 @media(max-width:820px){
@@ -331,34 +739,32 @@ const CATEGORIES = [
 </script>
 </template>
 
-<!-- V5 --------------------------------------------------------- -->
-<template class="block" data-cat="features" data-name="Bento-Raster"
+<template class="block" data-cat="features" data-id="fb-bento" data-terms="bento,visual-hierarchy,deko-shape,hover-scale,icon-badge" data-name="Bento-Raster"
   data-desc="Ein großes Hauptfeature, zwei kleinere daneben. Kacheln in Markenfarben, Icons drehen sich beim Hover."
   data-tags="modern,Hierarchie,Hover">
 <style>
-.fb-bento{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
-  padding:96px 24px;background:#f7f8f5;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65}
+.fb-bento{padding:96px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);line-height:1.65}
 .fb-bento *{box-sizing:border-box}
 .fb-bento .fbb-inner{max-width:1080px;margin:0 auto}
 .fb-bento .fbb-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:40px}
-.fb-bento h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0;max-width:560px}
+.fb-bento h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0;max-width:560px}
 .fb-bento .fbb-head p{max-width:360px;margin:0}
 .fb-bento .fbb-grid{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:20px}
 .fb-bento .fbb-tile{border-radius:24px;padding:34px;position:relative;overflow:hidden;transition:transform .35s ease}
 .fb-bento .fbb-tile:hover{transform:scale(1.015)}
 .fb-bento .fbb-tile:hover .fbb-icon{transform:rotate(-12deg) scale(1.08)}
-.fb-bento .fbb-big{grid-row:span 2;background:var(--teal);color:rgba(255,255,255,.9);display:flex;flex-direction:column;justify-content:flex-end;min-height:420px}
+.fb-bento .fbb-big{grid-row:span 2;background:var(--color-primary);color:rgba(255,255,255,.9);display:flex;flex-direction:column;justify-content:flex-end;min-height:420px}
 .fb-bento .fbb-big::before{content:"";position:absolute;top:-90px;right:-90px;width:300px;height:300px;border-radius:50%;border:48px solid rgba(255,255,255,.14)}
 .fb-bento .fbb-big h3{color:#fff;font-size:2rem}
-.fb-bento .fbb-orange{background:#fff;border:2px solid rgba(255,176,0,.5)}
-.fb-bento .fbb-lime{background:var(--lime);color:#253300}
-.fb-bento .fbb-lime h3{color:#1c2700}
+.fb-bento .fbb-orange{background:#fff;border:2px solid color-mix(in srgb,var(--color-accent) 50%,transparent)}
+.fb-bento .fbb-lime{background:var(--color-accent-2);color:color-mix(in srgb,var(--color-accent-2) 22%,black)}
+.fb-bento .fbb-lime h3{color:color-mix(in srgb,var(--color-accent-2) 18%,black)}
 .fb-bento .fbb-icon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;transition:transform .35s ease}
 .fb-bento .fbb-icon svg{width:26px;height:26px}
 .fb-bento .fbb-big .fbb-icon{background:rgba(255,255,255,.2);color:#fff;position:absolute;top:34px;left:34px}
-.fb-bento .fbb-orange .fbb-icon{background:var(--orange);color:#fff}
-.fb-bento .fbb-lime .fbb-icon{background:rgba(255,255,255,.4);color:#1c2700}
-.fb-bento h3{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.3rem;margin:0 0 8px;position:relative}
+.fb-bento .fbb-orange .fbb-icon{background:var(--color-accent);color:#fff}
+.fb-bento .fbb-lime .fbb-icon{background:rgba(255,255,255,.4);color:color-mix(in srgb,var(--color-accent-2) 18%,black)}
+.fb-bento h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.3rem;margin:0 0 8px;position:relative}
 .fb-bento p{margin:0;position:relative}
 @media(max-width:820px){.fb-bento .fbb-grid{grid-template-columns:1fr}.fb-bento .fbb-big{grid-row:auto;min-height:340px}}
 </style>
@@ -389,31 +795,29 @@ const CATEGORIES = [
 </section>
 </template>
 
-<!-- V6 --------------------------------------------------------- -->
-<template class="block" data-cat="features" data-name="Interaktive Reiter mit Autoplay"
+<template class="block" data-cat="features" data-id="fb-tabs" data-terms="tabs,autoplay,progress-bar,crossfade,interactive" data-name="Interaktive Reiter mit Autoplay"
   data-desc="Links die Liste, rechts das Detail. Wechselt alle 5 Sekunden von selbst, Klick übernimmt die Steuerung."
   data-tags="interaktiv,kompakt,JS">
 <style>
-.fb-tabs{--teal:#00b3c3;--orange:#ffb000;--lime:#a4c931;--heading:#3a3a3a;--text:#5a5a5a;
-  padding:96px 24px;background:#fff;font-family:'PT Sans',Arial,sans-serif;color:var(--text);line-height:1.65}
+.fb-tabs{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);line-height:1.65}
 .fb-tabs *{box-sizing:border-box}
 .fb-tabs .fbt-inner{max-width:1080px;margin:0 auto}
-.fb-tabs h2{font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 48px;text-align:center}
+.fb-tabs h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 48px;text-align:center}
 .fb-tabs .fbt-wrap{display:grid;grid-template-columns:380px 1fr;gap:40px;align-items:stretch}
 .fb-tabs .fbt-list{display:flex;flex-direction:column;gap:10px}
 .fb-tabs .fbt-btn{position:relative;overflow:hidden;text-align:left;border:1px solid #e6e8e2;background:#fff;border-radius:14px;padding:18px 20px;cursor:pointer;font:inherit;color:inherit;transition:border-color .3s,background .3s}
-.fb-tabs .fbt-btn b{display:block;font-family:'Open Sans',Arial,sans-serif;color:var(--heading);font-size:1.1rem}
+.fb-tabs .fbt-btn b{display:block;font-family:var(--font-heading);color:var(--color-heading);font-size:1.1rem}
 .fb-tabs .fbt-btn small{font-size:.9rem;color:#8a8a8a}
-.fb-tabs .fbt-btn[aria-selected="true"]{border-color:var(--c,var(--teal));background:#fbfcfa}
-.fb-tabs .fbt-bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--c,var(--teal))}
+.fb-tabs .fbt-btn[aria-selected="true"]{border-color:var(--c,var(--color-primary));background:#fbfcfa}
+.fb-tabs .fbt-bar{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--c,var(--color-primary))}
 .fb-tabs .fbt-btn[aria-selected="true"] .fbt-bar{animation:fbtProgress 5s linear forwards}
 .fb-tabs.is-paused .fbt-btn[aria-selected="true"] .fbt-bar{animation:none;width:100%}
 @keyframes fbtProgress{to{width:100%}}
-.fb-tabs .fbt-stage{position:relative;border-radius:24px;min-height:340px;overflow:hidden;background:var(--c,var(--teal));transition:background .5s ease}
+.fb-tabs .fbt-stage{position:relative;border-radius:24px;min-height:340px;overflow:hidden;background:var(--c,var(--color-primary));transition:background .5s ease}
 .fb-tabs .fbt-panel{position:absolute;inset:0;padding:44px;display:flex;flex-direction:column;justify-content:flex-end;color:rgba(255,255,255,.92);opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
 .fb-tabs .fbt-panel.is-active{opacity:1;transform:none;pointer-events:auto}
-.fb-tabs .fbt-big{position:absolute;top:20px;right:34px;font-family:'Open Sans',Arial,sans-serif;font-weight:800;font-size:9rem;line-height:1;color:rgba(255,255,255,.2)}
-.fb-tabs .fbt-panel h3{font-family:'Open Sans',Arial,sans-serif;color:#fff;font-size:1.8rem;margin:0 0 10px}
+.fb-tabs .fbt-big{position:absolute;top:20px;right:34px;font-family:var(--font-heading);font-weight:800;font-size:9rem;line-height:1;color:rgba(255,255,255,.2)}
+.fb-tabs .fbt-panel h3{font-family:var(--font-heading);color:#fff;font-size:1.8rem;margin:0 0 10px}
 .fb-tabs .fbt-panel p{margin:0;max-width:440px}
 @media(max-width:860px){.fb-tabs .fbt-wrap{grid-template-columns:1fr}.fb-tabs .fbt-stage{min-height:300px}.fb-tabs .fbt-panel{padding:30px}}
 @media(prefers-reduced-motion:reduce){.fb-tabs .fbt-panel{transition:none}}
@@ -423,9 +827,9 @@ const CATEGORIES = [
     <h2>Drei Bausteine, ein Ergebnis</h2>
     <div class="fbt-wrap">
       <div class="fbt-list" role="tablist">
-        <button class="fbt-btn" role="tab" aria-selected="true" style="--c:#00b3c3"><b>Klarheit im Kopf</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
-        <button class="fbt-btn" role="tab" aria-selected="false" style="--c:#ffb000"><b>Ein fertiger Plan</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
-        <button class="fbt-btn" role="tab" aria-selected="false" style="--c:#a4c931"><b>Mehr Zeit</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
+        <button class="fbt-btn" role="tab" aria-selected="true" style="--c:var(--color-primary)"><b>Klarheit im Kopf</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
+        <button class="fbt-btn" role="tab" aria-selected="false" style="--c:var(--color-accent)"><b>Ein fertiger Plan</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
+        <button class="fbt-btn" role="tab" aria-selected="false" style="--c:var(--color-accent-2)"><b>Mehr Zeit</b><small>Kurzbeschreibung in einer Zeile</small><span class="fbt-bar"></span></button>
       </div>
       <div class="fbt-stage">
         <div class="fbt-panel is-active" role="tabpanel"><div class="fbt-big">01</div><h3>Klarheit im Kopf</h3><p>Ausführlicher Platzhaltertext für das erste Feature. Hier ist Platz für drei bis vier Sätze oder später ein Screenshot.</p></div>
@@ -454,125 +858,1524 @@ const CATEGORIES = [
 </template>
 
 <!-- ================================================================
-     BIBLIOTHEKS-LOGIK
+     LEADGENERIERUNG
+     Alle Formulare haben action="#". Im echten Einsatz die Formular-URL
+     deines Newsletter-Tools eintragen (z. B. GetResponse, Brevo, Kit).
+     Solange action="#" gesetzt ist, zeigt der Block nur eine Demo-Bestätigung.
      ================================================================ -->
+
+<!-- L1 --------------------------------------------------------- -->
+<template class="block" data-cat="lead" data-id="lg-box" data-terms="card,box-shadow,inline-form,microcopy,kicker,checklist"
+  data-name="Zentrierte Anmeldebox"
+  data-desc="Der Klassiker: eine ruhige Karte mitten auf hellem Grund, Nutzenpunkte, Name und E-Mail nebeneinander."
+  data-tags="ruhig,hell,universell">
+<style>
+.lg-box{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);line-height:1.65}
+.lg-box *{box-sizing:border-box}
+.lg-box .lgb-card{max-width:760px;margin:0 auto;background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:52px 48px;text-align:center}
+.lg-box .lgb-kicker{font-family:var(--font-heading);font-weight:800;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-primary)}
+.lg-box h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.2;margin:10px 0 14px}
+.lg-box .lgb-list{list-style:none;padding:0;margin:22px auto 30px;display:inline-flex;flex-direction:column;gap:8px;text-align:left}
+.lg-box .lgb-list li{position:relative;padding-left:32px}
+.lg-box .lgb-list li::before{content:"";position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:color-mix(in srgb,var(--color-primary) 15%,transparent)}
+.lg-box .lgb-list li::after{content:"";position:absolute;left:7px;top:8px;width:5px;height:9px;border:solid var(--color-primary);border-width:0 2px 2px 0;transform:rotate(45deg)}
+.lg-box form{display:flex;gap:10px;flex-wrap:wrap}
+.lg-box input{flex:1 1 180px;min-width:0;padding:15px 18px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit;color:var(--color-heading);background:#fff;transition:border-color .2s,box-shadow .2s}
+.lg-box input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
+.lg-box button{flex:1 1 100%;padding:16px 24px;border:0;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;cursor:pointer;transition:transform .2s,filter .2s}
+.lg-box button:hover{transform:translateY(-2px);filter:brightness(1.06)}
+.lg-box .lgb-micro{font-size:.85rem;color:#8a8a8a;margin:14px 0 0}
+.lg-box .lgb-ok{display:none;font-family:var(--font-heading);font-weight:700;color:var(--color-primary);padding:18px 0}
+.lg-box.is-sent form{display:none}.lg-box.is-sent .lgb-ok{display:block}
+@media(max-width:640px){.lg-box .lgb-card{padding:36px 22px}}
+</style>
+<section class="lg-box">
+  <div class="lgb-card">
+    <div class="lgb-kicker">Kostenloses Freebie</div>
+    <h2>Hol dir den Titel deines Freebies</h2>
+    <p>Ein kurzer Satz, was die Person bekommt und warum es sich lohnt. Platzhalter.</p>
+    <ul class="lgb-list">
+      <li>Erster konkreter Nutzen in einer Zeile</li>
+      <li>Zweiter konkreter Nutzen in einer Zeile</li>
+      <li>Dritter konkreter Nutzen in einer Zeile</li>
+    </ul>
+    <form action="#" method="post">
+      <input type="text" name="first_name" placeholder="Dein Vorname" required>
+      <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+      <button type="submit">Ja, schick mir das Freebie</button>
+    </form>
+    <div class="lgb-ok">Danke! Bitte schau in dein Postfach und bestätige deine Anmeldung.</div>
+    <p class="lgb-micro">Kein Spam. Abmeldung jederzeit mit einem Klick. Hinweise zum Datenschutz findest du hier.</p>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lg-box form').forEach(function(f){
+    f.addEventListener('submit',function(e){ if(f.getAttribute('action')==='#'){e.preventDefault();f.closest('.lg-box').classList.add('is-sent');} });
+  });
+})();
+</script>
+</template>
+
+<!-- L2 --------------------------------------------------------- -->
+<template class="block" data-cat="lead" data-id="lg-mockup" data-terms="mockup,perspective-tilt,floating,split-layout,drop-shadow,inline-form"
+  data-name="Geteilt mit schwebendem Mockup"
+  data-desc="Links ein gekipptes Freebie-Cover, das sanft schwebt und sich zur Maus neigt. Rechts Text und Formular."
+  data-tags="Mockup,3D,Animation">
+<style>
+.lg-mockup{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);line-height:1.65;overflow:hidden}
+.lg-mockup *{box-sizing:border-box}
+.lg-mockup .lgm-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:64px;align-items:center}
+.lg-mockup .lgm-stage{perspective:1200px;display:grid;place-items:center;position:relative}
+.lg-mockup .lgm-stage::before{content:"";position:absolute;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--color-primary) 22%,transparent),transparent 70%)}
+.lg-mockup .lgm-float{animation:lgmFloat 6s ease-in-out infinite}
+.lg-mockup .lgm-cover{--rx:6deg;--ry:-16deg;position:relative;width:min(300px,70vw);aspect-ratio:3/4;border-radius:6px 14px 14px 6px;
+  background:linear-gradient(160deg,var(--color-primary),var(--color-secondary));color:#fff;padding:34px 28px;display:flex;flex-direction:column;justify-content:space-between;
+  transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .4s ease;
+  box-shadow:-8px 0 0 color-mix(in srgb,var(--color-dark) 60%,transparent) inset,24px 34px 50px rgba(0,0,0,.22)}
+.lg-mockup .lgm-cover small{font-family:var(--font-heading);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.7rem;opacity:.85}
+.lg-mockup .lgm-cover b{font-family:var(--font-heading);font-size:1.9rem;line-height:1.15}
+.lg-mockup .lgm-cover i{display:block;width:48px;height:4px;border-radius:4px;background:var(--color-accent)}
+@keyframes lgmFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.lg-mockup h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
+.lg-mockup form{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.lg-mockup input{padding:15px 18px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit;color:var(--color-heading)}
+.lg-mockup input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
+.lg-mockup button{padding:16px 24px;border:0;border-radius:var(--radius-button);background:var(--color-accent);color:var(--color-heading);font-family:var(--font-heading);font-weight:800;font-size:1.05rem;cursor:pointer;transition:transform .2s}
+.lg-mockup button:hover{transform:translateY(-2px)}
+.lg-mockup .lgm-micro{font-size:.85rem;color:#8a8a8a;margin:12px 0 0}
+.lg-mockup .lgm-ok{display:none;font-family:var(--font-heading);font-weight:700;color:var(--color-primary);margin-top:26px}
+.lg-mockup.is-sent form{display:none}.lg-mockup.is-sent .lgm-ok{display:block}
+@media(max-width:820px){.lg-mockup .lgm-inner{grid-template-columns:1fr;gap:48px}}
+@media(prefers-reduced-motion:reduce){.lg-mockup .lgm-float{animation:none}}
+</style>
+<section class="lg-mockup">
+  <div class="lgm-inner">
+    <div class="lgm-stage"><div class="lgm-float"><div class="lgm-cover"><small>Kostenloses Workbook</small><b>Titel deines Freebies</b><i></i></div></div></div>
+    <div>
+      <h2>Dein Einstieg in drei ruhigen Schritten</h2>
+      <p>Ein bis zwei Sätze darüber, was im Freebie steckt und welches Ergebnis am Ende steht. Platzhalter.</p>
+      <form action="#" method="post">
+        <input type="text" name="first_name" placeholder="Dein Vorname" required>
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+        <button type="submit">Workbook kostenlos holen</button>
+      </form>
+      <div class="lgm-ok">Danke! Schau in dein Postfach und bestätige die Anmeldung.</div>
+      <p class="lgm-micro">Kein Spam. Abmeldung jederzeit möglich.</p>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lg-mockup').forEach(function(root){
+    var stage=root.querySelector('.lgm-stage'),cover=root.querySelector('.lgm-cover');
+    stage.addEventListener('pointermove',function(e){var r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+      cover.style.setProperty('--ry',(x*28)+'deg');cover.style.setProperty('--rx',(-y*20)+'deg');});
+    stage.addEventListener('pointerleave',function(){cover.style.removeProperty('--ry');cover.style.removeProperty('--rx');});
+    var f=root.querySelector('form');
+    f.addEventListener('submit',function(e){if(f.getAttribute('action')==='#'){e.preventDefault();root.classList.add('is-sent');}});
+  });
+})();
+</script>
+</template>
+
+<!-- L3 --------------------------------------------------------- -->
+<template class="block" data-cat="lead" data-id="lg-band" data-terms="full-bleed,linear-gradient,inline-form,deko-shape,shimmer"
+  data-name="Farbband für zwischendurch"
+  data-desc="Kompaktes, volle Breite nutzendes Band mit nur einem E-Mail-Feld. Ideal mitten in einer langen Seite. Der Button hat einen Lichtreflex."
+  data-tags="kompakt,Farbfläche,mitten in der Seite">
+<style>
+.lg-band{position:relative;overflow:hidden;padding:56px 24px;background:linear-gradient(115deg,var(--color-primary),var(--color-secondary));font-family:var(--font-body);color:rgba(255,255,255,.9);line-height:1.6}
+.lg-band *{box-sizing:border-box}
+.lg-band::before,.lg-band::after{content:"";position:absolute;border-radius:50%;border:40px solid rgba(255,255,255,.08)}
+.lg-band::before{width:320px;height:320px;left:-120px;top:-160px}
+.lg-band::after{width:220px;height:220px;right:-60px;bottom:-120px;border-color:color-mix(in srgb,var(--color-accent) 30%,transparent)}
+.lg-band .lgd-inner{position:relative;max-width:1080px;margin:0 auto;display:flex;gap:40px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.lg-band h2{font-family:var(--font-heading);color:#fff;font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.25;margin:0 0 6px}
+.lg-band p{margin:0}
+.lg-band form{display:flex;background:#fff;border-radius:var(--radius-button);padding:6px;flex:0 1 460px;min-width:280px}
+.lg-band input{flex:1;min-width:0;border:0;padding:12px 18px;font:inherit;color:var(--color-heading);background:transparent;outline:none}
+.lg-band button{position:relative;overflow:hidden;border:0;border-radius:var(--radius-button);padding:12px 24px;background:var(--color-accent);color:var(--color-heading);font-family:var(--font-heading);font-weight:800;cursor:pointer;white-space:nowrap}
+.lg-band button::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.7),transparent);transform:skewX(-20deg);animation:lgdShine 3.2s ease-in-out infinite}
+@keyframes lgdShine{0%,60%{left:-60%}100%{left:130%}}
+.lg-band .lgd-ok{display:none;font-family:var(--font-heading);font-weight:700;color:#fff}
+.lg-band.is-sent form{display:none}.lg-band.is-sent .lgd-ok{display:block}
+@media(prefers-reduced-motion:reduce){.lg-band button::after{animation:none}}
+</style>
+<section class="lg-band">
+  <div class="lgd-inner">
+    <div>
+      <h2>Lust auf mehr? Hol dir das Freebie.</h2>
+      <p>Ein Satz Nutzen, kurz und klar. Platzhalter.</p>
+    </div>
+    <form action="#" method="post">
+      <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required aria-label="E-Mail-Adresse">
+      <button type="submit">Eintragen</button>
+    </form>
+    <div class="lgd-ok">Danke! Bitte bestätige die Mail in deinem Postfach.</div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lg-band form').forEach(function(f){
+    f.addEventListener('submit',function(e){if(f.getAttribute('action')==='#'){e.preventDefault();f.closest('.lg-band').classList.add('is-sent');}});
+  });
+})();
+</script>
+</template>
+
+<!-- L4 --------------------------------------------------------- -->
+<template class="block" data-cat="lead" data-id="lg-glas" data-terms="dark-section,glassmorphism,backdrop-blur,blob,floating,inline-form"
+  data-name="Glaskarte auf dunklem Grund"
+  data-desc="Farbige, verschwommene Lichtflecken bewegen sich langsam im Hintergrund. Davor eine halbtransparente Milchglas-Karte mit dem Formular."
+  data-tags="dunkel,Glassmorphism,Animation">
+<style>
+.lg-glas{position:relative;overflow:hidden;padding:110px 24px;background:var(--color-dark);font-family:var(--font-body);color:rgba(255,255,255,.8);line-height:1.65}
+.lg-glas *{box-sizing:border-box}
+.lg-glas .lgg-blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75;animation:lggDrift 14s ease-in-out infinite alternate}
+.lg-glas .b1{width:380px;height:380px;background:var(--color-primary);left:8%;top:-80px}
+.lg-glas .b2{width:300px;height:300px;background:var(--color-accent);right:10%;bottom:-100px;animation-delay:-5s}
+.lg-glas .b3{width:240px;height:240px;background:var(--color-accent-2);left:45%;top:40%;animation-delay:-9s;opacity:.5}
+@keyframes lggDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,40px) scale(1.15)}}
+.lg-glas .lgg-card{position:relative;max-width:620px;margin:0 auto;padding:48px 44px;border-radius:24px;text-align:center;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
+  box-shadow:0 30px 60px rgba(0,0,0,.25)}
+.lg-glas .lgg-kicker{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:6px 14px}
+.lg-glas h2{font-family:var(--font-heading);color:#fff;font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.2;margin:18px 0 12px}
+.lg-glas form{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.lg-glas input{padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font:inherit}
+.lg-glas input::placeholder{color:rgba(255,255,255,.65)}
+.lg-glas input:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.16)}
+.lg-glas button{padding:16px;border:0;border-radius:var(--radius-button);background:#fff;color:var(--color-dark);font-family:var(--font-heading);font-weight:800;font-size:1.05rem;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.lg-glas button:hover{transform:translateY(-2px);box-shadow:0 10px 30px color-mix(in srgb,var(--color-primary) 50%,transparent)}
+.lg-glas .lgg-micro{font-size:.85rem;opacity:.7;margin:14px 0 0}
+.lg-glas .lgg-ok{display:none;font-family:var(--font-heading);font-weight:700;color:#fff;margin-top:24px}
+.lg-glas.is-sent form{display:none}.lg-glas.is-sent .lgg-ok{display:block}
+@media(prefers-reduced-motion:reduce){.lg-glas .lgg-blob{animation:none}}
+</style>
+<section class="lg-glas">
+  <span class="lgg-blob b1"></span><span class="lgg-blob b2"></span><span class="lgg-blob b3"></span>
+  <div class="lgg-card">
+    <span class="lgg-kicker">Kostenlos</span>
+    <h2>Titel deines Freebies</h2>
+    <p>Ein bis zwei Sätze Nutzen. Platzhalter für den Text, der Lust auf das Freebie macht.</p>
+    <form action="#" method="post">
+      <input type="text" name="first_name" placeholder="Dein Vorname" required>
+      <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+      <button type="submit">Jetzt kostenlos sichern</button>
+    </form>
+    <div class="lgg-ok">Danke! Bitte bestätige die Mail in deinem Postfach.</div>
+    <p class="lgg-micro">Kein Spam. Abmeldung jederzeit möglich.</p>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lg-glas form').forEach(function(f){
+    f.addEventListener('submit',function(e){if(f.getAttribute('action')==='#'){e.preventDefault();f.closest('.lg-glas').classList.add('is-sent');}});
+  });
+})();
+</script>
+</template>
+
+<!-- L5 --------------------------------------------------------- -->
+<template class="block" data-cat="lead" data-id="lg-zweistufig" data-terms="two-step-optin,modal,backdrop-blur,pulse,scale-in"
+  data-name="Zwei-Schritt-Anmeldung mit Pop-up"
+  data-desc="Erst nur ein großer Button, der sanft pulsiert. Das Formular öffnet sich nach dem Klick in einem Fenster über der Seite."
+  data-tags="Pop-up,Two-Step,interaktiv">
+<style>
+.lg-zweistufig{padding:96px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);line-height:1.65;text-align:center}
+.lg-zweistufig *{box-sizing:border-box}
+.lg-zweistufig h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 auto 14px;max-width:720px}
+.lg-zweistufig .lgz-lead{max-width:600px;margin:0 auto 34px}
+.lg-zweistufig .lgz-open{position:relative;border:0;border-radius:var(--radius-button);padding:20px 40px;background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:800;font-size:1.15rem;cursor:pointer;animation:lgzPulse 2.4s ease-out infinite}
+.lg-zweistufig .lgz-open:hover{filter:brightness(1.06)}
+@keyframes lgzPulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--color-primary) 55%,transparent)}70%,100%{box-shadow:0 0 0 22px transparent}}
+.lg-zweistufig .lgz-note{display:block;margin-top:14px;font-size:.88rem;color:#8a8a8a}
+.lg-zweistufig .lgz-modal{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;background:rgba(10,20,30,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.lg-zweistufig .lgz-modal.is-open{opacity:1;visibility:visible}
+.lg-zweistufig .lgz-box{position:relative;width:100%;max-width:460px;background:#fff;border-radius:var(--radius-card);padding:40px 32px 32px;text-align:left;transform:scale(.92) translateY(10px);transition:transform .35s cubic-bezier(.34,1.56,.64,1);box-shadow:0 30px 70px rgba(0,0,0,.3)}
+.lg-zweistufig .lgz-modal.is-open .lgz-box{transform:none}
+.lg-zweistufig .lgz-close{position:absolute;top:12px;right:14px;border:0;background:none;font-size:1.6rem;line-height:1;color:#8a8a8a;cursor:pointer}
+.lg-zweistufig .lgz-step{font-family:var(--font-heading);font-weight:700;font-size:.78rem;color:var(--color-primary);letter-spacing:.1em;text-transform:uppercase}
+.lg-zweistufig .lgz-bar{height:6px;border-radius:6px;background:#eceee8;margin:8px 0 22px;overflow:hidden}
+.lg-zweistufig .lgz-bar span{display:block;height:100%;width:50%;background:var(--color-primary);border-radius:6px}
+.lg-zweistufig h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.35rem;margin:0 0 16px}
+.lg-zweistufig form{display:flex;flex-direction:column;gap:10px}
+.lg-zweistufig input{padding:14px 16px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit}
+.lg-zweistufig input:focus{outline:none;border-color:var(--color-primary)}
+.lg-zweistufig form button{padding:15px;border:0;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;cursor:pointer}
+.lg-zweistufig .lgz-ok{display:none;font-family:var(--font-heading);font-weight:700;color:var(--color-primary)}
+.lg-zweistufig .lgz-modal.is-sent form{display:none}.lg-zweistufig .lgz-modal.is-sent .lgz-ok{display:block}
+.lg-zweistufig .lgz-modal.is-sent .lgz-bar span{width:100%}
+@media(prefers-reduced-motion:reduce){.lg-zweistufig .lgz-open{animation:none}}
+</style>
+<section class="lg-zweistufig">
+  <h2>Bereit für den ersten Schritt?</h2>
+  <p class="lgz-lead">Ein bis zwei Sätze, die neugierig machen. Der Klick auf den Button ist schon ein kleines Ja und senkt die Hürde für das Formular.</p>
+  <button type="button" class="lgz-open">Ja, ich will das Freebie</button>
+  <span class="lgz-note">Kostenlos · dauert 20 Sekunden</span>
+  <div class="lgz-modal" role="dialog" aria-modal="true" aria-label="Anmeldung">
+    <div class="lgz-box">
+      <button type="button" class="lgz-close" aria-label="Schließen">&times;</button>
+      <div class="lgz-step">Fast geschafft</div>
+      <div class="lgz-bar"><span></span></div>
+      <h3>Wohin dürfen wir das Freebie schicken?</h3>
+      <form action="#" method="post">
+        <input type="text" name="first_name" placeholder="Dein Vorname" required>
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+        <button type="submit">Freebie anfordern</button>
+      </form>
+      <div class="lgz-ok">Danke! Bitte bestätige die Mail in deinem Postfach.</div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lg-zweistufig').forEach(function(root){
+    var m=root.querySelector('.lgz-modal'),f=m.querySelector('form');
+    function close(){m.classList.remove('is-open');}
+    root.querySelector('.lgz-open').addEventListener('click',function(){m.classList.add('is-open');setTimeout(function(){f.querySelector('input').focus();},200);});
+    m.querySelector('.lgz-close').addEventListener('click',close);
+    m.addEventListener('click',function(e){if(e.target===m)close();});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+    f.addEventListener('submit',function(e){if(f.getAttribute('action')==='#'){e.preventDefault();m.classList.add('is-sent');}});
+  });
+})();
+</script>
+</template>
+
+<!-- L6 --------------------------------------------------------- -->
+<template class="block" data-cat="lead" data-id="lg-socialproof" data-terms="social-proof,avatar-stack,count-up,split-layout,card,inline-form"
+  data-name="Anmeldung mit Social Proof"
+  data-desc="Links Text, Avatar-Stapel und eine Zahl, die beim Sichtbarwerden hochzählt. Rechts das Formular in einer farbig umrandeten Karte."
+  data-tags="Vertrauen,Zähler,zweispaltig">
+<style>
+.lg-socialproof{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);line-height:1.65}
+.lg-socialproof *{box-sizing:border-box}
+.lg-socialproof .lgs-inner{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center}
+.lg-socialproof h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
+.lg-socialproof .lgs-proof{display:flex;align-items:center;gap:16px;margin-top:30px;flex-wrap:wrap}
+.lg-socialproof .lgs-avatars{display:flex}
+.lg-socialproof .lgs-avatars span{width:46px;height:46px;border-radius:50%;border:3px solid #fff;margin-left:-12px;display:grid;place-items:center;font-family:var(--font-heading);font-weight:700;color:#fff;font-size:.9rem;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.lg-socialproof .lgs-avatars span:first-child{margin-left:0}
+.lg-socialproof .a1{background:var(--color-primary)}.lg-socialproof .a2{background:var(--color-accent)}.lg-socialproof .a3{background:var(--color-accent-2)}.lg-socialproof .a4{background:var(--color-secondary)}
+.lg-socialproof .lgs-count{font-family:var(--font-heading);font-weight:800;font-size:1.6rem;color:var(--color-heading);line-height:1}
+.lg-socialproof .lgs-stars{color:var(--color-accent);letter-spacing:2px;font-size:1rem}
+.lg-socialproof .lgs-card{border-radius:var(--radius-card);padding:3px;background:linear-gradient(135deg,var(--color-primary),var(--color-accent-2))}
+.lg-socialproof .lgs-card-body{background:#fff;border-radius:calc(var(--radius-card) - 3px);padding:36px 32px}
+.lg-socialproof h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.3rem;margin:0 0 18px}
+.lg-socialproof form{display:flex;flex-direction:column;gap:10px}
+.lg-socialproof input{padding:14px 16px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit}
+.lg-socialproof input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
+.lg-socialproof button{padding:15px;border:0;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;cursor:pointer;transition:transform .2s}
+.lg-socialproof button:hover{transform:translateY(-2px)}
+.lg-socialproof .lgs-micro{font-size:.85rem;color:#8a8a8a;margin:12px 0 0}
+.lg-socialproof .lgs-ok{display:none;font-family:var(--font-heading);font-weight:700;color:var(--color-primary)}
+.lg-socialproof.is-sent form{display:none}.lg-socialproof.is-sent .lgs-ok{display:block}
+@media(max-width:820px){.lg-socialproof .lgs-inner{grid-template-columns:1fr;gap:40px}}
+</style>
+<section class="lg-socialproof">
+  <div class="lgs-inner">
+    <div>
+      <h2>Schon viele sind dabei. Du auch?</h2>
+      <p>Ein bis zwei Sätze Nutzen. Darunter zeigt der Block, dass andere diesen Schritt schon gegangen sind. Platzhalter.</p>
+      <div class="lgs-proof">
+        <div class="lgs-avatars"><span class="a1">AK</span><span class="a2">SM</span><span class="a3">JL</span><span class="a4">+</span></div>
+        <div><div class="lgs-count"><span data-count="1200">0</span>+ Anmeldungen</div><div class="lgs-stars" aria-label="5 von 5 Sternen">★★★★★</div></div>
+      </div>
+    </div>
+    <div class="lgs-card"><div class="lgs-card-body">
+      <h3>Freebie kostenlos anfordern</h3>
+      <form action="#" method="post">
+        <input type="text" name="first_name" placeholder="Dein Vorname" required>
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+        <button type="submit">Ich bin dabei</button>
+      </form>
+      <div class="lgs-ok">Danke! Bitte bestätige die Mail in deinem Postfach.</div>
+      <p class="lgs-micro">Kein Spam. Abmeldung jederzeit möglich.</p>
+    </div></div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.lg-socialproof').forEach(function(root){
+    var f=root.querySelector('form');
+    f.addEventListener('submit',function(e){if(f.getAttribute('action')==='#'){e.preventDefault();root.classList.add('is-sent');}});
+    root.querySelectorAll('[data-count]').forEach(function(el){
+      var end=+el.dataset.count;
+      function run(){var t0=null;function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/1600,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('de-DE');if(p<1)requestAnimationFrame(step);}requestAnimationFrame(step);}
+      if(!('IntersectionObserver' in window)){run();return;}
+      new IntersectionObserver(function(e,o){if(e[0].isIntersecting){run();o.disconnect();}},{threshold:.15}).observe(el);
+    });
+  });
+})();
+</script>
+</template>
+
+<!-- ================================================================
+     ANGEBOT & INVESTITION
+     Kein Software-Preisvergleich mit drei Paketen, sondern:
+     was du bekommst und was du investierst.
+     ================================================================ -->
+
+<!-- A1 --------------------------------------------------------- -->
+<template class="block" data-cat="angebot" data-id="an-zweispaltig" data-terms="split-layout,checklist,card,visual-hierarchy,microcopy,button-glow"
+  data-name="Bekommen und Investieren"
+  data-desc="Zwei Spalten: links alles, was drin ist, rechts auf zartem Türkis-Wash der Preis mit Button. Klar und fair."
+  data-tags="zweispaltig,ruhig,Standard">
+<style>
+.an-zweispaltig{padding:88px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.an-zweispaltig *{box-sizing:border-box}
+.an-zweispaltig .az-inner{max-width:var(--container);margin:0 auto}
+.an-zweispaltig h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 48px}
+.an-zweispaltig .az-grid{display:grid;grid-template-columns:1.15fr 1fr;gap:28px;align-items:stretch}
+.an-zweispaltig .az-col{border-radius:var(--radius-card);padding:36px 34px}
+.an-zweispaltig .az-get{border:1.5px solid var(--color-primary);background:#fff}
+.an-zweispaltig .az-pay{background:color-mix(in srgb,var(--color-primary) 10%,transparent);display:flex;flex-direction:column}
+.an-zweispaltig h3{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:1.3rem;margin:0 0 18px}
+.an-zweispaltig ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.an-zweispaltig li{position:relative;padding-left:34px}
+.an-zweispaltig li::before{content:"";position:absolute;left:0;top:5px;width:22px;height:22px;border-radius:50%;background:var(--color-accent-2)}
+.an-zweispaltig li::after{content:"";position:absolute;left:8px;top:9px;width:6px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.an-zweispaltig .az-price{font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:3rem;line-height:1;margin:6px 0 4px}
+.an-zweispaltig .az-price small{font-size:1rem;font-weight:600;color:var(--color-text-mid)}
+.an-zweispaltig .az-rate{color:var(--color-text-mid);margin:0 0 22px}
+.an-zweispaltig .az-note{margin:0 0 26px}
+.an-zweispaltig .az-btn{margin-top:auto;display:block;text-align:center;padding:16px 24px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-body);font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease}
+.an-zweispaltig .az-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--color-primary) 35%,transparent)}
+.an-zweispaltig .az-micro{font-size:.9rem;color:var(--color-text-mid);text-align:center;margin:12px 0 0}
+@media(max-width:820px){.an-zweispaltig .az-grid{grid-template-columns:1fr}}
+</style>
+<section class="an-zweispaltig">
+  <div class="az-inner">
+    <h2>Dein Weg in den Kurs</h2>
+    <div class="az-grid">
+      <div class="az-col az-get">
+        <h3>Das bekommst du</h3>
+        <ul>
+          <li><b>8 Wochen</b> Begleitung mit wöchentlichem Live-Call</li>
+          <li>Alle Aufzeichnungen und Materialien dauerhaft</li>
+          <li>Praxisaufgaben mit persönlichem Feedback</li>
+          <li>Austausch in der Gruppe</li>
+          <li>Bonus: Platzhalter für einen Bonus</li>
+        </ul>
+      </div>
+      <div class="az-col az-pay">
+        <h3>Das investierst du</h3>
+        <div class="az-price">490 € <small>einmalig</small></div>
+        <p class="az-rate">oder 3 Raten à 170 €</p>
+        <p class="az-note">Dazu etwa <b>2 Stunden pro Woche</b> für die Umsetzung. Platzhaltertext für eine ehrliche Einordnung.</p>
+        <a class="az-btn" href="#">Jetzt Platz sichern</a>
+        <p class="az-micro">Alle Preise inkl. MwSt.</p>
+      </div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- A2 --------------------------------------------------------- -->
+<template class="block" data-cat="angebot" data-id="an-wertstapel" data-terms="value-stack,price-anchor,staggered,scroll-reveal,count-up,card"
+  data-name="Wert-Stapel"
+  data-desc="Die Bausteine stapeln sich beim Scrollen nacheinander ein, jeweils mit Einzelwert. Unten der Gesamtwert durchgestrichen und dein Preis."
+  data-tags="Value Stack,Animation,überzeugend">
+<style>
+.an-wertstapel{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.an-wertstapel *{box-sizing:border-box}
+.an-wertstapel .aw-inner{max-width:var(--text-width);margin:0 auto}
+.an-wertstapel h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 36px}
+.an-wertstapel .aw-card{background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card);overflow:hidden}
+.an-wertstapel .aw-row{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px 26px;border-bottom:1px solid #eceee8;opacity:0;transform:translateX(-24px);transition:opacity .5s ease,transform .5s ease}
+.an-wertstapel .aw-row b{color:var(--color-heading)}
+.an-wertstapel .aw-row span{white-space:nowrap;color:var(--color-text-mid)}
+.an-wertstapel .aw-total{display:flex;justify-content:space-between;padding:18px 26px;background:color-mix(in srgb,var(--color-primary) 8%,transparent);font-family:var(--font-heading);font-weight:600;color:var(--color-heading)}
+.an-wertstapel .aw-total s{color:var(--color-text-mid);text-decoration-color:var(--color-accent);text-decoration-thickness:2px}
+.an-wertstapel .aw-deal{text-align:center;padding:30px 26px 34px}
+.an-wertstapel .aw-label{font-family:var(--font-heading);font-weight:600;color:var(--color-text-mid);font-size:.95rem}
+.an-wertstapel .aw-price{font-family:var(--font-heading);font-weight:700;color:var(--color-primary);font-size:3.4rem;line-height:1.1;margin:4px 0 18px}
+.an-wertstapel .aw-btn{display:inline-block;padding:16px 36px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease}
+.an-wertstapel .aw-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--color-primary) 35%,transparent)}
+.an-wertstapel.is-in .aw-row{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.an-wertstapel .aw-row{opacity:1;transform:none;transition:none}}
+</style>
+<section class="an-wertstapel">
+  <div class="aw-inner">
+    <h2>Das steckt alles drin</h2>
+    <div class="aw-card">
+      <div class="aw-row"><b>8 Live-Calls mit Aufzeichnung</b><span>Wert 400 €</span></div>
+      <div class="aw-row"><b>Kursbereich mit allen Lektionen</b><span>Wert 290 €</span></div>
+      <div class="aw-row"><b>Praxisaufgaben mit Feedback</b><span>Wert 240 €</span></div>
+      <div class="aw-row"><b>Vorlagen und Prompt-Sammlung</b><span>Wert 90 €</span></div>
+      <div class="aw-row"><b>Bonus: Platzhalter</b><span>Wert 80 €</span></div>
+      <div class="aw-total"><span>Gesamtwert</span><s>1.100 €</s></div>
+      <div class="aw-deal">
+        <div class="aw-label">Deine Investition</div>
+        <div class="aw-price"><span data-count="490">490</span> €</div>
+        <a class="aw-btn" href="#">Jetzt dabei sein</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.an-wertstapel').forEach(function(root){
+    var rows=root.querySelectorAll('.aw-row');
+    rows.forEach(function(r,i){r.style.transitionDelay=(i*0.15)+'s';});
+    function go(){
+      root.classList.add('is-in');
+      root.querySelectorAll('[data-count]').forEach(function(el){
+        var end=+el.dataset.count,t0=null,delay=rows.length*150+300;
+        setTimeout(function(){requestAnimationFrame(function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/1200,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step);});},delay);
+      });
+    }
+    if(!('IntersectionObserver' in window)){go();return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){go();o.disconnect();}},{threshold:.15}).observe(root);
+  });
+})();
+</script>
+</template>
+
+<!-- A3 --------------------------------------------------------- -->
+<template class="block" data-cat="angebot" data-id="an-kompakt" data-terms="icon-badge,text-width,highlight-bar,whitespace,microcopy"
+  data-name="Kurz zusammengefasst, dann der Preis"
+  data-desc="Oben die wichtigsten Bausteine als schmale Icon-Leiste, darunter eine ruhige Textspalte mit Preis im Fließtext. Wirkt persönlich statt verkäuferisch."
+  data-tags="textlastig,persönlich,ruhig">
+<style>
+.an-kompakt{padding:88px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.an-kompakt *{box-sizing:border-box}
+.an-kompakt .ak-strip{max-width:var(--container);margin:0 auto 52px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.an-kompakt .ak-item{display:flex;gap:12px;align-items:center;padding:14px 16px;border:1.5px solid #e6e8e2;border-radius:var(--radius-card)}
+.an-kompakt .ak-icon{flex:0 0 42px;height:42px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--color-primary) 12%,transparent);color:var(--color-primary)}
+.an-kompakt .ak-icon svg{width:22px;height:22px}
+.an-kompakt .ak-item b{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:.95rem;line-height:1.3}
+.an-kompakt .ak-text{max-width:var(--text-width);margin:0 auto}
+.an-kompakt h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.25;margin:0 0 18px}
+.an-kompakt .ak-hl{border-left:4px solid var(--color-accent);padding:6px 0 6px 18px;margin:26px 0;color:var(--color-heading)}
+.an-kompakt .ak-hl b{font-size:1.25rem}
+.an-kompakt .ak-cta{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-top:30px}
+.an-kompakt .ak-btn{padding:16px 32px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease}
+.an-kompakt .ak-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--color-primary) 35%,transparent)}
+.an-kompakt .ak-cta small{color:var(--color-text-mid);font-size:.9rem}
+@media(max-width:900px){.an-kompakt .ak-strip{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.an-kompakt .ak-strip{grid-template-columns:1fr}}
+</style>
+<section class="an-kompakt">
+  <div class="ak-strip">
+    <div class="ak-item"><span class="ak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></svg></span><b>8 Live-Calls</b></div>
+    <div class="ak-item"><span class="ak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2zM8 7h6"/></svg></span><b>Alle Lektionen</b></div>
+    <div class="ak-item"><span class="ak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span><b>Feedback</b></div>
+    <div class="ak-item"><span class="ak-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5M15 15c3 0 6 1.5 6 4"/></svg></span><b>Gruppe</b></div>
+  </div>
+  <div class="ak-text">
+    <h2>Was es dich kostet und was du gewinnst</h2>
+    <p>Hier steht ein persönlicher Absatz, der noch einmal einordnet, für wen das Angebot gedacht ist und warum der Preis so ist, wie er ist. Platzhaltertext, zwei bis drei Sätze.</p>
+    <p class="ak-hl">Deine Investition: <b>490 €</b> einmalig oder 3 Raten à 170 €.</p>
+    <p>Ein weiterer kurzer Satz zur Zeit, die du einplanen solltest, oder zu einer Garantie.</p>
+    <div class="ak-cta"><a class="ak-btn" href="#">Ja, ich bin dabei</a><small>Anmeldung dauert 2 Minuten</small></div>
+  </div>
+</section>
+</template>
+
+<!-- A4 --------------------------------------------------------- -->
+<template class="block" data-cat="angebot" data-id="an-raten" data-terms="background-image,pricing-toggle,crossfade,card,divider-bar,button-glow"
+  data-name="Preiskarte mit Raten-Umschalter"
+  data-desc="Weiße Karte auf deinem Verlaufsbild. Ein Schalter wechselt zwischen Einmalzahlung und Raten, der Preis blendet weich über. Unten der orange Trennbalken."
+  data-tags="Verlaufsbild,interaktiv,Raten">
+<style>
+.an-raten{position:relative;padding:96px 24px 104px;background:var(--color-primary) var(--image-gradient) center/cover;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.an-raten::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:var(--color-accent)}
+.an-raten *{box-sizing:border-box}
+.an-raten h2{font-family:var(--font-heading);font-weight:600;color:#fff;font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 36px;text-shadow:0 2px 12px rgba(0,0,0,.25)}
+.an-raten .ar-card{max-width:520px;margin:0 auto;background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card-on-color);padding:36px 34px;text-align:center}
+.an-raten .ar-switch{display:inline-flex;background:var(--color-bg-soft);border-radius:var(--radius-button);padding:4px;margin-bottom:26px}
+.an-raten .ar-switch button{border:0;background:none;padding:9px 18px;border-radius:calc(var(--radius-button) - 2px);font:inherit;font-weight:700;font-size:.95rem;color:var(--color-text);cursor:pointer;transition:.2s ease}
+.an-raten .ar-switch button[aria-pressed="true"]{background:#fff;color:var(--color-heading);box-shadow:0 2px 8px rgba(0,0,0,.10)}
+.an-raten .ar-prices{position:relative;height:96px}
+.an-raten .ar-p{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .35s ease,transform .35s ease}
+.an-raten .ar-p[hidden]{display:flex;opacity:0;transform:translateY(8px);pointer-events:none}
+.an-raten .ar-p b{font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:3rem;line-height:1}
+.an-raten .ar-p span{color:var(--color-text-mid);margin-top:6px}
+.an-raten ul{list-style:none;padding:0;margin:22px 0 28px;text-align:left;display:flex;flex-direction:column;gap:8px}
+.an-raten li::before{content:"✦";color:var(--color-accent);margin-right:10px}
+.an-raten .ar-btn{display:block;padding:16px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease;animation:arGlow 2.6s ease-in-out infinite}
+.an-raten .ar-btn:hover{transform:translateY(-2px)}
+@keyframes arGlow{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--color-primary) 0%,transparent)}50%{box-shadow:0 0 22px 4px color-mix(in srgb,var(--color-primary) 45%,transparent)}}
+@media(prefers-reduced-motion:reduce){.an-raten .ar-btn{animation:none}}
+</style>
+<section class="an-raten">
+  <h2>Deine Investition</h2>
+  <div class="ar-card">
+    <div class="ar-switch" role="group" aria-label="Zahlungsart">
+      <button type="button" data-plan="once" aria-pressed="true">Einmalzahlung</button>
+      <button type="button" data-plan="rate" aria-pressed="false">In 3 Raten</button>
+    </div>
+    <div class="ar-prices">
+      <div class="ar-p" data-show="once"><b>490 €</b><span>einmalig, inkl. MwSt.</span></div>
+      <div class="ar-p" data-show="rate" hidden><b>3 × 170 €</b><span>monatlich, inkl. MwSt.</span></div>
+    </div>
+    <ul>
+      <li>8 Wochen Begleitung mit Live-Calls</li>
+      <li>Alle Materialien dauerhaft</li>
+      <li>Feedback auf deine Aufgaben</li>
+    </ul>
+    <a class="ar-btn" href="#">Jetzt Platz sichern</a>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.an-raten').forEach(function(root){
+    var btns=root.querySelectorAll('[data-plan]');
+    btns.forEach(function(b){b.addEventListener('click',function(){
+      btns.forEach(function(x){x.setAttribute('aria-pressed',x===b?'true':'false');});
+      root.querySelectorAll('[data-show]').forEach(function(p){p.hidden=p.dataset.show!==b.dataset.plan;});
+    });});
+  });
+})();
+</script>
+</template>
+
+<!-- A5 --------------------------------------------------------- -->
+<template class="block" data-cat="angebot" data-id="an-garantie" data-terms="seal,rotate-loop,split-layout,card,checklist,microcopy"
+  data-name="Preis mit Garantie-Siegel"
+  data-desc="Links die Preiskarte mit orangem Rand, rechts ein rundes Siegel, dessen Schriftring sich langsam dreht. Gut, wenn du eine Geld-zurück-Garantie gibst."
+  data-tags="Vertrauen,Siegel,Loop-Animation">
+<style>
+.an-garantie{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.an-garantie *{box-sizing:border-box}
+.an-garantie .ag-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1.3fr 1fr;gap:48px;align-items:center}
+.an-garantie .ag-card{background:#fff;border:1.5px solid var(--color-accent);border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:38px 36px}
+.an-garantie h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.5rem,2.8vw,2rem);line-height:1.25;margin:0 0 10px}
+.an-garantie .ag-price{font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:2.8rem;line-height:1;margin:16px 0 4px}
+.an-garantie .ag-rate{color:var(--color-text-mid);margin:0 0 20px}
+.an-garantie .ag-btn{display:inline-block;padding:16px 32px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease}
+.an-garantie .ag-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--color-primary) 35%,transparent)}
+.an-garantie .ag-seal-wrap{text-align:center}
+.an-garantie .ag-seal{position:relative;width:230px;height:230px;margin:0 auto 18px}
+.an-garantie .ag-ring{position:absolute;inset:0;animation:agSpin 22s linear infinite}
+.an-garantie .ag-ring text{font-family:var(--font-heading);font-weight:700;font-size:13.5px;letter-spacing:3.2px;fill:var(--color-secondary);text-transform:uppercase}
+.an-garantie .ag-core{position:absolute;inset:38px;border-radius:50%;background:#fff;border:3px solid var(--color-primary);box-shadow:var(--shadow-card);display:flex;flex-direction:column;align-items:center;justify-content:center}
+.an-garantie .ag-core b{font-family:var(--font-heading);font-weight:700;font-size:2.6rem;line-height:1;color:var(--color-primary)}
+.an-garantie .ag-core span{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:.9rem}
+.an-garantie .ag-seal-wrap p{max-width:320px;margin:0 auto}
+@keyframes agSpin{to{transform:rotate(360deg)}}
+@media(max-width:820px){.an-garantie .ag-inner{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.an-garantie .ag-ring{animation:none}}
+</style>
+<section class="an-garantie">
+  <div class="ag-inner">
+    <div class="ag-card">
+      <h2>Starte ohne Risiko</h2>
+      <p>Ein bis zwei Sätze, was du bekommst. Platzhaltertext.</p>
+      <div class="ag-price">490 €</div>
+      <p class="ag-rate">einmalig oder 3 Raten à 170 €, inkl. MwSt.</p>
+      <a class="ag-btn" href="#">Jetzt anmelden</a>
+    </div>
+    <div class="ag-seal-wrap">
+      <div class="ag-seal">
+        <svg class="ag-ring" viewBox="0 0 230 230" aria-hidden="true">
+          <defs><path id="agCircle" d="M115,115 m-92,0 a92,92 0 1,1 184,0 a92,92 0 1,1 -184,0"/></defs>
+          <text><textPath href="#agCircle">Geld-zurück-Garantie ✦ ohne Wenn und Aber ✦ </textPath></text>
+        </svg>
+        <div class="ag-core"><b>14</b><span>Tage Garantie</span></div>
+      </div>
+      <p>Wenn du merkst, dass es nicht passt, bekommst du dein Geld zurück. Platzhalter für deine Garantiebedingungen.</p>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- ================================================================
+     STIMMEN / TESTIMONIALS
+     Alle Zitate sind Platzhalter. Nur echte Stimmen mit Erlaubnis einsetzen.
+     ================================================================ -->
+
+<!-- S1 --------------------------------------------------------- -->
+<template class="block" data-cat="stimmen" data-id="st-karten" data-terms="grid-3,card,quote-mark,avatar,hover-scale,scroll-reveal,staggered"
+  data-name="Stimmen-Karten"
+  data-desc="Drei Karten mit großem Anführungszeichen, Initialen-Avatar und Namen. Sie blenden nacheinander ein und wachsen beim Drüberfahren leicht."
+  data-tags="Dreispalter,ruhig,Standard">
+<style>
+.st-karten{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.st-karten *{box-sizing:border-box}
+.st-karten .sk-inner{max-width:var(--container);margin:0 auto}
+.st-karten h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 48px}
+.st-karten .sk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.st-karten figure{margin:0;position:relative;background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:44px 28px 26px;display:flex;flex-direction:column;opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease,box-shadow .2s ease}
+.st-karten figure::before{content:"\201C";position:absolute;top:-6px;left:22px;font-family:Georgia,serif;font-size:5rem;line-height:1;color:var(--color-primary)}
+.st-karten.is-in figure{opacity:1;transform:none}
+.st-karten.is-in figure:hover{transform:scale(1.03);box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.st-karten blockquote{margin:0 0 22px;flex:1}
+.st-karten figcaption{display:flex;align-items:center;gap:12px;border-top:1px solid #eceee8;padding-top:16px}
+.st-karten .sk-av{flex:0 0 46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--font-heading);font-weight:700;color:#fff}
+.st-karten figure:nth-child(1) .sk-av{background:var(--color-primary)}
+.st-karten figure:nth-child(2) .sk-av{background:var(--color-accent)}
+.st-karten figure:nth-child(3) .sk-av{background:var(--color-secondary)}
+.st-karten figcaption b{display:block;color:var(--color-heading);line-height:1.3}
+.st-karten figcaption span{font-size:.9rem;color:var(--color-text-mid)}
+@media(max-width:820px){.st-karten .sk-grid{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.st-karten figure{opacity:1;transform:none;transition:none}}
+</style>
+<section class="st-karten">
+  <div class="sk-inner">
+    <h2>Das sagen Teilnehmende</h2>
+    <div class="sk-grid">
+      <figure><blockquote>Platzhalter für ein echtes Zitat. Zwei bis drei Sätze, am besten mit einem konkreten Ergebnis statt allgemeinem Lob.</blockquote><figcaption><span class="sk-av">AB</span><div><b>Vorname N.</b><span>Beruf oder Angebot</span></div></figcaption></figure>
+      <figure><blockquote>Platzhalter für ein echtes Zitat. Was war vorher schwierig, was ist jetzt anders? So wird eine Stimme glaubwürdig.</blockquote><figcaption><span class="sk-av">CD</span><div><b>Vorname N.</b><span>Beruf oder Angebot</span></div></figcaption></figure>
+      <figure><blockquote>Platzhalter für ein echtes Zitat. Gern auch etwas Persönliches über die Atmosphäre in der Gruppe.</blockquote><figcaption><span class="sk-av">EF</span><div><b>Vorname N.</b><span>Beruf oder Angebot</span></div></figcaption></figure>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.st-karten').forEach(function(root){
+    root.querySelectorAll('figure').forEach(function(f,i){f.style.transitionDelay=(i*0.15)+'s';setTimeout(function(){},0);});
+    function go(){root.classList.add('is-in');setTimeout(function(){root.querySelectorAll('figure').forEach(function(f){f.style.transitionDelay='0s';});},1200);}
+    if(!('IntersectionObserver' in window)){go();return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){go();o.disconnect();}},{threshold:.25}).observe(root);
+  });
+})();
+</script>
+</template>
+
+<!-- S2 --------------------------------------------------------- -->
+<template class="block" data-cat="stimmen" data-id="st-gross" data-terms="pull-quote,whitespace,text-width,quote-mark,avatar"
+  data-name="Ein großes Zitat"
+  data-desc="Eine einzige Stimme, groß gesetzt mit viel Weißraum. Wirkt stark, wenn du ein besonders gutes Zitat hast."
+  data-tags="einspaltig,ruhig,wirkungsvoll">
+<style>
+.st-gross{padding:104px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);text-align:center}
+.st-gross *{box-sizing:border-box}
+.st-gross figure{max-width:var(--text-width);margin:0 auto}
+.st-gross .sg-mark{display:block;font-family:Georgia,serif;font-size:6rem;line-height:.6;color:var(--color-accent);height:44px}
+.st-gross blockquote{margin:0;font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.35rem,2.6vw,1.85rem);line-height:1.45}
+.st-gross figcaption{margin-top:30px;display:inline-flex;align-items:center;gap:14px;text-align:left}
+.st-gross .sg-av{width:56px;height:56px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--color-primary) 14%,transparent);color:var(--color-primary);font-family:var(--font-heading);font-weight:700;font-size:1.1rem;border:2px solid var(--color-primary)}
+.st-gross figcaption b{display:block;color:var(--color-heading);font-size:1.05rem}
+.st-gross figcaption span{color:var(--color-text-mid);font-size:.95rem}
+</style>
+<section class="st-gross">
+  <figure>
+    <span class="sg-mark" aria-hidden="true">&#8220;</span>
+    <blockquote>Platzhalter für dein stärkstes Zitat. Ein Satz, der das Ergebnis deines Angebots auf den Punkt bringt, in den Worten einer echten Teilnehmerin.</blockquote>
+    <figcaption><span class="sg-av">AB</span><div><b>Vorname Nachname</b><span>Beruf oder Angebot</span></div></figcaption>
+  </figure>
+</section>
+</template>
+
+<!-- S3 --------------------------------------------------------- -->
+<template class="block" data-cat="stimmen" data-id="st-laufband" data-terms="marquee,mask-fade,pause-on-hover,card"
+  data-name="Endloses Laufband"
+  data-desc="Zwei Reihen kurzer Stimmen laufen endlos in entgegengesetzte Richtungen, an den Rändern weich ausgeblendet. Bei Mausberührung halten sie an."
+  data-tags="Marquee,viele Stimmen,lebendig">
+<style>
+.st-laufband{padding:88px 0;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:17px;line-height:1.6;overflow:hidden}
+.st-laufband *{box-sizing:border-box}
+.st-laufband h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 24px 44px}
+.st-laufband .sl-row{display:flex;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.st-laufband .sl-row+.sl-row{margin-top:18px}
+.st-laufband .sl-track{display:flex;gap:18px;padding-right:18px;flex-shrink:0;animation:slMove 48s linear infinite}
+.st-laufband .sl-row.rev .sl-track{animation-direction:reverse}
+.st-laufband .sl-row:hover .sl-track{animation-play-state:paused}
+.st-laufband .sl-item{flex:0 0 320px;background:#fff;border-radius:var(--radius-card);box-shadow:0 2px 8px rgba(0,0,0,.08);padding:18px 20px}
+.st-laufband .sl-item p{margin:0 0 10px}
+.st-laufband .sl-item b{font-family:var(--font-heading);font-weight:600;font-size:.9rem;color:var(--color-heading)}
+.st-laufband .sl-item b::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--color-accent-2);margin-right:8px;vertical-align:middle}
+@keyframes slMove{to{transform:translateX(-100%)}}
+@media(prefers-reduced-motion:reduce){.st-laufband .sl-track{animation:none}.st-laufband .sl-row{overflow-x:auto}}
+</style>
+<section class="st-laufband">
+  <h2>Stimmen aus den letzten Runden</h2>
+  <div class="sl-row"><div class="sl-track">
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat, ein bis zwei Sätze.</p><b>Vorname N.</b></div>
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat mit einem konkreten Ergebnis.</p><b>Vorname N.</b></div>
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat über die Begleitung.</p><b>Vorname N.</b></div>
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat über die Gruppe.</p><b>Vorname N.</b></div>
+  </div></div>
+  <div class="sl-row rev"><div class="sl-track">
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat, ein bis zwei Sätze.</p><b>Vorname N.</b></div>
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat über den Aha-Moment.</p><b>Vorname N.</b></div>
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat über die Zeitersparnis.</p><b>Vorname N.</b></div>
+    <div class="sl-item"><p>Kurzes Platzhalter-Zitat, ein bis zwei Sätze.</p><b>Vorname N.</b></div>
+  </div></div>
+</section>
+<script>
+(function(){
+  /* Spur verdoppeln, damit das Band ohne Lücke endlos läuft */
+  document.querySelectorAll('.st-laufband .sl-row').forEach(function(row){
+    var t=row.querySelector('.sl-track'),c=t.cloneNode(true);c.setAttribute('aria-hidden','true');row.appendChild(c);
+  });
+})();
+</script>
+</template>
+
+<!-- S4 --------------------------------------------------------- -->
+<template class="block" data-cat="stimmen" data-id="st-karussell" data-terms="carousel,pagination-dots,autoplay,swipe,avatar,quote-mark"
+  data-name="Karussell zum Durchklicken"
+  data-desc="Eine Stimme nach der anderen, mit Pfeilen, Punkten und Wischen auf dem Handy. Wechselt alle 6 Sekunden von selbst."
+  data-tags="Slider,kompakt,interaktiv">
+<style>
+.st-karussell{padding:88px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.st-karussell *{box-sizing:border-box}
+.st-karussell .sc-inner{max-width:820px;margin:0 auto;text-align:center}
+.st-karussell h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 36px}
+.st-karussell .sc-view{position:relative;overflow:hidden;border-radius:var(--radius-card);border:1.5px solid var(--color-primary);background:#fff;touch-action:pan-y}
+.st-karussell .sc-track{display:flex;transition:transform .55s cubic-bezier(.65,0,.35,1)}
+.st-karussell figure{flex:0 0 100%;margin:0;padding:44px 64px 36px}
+.st-karussell figure::before{content:"\201C";display:block;font-family:Georgia,serif;font-size:4rem;line-height:.6;height:30px;color:var(--color-primary)}
+.st-karussell blockquote{margin:0 0 22px;font-size:1.15rem;color:var(--color-heading)}
+.st-karussell figcaption b{color:var(--color-heading)}
+.st-karussell figcaption span{display:block;color:var(--color-text-mid);font-size:.92rem}
+.st-karussell .sc-arrow{position:absolute;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:50%;border:0;background:var(--color-bg-soft);color:var(--color-heading);font-size:1.2rem;cursor:pointer;transition:.2s ease}
+.st-karussell .sc-arrow:hover{background:var(--color-primary);color:#fff}
+.st-karussell .sc-prev{left:12px}.st-karussell .sc-next{right:12px}
+.st-karussell .sc-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
+.st-karussell .sc-dots button{width:10px;height:10px;border-radius:10px;border:0;background:#d8dbd2;cursor:pointer;transition:width .3s ease,background .3s ease;padding:0}
+.st-karussell .sc-dots button[aria-current="true"]{width:28px;background:var(--color-accent)}
+@media(max-width:600px){.st-karussell figure{padding:36px 26px 28px}.st-karussell .sc-arrow{display:none}}
+</style>
+<section class="st-karussell">
+  <div class="sc-inner">
+    <h2>Was sich für andere verändert hat</h2>
+    <div class="sc-view">
+      <div class="sc-track">
+        <figure><blockquote>Platzhalter für Stimme eins. Ein konkreter Satz über das Ergebnis.</blockquote><figcaption><b>Vorname N.</b><span>Beruf oder Angebot</span></figcaption></figure>
+        <figure><blockquote>Platzhalter für Stimme zwei. Was war der größte Aha-Moment?</blockquote><figcaption><b>Vorname N.</b><span>Beruf oder Angebot</span></figcaption></figure>
+        <figure><blockquote>Platzhalter für Stimme drei. Wie hat sich der Arbeitsalltag verändert?</blockquote><figcaption><b>Vorname N.</b><span>Beruf oder Angebot</span></figcaption></figure>
+      </div>
+      <button class="sc-arrow sc-prev" type="button" aria-label="Vorherige Stimme">&#8592;</button>
+      <button class="sc-arrow sc-next" type="button" aria-label="Nächste Stimme">&#8594;</button>
+    </div>
+    <div class="sc-dots"></div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.st-karussell').forEach(function(root){
+    var track=root.querySelector('.sc-track'),n=track.children.length,i=0,timer,dots=root.querySelector('.sc-dots'),view=root.querySelector('.sc-view');
+    for(var k=0;k<n;k++){var d=document.createElement('button');d.type='button';d.setAttribute('aria-label','Stimme '+(k+1));(function(k){d.onclick=function(){go(k,true);};})(k);dots.appendChild(d);}
+    function go(k,user){i=(k+n)%n;track.style.transform='translateX('+(-100*i)+'%)';
+      [].forEach.call(dots.children,function(d,j){d.setAttribute('aria-current',j===i?'true':'false');});
+      if(user)clearInterval(timer);}
+    root.querySelector('.sc-prev').onclick=function(){go(i-1,true);};
+    root.querySelector('.sc-next').onclick=function(){go(i+1,true);};
+    var x0=null;view.addEventListener('pointerdown',function(e){x0=e.clientX;});
+    view.addEventListener('pointerup',function(e){if(x0===null)return;var dx=e.clientX-x0;if(Math.abs(dx)>40)go(i+(dx<0?1:-1),true);x0=null;});
+    go(0);
+    if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches) timer=setInterval(function(){go(i+1);},6000);
+  });
+})();
+</script>
+</template>
+
+<!-- S5 --------------------------------------------------------- -->
+<template class="block" data-cat="stimmen" data-id="st-chat" data-terms="chat-bubble,typing-indicator,staggered,scroll-reveal,split-layout"
+  data-name="Nachrichten-Stil"
+  data-desc="Rückmeldungen erscheinen wie Chatnachrichten nacheinander, jeweils mit kurzen Tipp-Pünktchen davor. Wirkt nahbar. Nur mit echten, freigegebenen Nachrichten füllen."
+  data-tags="Chat,Animation,nahbar">
+<style>
+.st-chat{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.6}
+.st-chat *{box-sizing:border-box}
+.st-chat .sch-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}
+.st-chat h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
+.st-chat .sch-phone{background:#fff;border-radius:22px;box-shadow:var(--shadow-card);padding:22px 18px;display:flex;flex-direction:column;gap:12px;min-height:360px}
+.st-chat .sch-msg{max-width:85%;opacity:0;transform:translateY(12px) scale(.98);transition:opacity .4s ease,transform .4s ease}
+.st-chat .sch-msg.is-shown{opacity:1;transform:none}
+.st-chat .sch-bubble{background:var(--color-bg-soft);border-radius:16px 16px 16px 4px;padding:12px 16px}
+.st-chat .sch-msg.me{align-self:flex-end}
+.st-chat .sch-msg.me .sch-bubble{background:color-mix(in srgb,var(--color-primary) 14%,#fff);border-radius:16px 16px 4px 16px}
+.st-chat .sch-who{font-size:.8rem;color:var(--color-text-mid);margin:4px 6px 0}
+.st-chat .sch-typing{display:none;gap:4px;padding:14px 16px;background:var(--color-bg-soft);border-radius:16px;width:max-content}
+.st-chat .sch-typing.is-on{display:flex}
+.st-chat .sch-typing i{width:7px;height:7px;border-radius:50%;background:var(--color-text-mid);animation:schDot 1s infinite}
+.st-chat .sch-typing i:nth-child(2){animation-delay:.15s}.st-chat .sch-typing i:nth-child(3){animation-delay:.3s}
+@keyframes schDot{0%,60%,100%{opacity:.3;transform:none}30%{opacity:1;transform:translateY(-3px)}}
+@media(max-width:820px){.st-chat .sch-inner{grid-template-columns:1fr}}
+</style>
+<section class="st-chat">
+  <div class="sch-inner">
+    <div>
+      <h2>Nachrichten, die mich erreichen</h2>
+      <p>Ein kurzer Satz zur Einordnung. Platzhalter. Hier nur echte Rückmeldungen verwenden, mit Einverständnis der Person.</p>
+    </div>
+    <div class="sch-phone" aria-live="polite">
+      <div class="sch-msg"><div class="sch-bubble">Platzhalter für eine echte Nachricht. Kurz und spontan formuliert.</div><div class="sch-who">Vorname N.</div></div>
+      <div class="sch-msg me"><div class="sch-bubble">Deine kurze Antwort als Platzhalter.</div></div>
+      <div class="sch-msg"><div class="sch-bubble">Platzhalter für eine zweite Nachricht mit einem Ergebnis.</div><div class="sch-who">Vorname N.</div></div>
+      <div class="sch-msg"><div class="sch-bubble">Platzhalter für eine dritte Nachricht.</div><div class="sch-who">Vorname N.</div></div>
+      <div class="sch-typing"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.st-chat').forEach(function(root){
+    var msgs=root.querySelectorAll('.sch-msg'),typing=root.querySelector('.sch-typing'),phone=root.querySelector('.sch-phone');
+    function play(){
+      var t=0;msgs.forEach(function(m){
+        t+=700;setTimeout(function(){phone.insertBefore(typing,m);typing.classList.add('is-on');},t);
+        t+=900;setTimeout(function(){typing.classList.remove('is-on');m.classList.add('is-shown');},t);
+      });
+    }
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){msgs.forEach(function(m){m.classList.add('is-shown');});return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){play();o.disconnect();}},{threshold:.15}).observe(phone);
+  });
+})();
+</script>
+</template>
+
+<!-- ================================================================
+     ÜBER MICH
+     Bilder liegen in assets/. In der eigenen Version durch Porträts
+     aus dem eigenen Bildordner ersetzen (siehe Designsystem).
+     ================================================================ -->
+
+<!-- U1 --------------------------------------------------------- -->
+<template class="block" data-cat="ueber" data-id="um-klassisch" data-terms="split-layout,offset-frame,object-fit,highlight-bar,text-width"
+  data-name="Porträt mit versetztem Rahmen"
+  data-desc="40/60: links dein Foto mit einem orangen Rahmen, der leicht versetzt dahinter liegt. Rechts der Text mit hervorgehobenem Kernsatz."
+  data-tags="Bild + Text,Standard,ruhig">
+<style>
+.um-klassisch{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.um-klassisch *{box-sizing:border-box}
+.um-klassisch .uk-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:2fr 3fr;gap:64px;align-items:center}
+.um-klassisch .uk-photo{position:relative;margin:0 18px 18px 0}
+.um-klassisch .uk-photo::before{content:"";position:absolute;inset:18px -18px -18px 18px;border:3px solid var(--color-accent);border-radius:var(--radius-card)}
+.um-klassisch .uk-photo img{position:relative;display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--radius-card);box-shadow:var(--shadow-card)}
+.um-klassisch .uk-kicker{font-family:var(--font-heading);font-weight:600;color:var(--color-primary);font-size:1rem}
+.um-klassisch h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:6px 0 18px}
+.um-klassisch .uk-hl{border-left:4px solid var(--color-accent);padding:4px 0 4px 18px;color:var(--color-heading);font-weight:700;margin:22px 0}
+@media(max-width:820px){.um-klassisch .uk-inner{grid-template-columns:1fr;gap:44px}.um-klassisch .uk-photo{max-width:360px}}
+</style>
+<section class="um-klassisch">
+  <div class="uk-inner">
+    <div class="uk-photo"><img src="assets/portrait-marit.jpg" alt="Porträt von Marit Alke" loading="lazy"></div>
+    <div>
+      <div class="uk-kicker">Hallo, ich bin Marit</div>
+      <h2>Wer dich hier begleitet</h2>
+      <p>Platzhalter für zwei bis drei Sätze über dich: was du machst, für wen, und warum dir das Thema am Herzen liegt.</p>
+      <p class="uk-hl">Ein Kernsatz, der deine Haltung zeigt. Platzhalter.</p>
+      <p>Noch ein kurzer persönlicher Absatz, gern mit einem Detail, das dich nahbar macht.</p>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- U2 --------------------------------------------------------- -->
+<template class="block" data-cat="ueber" data-id="um-zahlen" data-terms="stat-row,count-up,avatar,text-width,scroll-reveal"
+  data-name="Porträt mit Zahlenleiste"
+  data-desc="Rundes Porträt und kurzer Text in der Mitte, darunter drei Kennzahlen, die beim Reinscrollen hochzählen."
+  data-tags="zentriert,Zahlen,Animation">
+<style>
+.um-zahlen{padding:96px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7;text-align:center}
+.um-zahlen *{box-sizing:border-box}
+.um-zahlen .uz-photo{width:170px;height:170px;border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:var(--shadow-card);display:block;margin:0 auto 24px}
+.um-zahlen h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
+.um-zahlen .uz-text{max-width:var(--text-width);margin:0 auto}
+.um-zahlen .uz-stats{max-width:var(--container);margin:48px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.um-zahlen .uz-stat{background:#fff;border-radius:var(--radius-card);border-top:4px solid var(--color-primary);padding:26px 16px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.um-zahlen .uz-stat:nth-child(2){border-top-color:var(--color-accent)}
+.um-zahlen .uz-stat:nth-child(3){border-top-color:var(--color-accent-2)}
+.um-zahlen .uz-num{font-family:var(--font-heading);font-weight:700;color:var(--color-heading);font-size:2.6rem;line-height:1}
+.um-zahlen .uz-stat > span{display:block;margin-top:8px;color:var(--color-text-mid)}
+@media(max-width:700px){.um-zahlen .uz-stats{grid-template-columns:1fr}}
+</style>
+<section class="um-zahlen">
+  <img class="uz-photo" src="assets/portrait-marit-hoodie.jpg" alt="Porträt von Marit Alke" loading="lazy">
+  <h2>Hallo, ich bin Marit</h2>
+  <div class="uz-text"><p>Platzhalter für zwei bis drei Sätze über dich und deinen Weg. Kurz, warm, auf Augenhöhe.</p></div>
+  <div class="uz-stats">
+    <div class="uz-stat"><div class="uz-num"><span data-count="13">0</span>+</div><span>Jahre Erfahrung</span></div>
+    <div class="uz-stat"><div class="uz-num"><span data-count="2000">0</span>+</div><span>Teilnehmende (Platzhalter)</span></div>
+    <div class="uz-stat"><div class="uz-num"><span data-count="40">0</span></div><span>Programme (Platzhalter)</span></div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.um-zahlen').forEach(function(root){
+    function run(){root.querySelectorAll('[data-count]').forEach(function(el){var end=+el.dataset.count,t0=null;
+      requestAnimationFrame(function step(t){if(!t0)t0=t;var p=Math.min((t-t0)/1500,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3))).toLocaleString('de-DE');if(p<1)requestAnimationFrame(step);});});}
+    if(!('IntersectionObserver' in window)){run();return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){run();o.disconnect();}},{threshold:.15}).observe(root.querySelector('.uz-stats'));
+  });
+})();
+</script>
+</template>
+
+<!-- U3 --------------------------------------------------------- -->
+<template class="block" data-cat="ueber" data-id="um-timeline" data-terms="timeline,line-draw,scroll-reveal,staggered,split-layout"
+  data-name="Mein Weg als Zeitstrahl"
+  data-desc="Links ein kleines Porträt mit Einleitung, rechts deine Stationen auf einer senkrechten Linie, die sich beim Scrollen zeichnet."
+  data-tags="Timeline,Geschichte,Animation">
+<style>
+.um-timeline{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.um-timeline *{box-sizing:border-box}
+.um-timeline .ut-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:35fr 65fr;gap:64px}
+.um-timeline .ut-intro{position:sticky;top:40px;align-self:start}
+.um-timeline .ut-intro img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-card);margin-bottom:18px}
+.um-timeline h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.2;margin:0 0 12px}
+.um-timeline ol{list-style:none;margin:0;padding:0 0 0 38px;position:relative}
+.um-timeline ol::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;border-radius:3px;background:var(--color-primary);transform:scaleY(0);transform-origin:top;transition:transform 1.6s cubic-bezier(.65,0,.35,1)}
+.um-timeline li{position:relative;padding-bottom:30px;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
+.um-timeline li:last-child{padding-bottom:0}
+.um-timeline li::before{content:"";position:absolute;left:-38px;top:5px;width:21px;height:21px;border-radius:50%;background:#fff;border:3px solid var(--color-primary)}
+.um-timeline li:last-child::before{background:var(--color-accent);border-color:var(--color-accent)}
+.um-timeline .ut-year{font-family:var(--font-heading);font-weight:700;color:var(--color-primary);font-size:.95rem}
+.um-timeline h3{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:1.2rem;margin:2px 0 4px}
+.um-timeline li p{margin:0}
+.um-timeline.is-in ol::before{transform:scaleY(1)}
+.um-timeline.is-in li{opacity:1;transform:none}
+@media(max-width:820px){.um-timeline .ut-inner{grid-template-columns:1fr;gap:40px}.um-timeline .ut-intro{position:static}}
+@media(prefers-reduced-motion:reduce){.um-timeline ol::before,.um-timeline li{transition:none}}
+</style>
+<section class="um-timeline">
+  <div class="ut-inner">
+    <div class="ut-intro">
+      <img src="assets/portrait-marit.jpg" alt="Porträt von Marit Alke" loading="lazy">
+      <h2>Mein Weg bis hierher</h2>
+      <p>Ein kurzer Einleitungssatz. Platzhalter.</p>
+    </div>
+    <ol>
+      <li><div class="ut-year">2013</div><h3>Station eins</h3><p>Platzhalter: womit alles angefangen hat.</p></li>
+      <li><div class="ut-year">2017</div><h3>Station zwei</h3><p>Platzhalter: ein Wendepunkt oder eine wichtige Erfahrung.</p></li>
+      <li><div class="ut-year">2021</div><h3>Station drei</h3><p>Platzhalter: was du daraus gemacht hast.</p></li>
+      <li><div class="ut-year">heute</div><h3>Wo ich jetzt stehe</h3><p>Platzhalter: was du heute anbietest und für wen.</p></li>
+    </ol>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.um-timeline').forEach(function(root){
+    root.querySelectorAll('li').forEach(function(li,i){li.style.transitionDelay=(0.3+i*0.3)+'s';});
+    if(!('IntersectionObserver' in window)){root.classList.add('is-in');return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){root.classList.add('is-in');o.disconnect();}},{threshold:.15}).observe(root);
+  });
+})();
+</script>
+</template>
+
+<!-- U4 --------------------------------------------------------- -->
+<template class="block" data-cat="ueber" data-id="um-brief" data-terms="text-width,signature,line-draw,whitespace,avatar"
+  data-name="Persönlicher Brief"
+  data-desc="Schmale Textspalte wie ein Brief, mit Anrede und einer Unterschrift, die sich beim Sichtbarwerden von selbst zeichnet."
+  data-tags="persönlich,textlastig,Handschrift-Effekt">
+<style>
+.um-brief{padding:96px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:19px;line-height:1.75}
+.um-brief *{box-sizing:border-box}
+.um-brief .ub-paper{max-width:var(--text-width);margin:0 auto;background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card);padding:52px 56px;border-top:6px solid var(--color-primary)}
+.um-brief .ub-hello{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:1.35rem;margin:0 0 16px}
+.um-brief p{margin:0 0 16px}
+.um-brief .ub-sign{display:flex;align-items:center;gap:18px;margin-top:30px}
+.um-brief .ub-sign img{width:72px;height:72px;border-radius:50%;object-fit:cover}
+.um-brief .ub-sign svg{width:180px;height:70px;overflow:visible}
+.um-brief .ub-sign path{fill:none;stroke:var(--color-secondary);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:900;stroke-dashoffset:900;transition:stroke-dashoffset 2.4s ease}
+.um-brief.is-in .ub-sign path{stroke-dashoffset:0}
+.um-brief .ub-sign small{display:block;color:var(--color-text-mid);font-size:.9rem}
+@media(max-width:640px){.um-brief .ub-paper{padding:36px 24px}}
+@media(prefers-reduced-motion:reduce){.um-brief .ub-sign path{stroke-dashoffset:0;transition:none}}
+</style>
+<section class="um-brief">
+  <div class="ub-paper">
+    <p class="ub-hello">Liebe Leserin, lieber Leser,</p>
+    <p>Platzhalter für einen persönlichen Brief. Warum machst du, was du machst? Was hat dich selbst einmal an diesem Punkt gehalten, an dem deine Leserin gerade steht?</p>
+    <p>Ein zweiter Absatz mit deiner Haltung und dem, was du dir für die Menschen wünschst, die mit dir arbeiten. Kurze Sätze, warm und direkt.</p>
+    <p>Ich freue mich auf dich.</p>
+    <div class="ub-sign">
+      <img src="assets/portrait-marit-hoodie.jpg" alt="Marit Alke" loading="lazy">
+      <div>
+        <svg viewBox="0 0 180 70" aria-label="Unterschrift Marit" role="img"><path d="M6 52 C14 20,20 14,24 44 C28 18,36 14,38 46 C42 30,50 28,56 42 C58 34,64 32,66 42 C70 32,74 30,76 40 M80 30 L82 44 M92 18 C88 34,88 44,94 44 M86 28 L100 26 M108 42 C116 36,130 50,160 34"/></svg>
+        <small>Marit Alke</small>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.um-brief').forEach(function(root){
+    if(!('IntersectionObserver' in window)){root.classList.add('is-in');return;}
+    new IntersectionObserver(function(e,o){if(e[0].isIntersecting){root.classList.add('is-in');o.disconnect();}},{threshold:.15}).observe(root.querySelector('.ub-sign'));
+  });
+})();
+</script>
+</template>
+
+<!-- U5 --------------------------------------------------------- -->
+<template class="block" data-cat="ueber" data-id="um-verlauf" data-terms="background-image,overlap,card,divider-bar,text-shadow"
+  data-name="Karte auf Verlaufsbild mit Porträt"
+  data-desc="Dein Verlaufsbild als Fläche, darauf eine weiße Textkarte, dein Porträt ragt seitlich über den Kartenrand. Unten der orange Trennbalken."
+  data-tags="Verlaufsbild,Überlappung,kräftig">
+<style>
+.um-verlauf{position:relative;padding:96px 24px 108px;background:var(--color-primary) var(--image-gradient) center/cover;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.um-verlauf::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:var(--color-accent)}
+.um-verlauf *{box-sizing:border-box}
+.um-verlauf .uv-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1fr 1.5fr;align-items:center}
+.um-verlauf .uv-photo{position:relative;z-index:1;margin-right:-60px}
+.um-verlauf .uv-photo img{display:block;width:100%;aspect-ratio:1;object-fit:cover;border-radius:var(--radius-card);box-shadow:var(--shadow-card-on-color);border:6px solid #fff}
+.um-verlauf .uv-card{background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card-on-color);padding:48px 48px 48px 100px}
+.um-verlauf h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.2;margin:0 0 14px}
+.um-verlauf .uv-kicker{font-family:var(--font-heading);font-weight:600;color:var(--color-primary)}
+.um-verlauf .uv-link{display:inline-block;margin-top:10px;font-weight:700;color:var(--color-primary);text-decoration:none;border-bottom:2px solid var(--color-accent)}
+@media(max-width:820px){.um-verlauf .uv-inner{grid-template-columns:1fr}.um-verlauf .uv-photo{margin:0 auto -50px;width:70%;max-width:300px}.um-verlauf .uv-card{padding:76px 26px 34px}}
+</style>
+<section class="um-verlauf">
+  <div class="uv-inner">
+    <div class="uv-photo"><img src="assets/portrait-marit-haende.jpg" alt="Marit Alke im Gespräch" loading="lazy"></div>
+    <div class="uv-card">
+      <div class="uv-kicker">Über mich</div>
+      <h2>KI sinnvoll nutzen, nicht nur ausprobieren</h2>
+      <p>Platzhalter für zwei bis drei Sätze über dich und deine Arbeit. Was macht deine Begleitung besonders?</p>
+      <a class="uv-link" href="#">Mehr über mich</a>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- ================================================================
+     FAQ
+     ================================================================ -->
+
+<!-- F1 --------------------------------------------------------- -->
+<template class="block" data-cat="faq" data-id="fq-akkordeon" data-terms="accordion,icon-rotate,split-layout,microcopy"
+  data-name="Akkordeon 35/65"
+  data-desc="Links Überschrift und Kontakt-Hinweis, rechts die Fragen zum Aufklappen. Das Plus dreht sich zum Kreuz, die Antwort gleitet weich auf."
+  data-tags="Akkordeon,Standard,zweispaltig">
+<style>
+.fq-akkordeon{padding:88px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.fq-akkordeon *{box-sizing:border-box}
+.fq-akkordeon .fa-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:35fr 65fr;gap:56px;align-items:start}
+.fq-akkordeon h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
+.fq-akkordeon .fa-contact{margin-top:22px;padding:18px 20px;border:1.5px solid var(--color-primary);border-radius:var(--radius-card)}
+.fq-akkordeon .fa-contact a{color:var(--color-primary);font-weight:700}
+.fq-akkordeon details{border-bottom:1px solid #e6e8e2}
+.fq-akkordeon details:first-child{border-top:1px solid #e6e8e2}
+.fq-akkordeon summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:18px;align-items:center;padding:20px 4px;font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:1.1rem}
+.fq-akkordeon summary::-webkit-details-marker{display:none}
+.fq-akkordeon summary i{flex:0 0 30px;height:30px;border-radius:50%;background:color-mix(in srgb,var(--color-primary) 12%,transparent);position:relative;transition:transform .3s ease,background .3s ease}
+.fq-akkordeon summary i::before,.fq-akkordeon summary i::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:2px;margin:-1px 0 0 -6px;background:var(--color-primary);border-radius:2px}
+.fq-akkordeon summary i::after{transform:rotate(90deg)}
+.fq-akkordeon details[open] summary i{transform:rotate(45deg);background:var(--color-accent)}
+.fq-akkordeon details[open] summary i::before,.fq-akkordeon details[open] summary i::after{background:#fff}
+.fq-akkordeon .fa-a{overflow:hidden;transition:height .35s ease}
+.fq-akkordeon .fa-a p{margin:0;padding:0 44px 22px 4px}
+@media(max-width:820px){.fq-akkordeon .fa-inner{grid-template-columns:1fr;gap:28px}}
+</style>
+<section class="fq-akkordeon">
+  <div class="fa-inner">
+    <div>
+      <h2>Häufige Fragen</h2>
+      <p>Alles, was du vor der Anmeldung wissen solltest.</p>
+      <div class="fa-contact">Deine Frage ist nicht dabei? <a href="#">Schreib mir</a>.</div>
+    </div>
+    <div class="fa-list">
+      <details><summary>Wie viel Zeit brauche ich pro Woche?<i></i></summary><div class="fa-a"><p>Platzhalter-Antwort. Zwei bis drei Sätze, ehrlich und konkret.</p></div></details>
+      <details><summary>Was passiert, wenn ich einen Live-Call verpasse?<i></i></summary><div class="fa-a"><p>Platzhalter-Antwort. Zum Beispiel: Alle Calls werden aufgezeichnet.</p></div></details>
+      <details><summary>Brauche ich Vorkenntnisse?<i></i></summary><div class="fa-a"><p>Platzhalter-Antwort.</p></div></details>
+      <details><summary>Kann ich in Raten zahlen?<i></i></summary><div class="fa-a"><p>Platzhalter-Antwort.</p></div></details>
+      <details><summary>Bekomme ich eine Rechnung?<i></i></summary><div class="fa-a"><p>Platzhalter-Antwort.</p></div></details>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  /* weiches Auf- und Zuklappen statt hartem Springen */
+  document.querySelectorAll('.fq-akkordeon details').forEach(function(d){
+    var s=d.querySelector('summary'),a=d.querySelector('.fa-a');
+    s.addEventListener('click',function(e){
+      e.preventDefault();
+      if(d.open){a.style.height=a.scrollHeight+'px';requestAnimationFrame(function(){a.style.height='0px';});setTimeout(function(){d.open=false;a.style.height='';},350);}
+      else{d.open=true;var h=a.scrollHeight;a.style.height='0px';requestAnimationFrame(function(){a.style.height=h+'px';});setTimeout(function(){a.style.height='';},350);}
+    });
+  });
+})();
+</script>
+</template>
+
+<!-- F2 --------------------------------------------------------- -->
+<template class="block" data-cat="faq" data-id="fq-karten" data-terms="grid-2,bullet-star,card,whitespace"
+  data-name="Fragen als offene Karten"
+  data-desc="Keine Klickerei: alle Antworten sofort sichtbar, zweispaltig in dezenten Karten mit orangem Stern. Gut bei wenigen, wichtigen Fragen."
+  data-tags="alles sichtbar,zweispaltig,ruhig">
+<style>
+.fq-karten{padding:88px 24px;background:var(--color-bg-soft);font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.fq-karten *{box-sizing:border-box}
+.fq-karten .fk-inner{max-width:var(--container);margin:0 auto}
+.fq-karten h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 44px}
+.fq-karten .fk-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.fq-karten .fk-card{background:#fff;border-radius:var(--radius-card);padding:26px 28px;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.fq-karten h3{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:1.12rem;margin:0 0 8px;display:flex;gap:10px}
+.fq-karten h3::before{content:"✦";color:var(--color-accent)}
+.fq-karten p{margin:0}
+@media(max-width:760px){.fq-karten .fk-grid{grid-template-columns:1fr}}
+</style>
+<section class="fq-karten">
+  <div class="fk-inner">
+    <h2>Gut zu wissen</h2>
+    <div class="fk-grid">
+      <div class="fk-card"><h3>Wie viel Zeit brauche ich?</h3><p>Platzhalter-Antwort, zwei bis drei Sätze.</p></div>
+      <div class="fk-card"><h3>Brauche ich Vorkenntnisse?</h3><p>Platzhalter-Antwort, zwei bis drei Sätze.</p></div>
+      <div class="fk-card"><h3>Was, wenn ich einen Termin verpasse?</h3><p>Platzhalter-Antwort, zwei bis drei Sätze.</p></div>
+      <div class="fk-card"><h3>Kann ich in Raten zahlen?</h3><p>Platzhalter-Antwort, zwei bis drei Sätze.</p></div>
+    </div>
+  </div>
+</section>
+</template>
+
+<!-- F3 --------------------------------------------------------- -->
+<template class="block" data-cat="faq" data-id="fq-suche" data-terms="accordion,filter-search,chips,interactive"
+  data-name="FAQ mit Suche und Themen"
+  data-desc="Für viele Fragen: oben ein Suchfeld und Themen-Chips zum Filtern, darunter das Akkordeon. Nur passende Fragen bleiben sichtbar."
+  data-tags="viele Fragen,Suche,interaktiv">
+<style>
+.fq-suche{padding:88px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:18px;line-height:1.7}
+.fq-suche *{box-sizing:border-box}
+.fq-suche .fs-inner{max-width:780px;margin:0 auto}
+.fq-suche h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 28px}
+.fq-suche input{width:100%;padding:14px 18px;border:1.5px solid #dfe2da;border-radius:var(--radius-button);font:inherit}
+.fq-suche input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
+.fq-suche .fs-chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 26px}
+.fq-suche .fs-chips button{border:1.5px solid #dfe2da;background:#fff;border-radius:100px;padding:6px 14px;font:inherit;font-size:.92rem;cursor:pointer;color:var(--color-text);transition:.2s ease}
+.fq-suche .fs-chips button[aria-pressed="true"]{border-color:var(--color-primary);background:var(--color-primary);color:#fff}
+.fq-suche details{border:1px solid #e6e8e2;border-radius:var(--radius-card);margin-bottom:10px;background:#fff}
+.fq-suche details[open]{border-color:var(--color-primary)}
+.fq-suche summary{list-style:none;cursor:pointer;padding:16px 20px;font-family:var(--font-heading);font-weight:600;color:var(--color-heading);display:flex;justify-content:space-between;gap:14px}
+.fq-suche summary::-webkit-details-marker{display:none}
+.fq-suche summary::after{content:"+";color:var(--color-primary);font-size:1.4rem;line-height:1;transition:transform .25s ease}
+.fq-suche details[open] summary::after{transform:rotate(45deg)}
+.fq-suche details p{margin:0;padding:0 20px 18px}
+.fq-suche .fs-empty{display:none;text-align:center;color:var(--color-text-mid);padding:20px}
+</style>
+<section class="fq-suche">
+  <div class="fs-inner">
+    <h2>Fragen und Antworten</h2>
+    <input type="search" placeholder="Frage suchen, z. B. Raten oder Aufzeichnung" aria-label="Fragen durchsuchen">
+    <div class="fs-chips">
+      <button type="button" data-f="alle" aria-pressed="true">Alle</button>
+      <button type="button" data-f="ablauf" aria-pressed="false">Ablauf</button>
+      <button type="button" data-f="technik" aria-pressed="false">Technik</button>
+      <button type="button" data-f="zahlung" aria-pressed="false">Zahlung</button>
+    </div>
+    <div class="fs-list">
+      <details data-topic="ablauf"><summary>Wie läuft eine Woche ab?</summary><p>Platzhalter-Antwort.</p></details>
+      <details data-topic="ablauf"><summary>Werden die Live-Calls aufgezeichnet?</summary><p>Platzhalter-Antwort.</p></details>
+      <details data-topic="technik"><summary>Welche Technik brauche ich?</summary><p>Platzhalter-Antwort.</p></details>
+      <details data-topic="technik"><summary>Funktioniert das auch auf dem Tablet?</summary><p>Platzhalter-Antwort.</p></details>
+      <details data-topic="zahlung"><summary>Kann ich in Raten zahlen?</summary><p>Platzhalter-Antwort.</p></details>
+      <details data-topic="zahlung"><summary>Bekomme ich eine Rechnung?</summary><p>Platzhalter-Antwort.</p></details>
+      <p class="fs-empty">Keine passende Frage gefunden. Schreib mir gern direkt.</p>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  document.querySelectorAll('.fq-suche').forEach(function(root){
+    var q=root.querySelector('input'),chips=root.querySelectorAll('[data-f]'),items=root.querySelectorAll('details'),empty=root.querySelector('.fs-empty'),topic='alle';
+    function apply(){var s=q.value.trim().toLowerCase(),n=0;
+      items.forEach(function(d){var ok=(topic==='alle'||d.dataset.topic===topic)&&(!s||d.textContent.toLowerCase().indexOf(s)>-1);d.hidden=!ok;if(ok)n++;});
+      empty.style.display=n?'none':'block';}
+    q.addEventListener('input',apply);
+    chips.forEach(function(c){c.addEventListener('click',function(){topic=c.dataset.f;chips.forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false');});apply();});});
+  });
+})();
+</script>
+</template>
+
+<!-- ================================================================
+     ABSCHLUSS-CTA
+     ================================================================ -->
+
+<!-- C1 --------------------------------------------------------- -->
+<template class="block" data-cat="cta" data-id="ct-verlauf" data-terms="background-image,text-shadow,button-glow,divider-bar,full-bleed"
+  data-name="Verlaufsfläche mit leuchtendem Button"
+  data-desc="Dein Verlaufsbild über die volle Breite, weiße Überschrift mit weichem Textschatten, oranger Button mit atmendem Glow. Unten der Trennbalken."
+  data-tags="kräftig,Verlaufsbild,Glow">
+<style>
+.ct-verlauf{position:relative;padding:100px 24px 112px;background:var(--color-primary) var(--image-gradient) center/cover;font-family:var(--font-body);color:#fff;font-size:19px;line-height:1.7;text-align:center}
+.ct-verlauf::after{content:"";position:absolute;left:0;right:0;bottom:0;height:16px;background:var(--color-accent)}
+.ct-verlauf *{box-sizing:border-box}
+.ct-verlauf .cv-inner{max-width:var(--text-width);margin:0 auto}
+.ct-verlauf h2{font-family:var(--font-heading);font-weight:600;color:#fff;font-size:clamp(1.9rem,4vw,2.8rem);line-height:1.2;margin:0 0 16px;text-shadow:0 2px 14px rgba(0,0,0,.28)}
+.ct-verlauf p{margin:0 0 34px;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.ct-verlauf .cv-btn{display:inline-block;padding:18px 40px;border-radius:var(--radius-button);background:var(--color-accent);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:transform .2s ease,background .2s ease;animation:cvGlow 2.6s ease-in-out infinite}
+.ct-verlauf .cv-btn:hover{transform:translateY(-2px);background:var(--color-accent-2)}
+@keyframes cvGlow{0%,100%{box-shadow:0 4px 14px rgba(0,0,0,.15)}50%{box-shadow:0 4px 30px 6px color-mix(in srgb,var(--color-accent) 70%,transparent)}}
+.ct-verlauf small{display:block;margin-top:16px;opacity:.9;font-size:.92rem}
+@media(prefers-reduced-motion:reduce){.ct-verlauf .cv-btn{animation:none}}
+</style>
+<section class="ct-verlauf">
+  <div class="cv-inner">
+    <h2>Bist du dabei?</h2>
+    <p>Ein letzter Satz, der das Ergebnis noch einmal auf den Punkt bringt. Platzhalter.</p>
+    <a class="cv-btn" href="#">Ja, ich melde mich an</a>
+    <small>Start am Platzhalter-Datum · begrenzte Plätze</small>
+  </div>
+</section>
+</template>
+
+<!-- C2 --------------------------------------------------------- -->
+<template class="block" data-cat="cta" data-id="ct-echo" data-terms="image-echo,blur,glassmorphism,shimmer,card"
+  data-name="Hero-Echo mit Glaskarte"
+  data-desc="Das Hero-Foto taucht noch einmal auf, stark geblurrt und anders angeschnitten. Davor eine Milchglas-Karte, der Button hat einen Glanzlicht-Sweep."
+  data-tags="Foto,Blur,Glaskarte">
+<style>
+.ct-echo{position:relative;overflow:hidden;padding:110px 24px;font-family:var(--font-body);color:var(--color-text);font-size:19px;line-height:1.7;text-align:center;background:var(--color-secondary)}
+.ct-echo *{box-sizing:border-box}
+.ct-echo .ce-bg{position:absolute;inset:-60px;background:var(--image-hero) 20% 70%/cover;filter:blur(32px) saturate(120%);transform:scale(1.2)}
+.ct-echo .ce-bg::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.18)}
+.ct-echo .ce-card{position:relative;max-width:640px;margin:0 auto;padding:48px 44px;border-radius:var(--radius-card);background:rgba(255,255,255,.82);border:1px solid rgba(255,255,255,.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:var(--shadow-card-on-color)}
+.ct-echo h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.8rem,3.6vw,2.5rem);line-height:1.2;margin:0 0 14px}
+.ct-echo p{margin:0 0 30px}
+.ct-echo .ce-btn{position:relative;overflow:hidden;display:inline-block;padding:18px 38px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease}
+.ct-echo .ce-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--color-primary) 40%,transparent)}
+.ct-echo .ce-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);animation:ceShine 3.4s ease-in-out infinite}
+@keyframes ceShine{0%,60%{left:-60%}100%{left:130%}}
+@media(prefers-reduced-motion:reduce){.ct-echo .ce-btn::after{animation:none}}
+</style>
+<section class="ct-echo">
+  <div class="ce-bg" aria-hidden="true"></div>
+  <div class="ce-card">
+    <h2>Lass uns gemeinsam starten</h2>
+    <p>Ein bis zwei Sätze, die noch einmal einladen. Platzhalter.</p>
+    <a class="ce-btn" href="#">Jetzt anmelden</a>
+  </div>
+</section>
+</template>
+
+<!-- C3 --------------------------------------------------------- -->
+<template class="block" data-cat="cta" data-id="ct-persoenlich" data-terms="text-width,checklist,personal-signoff,whitespace,microcopy"
+  data-name="Schlichter Abschluss mit persönlichem Gruß"
+  data-desc="Weiß und ruhig: große Frage, drei kurze Punkte als Zusammenfassung, Button und darunter ein kleines Porträt mit persönlichem Satz."
+  data-tags="ruhig,persönlich,einspaltig">
+<style>
+.ct-persoenlich{padding:96px 24px;background:#fff;font-family:var(--font-body);color:var(--color-text);font-size:19px;line-height:1.7}
+.ct-persoenlich *{box-sizing:border-box}
+.ct-persoenlich .cp-inner{max-width:var(--text-width);margin:0 auto;text-align:center}
+.ct-persoenlich h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.8rem,3.6vw,2.5rem);line-height:1.2;margin:0 0 24px}
+.ct-persoenlich ul{list-style:none;padding:0;margin:0 auto 34px;display:inline-flex;flex-direction:column;gap:10px;text-align:left}
+.ct-persoenlich li{position:relative;padding-left:32px}
+.ct-persoenlich li::before{content:"";position:absolute;left:0;top:6px;width:20px;height:20px;border-radius:50%;background:var(--color-accent-2)}
+.ct-persoenlich li::after{content:"";position:absolute;left:7px;top:10px;width:5px;height:9px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+.ct-persoenlich .cp-btn{display:inline-block;padding:18px 40px;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-weight:700;font-size:var(--font-size-button);text-shadow:var(--btn-text-shadow);text-decoration:none;transition:.2s ease}
+.ct-persoenlich .cp-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px color-mix(in srgb,var(--color-primary) 35%,transparent)}
+.ct-persoenlich .cp-micro{display:block;margin-top:12px;font-size:.9rem;color:var(--color-text-mid)}
+.ct-persoenlich .cp-sign{display:inline-flex;align-items:center;gap:14px;margin-top:40px;padding-top:26px;border-top:1px solid #eceee8;text-align:left}
+.ct-persoenlich .cp-sign img{width:60px;height:60px;border-radius:50%;object-fit:cover}
+.ct-persoenlich .cp-sign p{margin:0;font-size:1rem}
+.ct-persoenlich .cp-sign b{color:var(--color-heading)}
+</style>
+<section class="ct-persoenlich">
+  <div class="cp-inner">
+    <h2>Magst du dabei sein?</h2>
+    <ul>
+      <li>Kurzer Nutzen eins</li>
+      <li>Kurzer Nutzen zwei</li>
+      <li>Kurzer Nutzen drei</li>
+    </ul>
+    <div><a class="cp-btn" href="#">Ja, ich bin dabei</a><span class="cp-micro">Fragen vorab? Schreib mir einfach.</span></div>
+    <div class="cp-sign"><img src="assets/portrait-marit.jpg" alt="Marit Alke" loading="lazy"><p><b>Ich freue mich auf dich.</b><br>Marit</p></div>
+  </div>
+</section>
+</template>
+
+<!-- ===================== LOGIK ===================== -->
 <script>
 (function(){
   const FONTS = '<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">';
-  const BASE  = '<style>html,body{margin:0}body{font-family:"PT Sans",Arial,sans-serif}</style>';
+  const TOKENS = document.getElementById('design-tokens').textContent.trim();
   const blocks = [...document.querySelectorAll('template.block')];
-  const lib = document.getElementById('lib'), list = document.getElementById('list'), tabs = document.getElementById('tabs');
-  let cat = CATEGORIES[0].id, view = 'list', idx = 0;
+  const lib = document.getElementById('lib'), main = document.getElementById('main'), tabs = document.getElementById('tabs');
+  const toastEl = document.getElementById('toast');
+  let tab = CATEGORIES[0].id, view = 'list', idx = 0;
 
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   const code = t => t.innerHTML.trim();
-  const clipText = t =>
-    '<!-- Block: ' + t.dataset.name + ' | Block-Bibliothek Marit Alke\n' +
-    '     Schriften: Open Sans + PT Sans (müssen auf der Seite geladen sein) -->\n' + code(t) + '\n';
+  const termsOf = t => (t.dataset.terms || '').split(',').map(s => s.trim()).filter(k => TERMS[k]);
+  const store = {
+    get(k){ try { return localStorage.getItem('bib-wish-' + k) || ''; } catch(_) { return ''; } },
+    set(k,v){ try { localStorage.setItem('bib-wish-' + k, v); } catch(_) {} }
+  };
 
-  // Tabs
-  CATEGORIES.forEach(c => {
-    const n = blocks.filter(b => b.dataset.cat === c.id).length;
-    const b = document.createElement('button');
-    b.className = 'lib-tab'; b.setAttribute('role','tab'); b.dataset.cat = c.id;
-    b.innerHTML = c.label + '<span class="count">' + (n || 'bald') + '</span>';
-    b.onclick = () => { cat = c.id; idx = 0; render(); };
-    tabs.appendChild(b);
-  });
+  // ---------- Token-Leiste ----------
+  (function(){
+    const cs = getComputedStyle(document.documentElement);
+    const cols = ['--color-primary','--color-accent','--color-accent-2','--color-secondary','--color-dark','--color-heading','--color-bg-soft'];
+    const font = v => cs.getPropertyValue(v).split(',')[0].replace(/['"]/g,'').trim();
+    document.getElementById('tokens').innerHTML =
+      '<b>Grundwerte</b><div class="swatches">' + cols.map(c => '<span class="sw" title="' + c + '" style="background:var(' + c + ')"></span>').join('') + '</div>' +
+      '<span>' + esc(font('--font-heading')) + ' / ' + esc(font('--font-body')) + '</span>' +
+      '<span class="note">Das sind nur die Grundwerte. Farbe auf Hintergrund, Schatten, Linien und Bilder regelt das vollständige Designsystem. Anleitung für die eigene Version: Reiter "Für deine eigene Version".</span>';
+  })();
 
-  // Vorschau erst laden, wenn sie ins Bild kommt (damit Animationen dann starten)
+  // ---------- Kopiertexte ----------
+  function plainCopy(t){
+    return '<!-- Block: ' + t.dataset.name + ' | Block-Bibliothek Marit Alke -->\n' +
+      '<!-- Design-Tokens: nur einmal pro Seite nötig. Die vollständigen Regeln stehen im Designsystem. -->\n' +
+      (/assets\//.test(code(t) + TOKENS) ? '<!-- Bilder: Pfade mit assets/ zeigen auf Beispielbilder. Durch eigene Bilder aus dem eigenen Bildordner ersetzen. -->\n' : '') +
+      '<style>\n' + TOKENS + '\n</style>\n\n' + code(t) + '\n';
+  }
+  function wishCopy(t, wish){
+    const names = termsOf(t).map(k => TERMS[k].name).join(', ');
+    return 'Bitte baue den folgenden Designblock in meine Seite ein.\n' +
+      'Halte dich dabei an mein Designsystem (Farben, Schriften, Schatten, Linien, Farbe-auf-Hintergrund-Regeln, Bildstil und Bildordner). Wo der Block davon abweicht, gilt mein Designsystem.\n\n' +
+      'Meine Änderungswünsche zu diesem Block:\n' + wish.trim() + '\n\n' +
+      'Block: ' + t.dataset.name + '\n' +
+      (names ? 'Enthaltene Effekte (Fachbegriffe): ' + names + '\n' : '') +
+      '\nCode:\n```html\n' + plainCopy(t) + '```\n';
+  }
+  async function copy(text, btn, label, msg){
+    try { await navigator.clipboard.writeText(text); }
+    catch (_) {
+      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+    }
+    if (btn){ btn.textContent = 'Kopiert ✓'; btn.classList.add('done'); setTimeout(() => { btn.textContent = label; btn.classList.remove('done'); }, 1800); }
+    toast(msg || 'In der Zwischenablage');
+  }
+  function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(toast._t); toast._t = setTimeout(() => toastEl.classList.remove('show'), 2400); }
+
+  // ---------- Vorschau ----------
   const lazy = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { load(e.target); lazy.unobserve(e.target); }
   }), { rootMargin: '0px 0px -15% 0px' });
+  function load(f){
+    f.srcdoc = '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      FONTS + '<style>' + TOKENS + 'html,body{margin:0}body{font-family:var(--font-body)}</style></head><body>' + code(f._tpl) + '</body></html>';
+  }
+  function fit(f){
+    const d = f.contentDocument; if (!d || !d.body) return;
+    const set = () => { f.style.height = d.documentElement.scrollHeight + 'px'; };
+    set(); new ResizeObserver(set).observe(d.body); setTimeout(set, 600);
+  }
 
-  function load(frame){
-    frame.srcdoc = '<!DOCTYPE html><html lang="de"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + FONTS + BASE + '</head><body>' + code(frame._tpl) + '</body></html>';
-  }
-  function fit(frame){
-    const d = frame.contentDocument; if (!d || !d.body) return;
-    const set = () => { frame.style.height = d.documentElement.scrollHeight + 'px'; };
-    set(); new ResizeObserver(set).observe(d.body);
-    setTimeout(set, 600);
-  }
+  // ---------- Tabs ----------
+  const TABS = CATEGORIES.map(c => ({ id: c.id, label: c.label, n: blocks.filter(b => b.dataset.cat === c.id).length }))
+    .concat([{ id: 'glossar', label: 'Glossar' }, { id: 'guide', label: 'Für deine eigene Version' }]);
+  TABS.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'lib-tab'; b.setAttribute('role','tab'); b.dataset.tab = c.id;
+    b.innerHTML = c.label + (c.n !== undefined ? '<span class="count">' + (c.n || 'bald') + '</span>' : '');
+    b.onclick = () => { tab = c.id; idx = 0; render(); };
+    tabs.appendChild(b);
+  });
 
   function render(){
-    tabs.querySelectorAll('.lib-tab').forEach(b => b.setAttribute('aria-selected', b.dataset.cat === cat));
-    list.innerHTML = '';
-    const items = blocks.filter(b => b.dataset.cat === cat);
-    if (!items.length){
-      list.innerHTML = '<div class="soon"><h2>Kommt als Nächstes</h2><p>Hier landen die Varianten für diesen Blocktyp.</p></div>';
-      updatePager(0); return;
-    }
+    tabs.querySelectorAll('.lib-tab').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+    main.innerHTML = '';
+    const isCat = CATEGORIES.some(c => c.id === tab);
+    lib.classList.toggle('is-page', !isCat);
+    if (tab === 'glossar') return renderGlossar();
+    if (tab === 'guide') return renderGuide();
+
+    const list = document.createElement('div'); list.className = 'lib-list'; main.appendChild(list);
+    const items = blocks.filter(b => b.dataset.cat === tab);
+    if (!items.length){ list.innerHTML = '<div class="soon"><h2>Kommt als Nächstes</h2></div>'; return updatePager(); }
+
     items.forEach((t, i) => {
+      const id = t.dataset.id;
       const v = document.createElement('article');
-      v.className = 'variant';
-      const tags = (t.dataset.tags || '').split(',').filter(Boolean).map(x => '<span class="v-tag">' + x.trim() + '</span>').join('');
+      v.className = 'variant'; v.id = 'v-' + id;
+      const tags = (t.dataset.tags || '').split(',').filter(Boolean).map(x => '<span class="v-tag">' + esc(x.trim()) + '</span>').join('');
+      const terms = termsOf(t);
+      const vocab = terms.map(k => { const d = TERMS[k];
+        return '<dt>' + esc(d.name) + ' <span>· ' + esc(d.alias) + '</span></dt><dd>' + esc(d.what) + '<q>So sagst du es der KI: ' + esc(d.brief) + '</q></dd>'; }).join('');
       v.innerHTML =
         '<div class="v-head">' +
           '<span class="v-num">V' + (i + 1) + '</span>' +
-          '<h2 class="v-title">' + t.dataset.name + '</h2>' +
-          '<span class="v-desc">' + (t.dataset.desc || '') + '</span>' +
+          '<h2 class="v-title">' + esc(t.dataset.name) + '</h2>' +
+          '<span class="v-desc">' + esc(t.dataset.desc || '') + '</span>' +
           '<div class="v-tags">' + tags + '</div>' +
           '<div class="v-actions">' +
             '<button class="btn" data-act="mobile" aria-pressed="false">Mobil</button>' +
             '<button class="btn" data-act="replay">Animation neu</button>' +
-            '<button class="btn btn-copy" data-act="copy">Code kopieren</button>' +
           '</div>' +
         '</div>' +
-        '<div class="v-stage"><iframe title="Vorschau ' + t.dataset.name + '" loading="lazy"></iframe></div>';
-      const f = v.querySelector('iframe');
-      f._tpl = t;
+        '<div class="v-stage"><iframe title="Vorschau ' + esc(t.dataset.name) + '"></iframe></div>' +
+        '<div class="v-foot">' +
+          '<details class="v-vocab"><summary>Designvokabular <small>(' + terms.length + ' Begriffe: wie heißen diese Effekte?)</small></summary><dl>' + vocab + '</dl></details>' +
+          '<div class="v-wish">' +
+            '<label for="w-' + id + '">Meine Änderungswünsche zu diesem Block</label>' +
+            '<textarea id="w-' + id + '" placeholder="z. B. Ecken weniger rund, Schatten stärker, Icons größer, Hintergrund weiß statt grau"></textarea>' +
+            '<div class="v-copy">' +
+              '<button class="cbtn" data-act="copy">Unverändert kopieren</button>' +
+              '<button class="cbtn alt" data-act="copywish">Mit Änderungswünschen kopieren</button>' +
+            '</div>' +
+            '<p class="v-hint">In den Chat deiner KI einfügen. Unverändert: Code pur, dazu schreiben, wo der Block hin soll. Mit Wünschen: Code, deine Wünsche und der Hinweis auf dein Designsystem in einem Stück.</p>' +
+          '</div>' +
+        '</div>';
+      const f = v.querySelector('iframe'); f._tpl = t;
       f.addEventListener('load', () => fit(f));
-      v.querySelector('[data-act="copy"]').onclick = e => copy(clipText(t), e.currentTarget);
+      const ta = v.querySelector('textarea'); ta.value = store.get(id);
+      ta.addEventListener('input', () => store.set(id, ta.value));
+      v.querySelector('[data-act="copy"]').onclick = e => copy(plainCopy(t), e.currentTarget, 'Unverändert kopieren', 'Block kopiert. Jetzt in den Chat einfügen.');
+      v.querySelector('[data-act="copywish"]').onclick = e => {
+        if (!ta.value.trim()) { ta.focus(); return toast('Schreib zuerst deine Wünsche ins Feld.'); }
+        copy(wishCopy(t, ta.value), e.currentTarget, 'Mit Änderungswünschen kopieren', 'Block + Wünsche kopiert. Jetzt in den Chat einfügen.');
+      };
       v.querySelector('[data-act="replay"]').onclick = () => load(f);
       v.querySelector('[data-act="mobile"]').onclick = e => {
-        const on = v.classList.toggle('is-mobile');
-        e.currentTarget.setAttribute('aria-pressed', on);
-        setTimeout(() => fit(f), 400);
+        const on = v.classList.toggle('is-mobile'); e.currentTarget.setAttribute('aria-pressed', on); setTimeout(() => fit(f), 400);
       };
       list.appendChild(v);
       lazy.observe(f);
     });
-    updatePager(items.length);
+    updatePager();
   }
 
-  function updatePager(n){
-    const vs = list.querySelectorAll('.variant');
+  function renderGlossar(){
+    const usedIn = {};
+    CATEGORIES.forEach(c => blocks.filter(b => b.dataset.cat === c.id).forEach((t, i) =>
+      termsOf(t).forEach(k => (usedIn[k] = usedIn[k] || []).push({ cat: c.id, id: t.dataset.id, label: c.label + ' V' + (i + 1) + ' ' + t.dataset.name }))));
+    const groups = [...new Set(Object.values(TERMS).map(d => d.group))];
+    const page = document.createElement('div'); page.className = 'page';
+    page.innerHTML = '<div class="gl-top"><h2 style="font-size:1.5rem">Design-Glossar</h2><input type="search" id="glq" placeholder="Begriff suchen, z. B. Schatten, Blur, Hover"></div>' +
+      '<p style="margin:0;max-width:760px">Die Fachbegriffe hinter den Effekten, jeweils mit einem Beispielsatz, wie du ihn der KI sagst. Je genauer das Wort, desto genauer das Ergebnis.</p>' +
+      groups.map(g => '<section class="gl-group" data-group><h2>' + esc(g) + '</h2><div class="gl-grid">' +
+        Object.entries(TERMS).filter(([,d]) => d.group === g).map(([k, d]) =>
+          '<article class="gl-card" data-q="' + esc((d.name + ' ' + d.alias + ' ' + d.what).toLowerCase()) + '"><h3>' + esc(d.name) + '</h3><div class="alias">' + esc(d.alias) + '</div><p>' + esc(d.what) + '</p><q>' + esc(d.brief) + '</q>' +
+          (usedIn[k] ? '<div class="used">' + usedIn[k].map(u => '<a href="#" data-cat="' + u.cat + '" data-id="' + u.id + '">' + esc(u.label) + '</a>').join('') + '</div>' : '') +
+          '</article>').join('') + '</div></section>').join('');
+    main.appendChild(page);
+    page.querySelector('#glq').addEventListener('input', e => {
+      const q = e.target.value.trim().toLowerCase();
+      page.querySelectorAll('.gl-card').forEach(c => c.hidden = q && !c.dataset.q.includes(q));
+      page.querySelectorAll('[data-group]').forEach(s => s.hidden = ![...s.querySelectorAll('.gl-card')].some(c => !c.hidden));
+    });
+    page.querySelectorAll('.used a').forEach(a => a.onclick = e => {
+      e.preventDefault(); tab = a.dataset.cat; render();
+      const el = document.getElementById('v-' + a.dataset.id);
+      if (view === 'browse') { idx = [...main.querySelectorAll('.variant')].indexOf(el); updatePager(); }
+      el && el.scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
+  function renderGuide(){
+    main.appendChild(document.getElementById('guide').content.cloneNode(true));
+    const b = document.getElementById('copyGuide');
+    b.onclick = () => copy(document.getElementById('guidePrompt').textContent, b, 'Prompt kopieren', 'Prompt kopiert');
+  }
+
+  // ---------- Blättern ----------
+  function updatePager(){
+    const vs = main.querySelectorAll('.variant'), n = vs.length;
     if (idx >= n) idx = 0;
     vs.forEach((v, i) => v.classList.toggle('is-current', i === idx));
     document.getElementById('pagerInfo').textContent = n ? (idx + 1) + ' / ' + n : '0 / 0';
     if (view === 'browse' && vs[idx]) { const f = vs[idx].querySelector('iframe'); if (!f.srcdoc) load(f); }
   }
   function step(d){
-    const n = list.querySelectorAll('.variant').length; if (!n) return;
-    idx = (idx + d + n) % n; updatePager(n);
-    const f = list.querySelectorAll('.variant')[idx].querySelector('iframe'); load(f);
+    const vs = main.querySelectorAll('.variant'); if (!vs.length) return;
+    idx = (idx + d + vs.length) % vs.length; updatePager();
+    load(vs[idx].querySelector('iframe'));
     window.scrollTo({ top: lib.offsetTop, behavior: 'smooth' });
   }
-
   document.querySelectorAll('.seg button').forEach(b => b.onclick = () => {
     view = b.dataset.view;
     document.querySelectorAll('.seg button').forEach(x => x.setAttribute('aria-pressed', x === b));
-    lib.classList.toggle('is-browse', view === 'browse');
-    updatePager(list.querySelectorAll('.variant').length);
+    lib.classList.toggle('is-browse', view === 'browse'); updatePager();
   });
   document.querySelectorAll('.pager button').forEach(b => b.onclick = () => step(+b.dataset.step));
   document.addEventListener('keydown', e => {
-    if (view !== 'browse') return;
+    if (view !== 'browse' || /TEXTAREA|INPUT/.test(document.activeElement.tagName)) return;
     if (e.key === 'ArrowRight') step(1);
     if (e.key === 'ArrowLeft') step(-1);
   });
-
-  const toast = document.getElementById('toast');
-  async function copy(text, btn){
-    try { await navigator.clipboard.writeText(text); }
-    catch (_) {
-      const ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
-      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
-    }
-    btn.textContent = 'Kopiert ✓'; btn.classList.add('done');
-    toast.classList.add('show');
-    setTimeout(() => { btn.textContent = 'Code kopieren'; btn.classList.remove('done'); toast.classList.remove('show'); }, 1800);
-  }
 
   render();
 })();
