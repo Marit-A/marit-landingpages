@@ -36,8 +36,8 @@
   --font-body:    'PT Sans', Arial, sans-serif;
   --font-size-button: 20px;
 
-  --radius-card:   6px;
-  --radius-button: 6px;
+  --radius-card:   2px;
+  --radius-button: 2px;
   --shadow-card:          0 2px 8px rgba(0,0,0,.08), 0 6px 24px rgba(0,0,0,.10);
   --shadow-card-on-color: 0 4px 16px rgba(0,0,0,.15);
   --btn-text-shadow:      0 0 6px rgba(20,20,20,.55);
@@ -131,6 +131,39 @@ a{color:var(--color-primary)}
 .cbtn.done{background:var(--color-accent-2)}
 .v-hint{font-size:.8rem;color:var(--ui-muted);margin:8px 0 0}
 
+/* Merkliste */
+.v-meta{display:flex;gap:6px;flex-wrap:wrap}
+.v-meta span{font-size:.72rem;font-family:var(--font-heading);font-weight:600;padding:3px 9px;border-radius:100px;background:#f1f2ee;color:var(--ui-muted)}
+.btn.fav{color:var(--color-heading)}
+.btn.fav[aria-pressed="true"]{background:#fff4f6;border-color:#e0567a;color:#c2375d}
+.dock{position:fixed;right:20px;bottom:20px;z-index:40;display:none;align-items:center;gap:10px;border:0;border-radius:100px;padding:12px 20px;background:var(--color-heading);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:.92rem;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.dock.show{display:inline-flex}
+.dock b{display:grid;place-items:center;min-width:24px;height:24px;border-radius:12px;background:#e0567a;font-size:.8rem;padding:0 6px}
+.drawer-bg{position:fixed;inset:0;z-index:60;background:rgba(20,25,30,.35);opacity:0;visibility:hidden;transition:.25s}
+.drawer{position:fixed;top:0;right:0;bottom:0;z-index:61;width:min(460px,100vw);background:#fff;box-shadow:-10px 0 40px rgba(0,0,0,.15);transform:translateX(100%);transition:transform .3s ease;display:flex;flex-direction:column}
+.drawer.open{transform:none}.drawer-bg.open{opacity:1;visibility:visible}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--ui-line)}
+.drawer-head h2{font-size:1.2rem}
+.drawer-head button{border:0;background:none;font-size:1.6rem;line-height:1;color:var(--ui-muted)}
+.drawer-body{flex:1;overflow:auto;padding:18px 22px}
+.drawer-body label{display:block;font-family:var(--font-heading);font-weight:700;font-size:.88rem;color:var(--color-heading);margin-bottom:6px}
+.drawer-body input{width:100%;padding:10px 12px;border:1.5px solid var(--ui-line);border-radius:10px;font:inherit;font-size:.92rem;margin-bottom:18px}
+.drawer-body input:focus{outline:none;border-color:var(--color-primary)}
+.sel-list{list-style:none;margin:0;padding:0;counter-reset:sel}
+.sel-list li{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--ui-line)}
+.sel-list li::before{counter-increment:sel;content:counter(sel);flex:0 0 26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:.8rem}
+.sel-list .sel-txt{flex:1;min-width:0;font-size:.9rem;line-height:1.35}
+.sel-list .sel-txt b{display:block;color:var(--color-heading);font-family:var(--font-heading);font-size:.9rem}
+.sel-list .sel-txt small{color:var(--ui-muted)}
+.sel-list button{border:1px solid var(--ui-line);background:#fff;border-radius:6px;width:28px;height:28px;font-size:.85rem;color:var(--color-heading)}
+.sel-list button:disabled{opacity:.3;cursor:default}
+.sel-stats{font-size:.85rem;color:var(--ui-muted);margin:12px 0 0}
+.sel-empty{color:var(--ui-muted);font-size:.92rem}
+.drawer-foot{padding:16px 22px 20px;border-top:1px solid var(--ui-line);background:#fbfcfa}
+.drawer-foot .cbtn{width:100%;padding:13px}
+.drawer-foot .row{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
+.linkbtn{border:0;background:none;color:var(--ui-muted);font-size:.82rem;text-decoration:underline;padding:0}
+
 /* Glossar */
 .page{max-width:1240px;margin:0 auto;padding:32px 24px 80px}
 .gl-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
@@ -157,6 +190,10 @@ a{color:var(--color-primary)}
 .prompt-actions{display:flex;gap:10px;align-items:center}
 
 .soon{text-align:center;color:#8a8a8a;padding:60px 0}
+html{scroll-behavior:smooth}
+.to-top{max-width:1240px;margin:0 auto;padding:0 24px 56px;text-align:center}
+.to-top a{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.9rem;color:var(--color-heading);text-decoration:none;padding:10px 18px;border:1px solid var(--ui-line);border-radius:2px;background:#fff;transition:.2s ease}
+.to-top a:hover{border-color:var(--color-primary);color:var(--color-primary)}
 .toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,140px);background:var(--color-heading);color:#fff;padding:12px 20px;border-radius:10px;font-family:var(--font-heading);font-weight:600;font-size:.9rem;transition:transform .35s ease;z-index:50;max-width:90vw;text-align:center}
 .toast.show{transform:translate(-50%,0)}
 @media(max-width:820px){.v-foot{grid-template-columns:1fr}.v-vocab{border-right:0;border-bottom:1px solid var(--ui-line)}.pager{margin-left:0}}
@@ -164,7 +201,7 @@ a{color:var(--color-primary)}
 </head>
 <body>
 
-<header class="lib-head">
+<header class="lib-head" id="top">
   <div class="wrap">
     <div class="lib-kicker">Marit Alke · Design-Bausteine</div>
     <h1>Block-Bibliothek für Landingpages</h1>
@@ -189,9 +226,28 @@ a{color:var(--color-primary)}
     </div>
   </div>
   <main id="main"></main>
+  <div class="to-top"><a href="#top">&#8593; Zurück nach oben</a></div>
 </div>
 
 <div class="toast" id="toast"></div>
+
+<button type="button" class="dock" id="dock">&#9829; Meine Auswahl <b id="dockN">0</b></button>
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="Meine Auswahl">
+  <div class="drawer-head"><h2>Meine Auswahl</h2><button type="button" id="drawerClose" aria-label="Schließen">&times;</button></div>
+  <div class="drawer-body">
+    <label for="selPurpose">Wofür ist die Landingpage?</label>
+    <input id="selPurpose" type="text" placeholder="z. B. Anmeldeseite für mein Freebie zum Thema ...">
+    <label>Abschnitte in dieser Reihenfolge</label>
+    <ul class="sel-list" id="selList"></ul>
+    <p class="sel-stats" id="selStats"></p>
+  </div>
+  <div class="drawer-foot">
+    <button type="button" class="cbtn" id="buildPage">Landingpage aus meiner Auswahl bauen</button>
+    <p class="v-hint">Kopiert einen fertigen Auftrag mit allen gemerkten Blöcken, deinen Wünschen und den Regeln für eine stimmige Seite. Einfach in den Chat deiner KI einfügen. Sie zeigt dir zuerst einen Seitenplan.</p>
+    <div class="row"><button type="button" class="linkbtn" id="selClear">Auswahl leeren</button></div>
+  </div>
+</aside>
 
 <!-- ===================== ANLEITUNG (Reiter "Für deine eigene Version") ===================== -->
 <template id="guide">
@@ -220,7 +276,15 @@ So gehst du vor:
     <li>Das <b>Designvokabular</b> unter jedem Block zeigt dir, wie die Effekte heißen. Mit diesen Begriffen kannst du jeder KI sehr genau sagen, was du willst. Alle Begriffe findest du im Reiter <b>Glossar</b>.</li>
   </ol>
 
-  <h3>3. Formulare anschließen</h3>
+  <h3>3. Aus mehreren Blöcken eine Landingpage bauen</h3>
+  <ol>
+    <li>Merke dir beim Durchblättern mit dem <b>Herz</b> alle Blöcke, die dir gefallen. Die Wunschfelder werden mitgenommen.</li>
+    <li>Öffne unten rechts <b>Meine Auswahl</b>, trag ein, wofür die Seite ist, und bring die Abschnitte mit den Pfeilen in eine Reihenfolge.</li>
+    <li><b>Landingpage aus meiner Auswahl bauen</b> kopiert einen fertigen Auftrag. Die KI liest damit zuerst dein Designsystem, zeigt dir einen Seitenplan und schlägt vor, wo es zu bunt oder zu dicht wird, bevor sie baut.</li>
+  </ol>
+  <p>Jeder Block trägt dafür zwei kleine Angaben: den <b>Stil</b> (ruhig oder kräftig) und die <b>Bewegung</b> (keine, dezent, auffällig). Daran erkennt die KI, welche Blöcke gut zusammenpassen.</p>
+
+  <h3>4. Formulare anschließen</h3>
   <p>Die Anmeldeblöcke haben <code>action="#"</code> und zeigen nur eine Demo-Bestätigung. Für den echten Einsatz die Formular-Adresse deines Newsletter-Tools eintragen lassen und die Feldnamen daran anpassen.</p>
 </div>
 </template>
@@ -534,7 +598,7 @@ const TERMS = {
 </script>
 
 <!-- ===================== BLÖCKE ===================== -->
-<template class="block" data-cat="features" data-id="fb-karten" data-terms="kicker,icon-badge,card,box-shadow,hover-lift,border-radius,grid-3" data-name="Klassische Karten"
+<template class="block" data-cat="features" data-id="fb-karten" data-style="ruhig · hell" data-motion="dezent" data-terms="kicker,icon-badge,card,box-shadow,hover-lift,border-radius,grid-3" data-name="Klassische Karten"
   data-desc="Ruhig und vertraut. Drei Karten mit Icon, sanftes Anheben beim Hover."
   data-tags="ruhig,hell,ohne JS">
 <style>
@@ -547,7 +611,7 @@ const TERMS = {
 .fb-karten .fbk-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:52px;text-align:left}
 .fb-karten .fbk-card{background:#fff;border-radius:var(--radius-card);padding:34px 28px;box-shadow:var(--shadow-card);transition:transform .3s ease,box-shadow .3s ease}
 .fb-karten .fbk-card:hover{transform:translateY(-6px);box-shadow:0 4px 12px rgba(0,0,0,.06),0 18px 40px rgba(0,0,0,.1)}
-.fb-karten .fbk-icon{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px}
+.fb-karten .fbk-icon{width:58px;height:58px;border-radius:2px;display:grid;place-items:center;margin-bottom:22px}
 .fb-karten .fbk-icon svg{width:28px;height:28px}
 .fb-karten .c1 .fbk-icon{background:color-mix(in srgb,var(--color-primary) 12%,transparent);color:var(--color-primary)}
 .fb-karten .c2 .fbk-icon{background:color-mix(in srgb,var(--color-accent) 15%,transparent);color:color-mix(in srgb,var(--color-accent) 78%,black)}
@@ -582,7 +646,7 @@ const TERMS = {
 </section>
 </template>
 
-<template class="block" data-cat="features" data-id="fb-pfad" data-terms="line-draw,scroll-reveal,staggered,bounce-easing,linear-gradient,timeline" data-name="Der Weg (Pfad mit Stationen)"
+<template class="block" data-cat="features" data-id="fb-pfad" data-style="ruhig · hell" data-motion="auffällig" data-terms="line-draw,scroll-reveal,staggered,bounce-easing,linear-gradient,timeline" data-name="Der Weg (Pfad mit Stationen)"
   data-desc="Wie auf der mutigen Anmeldeseite: eine Linie zeichnet sich, die Stationen poppen nacheinander auf."
   data-tags="Scroll-Animation,Reihenfolge,mutig">
 <style>
@@ -593,7 +657,7 @@ const TERMS = {
 .fb-pfad h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 14px}
 .fb-pfad h2 em{font-style:normal;color:var(--color-primary)}
 .fb-pfad .fbp-track{position:relative}
-.fb-pfad .fbp-line{position:absolute;top:44px;left:16.66%;right:16.66%;height:4px;border-radius:4px;background:linear-gradient(90deg,var(--color-primary),var(--color-accent),var(--color-accent-2));transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.65,0,.35,1)}
+.fb-pfad .fbp-line{position:absolute;top:44px;left:16.66%;right:16.66%;height:4px;border-radius:2px;background:linear-gradient(90deg,var(--color-primary),var(--color-accent),var(--color-accent-2));transform:scaleX(0);transform-origin:left;transition:transform 1.4s cubic-bezier(.65,0,.35,1)}
 .fb-pfad .fbp-grid{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:32px;text-align:center}
 .fb-pfad .fbp-node{opacity:0;transform:translateY(24px) scale(.9);transition:opacity .6s ease,transform .6s cubic-bezier(.34,1.56,.64,1)}
 .fb-pfad .fbp-dot{width:88px;height:88px;border-radius:50%;margin:0 auto 22px;display:grid;place-items:center;font-family:var(--font-heading);font-weight:800;font-size:1.8rem;color:#fff;border:6px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.12)}
@@ -641,20 +705,20 @@ const TERMS = {
 </script>
 </template>
 
-<template class="block" data-cat="features" data-id="fb-glow" data-terms="dark-section,radial-gradient,gradient-border,gradient-text,cursor-glow,scroll-reveal,staggered" data-name="Dunkel mit Leuchtkarten"
+<template class="block" data-cat="features" data-id="fb-glow" data-style="kräftig · dunkel" data-motion="auffällig" data-terms="dark-section,radial-gradient,gradient-border,gradient-text,cursor-glow,scroll-reveal,staggered" data-name="Dunkel mit Leuchtkarten"
   data-desc="Tiefblauer Hintergrund, Karten mit Farbverlaufs-Rand. Ein Lichtschein folgt der Maus."
   data-tags="dunkel,Maus-Effekt,Scroll-Animation">
 <style>
 .fb-glow{padding:100px 24px;background:radial-gradient(ellipse at 50% 0%,var(--color-secondary) 0%,var(--color-dark) 60%,color-mix(in srgb,var(--color-dark) 70%,black) 100%);font-family:var(--font-body);color:rgba(255,255,255,.78);line-height:1.65}
 .fb-glow *{box-sizing:border-box}
 .fb-glow .fbg-inner{max-width:1100px;margin:0 auto;text-align:center}
-.fb-glow .fbg-kicker{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-2);border:1px solid color-mix(in srgb,var(--color-accent-2) 40%,transparent);border-radius:100px;padding:6px 16px}
+.fb-glow .fbg-kicker{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--color-accent-2);border:1px solid color-mix(in srgb,var(--color-accent-2) 40%,transparent);border-radius:2px;padding:6px 16px}
 .fb-glow h2{font-family:var(--font-heading);color:#fff;font-size:clamp(1.8rem,3.6vw,2.7rem);line-height:1.2;margin:18px 0 56px}
 .fb-glow .fbg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:left}
-.fb-glow .fbg-card{--mx:50%;--my:50%;position:relative;border-radius:20px;padding:2px;
+.fb-glow .fbg-card{--mx:50%;--my:50%;position:relative;border-radius:2px;padding:2px;
   background:linear-gradient(140deg,color-mix(in srgb,var(--color-primary) 80%,transparent),color-mix(in srgb,var(--color-accent) 35%,transparent) 50%,color-mix(in srgb,var(--color-accent-2) 70%,transparent));
   opacity:0;transform:translateY(40px);transition:opacity .8s ease,transform .8s ease}
-.fb-glow .fbg-body{position:relative;height:100%;border-radius:18px;padding:34px 28px;background:color-mix(in srgb,var(--color-dark) 88%,var(--color-secondary));overflow:hidden}
+.fb-glow .fbg-body{position:relative;height:100%;border-radius:2px;padding:34px 28px;background:color-mix(in srgb,var(--color-dark) 88%,var(--color-secondary));overflow:hidden}
 .fb-glow .fbg-body::before{content:"";position:absolute;inset:0;background:radial-gradient(320px circle at var(--mx) var(--my),color-mix(in srgb,var(--color-primary) 28%,transparent),transparent 60%);opacity:0;transition:opacity .3s}
 .fb-glow .fbg-card:hover .fbg-body::before{opacity:1}
 .fb-glow .fbg-num{position:relative;font-family:var(--font-heading);font-weight:800;font-size:3.2rem;line-height:1;background:linear-gradient(135deg,var(--color-primary),var(--color-accent-2));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:18px}
@@ -690,7 +754,7 @@ const TERMS = {
 </script>
 </template>
 
-<template class="block" data-cat="features" data-id="fb-zickzack" data-terms="alternating,slide-in,linear-gradient,deko-shape,scroll-reveal" data-name="Zickzack mit Farbflächen"
+<template class="block" data-cat="features" data-id="fb-zickzack" data-style="kräftig · farbig" data-motion="auffällig" data-terms="alternating,slide-in,linear-gradient,deko-shape,scroll-reveal" data-name="Zickzack mit Farbflächen"
   data-desc="Jedes Feature bekommt eine eigene Zeile. Farbfläche und Text wechseln die Seite und gleiten ins Bild."
   data-tags="viel Raum,Scroll-Animation,bildtauglich">
 <style>
@@ -702,7 +766,7 @@ const TERMS = {
 .fb-zickzack .fbz-row{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:72px}
 .fb-zickzack .fbz-row:last-child{margin-bottom:0}
 .fb-zickzack .fbz-row:nth-child(even) .fbz-visual{order:2}
-.fb-zickzack .fbz-visual{position:relative;aspect-ratio:4/3;border-radius:24px;overflow:hidden;display:grid;place-items:center;
+.fb-zickzack .fbz-visual{position:relative;aspect-ratio:4/3;border-radius:2px;overflow:hidden;display:grid;place-items:center;
   opacity:0;transform:translateX(-60px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.8,.2,1)}
 .fb-zickzack .fbz-row:nth-child(even) .fbz-visual{transform:translateX(60px)}
 .fb-zickzack .fbz-visual::after{content:"";position:absolute;width:70%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.18);right:-18%;bottom:-30%}
@@ -739,7 +803,7 @@ const TERMS = {
 </script>
 </template>
 
-<template class="block" data-cat="features" data-id="fb-bento" data-terms="bento,visual-hierarchy,deko-shape,hover-scale,icon-badge" data-name="Bento-Raster"
+<template class="block" data-cat="features" data-id="fb-bento" data-style="kräftig · farbig" data-motion="dezent" data-terms="bento,visual-hierarchy,deko-shape,hover-scale,icon-badge" data-name="Bento-Raster"
   data-desc="Ein großes Hauptfeature, zwei kleinere daneben. Kacheln in Markenfarben, Icons drehen sich beim Hover."
   data-tags="modern,Hierarchie,Hover">
 <style>
@@ -750,7 +814,7 @@ const TERMS = {
 .fb-bento h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0;max-width:560px}
 .fb-bento .fbb-head p{max-width:360px;margin:0}
 .fb-bento .fbb-grid{display:grid;grid-template-columns:1.25fr 1fr;grid-template-rows:auto auto;gap:20px}
-.fb-bento .fbb-tile{border-radius:24px;padding:34px;position:relative;overflow:hidden;transition:transform .35s ease}
+.fb-bento .fbb-tile{border-radius:2px;padding:34px;position:relative;overflow:hidden;transition:transform .35s ease}
 .fb-bento .fbb-tile:hover{transform:scale(1.015)}
 .fb-bento .fbb-tile:hover .fbb-icon{transform:rotate(-12deg) scale(1.08)}
 .fb-bento .fbb-big{grid-row:span 2;background:var(--color-primary);color:rgba(255,255,255,.9);display:flex;flex-direction:column;justify-content:flex-end;min-height:420px}
@@ -759,7 +823,7 @@ const TERMS = {
 .fb-bento .fbb-orange{background:#fff;border:2px solid color-mix(in srgb,var(--color-accent) 50%,transparent)}
 .fb-bento .fbb-lime{background:var(--color-accent-2);color:color-mix(in srgb,var(--color-accent-2) 22%,black)}
 .fb-bento .fbb-lime h3{color:color-mix(in srgb,var(--color-accent-2) 18%,black)}
-.fb-bento .fbb-icon{width:54px;height:54px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;transition:transform .35s ease}
+.fb-bento .fbb-icon{width:54px;height:54px;border-radius:2px;display:grid;place-items:center;margin-bottom:18px;transition:transform .35s ease}
 .fb-bento .fbb-icon svg{width:26px;height:26px}
 .fb-bento .fbb-big .fbb-icon{background:rgba(255,255,255,.2);color:#fff;position:absolute;top:34px;left:34px}
 .fb-bento .fbb-orange .fbb-icon{background:var(--color-accent);color:#fff}
@@ -795,7 +859,7 @@ const TERMS = {
 </section>
 </template>
 
-<template class="block" data-cat="features" data-id="fb-tabs" data-terms="tabs,autoplay,progress-bar,crossfade,interactive" data-name="Interaktive Reiter mit Autoplay"
+<template class="block" data-cat="features" data-id="fb-tabs" data-style="kräftig · farbig" data-motion="auffällig" data-terms="tabs,autoplay,progress-bar,crossfade,interactive" data-name="Interaktive Reiter mit Autoplay"
   data-desc="Links die Liste, rechts das Detail. Wechselt alle 5 Sekunden von selbst, Klick übernimmt die Steuerung."
   data-tags="interaktiv,kompakt,JS">
 <style>
@@ -805,7 +869,7 @@ const TERMS = {
 .fb-tabs h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.4vw,2.5rem);line-height:1.2;margin:0 0 48px;text-align:center}
 .fb-tabs .fbt-wrap{display:grid;grid-template-columns:380px 1fr;gap:40px;align-items:stretch}
 .fb-tabs .fbt-list{display:flex;flex-direction:column;gap:10px}
-.fb-tabs .fbt-btn{position:relative;overflow:hidden;text-align:left;border:1px solid #e6e8e2;background:#fff;border-radius:14px;padding:18px 20px;cursor:pointer;font:inherit;color:inherit;transition:border-color .3s,background .3s}
+.fb-tabs .fbt-btn{position:relative;overflow:hidden;text-align:left;border:1px solid #e6e8e2;background:#fff;border-radius:2px;padding:18px 20px;cursor:pointer;font:inherit;color:inherit;transition:border-color .3s,background .3s}
 .fb-tabs .fbt-btn b{display:block;font-family:var(--font-heading);color:var(--color-heading);font-size:1.1rem}
 .fb-tabs .fbt-btn small{font-size:.9rem;color:#8a8a8a}
 .fb-tabs .fbt-btn[aria-selected="true"]{border-color:var(--c,var(--color-primary));background:#fbfcfa}
@@ -813,7 +877,7 @@ const TERMS = {
 .fb-tabs .fbt-btn[aria-selected="true"] .fbt-bar{animation:fbtProgress 5s linear forwards}
 .fb-tabs.is-paused .fbt-btn[aria-selected="true"] .fbt-bar{animation:none;width:100%}
 @keyframes fbtProgress{to{width:100%}}
-.fb-tabs .fbt-stage{position:relative;border-radius:24px;min-height:340px;overflow:hidden;background:var(--c,var(--color-primary));transition:background .5s ease}
+.fb-tabs .fbt-stage{position:relative;border-radius:2px;min-height:340px;overflow:hidden;background:var(--c,var(--color-primary));transition:background .5s ease}
 .fb-tabs .fbt-panel{position:absolute;inset:0;padding:44px;display:flex;flex-direction:column;justify-content:flex-end;color:rgba(255,255,255,.92);opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;pointer-events:none}
 .fb-tabs .fbt-panel.is-active{opacity:1;transform:none;pointer-events:auto}
 .fb-tabs .fbt-big{position:absolute;top:20px;right:34px;font-family:var(--font-heading);font-weight:800;font-size:9rem;line-height:1;color:rgba(255,255,255,.2)}
@@ -865,7 +929,7 @@ const TERMS = {
      ================================================================ -->
 
 <!-- L1 --------------------------------------------------------- -->
-<template class="block" data-cat="lead" data-id="lg-box" data-terms="card,box-shadow,inline-form,microcopy,kicker,checklist"
+<template class="block" data-cat="lead" data-id="lg-box" data-style="ruhig · hell" data-motion="keine" data-terms="card,box-shadow,inline-form,microcopy,kicker,checklist"
   data-name="Zentrierte Anmeldebox"
   data-desc="Der Klassiker: eine ruhige Karte mitten auf hellem Grund, Nutzenpunkte, Name und E-Mail nebeneinander."
   data-tags="ruhig,hell,universell">
@@ -880,7 +944,7 @@ const TERMS = {
 .lg-box .lgb-list li::before{content:"";position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:color-mix(in srgb,var(--color-primary) 15%,transparent)}
 .lg-box .lgb-list li::after{content:"";position:absolute;left:7px;top:8px;width:5px;height:9px;border:solid var(--color-primary);border-width:0 2px 2px 0;transform:rotate(45deg)}
 .lg-box form{display:flex;gap:10px;flex-wrap:wrap}
-.lg-box input{flex:1 1 180px;min-width:0;padding:15px 18px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit;color:var(--color-heading);background:#fff;transition:border-color .2s,box-shadow .2s}
+.lg-box input{flex:1 1 180px;min-width:0;padding:15px 18px;border:1.5px solid #dfe2da;border-radius:2px;font:inherit;color:var(--color-heading);background:#fff;transition:border-color .2s,box-shadow .2s}
 .lg-box input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
 .lg-box button{flex:1 1 100%;padding:16px 24px;border:0;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;cursor:pointer;transition:transform .2s,filter .2s}
 .lg-box button:hover{transform:translateY(-2px);filter:brightness(1.06)}
@@ -918,7 +982,7 @@ const TERMS = {
 </template>
 
 <!-- L2 --------------------------------------------------------- -->
-<template class="block" data-cat="lead" data-id="lg-mockup" data-terms="mockup,perspective-tilt,floating,split-layout,drop-shadow,inline-form"
+<template class="block" data-cat="lead" data-id="lg-mockup" data-style="ruhig · hell" data-motion="auffällig" data-terms="mockup,perspective-tilt,floating,split-layout,drop-shadow,inline-form"
   data-name="Geteilt mit schwebendem Mockup"
   data-desc="Links ein gekipptes Freebie-Cover, das sanft schwebt und sich zur Maus neigt. Rechts Text und Formular."
   data-tags="Mockup,3D,Animation">
@@ -929,17 +993,17 @@ const TERMS = {
 .lg-mockup .lgm-stage{perspective:1200px;display:grid;place-items:center;position:relative}
 .lg-mockup .lgm-stage::before{content:"";position:absolute;width:80%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--color-primary) 22%,transparent),transparent 70%)}
 .lg-mockup .lgm-float{animation:lgmFloat 6s ease-in-out infinite}
-.lg-mockup .lgm-cover{--rx:6deg;--ry:-16deg;position:relative;width:min(300px,70vw);aspect-ratio:3/4;border-radius:6px 14px 14px 6px;
+.lg-mockup .lgm-cover{--rx:6deg;--ry:-16deg;position:relative;width:min(300px,70vw);aspect-ratio:3/4;border-radius:2px 2px 2px 2px;
   background:linear-gradient(160deg,var(--color-primary),var(--color-secondary));color:#fff;padding:34px 28px;display:flex;flex-direction:column;justify-content:space-between;
   transform:rotateX(var(--rx)) rotateY(var(--ry));transition:transform .4s ease;
   box-shadow:-8px 0 0 color-mix(in srgb,var(--color-dark) 60%,transparent) inset,24px 34px 50px rgba(0,0,0,.22)}
 .lg-mockup .lgm-cover small{font-family:var(--font-heading);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.7rem;opacity:.85}
 .lg-mockup .lgm-cover b{font-family:var(--font-heading);font-size:1.9rem;line-height:1.15}
-.lg-mockup .lgm-cover i{display:block;width:48px;height:4px;border-radius:4px;background:var(--color-accent)}
+.lg-mockup .lgm-cover i{display:block;width:48px;height:4px;border-radius:2px;background:var(--color-accent)}
 @keyframes lgmFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
 .lg-mockup h2{font-family:var(--font-heading);color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
 .lg-mockup form{display:flex;flex-direction:column;gap:10px;margin-top:26px}
-.lg-mockup input{padding:15px 18px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit;color:var(--color-heading)}
+.lg-mockup input{padding:15px 18px;border:1.5px solid #dfe2da;border-radius:2px;font:inherit;color:var(--color-heading)}
 .lg-mockup input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
 .lg-mockup button{padding:16px 24px;border:0;border-radius:var(--radius-button);background:var(--color-accent);color:var(--color-heading);font-family:var(--font-heading);font-weight:800;font-size:1.05rem;cursor:pointer;transition:transform .2s}
 .lg-mockup button:hover{transform:translateY(-2px)}
@@ -980,7 +1044,7 @@ const TERMS = {
 </template>
 
 <!-- L3 --------------------------------------------------------- -->
-<template class="block" data-cat="lead" data-id="lg-band" data-terms="full-bleed,linear-gradient,inline-form,deko-shape,shimmer"
+<template class="block" data-cat="lead" data-id="lg-band" data-style="kräftig · farbig" data-motion="dezent" data-terms="full-bleed,linear-gradient,inline-form,deko-shape,shimmer"
   data-name="Farbband für zwischendurch"
   data-desc="Kompaktes, volle Breite nutzendes Band mit nur einem E-Mail-Feld. Ideal mitten in einer langen Seite. Der Button hat einen Lichtreflex."
   data-tags="kompakt,Farbfläche,mitten in der Seite">
@@ -1025,7 +1089,7 @@ const TERMS = {
 </template>
 
 <!-- L4 --------------------------------------------------------- -->
-<template class="block" data-cat="lead" data-id="lg-glas" data-terms="dark-section,glassmorphism,backdrop-blur,blob,floating,inline-form"
+<template class="block" data-cat="lead" data-id="lg-glas" data-style="kräftig · dunkel" data-motion="auffällig" data-terms="dark-section,glassmorphism,backdrop-blur,blob,floating,inline-form"
   data-name="Glaskarte auf dunklem Grund"
   data-desc="Farbige, verschwommene Lichtflecken bewegen sich langsam im Hintergrund. Davor eine halbtransparente Milchglas-Karte mit dem Formular."
   data-tags="dunkel,Glassmorphism,Animation">
@@ -1037,13 +1101,13 @@ const TERMS = {
 .lg-glas .b2{width:300px;height:300px;background:var(--color-accent);right:10%;bottom:-100px;animation-delay:-5s}
 .lg-glas .b3{width:240px;height:240px;background:var(--color-accent-2);left:45%;top:40%;animation-delay:-9s;opacity:.5}
 @keyframes lggDrift{0%{transform:translate(0,0) scale(1)}100%{transform:translate(60px,40px) scale(1.15)}}
-.lg-glas .lgg-card{position:relative;max-width:620px;margin:0 auto;padding:48px 44px;border-radius:24px;text-align:center;
+.lg-glas .lgg-card{position:relative;max-width:620px;margin:0 auto;padding:48px 44px;border-radius:2px;text-align:center;
   background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.22);backdrop-filter:blur(18px) saturate(140%);-webkit-backdrop-filter:blur(18px) saturate(140%);
   box-shadow:0 30px 60px rgba(0,0,0,.25)}
-.lg-glas .lgg-kicker{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:100px;padding:6px 14px}
+.lg-glas .lgg-kicker{display:inline-block;font-family:var(--font-heading);font-weight:700;font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:2px;padding:6px 14px}
 .lg-glas h2{font-family:var(--font-heading);color:#fff;font-size:clamp(1.7rem,3.4vw,2.4rem);line-height:1.2;margin:18px 0 12px}
 .lg-glas form{display:flex;flex-direction:column;gap:10px;margin-top:28px}
-.lg-glas input{padding:15px 18px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font:inherit}
+.lg-glas input{padding:15px 18px;border-radius:2px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.1);color:#fff;font:inherit}
 .lg-glas input::placeholder{color:rgba(255,255,255,.65)}
 .lg-glas input:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.16)}
 .lg-glas button{padding:16px;border:0;border-radius:var(--radius-button);background:#fff;color:var(--color-dark);font-family:var(--font-heading);font-weight:800;font-size:1.05rem;cursor:pointer;transition:transform .2s,box-shadow .2s}
@@ -1078,7 +1142,7 @@ const TERMS = {
 </template>
 
 <!-- L5 --------------------------------------------------------- -->
-<template class="block" data-cat="lead" data-id="lg-zweistufig" data-terms="two-step-optin,modal,backdrop-blur,pulse,scale-in"
+<template class="block" data-cat="lead" data-id="lg-zweistufig" data-style="ruhig · hell" data-motion="dezent" data-terms="two-step-optin,modal,backdrop-blur,pulse,scale-in"
   data-name="Zwei-Schritt-Anmeldung mit Pop-up"
   data-desc="Erst nur ein großer Button, der sanft pulsiert. Das Formular öffnet sich nach dem Klick in einem Fenster über der Seite."
   data-tags="Pop-up,Two-Step,interaktiv">
@@ -1097,11 +1161,11 @@ const TERMS = {
 .lg-zweistufig .lgz-modal.is-open .lgz-box{transform:none}
 .lg-zweistufig .lgz-close{position:absolute;top:12px;right:14px;border:0;background:none;font-size:1.6rem;line-height:1;color:#8a8a8a;cursor:pointer}
 .lg-zweistufig .lgz-step{font-family:var(--font-heading);font-weight:700;font-size:.78rem;color:var(--color-primary);letter-spacing:.1em;text-transform:uppercase}
-.lg-zweistufig .lgz-bar{height:6px;border-radius:6px;background:#eceee8;margin:8px 0 22px;overflow:hidden}
-.lg-zweistufig .lgz-bar span{display:block;height:100%;width:50%;background:var(--color-primary);border-radius:6px}
+.lg-zweistufig .lgz-bar{height:6px;border-radius:2px;background:#eceee8;margin:8px 0 22px;overflow:hidden}
+.lg-zweistufig .lgz-bar span{display:block;height:100%;width:50%;background:var(--color-primary);border-radius:2px}
 .lg-zweistufig h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.35rem;margin:0 0 16px}
 .lg-zweistufig form{display:flex;flex-direction:column;gap:10px}
-.lg-zweistufig input{padding:14px 16px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit}
+.lg-zweistufig input{padding:14px 16px;border:1.5px solid #dfe2da;border-radius:2px;font:inherit}
 .lg-zweistufig input:focus{outline:none;border-color:var(--color-primary)}
 .lg-zweistufig form button{padding:15px;border:0;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;cursor:pointer}
 .lg-zweistufig .lgz-ok{display:none;font-family:var(--font-heading);font-weight:700;color:var(--color-primary)}
@@ -1145,7 +1209,7 @@ const TERMS = {
 </template>
 
 <!-- L6 --------------------------------------------------------- -->
-<template class="block" data-cat="lead" data-id="lg-socialproof" data-terms="social-proof,avatar-stack,count-up,split-layout,card,inline-form"
+<template class="block" data-cat="lead" data-id="lg-socialproof" data-style="ruhig · hell" data-motion="dezent" data-terms="social-proof,avatar-stack,count-up,split-layout,card,inline-form"
   data-name="Anmeldung mit Social Proof"
   data-desc="Links Text, Avatar-Stapel und eine Zahl, die beim Sichtbarwerden hochzählt. Rechts das Formular in einer farbig umrandeten Karte."
   data-tags="Vertrauen,Zähler,zweispaltig">
@@ -1162,10 +1226,10 @@ const TERMS = {
 .lg-socialproof .lgs-count{font-family:var(--font-heading);font-weight:800;font-size:1.6rem;color:var(--color-heading);line-height:1}
 .lg-socialproof .lgs-stars{color:var(--color-accent);letter-spacing:2px;font-size:1rem}
 .lg-socialproof .lgs-card{border-radius:var(--radius-card);padding:3px;background:linear-gradient(135deg,var(--color-primary),var(--color-accent-2))}
-.lg-socialproof .lgs-card-body{background:#fff;border-radius:calc(var(--radius-card) - 3px);padding:36px 32px}
+.lg-socialproof .lgs-card-body{background:#fff;border-radius:var(--radius-card);padding:36px 32px}
 .lg-socialproof h3{font-family:var(--font-heading);color:var(--color-heading);font-size:1.3rem;margin:0 0 18px}
 .lg-socialproof form{display:flex;flex-direction:column;gap:10px}
-.lg-socialproof input{padding:14px 16px;border:1.5px solid #dfe2da;border-radius:10px;font:inherit}
+.lg-socialproof input{padding:14px 16px;border:1.5px solid #dfe2da;border-radius:2px;font:inherit}
 .lg-socialproof input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
 .lg-socialproof button{padding:15px;border:0;border-radius:var(--radius-button);background:var(--color-primary);color:#fff;font-family:var(--font-heading);font-weight:700;font-size:1.05rem;cursor:pointer;transition:transform .2s}
 .lg-socialproof button:hover{transform:translateY(-2px)}
@@ -1219,7 +1283,7 @@ const TERMS = {
      ================================================================ -->
 
 <!-- A1 --------------------------------------------------------- -->
-<template class="block" data-cat="angebot" data-id="an-zweispaltig" data-terms="split-layout,checklist,card,visual-hierarchy,microcopy,button-glow"
+<template class="block" data-cat="angebot" data-id="an-zweispaltig" data-style="ruhig · hell" data-motion="keine" data-terms="split-layout,checklist,card,visual-hierarchy,microcopy,button-glow"
   data-name="Bekommen und Investieren"
   data-desc="Zwei Spalten: links alles, was drin ist, rechts auf zartem Türkis-Wash der Preis mit Button. Klar und fair."
   data-tags="zweispaltig,ruhig,Standard">
@@ -1274,7 +1338,7 @@ const TERMS = {
 </template>
 
 <!-- A2 --------------------------------------------------------- -->
-<template class="block" data-cat="angebot" data-id="an-wertstapel" data-terms="value-stack,price-anchor,staggered,scroll-reveal,count-up,card"
+<template class="block" data-cat="angebot" data-id="an-wertstapel" data-style="ruhig · hell" data-motion="auffällig" data-terms="value-stack,price-anchor,staggered,scroll-reveal,count-up,card"
   data-name="Wert-Stapel"
   data-desc="Die Bausteine stapeln sich beim Scrollen nacheinander ein, jeweils mit Einzelwert. Unten der Gesamtwert durchgestrichen und dein Preis."
   data-tags="Value Stack,Animation,überzeugend">
@@ -1335,7 +1399,7 @@ const TERMS = {
 </template>
 
 <!-- A3 --------------------------------------------------------- -->
-<template class="block" data-cat="angebot" data-id="an-kompakt" data-terms="icon-badge,text-width,highlight-bar,whitespace,microcopy"
+<template class="block" data-cat="angebot" data-id="an-kompakt" data-style="ruhig · hell" data-motion="keine" data-terms="icon-badge,text-width,highlight-bar,whitespace,microcopy"
   data-name="Kurz zusammengefasst, dann der Preis"
   data-desc="Oben die wichtigsten Bausteine als schmale Icon-Leiste, darunter eine ruhige Textspalte mit Preis im Fließtext. Wirkt persönlich statt verkäuferisch."
   data-tags="textlastig,persönlich,ruhig">
@@ -1376,7 +1440,7 @@ const TERMS = {
 </template>
 
 <!-- A4 --------------------------------------------------------- -->
-<template class="block" data-cat="angebot" data-id="an-raten" data-terms="background-image,pricing-toggle,crossfade,card,divider-bar,button-glow"
+<template class="block" data-cat="angebot" data-id="an-raten" data-style="kräftig · farbig" data-motion="dezent" data-terms="background-image,pricing-toggle,crossfade,card,divider-bar,button-glow"
   data-name="Preiskarte mit Raten-Umschalter"
   data-desc="Weiße Karte auf deinem Verlaufsbild. Ein Schalter wechselt zwischen Einmalzahlung und Raten, der Preis blendet weich über. Unten der orange Trennbalken."
   data-tags="Verlaufsbild,interaktiv,Raten">
@@ -1387,7 +1451,7 @@ const TERMS = {
 .an-raten h2{font-family:var(--font-heading);font-weight:600;color:#fff;font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;text-align:center;margin:0 0 36px;text-shadow:0 2px 12px rgba(0,0,0,.25)}
 .an-raten .ar-card{max-width:520px;margin:0 auto;background:#fff;border-radius:var(--radius-card);box-shadow:var(--shadow-card-on-color);padding:36px 34px;text-align:center}
 .an-raten .ar-switch{display:inline-flex;background:var(--color-bg-soft);border-radius:var(--radius-button);padding:4px;margin-bottom:26px}
-.an-raten .ar-switch button{border:0;background:none;padding:9px 18px;border-radius:calc(var(--radius-button) - 2px);font:inherit;font-weight:700;font-size:.95rem;color:var(--color-text);cursor:pointer;transition:.2s ease}
+.an-raten .ar-switch button{border:0;background:none;padding:9px 18px;border-radius:var(--radius-button);font:inherit;font-weight:700;font-size:.95rem;color:var(--color-text);cursor:pointer;transition:.2s ease}
 .an-raten .ar-switch button[aria-pressed="true"]{background:#fff;color:var(--color-heading);box-shadow:0 2px 8px rgba(0,0,0,.10)}
 .an-raten .ar-prices{position:relative;height:96px}
 .an-raten .ar-p{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .35s ease,transform .35s ease}
@@ -1434,7 +1498,7 @@ const TERMS = {
 </template>
 
 <!-- A5 --------------------------------------------------------- -->
-<template class="block" data-cat="angebot" data-id="an-garantie" data-terms="seal,rotate-loop,split-layout,card,checklist,microcopy"
+<template class="block" data-cat="angebot" data-id="an-garantie" data-style="ruhig · hell" data-motion="dezent" data-terms="seal,rotate-loop,split-layout,card,checklist,microcopy"
   data-name="Preis mit Garantie-Siegel"
   data-desc="Links die Preiskarte mit orangem Rand, rechts ein rundes Siegel, dessen Schriftring sich langsam dreht. Gut, wenn du eine Geld-zurück-Garantie gibst."
   data-tags="Vertrauen,Siegel,Loop-Animation">
@@ -1489,7 +1553,7 @@ const TERMS = {
      ================================================================ -->
 
 <!-- S1 --------------------------------------------------------- -->
-<template class="block" data-cat="stimmen" data-id="st-karten" data-terms="grid-3,card,quote-mark,avatar,hover-scale,scroll-reveal,staggered"
+<template class="block" data-cat="stimmen" data-id="st-karten" data-style="ruhig · hell" data-motion="dezent" data-terms="grid-3,card,quote-mark,avatar,hover-scale,scroll-reveal,staggered"
   data-name="Stimmen-Karten"
   data-desc="Drei Karten mit großem Anführungszeichen, Initialen-Avatar und Namen. Sie blenden nacheinander ein und wachsen beim Drüberfahren leicht."
   data-tags="Dreispalter,ruhig,Standard">
@@ -1537,7 +1601,7 @@ const TERMS = {
 </template>
 
 <!-- S2 --------------------------------------------------------- -->
-<template class="block" data-cat="stimmen" data-id="st-gross" data-terms="pull-quote,whitespace,text-width,quote-mark,avatar"
+<template class="block" data-cat="stimmen" data-id="st-gross" data-style="ruhig · hell" data-motion="keine" data-terms="pull-quote,whitespace,text-width,quote-mark,avatar"
   data-name="Ein großes Zitat"
   data-desc="Eine einzige Stimme, groß gesetzt mit viel Weißraum. Wirkt stark, wenn du ein besonders gutes Zitat hast."
   data-tags="einspaltig,ruhig,wirkungsvoll">
@@ -1562,7 +1626,7 @@ const TERMS = {
 </template>
 
 <!-- S3 --------------------------------------------------------- -->
-<template class="block" data-cat="stimmen" data-id="st-laufband" data-terms="marquee,mask-fade,pause-on-hover,card"
+<template class="block" data-cat="stimmen" data-id="st-laufband" data-style="ruhig · hell" data-motion="auffällig" data-terms="marquee,mask-fade,pause-on-hover,card"
   data-name="Endloses Laufband"
   data-desc="Zwei Reihen kurzer Stimmen laufen endlos in entgegengesetzte Richtungen, an den Rändern weich ausgeblendet. Bei Mausberührung halten sie an."
   data-tags="Marquee,viele Stimmen,lebendig">
@@ -1608,7 +1672,7 @@ const TERMS = {
 </template>
 
 <!-- S4 --------------------------------------------------------- -->
-<template class="block" data-cat="stimmen" data-id="st-karussell" data-terms="carousel,pagination-dots,autoplay,swipe,avatar,quote-mark"
+<template class="block" data-cat="stimmen" data-id="st-karussell" data-style="ruhig · hell" data-motion="dezent" data-terms="carousel,pagination-dots,autoplay,swipe,avatar,quote-mark"
   data-name="Karussell zum Durchklicken"
   data-desc="Eine Stimme nach der anderen, mit Pfeilen, Punkten und Wischen auf dem Handy. Wechselt alle 6 Sekunden von selbst."
   data-tags="Slider,kompakt,interaktiv">
@@ -1628,7 +1692,7 @@ const TERMS = {
 .st-karussell .sc-arrow:hover{background:var(--color-primary);color:#fff}
 .st-karussell .sc-prev{left:12px}.st-karussell .sc-next{right:12px}
 .st-karussell .sc-dots{display:flex;justify-content:center;gap:8px;margin-top:18px}
-.st-karussell .sc-dots button{width:10px;height:10px;border-radius:10px;border:0;background:#d8dbd2;cursor:pointer;transition:width .3s ease,background .3s ease;padding:0}
+.st-karussell .sc-dots button{width:10px;height:10px;border-radius:2px;border:0;background:#d8dbd2;cursor:pointer;transition:width .3s ease,background .3s ease;padding:0}
 .st-karussell .sc-dots button[aria-current="true"]{width:28px;background:var(--color-accent)}
 @media(max-width:600px){.st-karussell figure{padding:36px 26px 28px}.st-karussell .sc-arrow{display:none}}
 </style>
@@ -1667,7 +1731,7 @@ const TERMS = {
 </template>
 
 <!-- S5 --------------------------------------------------------- -->
-<template class="block" data-cat="stimmen" data-id="st-chat" data-terms="chat-bubble,typing-indicator,staggered,scroll-reveal,split-layout"
+<template class="block" data-cat="stimmen" data-id="st-chat" data-style="ruhig · hell" data-motion="auffällig" data-terms="chat-bubble,typing-indicator,staggered,scroll-reveal,split-layout"
   data-name="Nachrichten-Stil"
   data-desc="Rückmeldungen erscheinen wie Chatnachrichten nacheinander, jeweils mit kurzen Tipp-Pünktchen davor. Wirkt nahbar. Nur mit echten, freigegebenen Nachrichten füllen."
   data-tags="Chat,Animation,nahbar">
@@ -1676,14 +1740,14 @@ const TERMS = {
 .st-chat *{box-sizing:border-box}
 .st-chat .sch-inner{max-width:var(--container);margin:0 auto;display:grid;grid-template-columns:1fr 1.1fr;gap:56px;align-items:center}
 .st-chat h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.7rem,3.2vw,2.4rem);line-height:1.2;margin:0 0 14px}
-.st-chat .sch-phone{background:#fff;border-radius:22px;box-shadow:var(--shadow-card);padding:22px 18px;display:flex;flex-direction:column;gap:12px;min-height:360px}
+.st-chat .sch-phone{background:#fff;border-radius:2px;box-shadow:var(--shadow-card);padding:22px 18px;display:flex;flex-direction:column;gap:12px;min-height:360px}
 .st-chat .sch-msg{max-width:85%;opacity:0;transform:translateY(12px) scale(.98);transition:opacity .4s ease,transform .4s ease}
 .st-chat .sch-msg.is-shown{opacity:1;transform:none}
-.st-chat .sch-bubble{background:var(--color-bg-soft);border-radius:16px 16px 16px 4px;padding:12px 16px}
+.st-chat .sch-bubble{background:var(--color-bg-soft);border-radius:2px 2px 2px 2px;padding:12px 16px}
 .st-chat .sch-msg.me{align-self:flex-end}
-.st-chat .sch-msg.me .sch-bubble{background:color-mix(in srgb,var(--color-primary) 14%,#fff);border-radius:16px 16px 4px 16px}
+.st-chat .sch-msg.me .sch-bubble{background:color-mix(in srgb,var(--color-primary) 14%,#fff);border-radius:2px 2px 2px 2px}
 .st-chat .sch-who{font-size:.8rem;color:var(--color-text-mid);margin:4px 6px 0}
-.st-chat .sch-typing{display:none;gap:4px;padding:14px 16px;background:var(--color-bg-soft);border-radius:16px;width:max-content}
+.st-chat .sch-typing{display:none;gap:4px;padding:14px 16px;background:var(--color-bg-soft);border-radius:2px;width:max-content}
 .st-chat .sch-typing.is-on{display:flex}
 .st-chat .sch-typing i{width:7px;height:7px;border-radius:50%;background:var(--color-text-mid);animation:schDot 1s infinite}
 .st-chat .sch-typing i:nth-child(2){animation-delay:.15s}.st-chat .sch-typing i:nth-child(3){animation-delay:.3s}
@@ -1729,7 +1793,7 @@ const TERMS = {
      ================================================================ -->
 
 <!-- U1 --------------------------------------------------------- -->
-<template class="block" data-cat="ueber" data-id="um-klassisch" data-terms="split-layout,offset-frame,object-fit,highlight-bar,text-width"
+<template class="block" data-cat="ueber" data-id="um-klassisch" data-style="ruhig · hell" data-motion="keine" data-terms="split-layout,offset-frame,object-fit,highlight-bar,text-width"
   data-name="Porträt mit versetztem Rahmen"
   data-desc="40/60: links dein Foto mit einem orangen Rahmen, der leicht versetzt dahinter liegt. Rechts der Text mit hervorgehobenem Kernsatz."
   data-tags="Bild + Text,Standard,ruhig">
@@ -1760,7 +1824,7 @@ const TERMS = {
 </template>
 
 <!-- U2 --------------------------------------------------------- -->
-<template class="block" data-cat="ueber" data-id="um-zahlen" data-terms="stat-row,count-up,avatar,text-width,scroll-reveal"
+<template class="block" data-cat="ueber" data-id="um-zahlen" data-style="ruhig · hell" data-motion="dezent" data-terms="stat-row,count-up,avatar,text-width,scroll-reveal"
   data-name="Porträt mit Zahlenleiste"
   data-desc="Rundes Porträt und kurzer Text in der Mitte, darunter drei Kennzahlen, die beim Reinscrollen hochzählen."
   data-tags="zentriert,Zahlen,Animation">
@@ -1801,7 +1865,7 @@ const TERMS = {
 </template>
 
 <!-- U3 --------------------------------------------------------- -->
-<template class="block" data-cat="ueber" data-id="um-timeline" data-terms="timeline,line-draw,scroll-reveal,staggered,split-layout"
+<template class="block" data-cat="ueber" data-id="um-timeline" data-style="ruhig · hell" data-motion="auffällig" data-terms="timeline,line-draw,scroll-reveal,staggered,split-layout"
   data-name="Mein Weg als Zeitstrahl"
   data-desc="Links ein kleines Porträt mit Einleitung, rechts deine Stationen auf einer senkrechten Linie, die sich beim Scrollen zeichnet."
   data-tags="Timeline,Geschichte,Animation">
@@ -1813,7 +1877,7 @@ const TERMS = {
 .um-timeline .ut-intro img{width:120px;height:120px;border-radius:50%;object-fit:cover;box-shadow:var(--shadow-card);margin-bottom:18px}
 .um-timeline h2{font-family:var(--font-heading);font-weight:600;color:var(--color-heading);font-size:clamp(1.6rem,3vw,2.2rem);line-height:1.2;margin:0 0 12px}
 .um-timeline ol{list-style:none;margin:0;padding:0 0 0 38px;position:relative}
-.um-timeline ol::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;border-radius:3px;background:var(--color-primary);transform:scaleY(0);transform-origin:top;transition:transform 1.6s cubic-bezier(.65,0,.35,1)}
+.um-timeline ol::before{content:"";position:absolute;left:9px;top:6px;bottom:6px;width:3px;border-radius:2px;background:var(--color-primary);transform:scaleY(0);transform-origin:top;transition:transform 1.6s cubic-bezier(.65,0,.35,1)}
 .um-timeline li{position:relative;padding-bottom:30px;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease}
 .um-timeline li:last-child{padding-bottom:0}
 .um-timeline li::before{content:"";position:absolute;left:-38px;top:5px;width:21px;height:21px;border-radius:50%;background:#fff;border:3px solid var(--color-primary)}
@@ -1853,7 +1917,7 @@ const TERMS = {
 </template>
 
 <!-- U4 --------------------------------------------------------- -->
-<template class="block" data-cat="ueber" data-id="um-brief" data-terms="text-width,signature,line-draw,whitespace,avatar"
+<template class="block" data-cat="ueber" data-id="um-brief" data-style="ruhig · hell" data-motion="dezent" data-terms="text-width,signature,line-draw,whitespace,avatar"
   data-name="Persönlicher Brief"
   data-desc="Schmale Textspalte wie ein Brief, mit Anrede und einer Unterschrift, die sich beim Sichtbarwerden von selbst zeichnet."
   data-tags="persönlich,textlastig,Handschrift-Effekt">
@@ -1898,7 +1962,7 @@ const TERMS = {
 </template>
 
 <!-- U5 --------------------------------------------------------- -->
-<template class="block" data-cat="ueber" data-id="um-verlauf" data-terms="background-image,overlap,card,divider-bar,text-shadow"
+<template class="block" data-cat="ueber" data-id="um-verlauf" data-style="kräftig · farbig" data-motion="keine" data-terms="background-image,overlap,card,divider-bar,text-shadow"
   data-name="Karte auf Verlaufsbild mit Porträt"
   data-desc="Dein Verlaufsbild als Fläche, darauf eine weiße Textkarte, dein Porträt ragt seitlich über den Kartenrand. Unten der orange Trennbalken."
   data-tags="Verlaufsbild,Überlappung,kräftig">
@@ -1933,7 +1997,7 @@ const TERMS = {
      ================================================================ -->
 
 <!-- F1 --------------------------------------------------------- -->
-<template class="block" data-cat="faq" data-id="fq-akkordeon" data-terms="accordion,icon-rotate,split-layout,microcopy"
+<template class="block" data-cat="faq" data-id="fq-akkordeon" data-style="ruhig · hell" data-motion="dezent" data-terms="accordion,icon-rotate,split-layout,microcopy"
   data-name="Akkordeon 35/65"
   data-desc="Links Überschrift und Kontakt-Hinweis, rechts die Fragen zum Aufklappen. Das Plus dreht sich zum Kreuz, die Antwort gleitet weich auf."
   data-tags="Akkordeon,Standard,zweispaltig">
@@ -1989,7 +2053,7 @@ const TERMS = {
 </template>
 
 <!-- F2 --------------------------------------------------------- -->
-<template class="block" data-cat="faq" data-id="fq-karten" data-terms="grid-2,bullet-star,card,whitespace"
+<template class="block" data-cat="faq" data-id="fq-karten" data-style="ruhig · hell" data-motion="keine" data-terms="grid-2,bullet-star,card,whitespace"
   data-name="Fragen als offene Karten"
   data-desc="Keine Klickerei: alle Antworten sofort sichtbar, zweispaltig in dezenten Karten mit orangem Stern. Gut bei wenigen, wichtigen Fragen."
   data-tags="alles sichtbar,zweispaltig,ruhig">
@@ -2019,7 +2083,7 @@ const TERMS = {
 </template>
 
 <!-- F3 --------------------------------------------------------- -->
-<template class="block" data-cat="faq" data-id="fq-suche" data-terms="accordion,filter-search,chips,interactive"
+<template class="block" data-cat="faq" data-id="fq-suche" data-style="ruhig · hell" data-motion="keine" data-terms="accordion,filter-search,chips,interactive"
   data-name="FAQ mit Suche und Themen"
   data-desc="Für viele Fragen: oben ein Suchfeld und Themen-Chips zum Filtern, darunter das Akkordeon. Nur passende Fragen bleiben sichtbar."
   data-tags="viele Fragen,Suche,interaktiv">
@@ -2031,7 +2095,7 @@ const TERMS = {
 .fq-suche input{width:100%;padding:14px 18px;border:1.5px solid #dfe2da;border-radius:var(--radius-button);font:inherit}
 .fq-suche input:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary) 18%,transparent)}
 .fq-suche .fs-chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 26px}
-.fq-suche .fs-chips button{border:1.5px solid #dfe2da;background:#fff;border-radius:100px;padding:6px 14px;font:inherit;font-size:.92rem;cursor:pointer;color:var(--color-text);transition:.2s ease}
+.fq-suche .fs-chips button{border:1.5px solid #dfe2da;background:#fff;border-radius:2px;padding:6px 14px;font:inherit;font-size:.92rem;cursor:pointer;color:var(--color-text);transition:.2s ease}
 .fq-suche .fs-chips button[aria-pressed="true"]{border-color:var(--color-primary);background:var(--color-primary);color:#fff}
 .fq-suche details{border:1px solid #e6e8e2;border-radius:var(--radius-card);margin-bottom:10px;background:#fff}
 .fq-suche details[open]{border-color:var(--color-primary)}
@@ -2082,7 +2146,7 @@ const TERMS = {
      ================================================================ -->
 
 <!-- C1 --------------------------------------------------------- -->
-<template class="block" data-cat="cta" data-id="ct-verlauf" data-terms="background-image,text-shadow,button-glow,divider-bar,full-bleed"
+<template class="block" data-cat="cta" data-id="ct-verlauf" data-style="kräftig · farbig" data-motion="dezent" data-terms="background-image,text-shadow,button-glow,divider-bar,full-bleed"
   data-name="Verlaufsfläche mit leuchtendem Button"
   data-desc="Dein Verlaufsbild über die volle Breite, weiße Überschrift mit weichem Textschatten, oranger Button mit atmendem Glow. Unten der Trennbalken."
   data-tags="kräftig,Verlaufsbild,Glow">
@@ -2110,7 +2174,7 @@ const TERMS = {
 </template>
 
 <!-- C2 --------------------------------------------------------- -->
-<template class="block" data-cat="cta" data-id="ct-echo" data-terms="image-echo,blur,glassmorphism,shimmer,card"
+<template class="block" data-cat="cta" data-id="ct-echo" data-style="kräftig · Foto" data-motion="dezent" data-terms="image-echo,blur,glassmorphism,shimmer,card"
   data-name="Hero-Echo mit Glaskarte"
   data-desc="Das Hero-Foto taucht noch einmal auf, stark geblurrt und anders angeschnitten. Davor eine Milchglas-Karte, der Button hat einen Glanzlicht-Sweep."
   data-tags="Foto,Blur,Glaskarte">
@@ -2139,7 +2203,7 @@ const TERMS = {
 </template>
 
 <!-- C3 --------------------------------------------------------- -->
-<template class="block" data-cat="cta" data-id="ct-persoenlich" data-terms="text-width,checklist,personal-signoff,whitespace,microcopy"
+<template class="block" data-cat="cta" data-id="ct-persoenlich" data-style="ruhig · hell" data-motion="keine" data-terms="text-width,checklist,personal-signoff,whitespace,microcopy"
   data-name="Schlichter Abschluss mit persönlichem Gruß"
   data-desc="Weiß und ruhig: große Frage, drei kurze Punkte als Zusammenfassung, Button und darunter ein kleines Porträt mit persönlichem Satz."
   data-tags="ruhig,persönlich,einspaltig">
@@ -2190,6 +2254,72 @@ const TERMS = {
   const store = {
     get(k){ try { return localStorage.getItem('bib-wish-' + k) || ''; } catch(_) { return ''; } },
     set(k,v){ try { localStorage.setItem('bib-wish-' + k, v); } catch(_) {} }
+  };
+
+  // ---------- Merkliste ----------
+  const byId = id => blocks.find(b => b.dataset.id === id);
+  const catLabel = t => (CATEGORIES.find(c => c.id === t.dataset.cat) || {}).label || '';
+  let favs = (() => { try { return JSON.parse(localStorage.getItem('bib-favs') || '[]').filter(byId); } catch(_) { return []; } })();
+  const saveFavs = () => { try { localStorage.setItem('bib-favs', JSON.stringify(favs)); } catch(_) {} updateDock(); };
+  function isFav(id){ return favs.includes(id); }
+  function toggleFav(id, btn){
+    favs = isFav(id) ? favs.filter(x => x !== id) : favs.concat(id);
+    saveFavs();
+    if (btn){ const on = isFav(id); btn.setAttribute('aria-pressed', on); btn.innerHTML = on ? '&#9829; Gemerkt' : '&#9825; Merken'; }
+    toast(isFav(id) ? 'Gemerkt. Deine Auswahl findest du unten rechts.' : 'Aus der Auswahl entfernt');
+  }
+  const dock = document.getElementById('dock'), drawer = document.getElementById('drawer'), drawerBg = document.getElementById('drawerBg');
+  const purpose = document.getElementById('selPurpose');
+  try { purpose.value = localStorage.getItem('bib-purpose') || ''; } catch(_) {}
+  purpose.addEventListener('input', () => { try { localStorage.setItem('bib-purpose', purpose.value); } catch(_) {} });
+  function updateDock(){ document.getElementById('dockN').textContent = favs.length; dock.classList.toggle('show', favs.length > 0); if (drawer.classList.contains('open')) renderSel(); }
+  function openDrawer(o){ drawer.classList.toggle('open', o); drawerBg.classList.toggle('open', o); if (o) renderSel(); }
+  dock.onclick = () => openDrawer(true);
+  drawerBg.onclick = document.getElementById('drawerClose').onclick = () => openDrawer(false);
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') openDrawer(false); });
+  function renderSel(){
+    const ul = document.getElementById('selList');
+    if (!favs.length){ ul.innerHTML = '<li class="sel-empty" style="list-style:none">Noch nichts gemerkt. Klick bei einem Block auf "Merken".</li>'; document.getElementById('selStats').textContent=''; return; }
+    ul.innerHTML = favs.map((id, i) => { const t = byId(id); const w = store.get(id).trim();
+      return '<li><div class="sel-txt"><b>' + esc(t.dataset.name) + '</b><small>' + esc(catLabel(t)) + ' · ' + esc(t.dataset.style) + ' · Bewegung ' + esc(t.dataset.motion) + (w ? ' · mit Wünschen' : '') + '</small></div>' +
+        '<button data-mv="-1" data-i="' + i + '" aria-label="nach oben"' + (i ? '' : ' disabled') + '>&#8593;</button>' +
+        '<button data-mv="1" data-i="' + i + '" aria-label="nach unten"' + (i < favs.length - 1 ? '' : ' disabled') + '>&#8595;</button>' +
+        '<button data-rm="' + esc(id) + '" aria-label="entfernen">&#10005;</button></li>'; }).join('');
+    ul.querySelectorAll('[data-mv]').forEach(b => b.onclick = () => { const i = +b.dataset.i, j = i + +b.dataset.mv; [favs[i], favs[j]] = [favs[j], favs[i]]; saveFavs(); renderSel(); });
+    ul.querySelectorAll('[data-rm]').forEach(b => b.onclick = () => { favs = favs.filter(x => x !== b.dataset.rm); saveFavs(); syncFavButtons(); });
+    const ts = favs.map(byId), cnt = (k, v) => ts.filter(t => t.dataset[k].startsWith(v)).length;
+    document.getElementById('selStats').textContent = favs.length + ' Abschnitte · ' + cnt('style','ruhig') + ' ruhig, ' + cnt('style','kräftig') + ' kräftig · ' + cnt('motion','auffällig') + ' mit auffälliger Animation';
+  }
+  function syncFavButtons(){ document.querySelectorAll('.variant').forEach(v => { const b = v.querySelector('[data-act="fav"]'), id = v.id.slice(2); if (b){ b.setAttribute('aria-pressed', isFav(id)); b.innerHTML = isFav(id) ? '&#9829; Gemerkt' : '&#9825; Merken'; } }); }
+  document.getElementById('selClear').onclick = () => { favs = []; saveFavs(); syncFavButtons(); };
+  function buildPrompt(){
+    const ts = favs.map(byId);
+    const what = purpose.value.trim() || '[HIER EINTRAGEN: Angebot, Zielgruppe, Ziel der Seite]';
+    const list = ts.map((t, i) => { const w = store.get(t.dataset.id).trim(); const names = termsOf(t).map(k => TERMS[k].name).join(', ');
+      return (i + 1) + '. ' + catLabel(t) + ': ' + t.dataset.name + '\n   Stil: ' + t.dataset.style + ' · Bewegung: ' + t.dataset.motion +
+        '\n   Idee: ' + t.dataset.desc + (names ? '\n   Effekte: ' + names : '') + (w ? '\n   Meine Wünsche: ' + w.replace(/\n+/g, ' ') : ''); }).join('\n');
+    const codes = ts.map((t, i) => '### ' + (i + 1) + '. ' + t.dataset.name + '\n```html\n' + code(t) + '\n```').join('\n\n');
+    return 'Baue mir aus meiner Auswahl an Designblöcken eine Landingpage.\nWofür: ' + what + '\n\n' +
+      'Die Blöcke sind Vorlagen für Aufbau und Wirkung, kein Code zum 1:1-Einfügen. Ziel ist eine stimmige Seite aus einem Guss, keine aneinandergereihten Einzelteile.\n\n' +
+      'So gehst du vor:\n' +
+      '1. Lies zuerst mein Designsystem vollständig (Farben, Schriften, Schatten, Linien, Farbe-auf-Hintergrund-Regeln, Bildstil und Bildordner). Es hat Vorrang vor allem, was im Code der Blöcke steht.\n' +
+      '2. Schau dir die Auswahl als Ganzes an und zeig mir VOR dem Bauen einen Seitenplan: Reihenfolge der Abschnitte, jeweils mit Hintergrund, Spaltenlayout und Animation. Warte auf mein Okay.\n' +
+      '3. Mach mir dabei konkrete Vorschläge, wo die Seite zu bunt, zu dicht oder zu unruhig wird, zum Beispiel:\n' +
+      '   - viele Karten hintereinander: einen Abschnitt stattdessen als ruhigen Text mit einfachen Aufzählungszeichen\n' +
+      '   - zu viele kräftige Flächen: einzelne Hintergründe zurücknehmen (weiß, hellgrau, zarter Farb-Wash)\n' +
+      '   - Farben reduzieren und Akzentfarben gezielter einsetzen\n' +
+      '   - Varianten, die stilistisch nicht zusammenpassen: eine passendere Variante vorschlagen\n' +
+      '   - eine bessere Reihenfolge, wenn der Lesefluss hakt\n' +
+      '4. Vereinheitliche über die ganze Seite: ein Kartenstil, ein Schattenstil, ein Button-Stil, gleiche Abstände, eine Überschriften-Hierarchie.\n' +
+      '5. Nie zweimal dasselbe Spaltenlayout hintereinander. Höchstens zwei bis drei auffällige Animationen auf der ganzen Seite, bei den übrigen Blöcken die Effekte zurücknehmen.\n' +
+      '6. Meine Wünsche zu einzelnen Blöcken gelten zusätzlich. Bilder mit assets/ im Pfad sind Beispielbilder: ersetze sie durch meine eigenen aus meinem Bildordner.\n\n' +
+      'Meine Auswahl, in dieser Reihenfolge:\n' + list + '\n\n' +
+      'Design-Grundwerte der Bibliothek (nur Ausgangspunkt, mein Designsystem gilt vorrangig):\n```css\n' + TOKENS + '\n```\n\n' +
+      'Code der Blöcke:\n\n' + codes + '\n';
+  }
+  document.getElementById('buildPage').onclick = e => {
+    if (!favs.length) return toast('Merke dir zuerst ein paar Blöcke mit dem Herz.');
+    copy(buildPrompt(), e.currentTarget, 'Landingpage aus meiner Auswahl bauen', 'Auftrag kopiert. Jetzt in den Chat deiner KI einfügen.');
   };
 
   // ---------- Token-Leiste ----------
@@ -2281,7 +2411,9 @@ const TERMS = {
           '<h2 class="v-title">' + esc(t.dataset.name) + '</h2>' +
           '<span class="v-desc">' + esc(t.dataset.desc || '') + '</span>' +
           '<div class="v-tags">' + tags + '</div>' +
+          '<div class="v-meta"><span>Stil: ' + esc(t.dataset.style || '') + '</span><span>Bewegung: ' + esc(t.dataset.motion || '') + '</span></div>' +
           '<div class="v-actions">' +
+            '<button class="btn fav" data-act="fav" aria-pressed="' + isFav(id) + '">' + (isFav(id) ? '&#9829; Gemerkt' : '&#9825; Merken') + '</button>' +
             '<button class="btn" data-act="mobile" aria-pressed="false">Mobil</button>' +
             '<button class="btn" data-act="replay">Animation neu</button>' +
           '</div>' +
@@ -2309,6 +2441,7 @@ const TERMS = {
         copy(wishCopy(t, ta.value), e.currentTarget, 'Mit Änderungswünschen kopieren', 'Block + Wünsche kopiert. Jetzt in den Chat einfügen.');
       };
       v.querySelector('[data-act="replay"]').onclick = () => load(f);
+      v.querySelector('[data-act="fav"]').onclick = e => toggleFav(id, e.currentTarget);
       v.querySelector('[data-act="mobile"]').onclick = e => {
         const on = v.classList.toggle('is-mobile'); e.currentTarget.setAttribute('aria-pressed', on); setTimeout(() => fit(f), 400);
       };
@@ -2378,6 +2511,7 @@ const TERMS = {
   });
 
   render();
+  updateDock();
 })();
 </script>
 </body>
