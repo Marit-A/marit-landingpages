@@ -56,14 +56,6 @@
         "liste_id": "7oH3z",
         "tag": "ccdd_selbstlernkurs"
       },
-      "kurszugang": {
-        "plattform": "kurse",
-        "kurs_id": 168,
-        "weitere_kurs_ids": [
-          262,
-          263
-        ]
-      },
       "rabattcodes": {
         "PROCLUB20": {
           "abzug_netto_cent": 2000,
