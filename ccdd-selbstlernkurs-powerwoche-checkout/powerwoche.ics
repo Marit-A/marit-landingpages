@@ -1,0 +1,95 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Marit Alke//Powerwoche//DE
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VTIMEZONE
+TZID:Europe/Berlin
+BEGIN:STANDARD
+DTSTART:19701025T030000
+RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU
+TZOFFSETFROM:+0200
+TZOFFSETTO:+0100
+TZNAME:CET
+END:STANDARD
+BEGIN:DAYLIGHT
+DTSTART:19700329T020000
+RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU
+TZOFFSETFROM:+0100
+TZOFFSETTO:+0200
+TZNAME:CEST
+END:DAYLIGHT
+END:VTIMEZONE
+BEGIN:VEVENT
+UID:powerwoche-2026-1@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261204T130000
+DTEND;TZID=Europe/Berlin:20261204T143000
+SUMMARY:Powerwoche: Auftakt-Workshop
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-2@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261207T093000
+DTEND;TZID=Europe/Berlin:20261207T110000
+SUMMARY:Powerwoche: Live-Workshop
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-3@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261207T170000
+DTEND;TZID=Europe/Berlin:20261207T180000
+SUMMARY:Powerwoche: Sprechstunde
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-4@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261208T093000
+DTEND;TZID=Europe/Berlin:20261208T110000
+SUMMARY:Powerwoche: Live-Workshop
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-5@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261209T093000
+DTEND;TZID=Europe/Berlin:20261209T110000
+SUMMARY:Powerwoche: Live-Workshop
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-6@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261209T170000
+DTEND;TZID=Europe/Berlin:20261209T180000
+SUMMARY:Powerwoche: Sprechstunde
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-7@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261210T130000
+DTEND;TZID=Europe/Berlin:20261210T143000
+SUMMARY:Powerwoche: Live-Workshop
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+BEGIN:VEVENT
+UID:powerwoche-2026-8@marit-alke.de
+DTSTAMP:20261003T120000Z
+DTSTART;TZID=Europe/Berlin:20261211T130000
+DTEND;TZID=Europe/Berlin:20261211T143000
+SUMMARY:Powerwoche: Live-Workshop
+DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+LOCATION:Online (Zoom)
+END:VEVENT
+END:VCALENDAR

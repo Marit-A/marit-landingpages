@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Claude Cowork Deep Dive Selbstlernkurs – Jetzt bestellen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ffb000;
+      --teal:   #00b3c3;
+      --teal-dark: #0098a6;
+      --navy:   #03557f;
+      --lime:   #a4c931;
+      --heading: #3a3a3a;
+      --text:    #5a5a5a;
+      --text-mid: #7b7b7b;
+      --bg-light: #f7f8f5;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'PT Sans', 'Open Sans', sans-serif;
+      font-size: 17px;
+      background: var(--bg-light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+
+    .produktbild { display: block; width: 100%; height: auto; }
+
+    .card-header { padding: 1.5rem 2rem 1.25rem; }
+
+    .card-header .label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-header h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--heading);
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-header .description { font-size: 1rem; line-height: 1.6; }
+
+    .orange-bar { height: 6px; background: var(--orange); }
+
+    .price-box {
+      background: var(--bg-light);
+      border-left: 4px solid var(--orange);
+      margin: 1.25rem 2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .price-box .price-main {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    .price-box .price-zusatz { font-size: 0.9rem; font-weight: 400; color: var(--text-mid); }
+
+    .price-box .price-detail {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      margin-top: 0.4rem;
+      line-height: 1.55;
+    }
+
+    .benefits {
+      list-style: none;
+      font-size: 0.95rem;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.45rem;
+      line-height: 1.45;
+    }
+
+    .benefits li::before {
+      content: "\2713";
+      color: var(--lime);
+      font-weight: 700;
+      flex: none;
+    }
+
+    .info-box {
+      background: rgba(0, 179, 195, 0.08);
+      border: 1px solid rgba(0, 179, 195, 0.35);
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .info-box strong { color: var(--heading); }
+    .info-box ul { margin: 0.3rem 0 0 1.1rem; }
+
+    .note-box {
+      background: #fff8e6;
+      border: 1px solid #ffe1a3;
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      color: #7a5a12;
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .note-box strong { color: #5c4409; }
+
+    .form-body { padding: 0 2rem 2rem; }
+
+    .form-section-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-mid);
+      margin: 1.4rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-group { margin-bottom: 0.75rem; }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 0.3rem;
+    }
+
+    label .optional { font-weight: 400; color: var(--text-mid); font-size: 0.82rem; }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid #d8d8d8;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--heading);
+      background: var(--white);
+      transition: border-color 0.15s;
+    }
+
+    input:focus, select:focus { outline: none; border-color: var(--teal); }
+
+    .hint { font-size: 0.8rem; color: var(--text-mid); margin-top: 0.3rem; line-height: 1.4; }
+
+    .checkbox-group { margin-top: 1.5rem; }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 1.1rem; height: 1.1rem; min-width: 1.1rem;
+      margin-top: 0.15rem; accent-color: var(--teal);
+    }
+
+    .checkbox-label a { color: var(--navy); text-decoration: underline; }
+
+    .btn-pay {
+      display: block;
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.9rem 1.5rem;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-pay:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .btn-pay:disabled { background: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .security-note { text-align: center; font-size: 0.8rem; color: var(--text-mid); margin-top: 0.75rem; line-height: 1.5; }
+
+    .footer { margin-top: 2rem; font-size: 0.8rem; color: var(--text-mid); text-align: center; }
+    .footer a { color: var(--text-mid); }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .card-header { padding: 1.25rem 1.5rem 1rem; }
+      .form-body { padding: 0 1.5rem 1.5rem; }
+      .price-box { margin: 1.1rem 1.5rem; }
+      .benefits { margin: 0 1.5rem 1.1rem; }
+      .info-box, .note-box { margin: 0 1.5rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img class="produktbild" src="produktbild.jpg" width="1600" height="700" alt="Claude Cowork Deep Dive: Selbstlernkurs">
+
+    <div class="card-header">
+      <div class="label">Selbstlernkurs · sofort starten</div>
+      <h1>Claude Cowork Deep Dive: Selbstlernkurs</h1>
+      <div class="description">Du baust dir Schritt für Schritt einen echten KI-Assistenten auf deinem Rechner auf, und zwar so, dass du verstehst, was du tust. Gemacht für Solo-Selbständige und Content-Ersteller:innen.</div>
+    </div>
+    <div class="orange-bar"></div>
+
+    <div class="price-box">
+      <div class="price-main" id="priceMain">195,00 &euro; netto <span class="price-zusatz">zzgl. gesetzl. MwSt.</span></div>
+      <div class="price-detail" id="priceDetail">Aus Deutschland (oder ohne gültige EU-USt-IdNr.) zahlst du 232,05&nbsp;&euro; inkl. 19&nbsp;% MwSt. Mit gültiger EU-USt-IdNr. außerhalb Deutschlands gilt Reverse Charge (Steuerschuldnerschaft des Leistungsempfängers), dann zahlst du den Nettobetrag.</div>
+    </div>
+
+    <ul class="benefits">
+      <li>20+ Praxislektionen mit Erläuterungen, konkreter Aufgabe und Prompts. Jede Aufgabe ist ein weiteres Puzzlestück für dein KI-System</li>
+      <li>Erklärlektionen und Erklärvideos zu den Konzepten, die dir helfen, Claude als Coworker zu führen</li>
+      <li>Ein wöchentlicher Impuls per E-Mail, der dich durch die Lektionen begleitet</li>
+      <li>Direkt einsetzbare Skills für ausgewählte Workflows, von mir erstellt und praxiserprobt</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>So kommst du in den Kurs:</strong>
+      <ul>
+        <li>Der Kurs liegt in der Zukunftskurs-Akademie (kurse.marit-alke.de). Nach der Zahlung werden die Praxislektionen und dazu die Bereiche „Erklärlektionen“ und „Tutorials &amp; Ressourcen“ automatisch freigeschaltet.</li>
+        <li>Neu dort? Dann bekommst du eine Mail, mit der du dein Passwort festlegst.</li>
+        <li>Du hast schon ein Konto? Dann findest du den Kurs direkt unter „Meine Kurse“.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <strong>Hinweis zur Zahlung:</strong> Die Bezahlung läuft sicher über den Zahlungsdienstleister <strong>Mollie</strong> (Kreditkarte, PayPal, SEPA u.&nbsp;a.). Deine Rechnung erhältst du separat per E-Mail. Da ich sie aktuell noch von Hand erstelle, kann das ein paar Tage dauern.
+    </div>
+
+    <form class="form-body" method="POST" action="/.netlify/functions/create-payment-baukasten" id="checkoutForm">
+      <input type="hidden" name="produkt" value="ccdd-selbstlernkurs">
+
+      <div class="form-section-title">Deine Angaben</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Vorname *</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nachname *</label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+        <div class="hint">An diese Adresse geht dein Kurszugang. Hast du schon ein Konto in der Zukunftskurs-Akademie, nimm bitte dieselbe Adresse.</div>
+      </div>
+
+      <div class="form-section-title">Rechnungsadresse</div>
+
+      <div class="form-group">
+        <label for="company">Firma <span class="optional">(optional)</span></label>
+        <input type="text" id="company" name="company" autocomplete="organization">
+      </div>
+
+      <div class="form-group">
+        <label for="street">Straße und Hausnummer *</label>
+        <input type="text" id="street" name="street" required autocomplete="street-address">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zip">PLZ *</label>
+          <input type="text" id="zip" name="zip" required autocomplete="postal-code">
+        </div>
+        <div class="form-group">
+          <label for="city">Ort *</label>
+          <input type="text" id="city" name="city" required autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Land *</label>
+        <select id="country" name="country" required autocomplete="country">
+          <option value="DE" selected>Deutschland</option>
+          <option value="AT">Österreich</option>
+          <option value="CH">Schweiz</option>
+          <option value="BE">Belgien</option>
+          <option value="BG">Bulgarien</option>
+          <option value="HR">Kroatien</option>
+          <option value="CY">Zypern</option>
+          <option value="CZ">Tschechien</option>
+          <option value="DK">Dänemark</option>
+          <option value="EE">Estland</option>
+          <option value="FI">Finnland</option>
+          <option value="FR">Frankreich</option>
+          <option value="GR">Griechenland</option>
+          <option value="HU">Ungarn</option>
+          <option value="IE">Irland</option>
+          <option value="IT">Italien</option>
+          <option value="LV">Lettland</option>
+          <option value="LT">Litauen</option>
+          <option value="LU">Luxemburg</option>
+          <option value="MT">Malta</option>
+          <option value="NL">Niederlande</option>
+          <option value="PL">Polen</option>
+          <option value="PT">Portugal</option>
+          <option value="RO">Rumänien</option>
+          <option value="SK">Slowakei</option>
+          <option value="SI">Slowenien</option>
+          <option value="ES">Spanien</option>
+          <option value="SE">Schweden</option>
+          <option value="GB">Vereinigtes Königreich</option>
+          <option value="US">USA</option>
+          <option value="XX">Sonstiges Land</option>
+        </select>
+        <div class="hint">Bitte wähle dein Land aus, es entscheidet über die Steuerbehandlung deiner Rechnung.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="vatId">USt-IdNr. / Schweizer UID <span class="optional">(optional, für Unternehmen)</span></label>
+        <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678 oder CHE-123.456.789" autocomplete="off">
+        <div class="hint"><strong>Nur für Käufer:innen von außerhalb Deutschlands relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, du zahlst dann den Preis ohne deutsche MwSt. Die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird. Aus der Schweiz oder einem anderen Land außerhalb der EU trägst du hier deine Unternehmens-ID ein (z.&nbsp;B. die Schweizer UID).</div>
+      </div>
+
+      <div class="form-section-title">Rabattcode</div>
+      <div class="form-group">
+        <label for="discountInput">Rabattcode <span class="optional">(optional)</span></label>
+        <div style="display:flex; gap:0.5rem;">
+          <input type="text" id="discountInput" autocomplete="off" autocapitalize="characters" placeholder="Code eingeben">
+          <button type="button" id="discountApplyBtn" style="flex:none; padding:0 1rem; border:1.5px solid var(--teal); background:#fff; color:var(--navy); border-radius:4px; font-family:inherit; font-weight:700; font-size:0.95rem; cursor:pointer;">Anwenden</button>
+        </div>
+        <input type="hidden" name="discountCode" id="discountCode" value="">
+        <div class="hint" id="discountFeedback">Die Prüfung und der endgültige Preis kommen beim Absenden vom Server.</div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" name="agb" required>
+          <span>Ich habe die <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a> und die <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie. *</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="widerruf" required>
+          <span>Ich stimme ausdrücklich zu, dass mit der Ausführung des Vertrags sofort begonnen wird. Mir ist bekannt, dass ich dadurch mein Widerrufsrecht verliere. *</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-pay" id="submitBtn">
+        Jetzt zahlungspflichtig bestellen
+      </button>
+
+      <p class="security-note">🔒 Sichere Zahlung über Mollie &nbsp;·&nbsp; PayPal, Kreditkarte, SEPA und mehr<br>Am unkompliziertesten für uns beide: PayPal.</p>
+    </form>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.marit-alke.de/impressum" target="_blank">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutz</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a>
+  </div>
+
+  <script>
+    var BASIS_NETTO = 195.00;
+    var CODES = { "PROCLUB20": 20.00 };
+    var aktiverCode = "";
+    function eur(n) { return n.toFixed(2).replace(".", ",") + "\u00a0\u20ac"; }
+    function renderPrice() {
+      var netto = BASIS_NETTO - (aktiverCode ? CODES[aktiverCode] : 0);
+      var brutto = Math.round(netto * 119) / 100;
+      document.getElementById("priceMain").innerHTML = eur(netto) + ' netto <span class="price-zusatz">zzgl. gesetzl. MwSt.</span>';
+      document.getElementById("priceDetail").innerHTML = 'Aus Deutschland (oder ohne gültige EU-USt-IdNr.) zahlst du ' + eur(brutto) + ' inkl. 19\u00a0% MwSt. Mit gültiger EU-USt-IdNr. außerhalb Deutschlands gilt Reverse Charge (Steuerschuldnerschaft des Leistungsempfängers), dann zahlst du den Nettobetrag.';
+    }
+    function applyDiscount() {
+      var code = document.getElementById("discountInput").value.trim().toUpperCase();
+      var fb = document.getElementById("discountFeedback");
+      if (code && Object.prototype.hasOwnProperty.call(CODES, code)) {
+        aktiverCode = code;
+        document.getElementById("discountCode").value = code;
+        fb.textContent = "Code angewendet. Dein Preis ist aktualisiert.";
+      } else {
+        aktiverCode = "";
+        document.getElementById("discountCode").value = "";
+        fb.textContent = code ? "Diesen Code kenne ich nicht. Bitte prüfe die Eingabe." : "Die Prüfung und der endgültige Preis kommen beim Absenden vom Server.";
+      }
+      renderPrice();
+    }
+    document.getElementById("discountApplyBtn").addEventListener("click", applyDiscount);
+    document.getElementById("discountInput").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); applyDiscount(); } });
+    document.getElementById("checkoutForm").addEventListener("submit", function() {
+      var eingabe = document.getElementById("discountInput").value.trim().toUpperCase();
+      if (eingabe && !document.getElementById("discountCode").value) document.getElementById("discountCode").value = eingabe;
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Weiterleitung zur Zahlung...";
+    });
+  </script>
+
+</body>
+</html>

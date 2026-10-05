@@ -1,0 +1,97 @@
+{
+  "hinweis": "Produktliste des Baukastens. Jeder Eintrag unter 'produkte' wird über create-payment-baukasten.js und mollie-webhook-baukasten.js verkauft. Der Schlüssel (z. B. human-design) steht im Bestellformular als verstecktes Feld 'produkt'. Preise in Cent netto. 'name' ist der Text auf der Mollie-Zahlungsseite, 'kennung' landet als metadata.product in der Zahlung. 'seite' ist der Ordner auf lp.marit-alke.de mit index.html und danke.html. 'digitaler_inhalt': true verlangt im Formular das Häkchen zum Widerrufsrecht. 'kurszugang' schaltet nach der Zahlung einen Kurs im SimpleCourses-Plugin frei (Plattform kurse oder hub, Kurs-ID aus WordPress), 'weitere_kurs_ids' zusätzliche Kursbereiche. 'verkauf_bis' (JJJJ-MM-TT, inklusive, Zeit Europe/Berlin) sperrt den Verkauf danach. 'rabattcodes' (optional): Code -> abzug_netto_cent, optional eigene getresponse-Liste und kein_kurszugang:true. WICHTIG: Schluessel immer in GROSSBUCHSTABEN schreiben, der Server normalisiert die Eingabe (Gross/Klein egal).",
+  "produkte": {
+    "human-design": {
+      "name": "Selbstcoaching mit Human Design & KI",
+      "kennung": "human_design_ki",
+      "netto_cent": 1500,
+      "seite": "human-design-checkout",
+      "digitaler_inhalt": true,
+      "getresponse": {
+        "liste_id": "7DIfc",
+        "tag": "selbstcoaching_human_design"
+      },
+      "kurszugang": {
+        "plattform": "kurse",
+        "kurs_id": 34
+      }
+    },
+    "deep-talks": {
+      "name": "Deep Talks mit der KI (Audiokurs)",
+      "kennung": "deep_talks_ki",
+      "netto_cent": 3500,
+      "seite": "deep-talks-checkout",
+      "digitaler_inhalt": true,
+      "getresponse": {
+        "liste_id": "GA5wl",
+        "tag": "deeptalks"
+      },
+      "kurszugang": {
+        "plattform": "kurse",
+        "kurs_id": 126
+      }
+    },
+    "bau-deinen-bot": {
+      "name": "Bau deinen Bot: Erstelle deinen eigenen CustomGPT",
+      "kennung": "bau_deinen_bot",
+      "netto_cent": 2500,
+      "seite": "bau-deinen-bot-checkout",
+      "digitaler_inhalt": true,
+      "getresponse": {
+        "liste_id": "7eaYS",
+        "tag": "bau_deinen_bot"
+      },
+      "kurszugang": {
+        "plattform": "kurse",
+        "kurs_id": 17
+      }
+    },
+    "ccdd-selbstlernkurs": {
+      "name": "Claude Cowork Deep Dive Selbstlernkurs",
+      "kennung": "ccdd_selbstlernkurs",
+      "netto_cent": 19500,
+      "seite": "ccdd-selbstlernkurs-checkout",
+      "digitaler_inhalt": true,
+      "getresponse": {
+        "liste_id": "7oH3z",
+        "tag": "ccdd_selbstlernkurs"
+      },
+      "kurszugang": {
+        "plattform": "kurse",
+        "kurs_id": 168,
+        "weitere_kurs_ids": [
+          262,
+          263
+        ]
+      },
+      "rabattcodes": {
+        "PROCLUB20": {
+          "abzug_netto_cent": 2000,
+          "hinweis": "20 EUR netto Rabatt (ProClub)."
+        }
+      }
+    },
+    "ccdd-selbstlernkurs-powerwoche": {
+      "name": "Claude Cowork Deep Dive Selbstlernkurs mit Powerwoche",
+      "kennung": "ccdd_powerwoche",
+      "netto_cent": 27500,
+      "seite": "ccdd-selbstlernkurs-powerwoche-checkout",
+      "digitaler_inhalt": true,
+      "verkauf_bis": "2026-12-07",
+      "getresponse": {
+        "liste_id": "71TlY",
+        "tag": "ccdd_powerwoche"
+      },
+      "rabattcodes": {
+        "CCDD-POWERWOCHE": {
+          "abzug_netto_cent": 19500,
+          "hinweis": "Aufstockung fuer Bestandskundinnen: 275 - 195 = 80 netto. Gleiche Liste und gleicher Ablauf wie beim Normalkauf."
+        },
+        "PROCLUB20": {
+          "abzug_netto_cent": 2000,
+          "hinweis": "20 EUR netto Rabatt (ProClub)."
+        }
+      }
+    }
+  }
+}

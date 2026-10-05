@@ -4,6 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Claude Cowork Deep Dive - Selbstlernkurs · Marit Alke</title>
+  <meta name="description" content="Selbstlernkurs für Solo-Selbstständige: Schritt für Schritt zum KI-System, das für dich arbeitet. Im Herbst 2026 mit Live-Powerwoche vom 4. bis 11. Dezember.">
+  <link rel="canonical" href="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:url" content="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/">
+  <meta property="og:title" content="Claude Cowork Deep Dive - Selbstlernkurs + Powerwoche">
+  <meta property="og:description" content="Selbstlernkurs für Solo-Selbstständige: Schritt für Schritt zum KI-System, das für dich arbeitet. Im Herbst 2026 mit Live-Powerwoche vom 4. bis 11. Dezember.">
+  <meta property="og:image" content="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/assets/vorschaubild-ccdd-powerwoche.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Claude Cowork Deep Dive - Schritt für Schritt zum KI-System, das für dich arbeitet. + Powerwoche 4.-11.12.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.ico" sizes="48x48">
+  <link rel="icon" type="image/png" sizes="192x192" href="assets/favicon/icon-192.png">
+  <link rel="apple-touch-icon" href="assets/favicon/apple-touch-icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     @font-face { font-family:'PT Sans'; font-style:normal; font-weight:400; font-display:swap; src:url('fonts/subset-PTSans-Regular.woff2') format('woff2'); }
@@ -11,10 +26,6 @@
     @font-face { font-family:'PT Sans'; font-style:normal; font-weight:700; font-display:swap; src:url('fonts/subset-PTSans-Bold.woff2') format('woff2'); }
     @font-face { font-family:'PT Sans'; font-style:italic; font-weight:700; font-display:swap; src:url('fonts/subset-PTSans-BoldItalic.woff2') format('woff2'); }
   </style>
-  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
-  <script src="assets/image-slot.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -36,6 +47,13 @@
     .stat-num { font-family: 'Open Sans', sans-serif; font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.1rem); color: #00b3c3; line-height: 1; }
     .stat-label { font-family: 'PT Sans', sans-serif; font-size: 14px; color: #7b7b7b; margin-top: 4px; }
     @media (max-width: 680px) { .about-marit-img { width: 140px !important; } }
+    /* Über-mich-Abschnitt: mobil rutscht das Foto unter die Überschrift */
+    .about-img-mobile { display: none; }
+    @media (max-width: 1260px) { .about-section { padding-left: 24px !important; padding-right: 24px !important; } }
+    @media (max-width: 680px) {
+      .about-img-desktop { display: none; }
+      .about-img-mobile { display: block; width: min(240px, 70vw); aspect-ratio: 1 / 1; object-fit: cover; border-radius: 14px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); margin: 0 0 24px; }
+    }
 
     @media (max-width: 920px) {
       .grid-cap { grid-template-columns: repeat(2, 1fr); }
@@ -99,708 +117,24 @@
       0%, 100% { box-shadow: 0 6px 18px rgba(0,0,0,0.12), 0 0 0 0 rgba(255,176,0,0.40); }
       50%       { box-shadow: 0 6px 18px rgba(0,0,0,0.12), 0 0 0 9px rgba(255,176,0,0); }
     }
+    #root { overflow-x: clip; }
+    .pw-box { opacity: 0; transform: translateY(90px) scale(1.24); transform-origin: 50% 20%; }
+    .pw-box.in { opacity: 1; transform: none; transition: transform 1s cubic-bezier(.22,1,.36,1), opacity .6s ease; }
+    @media (prefers-reduced-motion: reduce) { .pw-box { opacity: 1; transform: none; } }
+    .pw-facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    .pw-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .pw-prices { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.12fr); gap: 24px; align-items: stretch; }
+    @media (max-width: 920px) { .pw-facts { grid-template-columns: repeat(2, 1fr); } .pw-grid2 { grid-template-columns: 1fr; } .pw-prices { grid-template-columns: 1fr; } }
     .cta-pulse-teal   { animation: pulse-teal   2.6s ease-in-out infinite; }
     .cta-pulse-orange { animation: pulse-orange 2.6s ease-in-out infinite; }
   </style>
 </head>
 <body>
-<script type="text/babel">
-// components.jsx — Claude Cowork Deep Dive · Selbstlernkurs
-// Forked & extended from the Marit Alke UI Kit. Asset paths point at ./assets.
 
-const C = {
-  orange:  '#ffb000',
-  teal:    '#00b3c3',
-  lime:    '#a4c931',
-  heading: '#3a3a3a',
-  text:    '#5a5a5a',
-  mid:     '#7b7b7b',
-  navy:    '#03557f',
-  bgLight: '#f7f8f5',
-  white:   '#ffffff',
-};
-const HEAD = "'Open Sans', sans-serif";
-const BODY = "'PT Sans', sans-serif";
-const CHECKOUT = 'https://copecart.com/products/c619e3c2/checkout';
-const ICON = (n) => `assets/icons/${n}`;
-
-/* ── Layout primitives ─────────────────────────────────────── */
-const Section = ({ children, bg = 'white', max = 1040, pad, id }) => {
-  const background = bg === 'gray' ? C.bgLight : bg === 'soft' ? 'rgba(0,179,195,0.07)' : C.white;
-  return (
-    <section id={id} style={{ background, padding: pad || 'clamp(64px, 9vw, 108px) 24px' }}>
-      <div style={{ maxWidth: max, margin: '0 auto' }}>{children}</div>
-    </section>
-  );
-};
-
-const Divider = ({ height = 12 }) => (
-  <div style={{ height, background: C.orange, width: '100%' }} />
-);
-
-const Eyebrow = ({ children, color = C.teal, center = false }) => (
-  <div style={{
-    fontFamily: HEAD, fontSize: 13, fontWeight: 700,
-    letterSpacing: '0.16em', textTransform: 'uppercase', color,
-    marginBottom: 16, textAlign: center ? 'center' : 'left',
-  }}>{children}</div>
-);
-
-const H2 = ({ children, center = true, style }) => (
-  <h2 style={{
-    fontFamily: HEAD, fontWeight: 700,
-    fontSize: 'clamp(1.7rem, 3.4vw, 2.6rem)', color: C.heading,
-    lineHeight: 1.18, textAlign: center ? 'center' : 'left',
-    textWrap: 'pretty', margin: 0, ...style,
-  }}>{children}</h2>
-);
-
-const Lead = ({ children, center = false, style }) => (
-  <p style={{
-    fontFamily: BODY, fontSize: 'clamp(1.2rem, 1.4vw, 1.375rem)', color: C.text,
-    lineHeight: 1.75, textAlign: center ? 'center' : 'left',
-    textWrap: 'pretty', margin: 0, ...style,
-  }}>{children}</p>
-);
-
-const SectionBanner = ({ children }) => (
-  <div style={{
-    background: C.orange, color: C.white, textAlign: 'center',
-    padding: 'clamp(26px, 4vw, 40px) 32px',
-    fontFamily: HEAD, fontWeight: 600,
-    fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', lineHeight: 1.2,
-  }}>{children}</div>
-);
-
-/* ── Buttons (anchors → checkout) ──────────────────────────── */
-const CtaButton = ({ children, variant = 'teal', href = CHECKOUT, full = false, big = false }) => {
-  const bg = { teal: C.teal, orange: C.orange }[variant] || C.teal;
-  const hov = variant === 'teal' ? C.orange : C.teal;
-  const pulseClass = variant === 'teal' ? 'cta-pulse-teal' : 'cta-pulse-orange';
-  const isAnchor = href.startsWith('#');
-  return (
-    <a href={href} target={isAnchor ? undefined : '_blank'} rel={isAnchor ? undefined : 'noopener'}
-      className={`cta-btn ${pulseClass}`}
-      style={{
-        fontFamily: BODY, fontWeight: 700, fontSize: big ? 21 : 20,
-        background: bg, color: C.white, border: 'none', borderRadius: 6,
-        padding: big ? '17px 40px' : '14px 34px', cursor: 'pointer',
-        display: full ? 'block' : 'inline-block', textAlign: 'center',
-        textDecoration: 'none', width: full ? '100%' : 'auto',
-        ['--hov']: hov,
-      }}>{children}</a>
-  );
-};
-
-/* ── Nav ───────────────────────────────────────────────────── */
-const Nav = () => (
-  <nav style={{
-    background: C.white, display: 'flex', alignItems: 'center',
-    justifyContent: 'space-between', padding: '16px clamp(20px, 4vw, 44px)',
-    maxWidth: 1280, margin: '0 auto',
-  }}>
-    <img src="assets/logo-marit-alke-schriftzug.png" alt="Marit Alke" style={{ height: 34, display: 'block' }} />
-    <a href="https://marit-alke.de" target="_blank" rel="noopener" style={{
-      fontFamily: HEAD, fontWeight: 600, fontSize: 14, color: C.heading,
-      textDecoration: 'none', borderBottom: `2px solid ${C.orange}`, paddingBottom: 2,
-    }}>Zur Website →</a>
-  </nav>
-);
-
-/* ── Hero ──────────────────────────────────────────────────── */
-const Hero = () => (
-  <header>
-    <Divider height={4} />
-    <div style={{
-      position: 'relative',
-      backgroundImage: "url('assets/hero-header-insel-tuerkis.jpg')",
-      backgroundSize: 'cover', backgroundPosition: 'center 58%',
-      minHeight: 'clamp(580px, 84vh, 780px)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-    }}>
-      <div style={{
-        position: 'absolute', inset: 0,
-        background: 'radial-gradient(ellipse at 50% 44%, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.16) 60%, rgba(0,0,0,0.22) 100%)',
-      }} />
-      <div style={{
-        position: 'relative', zIndex: 1, textAlign: 'center',
-        padding: 'clamp(40px, 7vw, 72px) 24px', maxWidth: 880,
-        display: 'flex', flexDirection: 'column', alignItems: 'center',
-      }}>
-        <Pill>Selbstlernkurs</Pill>
-        <img src="assets/ccdd-logo-weiss.png" alt="Claude Cowork Deep Dive"
-          style={{ width: 'min(520px, 82vw)', height: 'auto', display: 'block', margin: '26px 0 8px' }} />
-        <h1 style={{
-          fontFamily: HEAD, fontWeight: 700,
-          fontSize: 'clamp(1.5rem, 3.2vw, 2.5rem)', color: C.white,
-          lineHeight: 1.22, margin: '20px 0 32px', maxWidth: 760,
-          textShadow: '0 2px 14px rgba(0,0,0,0.45)', textWrap: 'balance',
-        }}>Schritt für Schritt zum KI-System,<br className="br-wide" /> das für dich arbeitet</h1>
-        <CtaButton variant="orange" big href="#zugang">Jetzt loslegen →</CtaButton>
-      </div>
-    </div>
-    <Divider height={16} />
-  </header>
-);
-
-const Pill = ({ children }) => (
-  <span style={{
-    display: 'inline-flex', alignItems: 'center', gap: 8,
-    fontFamily: HEAD, fontWeight: 600, fontSize: 14, letterSpacing: '0.14em',
-    textTransform: 'uppercase', color: C.white,
-    background: 'rgba(255,255,255,0.14)', border: '1.5px solid rgba(255,255,255,0.55)',
-    backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
-    borderRadius: 5, padding: '9px 20px',
-  }}>
-    <span style={{ color: C.orange, fontSize: 13 }}>✦</span>{children}
-  </span>
-);
-
-/* ── Icon tile (white rounded tile hides the icon's white square bg) ── */
-const IconTile = ({ src, alt = '', size = 84, iconSize = 60 }) => (
-  <div style={{
-    width: size, height: size, borderRadius: 5, background: C.white,
-    border: '1.5px solid #ecefe7', boxShadow: '0 4px 14px rgba(0,0,0,0.06)',
-    display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-  }}>
-    <img src={src} alt={alt} style={{ width: iconSize, height: iconSize, display: 'block' }} />
-  </div>
-);
-
-/* ── Capability card (icon + label) ────────────────────────── */
-const CapabilityCard = ({ icon, children }) => (
-  <div style={{
-    background: C.white, border: '1.5px solid #ecefe7', borderRadius: 5,
-    padding: '24px 22px', display: 'flex', flexDirection: 'column', gap: 16,
-    alignItems: 'flex-start', boxShadow: '0 4px 16px rgba(0,0,0,0.05)',
-  }}>
-    <IconTile src={ICON(icon)} size={68} iconSize={48} />
-    <p style={{ fontFamily: BODY, fontSize: 18.5, color: C.heading, lineHeight: 1.5, margin: 0, fontWeight: 700 }}>{children}</p>
-  </div>
-);
-
-/* ── Format card (icon + title on top row, body spans full width) ── */
-const FormatCard = ({ icon, title, children, tagline }) => (
-  <div style={{
-    background: C.white, border: '1.5px solid #ecefe7', borderRadius: 5,
-    padding: 'clamp(26px, 3vw, 36px)',
-    boxShadow: '0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)',
-  }}>
-    <div style={{ display: 'flex', alignItems: 'center', gap: 18, marginBottom: 18 }}>
-      <IconTile src={ICON(icon)} size={64} iconSize={44} />
-      <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.2rem, 1.8vw, 1.45rem)', color: C.heading, margin: 0, lineHeight: 1.25 }}>{title}</h3>
-    </div>
-    <p style={{ fontFamily: BODY, fontSize: 18, color: C.text, lineHeight: 1.68, margin: '0 0 14px' }}>{children}</p>
-    <p style={{ fontFamily: BODY, fontStyle: 'italic', fontSize: 16, color: C.teal, fontWeight: 700, margin: 0 }}>{tagline}</p>
-  </div>
-);
-
-/* ── Fit list items ────────────────────────────────────────── */
-const FitItem = ({ children, positive = true, negativeColor }) => (
-  <li style={{
-    display: 'flex', alignItems: 'flex-start', gap: 14,
-    fontFamily: BODY, fontSize: 18.5, color: C.text, lineHeight: 1.55,
-    listStyle: 'none', marginBottom: 16,
-  }}>
-    <span style={{
-      width: 26, height: 26, borderRadius: '50%', flexShrink: 0, marginTop: 1,
-      background: positive ? C.lime : 'transparent',
-      border: positive ? 'none' : `1.5px solid ${negativeColor || '#c9cdc2'}`,
-      color: positive ? C.white : (negativeColor || C.mid),
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontSize: positive ? 13 : 15, fontWeight: 700,
-    }}>{positive ? '✓' : '–'}</span>
-    <span>{children}</span>
-  </li>
-);
-
-/* ── Testimonial ───────────────────────────────────────────── */
-const Testimonial = ({ children, author, authorUrl }) => (
-  <figure style={{
-    background: C.white, border: '1.5px solid #ecefe7', borderRadius: 5,
-    padding: 'clamp(28px, 3vw, 40px)', margin: 0,
-    boxShadow: '0 6px 20px rgba(0,0,0,0.06)',
-    display: 'flex', flexDirection: 'column', gap: 18,
-  }}>
-    <div style={{ fontFamily: 'Georgia, serif', fontWeight: 700, fontSize: 60, color: C.orange, lineHeight: 0.4, height: '0.4em' }}>"</div>
-    <blockquote style={{
-      fontFamily: BODY, fontWeight: 400, fontStyle: 'normal',
-      fontSize: 16.5, lineHeight: 1.65,
-      color: C.text, margin: 0,
-    }}>{children}</blockquote>
-    <figcaption style={{ fontFamily: BODY, fontSize: 15, color: C.mid, fontWeight: 700 }}>
-      — {author}{authorUrl && <span style={{ fontWeight: 400 }}>, <a href={authorUrl} target="_blank" rel="noopener" style={{ color: C.teal, textDecoration: 'underline', textUnderlineOffset: 3 }}>{authorUrl.replace('https://', '')}</a></span>}
-    </figcaption>
-  </figure>
-);
-
-/* ── Footer ────────────────────────────────────────────────── */
-const Footer = () => (
-  <footer style={{ background: C.heading, color: C.white, textAlign: 'center', padding: '40px 24px' }}>
-    <img src="assets/logo-marit-alke-schriftzug.png" alt="Marit Alke" style={{ height: 30, marginBottom: 16, filter: 'brightness(0) invert(1)', opacity: 0.9 }} />
-    <p style={{ fontFamily: BODY, fontSize: 14, color: 'rgba(255,255,255,0.8)', margin: 0 }}>
-      © 2026 Marit Alke&nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="#" style={{ color: '#fff', textDecoration: 'underline', textUnderlineOffset: 3, textDecorationColor: 'rgba(255,255,255,0.4)' }}>Impressum</a>
-      &nbsp;&nbsp;·&nbsp;&nbsp;
-      <a href="#" style={{ color: '#fff', textDecoration: 'underline', textUnderlineOffset: 3, textDecorationColor: 'rgba(255,255,255,0.4)' }}>Datenschutz</a>
-    </p>
-  </footer>
-);
-
-Object.assign(window, {
-  C, HEAD, BODY, CHECKOUT, ICON,
-  Section, Divider, Eyebrow, H2, Lead, SectionBanner,
-  CtaButton, Nav, Hero, Pill, IconTile,
-  CapabilityCard, FormatCard, FitItem, Testimonial, Footer,
-});
-</script>
-
-<script type="text/babel">
-const { useState } = React;
-
-function CtaRow({ note }) {
-  return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 18, alignItems: 'center', justifyContent: 'center', marginTop: 40 }}>
-      <CtaButton variant="teal" big>Jetzt loslegen →</CtaButton>
-      {note && <span style={{ fontFamily: BODY, fontSize: 15.5, color: C.mid }}>{note}</span>}
-    </div>
-  );
-}
-
-function StatRow({ items }) {
-  return (
-    <div className="stat-row">
-      {items.map((it, i) => (
-        <div key={i} style={{ textAlign: 'center' }}>
-          <div className="stat-num">{it.n}</div>
-          <div className="stat-label">{it.l}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function App() {
-  return (
-    <div>
-      <Hero />
-
-      {/* GAME CHANGER — intro narrative */}
-      <Section bg="white" max={760}>
-        <Eyebrow center>Warum dieser Kurs</Eyebrow>
-        <H2>Claude Cowork ist für mich ein echter Game Changer</H2>
-        <div style={{ display: 'grid', gap: 22, marginTop: 30 }}>
-          <Lead center>
-            Als Soloselbstständige mache ich alles selbst und bin für alles allein zuständig. Das ist meine freie Entscheidung - ich liebe mein Solo-Business! Aber die <strong>vielen kleinen (digitalen) Routine-Handgriffe</strong> kosten auf Dauer Kraft und Nerven. Die reinen KI-Chatbots waren hilfreich, aber es blieb immer noch der meiste Teil der nervigen Arbeit an mir hängen - wo war die versprochene Arbeitserleichterung durch die KI?
-          </Lead>
-          <Lead>
-            <strong>Seit Februar 2026 ist nun Claude Cowork genau dieser co-kreative "Mitarbeiter", der mir nicht sloppy KI-Content ausspuckt, sondern mich in meinem Alltag entlastet!</strong> Er verbindet die Coding-Fähigkeiten eines KI-Agenten mit der Sprachfähigkeit eines Chatbots - was für Menschen ohne Coding-Erfahrung ganz neue Möglichkeiten öffnet.<br /><br />Du kannst damit Claude wirklich <strong>für dich arbeiten lassen</strong>: Dateien erstellen, Ordner durchsuchen, Medien lokal erstellen lassen, Workflows automatisieren, hilfreiche Tools bauen, deine bewährten Apps und Programme verbinden und einiges mehr.
-          </Lead>
-        </div>
-
-        {/* MARIT QUOTE */}
-        <div style={{
-          marginTop: 44,
-          background: C.white,
-          border: `1.5px solid ${C.orange}`,
-          borderRadius: 5,
-          padding: 'clamp(28px, 3vw, 40px)',
-          boxShadow: '0 3px 12px rgba(0,0,0,0.06)',
-          display: 'flex', gap: 28, alignItems: 'center',
-          flexWrap: 'wrap',
-        }}>
-          <img src="assets/portrait-marit-haende.jpg" alt="Marit Alke"
-            style={{ width: 110, height: 110, borderRadius: 5, flexShrink: 0, objectFit: 'cover', boxShadow: '0 4px 14px rgba(0,0,0,0.12)' }} />
-          <div style={{ flex: 1, minWidth: 240 }}>
-            <p style={{
-              fontFamily: BODY, fontSize: 'clamp(1.15rem, 1.4vw, 1.3rem)',
-              fontStyle: 'italic', lineHeight: 1.7, color: C.heading, margin: '0 0 14px',
-            }}>
-              „Es macht so einen großen Spaß, nach und nach Claude Cowork so zu briefen, dass er mir die wiederkehrenden Aufgaben abnimmt - und zu erleben, wie kreativ er und ich gemeinsam sein können! ✨<br /><br />Das spart mir nicht nur Zeit, sondern ich fühle mich dadurch auch empowert, neue Dinge anzugehen, die ich früher nicht für möglich hielt oder für die mir die Energie fehlte. Mein Wirkungskreis hat sich dadurch total erweitert."
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* BANNER */}
-      <div style={{ background: '#ffb000', color: '#fff', textAlign: 'center', padding: 'clamp(14px, 2vw, 22px) 32px', fontFamily: "'Open Sans', sans-serif", fontWeight: 600, fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', lineHeight: 1.2 }}>Was du danach hast: Einen echten KI-Assistenten</div>
-
-      {/* CAPABILITIES — 8 icon cards on brand gradient */}
-      <div>
-        <div style={{
-          backgroundImage: "url('assets/gradient-tuerkis-lime.jpg')",
-          backgroundSize: 'cover', backgroundPosition: 'center',
-          padding: 'clamp(64px, 9vw, 108px) 24px',
-        }}>
-          <div style={{ maxWidth: 1100, margin: '0 auto' }}>
-            <div className="grid-cap">
-              <CapabilityCard icon="05-bildschirm-layout.png">Landingpages selbst bauen - kein Designer & kein Tool mehr nötig</CapabilityCard>
-              <CapabilityCard icon="06-zauberstab-sterne.png">Word, Excel, PowerPoint und Grafiken - fertig, im eigenen Stil, in Minuten</CapabilityCard>
-              <CapabilityCard icon="07-filmklappe-ton.png">Videos schneiden, Audios verarbeiten - lokal auf deinem Rechner, ohne Abo</CapabilityCard>
-              <CapabilityCard icon="08-zahnrad-apps.png">Claude arbeitet direkt in WordPress, GetResponse & Co. - was deutlich Zeit spart</CapabilityCard>
-              <CapabilityCard icon="09-automatisierung-zahnrad.png">Aufgaben, die dich jede Woche Stunden kosten - einmal eingerichtet, brauchst du sie nur noch anstoßen</CapabilityCard>
-              <CapabilityCard icon="10-haende-baustein.png">Eigene Skills bauen: deine besten Abläufe speichern und jederzeit wieder abrufen</CapabilityCard>
-              <CapabilityCard icon="11-mausklick-touchscreen.png">Interaktive Tools für dich oder deine Kunden - kreative Lösungen für deine Herausforderungen</CapabilityCard>
-              <CapabilityCard icon="12-trichter-pipeline.png">Transkript rein - Blogartikel, Social Post, Newsletter raus. Content-Repurposing leicht gemacht</CapabilityCard>
-            </div>
-            <div style={{
-              marginTop: 24,
-              background: 'rgba(255,255,255,0.92)',
-              border: `1.5px solid rgba(255,255,255,0.7)`,
-              borderRadius: 5,
-              padding: 'clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 36px)',
-              boxShadow: '0 8px 28px rgba(0,0,0,0.14)',
-              textAlign: 'center',
-            }}>
-              <p style={{ fontFamily: "'PT Sans', sans-serif", fontSize: 'clamp(1.1rem, 1.4vw, 1.25rem)', color: '#3a3a3a', lineHeight: 1.65, margin: 0 }}>
-                … und das alles kannst du <strong>kombinieren zu ganzen Workflows</strong>, variieren und zu wiederkehrenden Aufgaben machen. Dein Coworker lernt im Laufe der Zeit, wie du arbeitest und was du brauchst!
-              </p>
-            </div>
-          </div>
-        </div>
-        <Divider height={12} />
-      </div>
-
-      {/* COURSE STRUCTURE — 5 format cards, didaktisches Konzept */}
-      <Section bg="white" max={1160}>
-        <Eyebrow center>So ist der Kurs aufgebaut</Eyebrow>
-        <H2>Praxislektionen, Erklärlektionen und Tutorials - drei Bausteine, die ineinandergreifen</H2>
-        <p style={{ fontFamily: BODY, fontSize: 'clamp(1.05rem, 1.2vw, 1.15rem)', color: C.text, textAlign: 'center', maxWidth: 700, margin: '20px auto 0', lineHeight: 1.7 }}>
-          Du startest nicht mit der komplexen Aufgabe, sondern mit einer kleinen, machbaren: den Praxislektionen als Mini-Challenges. Die Erklärlektionen sorgen dafür, dass du verstehst, was du tust, statt nur abzuarbeiten. Und die Tutorials übersetzen das Gelernte in klassische Alltagsprobleme von Solo-Selbstständigen. Alle drei greifen ineinander - und ergeben am Ende ein System, das für dich arbeitet.
-        </p>
-        <div style={{ margin: '36px 0 8px' }}>
-          <StatRow items={[
-            { n: '20', l: 'Praxislektionen' },
-            { n: '12+', l: 'Erklärlektionen' },
-            { n: '5', l: 'Tutorials, mehr in Arbeit' },
-            { n: '1', l: 'begleitender Autoresponder' },
-          ]} />
-        </div>
-        <div className="grid-formats-5" style={{ marginTop: 40 }}>
-          <FormatCard icon="01-puzzleteile.png" title="20 Praxislektionen" tagline="Du übst nicht - du baust auf.">
-            Jede Lektion bringt dich einen konkreten Schritt weiter: Ordnerpower, Automatisierung, Konnektoren, Medienwerkstatt, eigene Skills. Mit Erklärung, konkretem Prompt und klarer Anleitung.<br /><br />Wie eine Challenge, die dir mundgerecht aufbereitete Übungen an die Hand gibt - du musst sie nur machen. 😊
-          </FormatCard>
-          <FormatCard icon="02-buch-gluehbirne.png" title="Über 10 Erklärlektionen" tagline="Damit du Claude führst - und nicht blind übernimmst, was er vorschlägt.">
-            Wie funktionieren Tokens? Welche unterschiedlichen Arten von Skills gibt es? Was macht eine gute CLAUDE.md aus? Welche Developer-Tools machen deinen Rechner zum Powerhouse?<br /><br />Die Erklärlektionen zeigen dir bewährte Vorgehensweisen, damit du verstehst, warum Claude etwas vorschlägt - statt es einfach zu übernehmen.
-          </FormatCard>
-          <FormatCard icon="12-trichter-pipeline.png" title="Tutorials für den Solo-Alltag" tagline="Klassische Herausforderungen von Solo-Selbstständigen, konkret gelöst.">
-            Landingpages verlässlich im eigenen Design ausliefern, den Newsletter per Sprachnachricht automatisieren, Videoschnitt mit FFmpeg und DaVinci, YouTube als Weiterbildungsquelle nutzen.<br /><br />Ein Teil ist schon fertig, weitere Tutorials zu typischen Alltagsproblemen kommen laufend dazu.
-          </FormatCard>
-          <FormatCard icon="03-umschlag-blitz.png" title="Begleitender Autoresponder" tagline="Damit du dranbleibst - egal, wann du einsteigst.">
-            Nach der Anmeldung startet automatisch eine Mail-Serie mit einzelnen Lektionen und Praxisaufgaben im Fokus: motivierende Tipps, vertiefende Erklärungen, weiterführende Ideen.<br /><br />Kein klassischer Newsletter, sondern ein automatisierter Begleiter, der dich Schritt für Schritt durch neue Schwerpunktthemen führt - egal, ob du heute oder erst in ein paar Monaten startest.
-          </FormatCard>
-          <FormatCard icon="04-werkzeugkoffer-haken.png" title="Geprüfte Skills" tagline="Direkt einsetzen - kein Herumprobieren.">
-            Fertige Skills für typische Arbeitsprozesse von Solo-Selbständigen, die du mit einem Klick in deiner Claude-App installierst und sofort nutzen kannst - von mir entwickelt und getestet.<br /><br />Du bekommst in Minuten ins Laufen, was ich meist in mehreren Stunden ausprobiert und als guten Prozess aufgebaut habe.
-          </FormatCard>
-        </div>
-      </Section>
-
-      {/* TESTIMONIALS BLOCK 1 — Gruppenkurs */}
-      <Section bg="gray" max={1040}>
-        <Eyebrow center>Erfahrungsberichte</Eyebrow>
-        <H2 style={{ marginBottom: 16 }}>Das sagen Teilnehmer:innen des Programms</H2>
-        <p style={{ fontFamily: BODY, fontSize: 15, color: C.mid, fontStyle: 'italic', textAlign: 'center', maxWidth: 660, margin: '0 auto 44px' }}>
-          Viele Kundenstimmen stammen aus dem begleiteten Gruppenkurs (Claude Cowork Deep Dive Programm) - die Lerninhalte sind identisch mit dem Selbstlernkurs, den du hier buchst.
-        </p>
-        <div className="grid-quotes-3">
-          <Testimonial author="Susanne Biwer · Teilnehmerin Gruppenkurs">
-            Selten so viel in so kurzer Zeit gelernt. Natürlich liegt das auch am Thema. Claude Cowork hat mich brennend interessiert, weil ich als Solo-Selbstständige endlich meine Prozesse automatisieren wollte, damit nicht mehr so viel Zeit täglich für Handarbeit drauf geht.<br /><br /><strong>(Spoiler: das hat auch geklappt, beziehungsweise klappt immer noch.)</strong> Marit hat mich ganz toll auf den Weg gebracht, wie ich mit der KI am besten kommuniziere. Und wenn wir eigene Wege gingen, ganz wunderbar immer wieder die Fäden zusammengeführt.
-          </Testimonial>
-          <Testimonial author="Oliver Teufel · Teilnehmer Gruppenkurs">
-            Durch den Kurs weiß ich nun wirklich, wie ich Cowork sinnvoll in mein Business integriere, was alles möglich ist, wie ich meine Ergebnisse verbessere und mir gleichzeitig die Arbeit enorm erleichtere.<br /><br /><strong>Der Kurs ist didaktisch sehr gut aufgebaut.</strong> Die Kombination aus Wissensvermittlung und konkretem Experimentieren ist gelungen, und die Begleitung durch Marit einfach toll.
-          </Testimonial>
-          <Testimonial author="Tanja Priefling · Teilnehmerin Gruppenkurs">
-            Vom ersten Moment an war ich begeistert - und bin es noch. Du gehst total in diesem Thema auf, experimentierst herum, hast so ständig neue Ideen und bereitest uns diese <strong>in kleinen Häppchen und sehr gut verständlich</strong> auf.<br /><br />Ich habe mich über jede neue Lektion und jede E-Mail von dir gefreut!
-          </Testimonial>
-        </div>
-      </Section>
-
-      {/* FOR WHOM — two columns */}
-      <Section bg="gray" max={1040}>
-        <Eyebrow center>Für wen ist dieser Kurs?</Eyebrow>
-        <H2>Passt das zu dir?</H2>
-        <div className="grid-fit" style={{ marginTop: 44 }}>
-          <div style={{ background: C.white, border: `1.5px solid ${C.teal}`, borderRadius: 5, padding: 'clamp(28px, 3vw, 40px)', boxShadow: '0 6px 20px rgba(0,0,0,0.06)' }}>
-            <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.15rem, 1.7vw, 1.4rem)', color: C.heading, margin: '0 0 22px' }}>Ja, passt gut, wenn…</h3>
-            <ul style={{ margin: 0, padding: 0 }}>
-              <FitItem>du als Soloselbstständige oder Solopreneur viel online und am Bildschirm arbeitest,</FitItem>
-              <FitItem>du mindestens (erste) Erfahrungen mit KI-Chatbots hast und bereits teilweise Arbeiten an KI delegiert hast,</FitItem>
-              <FitItem>du öfter denkst, wie nervig diese ganze Copy-Paste-Upload-Download-Tool-Jongliererei ist - vor allem, wenn sich bestimmte Prozesse immer wiederholen,</FitItem>
-              <FitItem>du mehr Ideen hast als Zeit, diese praktisch umzusetzen - und das endlich ändern willst,</FitItem>
-              <FitItem>du bereit bist, praktisch umzusetzen und am Anfang ein wenig Zeit zu investieren, um deinen Coworker gut zu briefen und kennenzulernen.</FitItem>
-            </ul>
-          </div>
-          <div style={{ background: C.white, border: `1.5px solid ${C.orange}`, borderRadius: 5, padding: 'clamp(28px, 3vw, 40px)', boxShadow: '0 6px 20px rgba(0,0,0,0.04)' }}>
-            <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.15rem, 1.7vw, 1.4rem)', color: C.mid, margin: '0 0 22px' }}>Nicht das Richtige, wenn…</h3>
-            <ul style={{ margin: 0, padding: 0 }}>
-              <FitItem positive={false} negativeColor={C.orange}>du noch ganz am Anfang mit KI bist: Claude Cowork ist aus meiner Sicht nichts für KI-Einsteiger,</FitItem>
-              <FitItem positive={false} negativeColor={C.orange}>du lieber Videos konsumierst, in denen andere tolle Sachen zeigen, statt selbst Hand anzulegen (denn in meinem Kurs erhältst du vor allem Praxis-Anleitungen und Videos nur dann, wenn es wirklich sinnvoll ist),</FitItem>
-              <FitItem positive={false} negativeColor={C.orange}>du ausgefeilte "Superprompts" erwartest, die dich von 0 auf 100 in Sachen KI-Agenten katapultieren. Damit werden einmalig tolle Ergebnisse möglich, dir fehlt aber das Verständnis und die Grundlage, um es langfristig auf dein Business anzuwenden.</FitItem>
-            </ul>
-          </div>
-        </div>
-      </Section>
-
-      {/* TESTIMONIALS */}
-      <Section bg="white" max={1040}>
-        <Eyebrow center>Was meine Teilnehmer sagen</Eyebrow>
-        <H2 style={{ marginBottom: 16 }}>Stimmen aus dem Deep Dive Programm</H2>
-        <p style={{ fontFamily: BODY, fontSize: 15, color: C.mid, fontStyle: 'italic', textAlign: 'center', maxWidth: 660, margin: '0 auto 44px' }}>
-          Landingpage gebaut, Video-Workflow automatisiert, eigenes Tool programmiert, Newsletter gestartet: Das haben Teilnehmende in wenigen Wochen konkret erreicht.
-        </p>
-        <div className="grid-quotes-3">
-          <Testimonial author="Daniela Keller" authorUrl="https://statistik-und-beratung.de">
-            Dieser Kurs hat mir die Welt von Claude Cowork eröffnet. Als Einzelunternehmerin hatte ich vorher kaum Berührungspunkte mit Claude, wenn dann nur im Chat.<br /><br />Durch die Praxislektionen mit glasklarer Anleitung habe ich Stück für Stück ein ganzes Repertoire an Möglichkeiten kennengelernt. Jede Lektion ist super praxisnah: schrittweise Anleitung, Prompt-Vorlagen, und am Ende Ideen, wie man das im eigenen Business nutzen kann.<br /><br /><strong>Ich kann Claude Cowork jetzt schon wie einen Mitarbeiter einsetzen</strong> und meine Prozesse laufen so viel schneller und effizienter.
-          </Testimonial>
-          <Testimonial author="Silke van Beuningen" authorUrl="https://silkevanbeuningen.de">
-            <strong>Meine Video-Aufgaben laufen jetzt per Knopfdruck.</strong> Vor dem Deep Dive war bei mir vieles chaotisch: Systeme, Aufgaben, alles hat Energie gezogen. Ich wollte am liebsten eine Assistentin, der ich jederzeit Arbeit abgeben kann - am Schreibtisch genauso wie mit den Füßen auf dem Sofa.<br /><br />Heute ist Claude mit Dispatch für mich wie ein zweites Gehirn: Thumbnail erstellen, Video hochladen, Aufgaben erledigen - vieles geht per Sprachnachricht oder ist nur noch einen Knopfdruck entfernt!
-          </Testimonial>
-          <Testimonial author="Maria Kosmala" authorUrl="https://mariakosmala.com">
-            Marit bringt einen klaren roten Faden in ein komplexes Thema - ihre Freude, Kompetenz und langjährige Erfahrung sind in jeder Lektion spürbar.<br /><br /><strong>Nach nur zwei halben Tagen mit Marits Kurs</strong> hat Claude Cowork für mich Dinge erledigt, die ich früher anstrengend fand: interne Verlinkungen im Blog, einen fertigen Blogartikel, einen Entwurf für eine neue Angebotsseite.<br /><br />Ich bin hin und weg und empfehle Marit von Herzen weiter.
-          </Testimonial>
-        </div>
-      </Section>
-
-      {/* ABOUT MARIT */}
-      <Section bg="gray" max={1200} pad="clamp(64px, 9vw, 108px) 0px">
-        <div style={{ display: 'flex', gap: 'clamp(32px, 4vw, 56px)', alignItems: 'flex-start' }}>
-          <div style={{ flexShrink: 0 }}>
-            <img src="assets/portrait-marit.jpg" alt="Marit Alke"
-              style={{ width: 260, height: 260, objectFit: 'cover', display: 'block', borderRadius: 14, boxShadow: '0 8px 24px rgba(0,0,0,0.12)' }} />
-          </div>
-          <div style={{ flex: 1 }}>
-            <Eyebrow>Hallo, ich bin Marit!</Eyebrow>
-            <H2 center={false} style={{ marginBottom: 24 }}>Vom Ausprobieren zum echten System</H2>
-            <div style={{ display: 'grid', gap: 18 }}>
-              <Lead>
-                Im Februar 2026 habe ich Claude Cowork auf einer Workation entdeckt - und es war für mich ein zweiter großer Shift in der Arbeit mit KI. Plötzlich war da nicht mehr nur ein Chatbot, der antwortet. Da war ein Assistent, der auf meinem Rechner arbeitet, in meinen Ordnern schreibt, meine Tools kennt.
-              </Lead>
-              <Lead>
-                Seitdem lasse ich einen nervigen Workflow nach dem anderen los: Zoom-Aufzeichnung kommt rein, Kurslektion geht raus. Video transkribieren, hochladen & einbetten, Newsletter fertig formatiert von Getresponse aus verschicken - mit einem Befehl. Ich baue Skills, kleine Skripte, interaktive Tools - und sogar ein eigenes Plugin. Dinge, die ich vorher so nicht allein machen konnte. Claude Cowork arbeitet im Hintergrund mit und ist gleichzeitig ein fähiger Programmierer - das ist mega!
-              </Lead>
-              <div style={{
-                background: C.white,
-                border: `1.5px solid ${C.orange}`,
-                borderRadius: 5,
-                padding: 'clamp(20px, 2.5vw, 28px)',
-                boxShadow: '0 3px 10px rgba(0,0,0,0.05)',
-              }}>
-                <Lead>
-                  In diesem Kurs gebe ich alle Lernmaterialien weiter, die ich für mein Gruppenprogramm "Claude Cowork Deep Dive Programm" entwickelt habe - inzwischen über Monate gewachsen und geschärft an dem, was für Solo-Selbstständige wirklich nützlich ist. Du bekommst nicht nur Lektionen, sondern eine Infrastruktur, die mit dir weiterwächst.
-                </Lead>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      {/* TESTIMONIALS BLOCK 2 — Gruppenkurs */}
-      <Section bg="white" max={1040}>
-        <Eyebrow center>Erfahrungsberichte</Eyebrow>
-        <H2 style={{ marginBottom: 44 }}>Weitere Stimmen aus dem Programm</H2>
-        <div className="grid-quotes">
-          <Testimonial author="Sandra · Teilnehmerin Gruppenkurs">
-            Ich hatte tatsächlich etwas Berührungsängste mit der KI, da ich sie nicht so ohne weiteres auf meinen Rechner lassen wollte. Also habe ich mir ein Laptop für die KI gekauft, so als hätte ich eine neue Assistentin und würde ihr ein Laptop für die Zusammenarbeit zur Verfügung stellen. [...]<br /><br /><strong>Am meisten geflasht bin ich nach wie vor, dass Claude Cowork einfach viele Aufgaben parallel bearbeiten kann</strong> und ich meine täglichen ToDos auf diese Weise einfach „abgeben" lerne.<br /><br />Deine Lernvideos sind super einfach erklärt und strukturiert, damit kommen mein Assistent und ich gut weiter. Danke vielmals!
-          </Testimonial>
-          <Testimonial author="Jörg · Teilnehmer Gruppenkurs">
-            KI in allen Ausprägungen ist für meine Anwenderfragen als Solounternehmer ein ziemlicher Brocken - oder besser: der Mount Everest schlechthin.<br /><br /><strong>Marit ist für mich die richtige Sherpani</strong>, auch wenn sie mit der Spitzengruppe schon weit voraus ist. Ich fühle mich bestens aufgehoben mit meinen Fragen und Übungsergebnissen auch abseits der Hauptroute. Bin zuversichtlich, dass alle Pfade zum Gipfel führen.
-          </Testimonial>
-          <Testimonial author="Marion Kellner · Teilnehmerin Gruppenkurs">
-            Mich hat besonders beeindruckt, welche Möglichkeiten sich dadurch eröffnen. [...]<br /><br /><strong>Dank Marits Inspirationen habe ich mich sogar getraut, eine eigene Sprachlern-App zu erstellen</strong>, ohne Programmier-Kenntnisse zu haben.<br /><br />Auch die Begleitung durch Marit war einfach hervorragend: Sie ist sehr strukturiert, verfügt über ein beeindruckend tiefes Wissen und bringt gleichzeitig eine große Neugier mit, neue Dinge auszuprobieren und Zusammenhänge wirklich zu verstehen.
-          </Testimonial>
-          <Testimonial author="Andrea · Teilnehmerin Gruppenkurs">
-            <strong>Ich habe sehr viel erreicht</strong>, und was noch viel wichtiger ist: Ich weiß, dass ich durch den Kurs noch viel, viel mehr erreichen kann.<br /><br />Liebe Marit, vielen Dank für die tollen neuen Möglichkeiten, die du mir durch den Kurs eröffnet hast. Ich kann deinen Kurs absolut empfehlen.
-          </Testimonial>
-        </div>
-      </Section>
-
-      {/* BANNER */}
-      <div style={{ background: '#ffb000', color: '#fff', textAlign: 'center', padding: 'clamp(14px, 2vw, 22px) 32px', fontFamily: "'Open Sans', sans-serif", fontWeight: 600, fontSize: 'clamp(1.4rem, 2.6vw, 2rem)', lineHeight: 1.2 }}>Deine Investition:</div>
-
-      {/* PRICING — on photo */}
-      <div id="zugang">
-        <div style={{
-          position: 'relative',
-          backgroundImage: "url('assets/hintergrund-claude-cowork-deepdive.jpg')",
-          backgroundSize: 'cover', backgroundPosition: 'center',
-          padding: 'clamp(64px, 9vw, 104px) 24px',
-        }}>
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.14) 100%)' }} />
-          <div style={{ position: 'relative', zIndex: 1, maxWidth: 540, margin: '0 auto' }}>
-            <h2 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.6rem, 3vw, 2.3rem)', color: C.white, textAlign: 'center', margin: '0 0 28px', textShadow: '0 2px 12px rgba(0,0,0,0.45)' }}>
-              Dein Zugang zum Selbstlernkurs
-            </h2>
-            <div style={{ background: C.white, borderRadius: 5, padding: 'clamp(32px, 4vw, 44px)', boxShadow: '0 18px 50px rgba(0,0,0,0.28)', textAlign: 'center' }}>
-              <div style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(3rem, 7vw, 4.25rem)', color: C.heading, lineHeight: 1, margin: '4px 0 10px' }}>195,- €</div>
-              <div style={{ fontFamily: BODY, fontSize: 16, color: C.mid, marginBottom: 24 }}>Einmalige Zahlung · netto zzgl. MwSt. (232,05 € brutto) · inklusive aller Updates</div>
-              <CtaButton variant="teal" big full>Jetzt buchen und direkt loslegen →</CtaButton>
-              <p style={{ fontFamily: BODY, fontSize: 14.5, color: C.text, lineHeight: 1.6, margin: '22px 0 0', textAlign: 'left', paddingTop: 22, borderTop: '1px solid #eee' }}>
-                <strong style={{ color: C.heading }}>14 Tage Zufriedenheitsgarantie</strong> - wenn du merkst, dass der Kurs nicht das Richtige für dich ist, erstatte ich dir den Kaufpreis abzüglich einer Bearbeitungspauschale von 20 €.
-              </p>
-              <p style={{ fontFamily: BODY, fontSize: 13, color: C.mid, lineHeight: 1.6, margin: '14px 0 0', textAlign: 'left' }}>
-                Die Zahlungsabwicklung und Rechnungsstellung erfolgt über den Zahlungsdienstleister CopeCart.
-              </p>
-            </div>
-          </div>
-        </div>
-        <Divider height={12} />
-      </div>
-
-      {/* CURRICULUM */}
-      <Section bg="white" max={1040}>
-        <Eyebrow center>Was ist drin?</Eyebrow>
-        <H2>Acht Themenfelder - kein starres Modulsystem, sondern ein wachsender Werkzeugkasten</H2>
-        <p style={{ fontFamily: BODY, fontSize: 'clamp(1.05rem, 1.2vw, 1.15rem)', color: C.text, textAlign: 'center', maxWidth: 700, margin: '20px auto 0', lineHeight: 1.7 }}>
-          Die Lektionen sind nach Themen gruppiert, nicht in einer starren Modul-Abfolge. Du kannst chronologisch durchgehen oder gezielt bei dem Thema einsteigen, das dich gerade am meisten weiterbringt.
-        </p>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 16, marginTop: 44 }}>
-          {[
-            { title: 'Einführung', desc: 'Desktop-App, Oberfläche, Einstellungen - damit dein Cowork startklar ist, bevor es losgeht.' },
-            { title: 'Erste Schritte & Cowork-Briefing', desc: 'Ordnerpower, echte Dateien, Branding, Autopilot für wiederkehrende Aufgaben - die Kernfunktionen Schritt für Schritt erleben.' },
-            { title: 'Konnektoren', desc: 'Claude verbindet sich mit deinen Tools: Notizen-App und mehr - erst spielerisch erleben, dann zu Workflows machen.' },
-            { title: 'HTML & Landingpages', desc: 'Freebies selbst bauen, deine erste Landingpage, ein eigener Baukasten aus Design-Blöcken - ganz ohne Tool-Abo.' },
-            { title: 'Video, Audio & YouTube', desc: 'Transkription und Videoschnitt lokal auf deinem Rechner, YouTube als Wissensquelle für deine eigene Weiterbildung.' },
-            { title: 'Social Media Bilder & Folien', desc: 'Karussell-Posts, Bildbearbeitung und Folienvorlagen im eigenen Design - lokal erstellt, direkt einsetzbar.' },
-            { title: 'Externe Tools & Apps', desc: 'API-Verbindungen, MCP-Konnektoren, Mini-Apps als Werkzeugbauer - Claude als Redakteur deiner Website.' },
-            { title: 'Weiterführendes', desc: 'Deine CLAUDE.md gemeinsam überarbeiten, einen eigenen Skill bauen, Claudepedia als Glossar für alle Fachbegriffe.' },
-          ].map(m => (
-            <div key={m.title} style={{
-              background: C.bgLight, borderRadius: 5, padding: '24px 26px',
-              borderTop: `4px solid ${C.teal}`,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)',
-            }}>
-              <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: '1.1rem', color: C.heading, margin: '0 0 10px', lineHeight: 1.3 }}>{m.title}</h3>
-              <p style={{ fontFamily: BODY, fontSize: 16, color: C.text, lineHeight: 1.6, margin: 0 }}>{m.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div className="grid-extras" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginTop: 16 }}>
-          {[
-            { label: 'Erklärlektionen', desc: 'Hintergrundwissen zu Tokens, Developer-Tools, Einstellungen, CLAUDE.md und mehr - damit du nicht nur anwendest, sondern verstehst und einordnen kannst, was Claude dir vorschlägt.' },
-            { label: 'Tutorials für den Alltag', desc: 'Schritt-für-Schritt-Anleitungen für klassische Solo-Selbstständigen-Themen wie Landingpages, Videoschnitt oder Newsletter-Automatisierung - weitere kommen laufend dazu.' },
-            { label: 'Skills zum Installieren', desc: 'Fertige, geprüfte Skills von mir - direkt einsetzbar für typische Business-Prozesse.' },
-          ].map(item => (
-            <div key={item.label} style={{
-              background: C.white, borderRadius: 5, padding: '22px 24px',
-              border: `1.5px solid ${C.orange}`,
-              boxShadow: '0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)',
-            }}>
-              <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: '1.05rem', color: C.heading, margin: '0 0 8px' }}>{item.label}</h3>
-              <p style={{ fontFamily: BODY, fontSize: 15.5, color: C.text, lineHeight: 1.6, margin: 0 }}>{item.desc}</p>
-            </div>
-          ))}
-        </div>
-        <div style={{
-          marginTop: 32,
-          background: C.bgLight,
-          borderRadius: 5,
-          border: `1.5px solid ${C.navy}`,
-          padding: 'clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 36px)',
-          display: 'flex', gap: 18, alignItems: 'flex-start',
-        }}>
-          <span style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 20, color: C.navy, flexShrink: 0, width: 28, height: 28, borderRadius: '50%', border: `1.5px solid ${C.navy}`, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>i</span>
-          <div>
-            <p style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.05rem, 1.3vw, 1.2rem)', color: C.heading, margin: '0 0 8px' }}>
-              Der Kurs wächst weiter
-            </p>
-            <p style={{ fontFamily: BODY, fontSize: 'clamp(1rem, 1.2vw, 1.1rem)', color: C.text, lineHeight: 1.65, margin: 0 }}>
-              Die Praxislektionen, Erklärlektionen und Skills sind fertig und sofort nutzbar. Bei den Tutorials (ausführliche Video-Anleitungen) für den Solo-Alltag ergänze ich noch einige weitere Themen, die für dich als Solo-Selbstständige besonders relevant sind. Per Mail erfährst du, wenn etwas Neues dazukommt.
-            </p>
-          </div>
-        </div>
-      </Section>
-
-      {/* TESTIMONIALS BLOCK 3 — Gruppenkurs */}
-      <Section bg="gray" max={1040}>
-        <Eyebrow center>Erfahrungsberichte</Eyebrow>
-        <H2 style={{ marginBottom: 44 }}>Noch mehr Stimmen aus dem Programm</H2>
-        <div className="grid-quotes-3">
-          <Testimonial author="Laura Sander · Teilnehmerin Gruppenkurs">
-            Vor der Challenge bei Marit kannte ich Claude noch gar nicht. [...] Was mich neugierig gemacht hat, war das kostenfreie Webinar von Marit und wie sie gezeigt hat, dass man sich mit Claude einen eigenen Assistenten bauen kann, der die eigenen Prozesse abbildet.<br /><br /><strong>In den acht Wochen habe ich eine Landingpage gebaut, meinen Newsletter gestartet, bestehende Seiten SEO-optimiert und eine funktionierende Ordnerstruktur etabliert.</strong> [...]<br /><br />Für Soloselbstständige lohnt sich das auf jeden Fall: Man baut sich einen eigenen digitalen Assistenten auf, der die eigenen Prozesse kennt.
-          </Testimonial>
-          <Testimonial author="Dr. Martina Nohl · Teilnehmerin Gruppenkurs" authorUrl="https://genial-leben.com">
-            Das war ein wilder Ritt für mich, ein Intensivkurs, der mich vom technischen Verständnis und der Umsetzung wirklich herausgefordert hat.<br /><br /><strong>Vermutlich hätte ich abgebrochen, wenn Marit uns als Nicht-Techies nicht so gut durch die „KI-Prärie" geführt hätte.</strong> Ihre mutige und freudige Einstellung gegenüber diesem Mega-Tool mit seinen für „normale Cowboys" unglaublichen Möglichkeiten hat mich auf dem Weg gehalten.<br /><br />Ich freue mich darauf, meine Kreativität und Produktivität an den richtigen Stellen damit deutlich zu erweitern. Danke für dieses Zukunfts-Geschenk!
-          </Testimonial>
-          <Testimonial author="Bianca · Teilnehmerin Gruppenkurs">
-            <strong>Ich habe meine Berührungsängste mit Claude verloren</strong>, erste Landingpages programmiert, ein paar Routineaufgaben ausgelagert und vor allem verstanden, wie viel mehr noch möglich ist, das ich nach und nach umsetzen werde.<br /><br />Danke Marit, dass du uns eine so steile Lernkurve ermöglicht und immer für alle Fragen dagewesen bist - ohne dass wir dabei von dir „abhängig" wurden. Du hast mich sehr ermutigt, meinen eigenen Weg zu gehen mit Claude und nicht so schnell locker zu lassen, wenn etwas nicht gleich funktioniert.<br /><br />Denn oft kann Claude selbst mir helfen, die Lösung zu finden. Und das ist wirklich faszinierend.
-          </Testimonial>
-        </div>
-      </Section>
-
-      {/* FAQ */}
-      <Section bg="gray" max={800}>
-        <Eyebrow center>FAQ</Eyebrow>
-        <H2>Häufige Fragen</H2>
-        <div style={{ display: 'grid', gap: 16, marginTop: 44 }}>
-          {[
-            {
-              q: 'Ist der Kurs schon komplett?',
-              a: 'Die Praxislektionen, Erklärlektionen und Skills sind fertig und sofort nutzbar. Bei den Tutorials (ausführliche Video-Anleitungen) zu klassischen Solo-Selbstständigen-Themen ergänze ich noch einige weitere Themen. Ich informiere dich per Mail, sobald sich wichtige Dinge im Kurs verändern - so bleibst du auf dem Laufenden.',
-            },
-            {
-              q: 'Was ist der begleitende Autoresponder genau?',
-              a: 'Eine automatisierte Mail-Serie, die nach deiner Anmeldung startet: einzelne Lektionen und Praxisaufgaben im Fokus, mit motivierenden Tipps und vertiefenden Erklärungen. Kein klassischer Community-Newsletter, sondern eine feste Abfolge - du bekommst sie komplett, egal wann du einsteigst. Über neue Inhalte im Kurs, die für alle relevant sind, informiere ich dich zusätzlich per Mail.',
-            },
-            {
-              q: 'Bis wann sind die Inhalte zugänglich?',
-              a: 'Du hast mindestens 24 Monate Zugang zu allen Kursinhalten. Wenn du danach noch länger Zugang brauchst, kannst du mich gern individuell ansprechen.',
-            },
-            {
-              q: 'Was, wenn mir der Kurs nicht gefällt?',
-              a: 'Da es ein Selbstlernkurs ist, gibt es keine offizielle Rückgaberegelung. Ich gebe dir aber gern eine Zufriedenheits-Garantie: Innerhalb von 14 Tagen kannst du den Kurs zurückgeben, abzüglich einer Bearbeitungsgebühr von €20,- netto. Schreib mir einfach eine Mail und dann klären wir das.',
-            },
-            {
-              q: 'Brauche ich die bezahlte Claude-Variante?',
-              a: 'Ja, du brauchst mindestens das Pro-Paket sowie die Claude Desktop-App, um Claude Cowork nutzen zu können. Das Pro-Paket kostet aktuell 18 € pro Monat bei monatlicher Zahlung.',
-            },
-            {
-              q: 'Gibt es technische Voraussetzungen?',
-              a: 'Ja. Die Claude Desktop-App nutzt relativ viel Arbeitsspeicher und viele Funktionen deines Rechners - empfohlen sind <strong>mindestens 8 GB RAM, besser 16 GB</strong>. Auf älteren Computern kann die App möglicherweise nur eingeschränkt funktionieren. Du kannst sie auf mehreren Geräten installieren (z.B. Laptop und Desktop), brauchst dann aber einen Cloud-Dienst für einen einheitlichen Arbeitsordner. Das erkläre ich auch im Kurs.<br /><br />Mit einem kleinen kostenlosen Programm von Anthropic kannst du vorab direkt prüfen, ob dein Rechner startklar für Cowork ist: <a href="https://claude.com/docs/third-party/claude-desktop/installation#check-device-readiness" target="_blank" rel="noopener" style="color:#00b3c3;text-decoration:underline;text-underline-offset:3px;">Readiness-Check (englischsprachige Anthropic-Doku)</a>.',
-            },
-          ].map((item, i) => (
-            <div key={i} style={{
-              background: C.white, borderRadius: 5, padding: 'clamp(22px, 2.5vw, 30px)',
-              boxShadow: '0 3px 12px rgba(0,0,0,0.05)',
-            }}>
-              <h3 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1rem, 1.3vw, 1.15rem)', color: C.heading, margin: '0 0 12px', lineHeight: 1.35 }}>{item.q}</h3>
-              <p style={{ fontFamily: BODY, fontSize: 17, color: C.text, lineHeight: 1.7, margin: 0 }} dangerouslySetInnerHTML={{ __html: item.a }} />
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* FINAL CTA — on gradient */}
-      <div style={{
-        backgroundImage: "url('assets/gradient-tuerkis-lime.jpg')",
-        backgroundSize: 'cover', backgroundPosition: 'center',
-        padding: 'clamp(64px, 9vw, 108px) 24px',
-      }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <img src="assets/glitter-sterne-orange.png" alt="" style={{ height: 52, marginBottom: 24 }} />
-          <h2 style={{ fontFamily: HEAD, fontWeight: 700, fontSize: 'clamp(1.7rem, 3.4vw, 2.6rem)', color: C.white, lineHeight: 1.18, marginBottom: 24, textWrap: 'pretty' }}>
-            Dein KI-System wartet darauf, aufgebaut zu werden.
-          </h2>
-          <div style={{ background: C.white, borderRadius: 5, padding: 'clamp(24px, 3vw, 36px)', marginBottom: 36, boxShadow: '0 6px 24px rgba(0,0,0,0.10)', textAlign: 'left' }}>
-            <p style={{ fontFamily: BODY, fontSize: 'clamp(1.1rem, 1.3vw, 1.25rem)', color: C.text, lineHeight: 1.75, margin: 0 }}>
-              Nicht irgendwann - jetzt! 😊 Sich in Claude Cowork einzuarbeiten ist wie das berühmte "Säge schärfen": Jetzt Zeit und Energie investieren, um deine Workflows mit KI zu optimieren.<br /><br />Jede Lektion bringt dich einen konkreten Schritt weiter: von der ersten Datei, die Claude selbst erstellt, bis zum Workflow, der läuft, während du anderen Dingen nachgehst. <strong>Am Ende hast du eine Infrastruktur, einen fähigen KI-Assistenten, der dich und deine Arbeitsprozesse sehr gut kennt und dich bei vielen Tätigkeiten entlastet.</strong>
-            </p>
-          </div>
-          <CtaButton variant="orange" big>Jetzt buchen und direkt loslegen →</CtaButton>
-        </div>
-      </div>
-
-      <Footer />
-    </div>
-  );
-}
-
-ReactDOM.createRoot(document.getElementById('root')).render(<App />);
-</script>
-
-<div id="root"></div>
+<div id="root"><div><header><div style="height:4px;background:#ffb000;width:100%"></div><div style="position:relative;background-image:url(&#x27;assets/hero-header-insel-tuerkis.jpg&#x27;);background-size:cover;background-position:center 58%;min-height:clamp(580px, 84vh, 780px);display:flex;align-items:center;justify-content:center"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 44%, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0.16) 60%, rgba(0,0,0,0.22) 100%)"></div><div style="position:relative;z-index:1;text-align:center;padding:clamp(40px, 7vw, 72px) 24px;max-width:880px;display:flex;flex-direction:column;align-items:center"><span style="display:inline-flex;align-items:center;gap:8px;font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:600;font-size:14px;letter-spacing:0.14em;text-transform:uppercase;color:#ffffff;background:rgba(255,255,255,0.14);border:1.5px solid rgba(255,255,255,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:5px;padding:9px 20px"><span style="color:#ffb000;font-size:13px">✦</span>Selbstlernkurs</span><img src="assets/ccdd-logo-weiss.png" alt="Claude Cowork Deep Dive" style="width:min(520px, 82vw);height:auto;display:block;margin:26px 0 8px"/><h1 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.5rem, 3.2vw, 2.5rem);color:#ffffff;line-height:1.22;margin:20px 0 32px;max-width:760px;text-shadow:0 2px 14px rgba(0,0,0,0.45);text-wrap:balance">Schritt für Schritt zum KI-System,<br class="br-wide"/> das für dich arbeitet</h1><a href="#zugang" class="cta-btn cta-pulse-orange" style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:700;font-size:21px;background:#ffb000;color:#ffffff;border:none;border-radius:6px;padding:17px 40px;cursor:pointer;display:inline-block;text-align:center;text-decoration:none;width:auto;--hov:#00b3c3">Jetzt loslegen →</a></div></div><div style="height:16px;background:#ffb000;width:100%"></div></header><div style="background:#ffffff;text-align:center;padding:clamp(14px, 2vw, 20px) 24px"><span style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(0.95rem, 1.6vw, 1.15rem);letter-spacing:0.2em;text-transform:uppercase;color:#3a3a3a"><span style="color:#ffb000">✦</span>  Herbstangebot 2026  <span style="color:#ffb000">✦</span></span></div><div style="background-image:url(&#x27;assets/gradient-tuerkis-lime.jpg&#x27;);background-size:cover;background-position:center;padding:clamp(48px, 7vw, 88px) 24px"><div class="pw-box" style="max-width:880px;margin:0 auto;background:#ffffff;border-radius:6px;border:2px solid #ffb000;box-shadow:0 22px 60px rgba(0,0,0,0.30);position:relative;text-align:center;padding:clamp(34px, 5vw, 56px) clamp(22px, 5vw, 56px)"><img src="assets/glitter-sterne-orange.png" alt="" style="height:46px;margin-bottom:14px"/><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.8rem, 4.2vw, 3rem);color:#3a3a3a;line-height:1.12;margin:0 0 14px;text-wrap:balance">Selbstlernkurs + <span style="color:#00b3c3">Powerwoche</span></h2><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:600;font-size:clamp(1.15rem, 2.2vw, 1.55rem);color:#03557f;line-height:1.3;margin:-4px 0 22px">Live-Workshopwoche vom 4. bis 11. Dezember</div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.15rem, 1.5vw, 1.3rem);color:#5a5a5a;line-height:1.7;max-width:640px;margin:0 auto 30px">Eine Woche lang gehen wir den Kurs <strong>gemeinsam live</strong> an: mit Workshops, Sprechstunden und einem Forum zum Austausch. Du bekommst feste Termine, Feedback und Menschen, die mit dir am Ball bleiben.</p><div class="pw-facts"><div style="background:#f7f8f5;border-radius:5px;padding:16px 10px;border:1.5px solid rgba(0,179,195,0.35)"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3vw, 2.2rem);color:#00b3c3;line-height:1">6</div><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#5a5a5a;margin-top:6px;line-height:1.35">Live-Workshops à 90 Minuten</div></div><div style="background:#f7f8f5;border-radius:5px;padding:16px 10px;border:1.5px solid rgba(0,179,195,0.35)"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3vw, 2.2rem);color:#00b3c3;line-height:1">2</div><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#5a5a5a;margin-top:6px;line-height:1.35">Sprechstunden am Abend</div></div><div style="background:#f7f8f5;border-radius:5px;padding:16px 10px;border:1.5px solid rgba(0,179,195,0.35)"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3vw, 2.2rem);color:#00b3c3;line-height:1">1</div><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#5a5a5a;margin-top:6px;line-height:1.35">Forum zum Austausch</div></div><div style="background:#f7f8f5;border-radius:5px;padding:16px 10px;border:1.5px solid rgba(0,179,195,0.35)"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3vw, 2.2rem);color:#00b3c3;line-height:1">100 %</div><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#5a5a5a;margin-top:6px;line-height:1.35">Aufzeichnungen zum Nachschauen</div></div></div><div style="margin-top:34px"><a href="#zugang" class="cta-btn cta-pulse-orange" style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:700;font-size:21px;background:#ffb000;color:#ffffff;border:none;border-radius:6px;padding:17px 40px;cursor:pointer;display:inline-block;text-align:center;text-decoration:none;width:auto;--hov:#00b3c3">Zu den Preisen →</a></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;margin:20px 0 0;line-height:1.6"><strong style="color:#3a3a3a">Nur bis Montag, 7. Dezember buchbar.</strong> Selbstlernkurs mit Powerwoche: 275,- € netto (327,25 € brutto).<br/>Du hast den Kurs schon? Die Infos zum Aufstocken bekommst du separat per Mail.</p></div></div><div style="height:12px;background:#ffb000;width:100%"></div><section style="background:#ffffff;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:760px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Warum dieser Kurs</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0">Claude Cowork ist für mich ein echter Game Changer</h2><div style="display:grid;gap:22px;margin-top:30px"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.2rem, 1.4vw, 1.375rem);color:#5a5a5a;line-height:1.75;text-align:center;text-wrap:pretty;margin:0">Als Soloselbstständige mache ich alles selbst und bin für alles allein zuständig. Das ist meine freie Entscheidung - ich liebe mein Solo-Business! Aber die <strong>vielen kleinen (digitalen) Routine-Handgriffe</strong> kosten auf Dauer Kraft und Nerven. Die reinen KI-Chatbots waren hilfreich, aber es blieb immer noch der meiste Teil der nervigen Arbeit an mir hängen - wo war die versprochene Arbeitserleichterung durch die KI?</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.2rem, 1.4vw, 1.375rem);color:#5a5a5a;line-height:1.75;text-align:left;text-wrap:pretty;margin:0"><strong>Seit Februar 2026 ist nun Claude Cowork genau dieser co-kreative &quot;Mitarbeiter&quot;, der mir nicht sloppy KI-Content ausspuckt, sondern mich in meinem Alltag entlastet!</strong> Er verbindet die Coding-Fähigkeiten eines KI-Agenten mit der Sprachfähigkeit eines Chatbots - was für Menschen ohne Coding-Erfahrung ganz neue Möglichkeiten öffnet.<br/><br/>Du kannst damit Claude wirklich <strong>für dich arbeiten lassen</strong>: Dateien erstellen, Ordner durchsuchen, Medien lokal erstellen lassen, Workflows automatisieren, hilfreiche Tools bauen, deine bewährten Apps und Programme verbinden und einiges mehr.</p></div><div style="margin-top:44px;background:#ffffff;border:1.5px solid #ffb000;border-radius:5px;padding:clamp(28px, 3vw, 40px);box-shadow:0 3px 12px rgba(0,0,0,0.06);display:flex;gap:28px;align-items:center;flex-wrap:wrap"><img src="assets/portrait-marit-haende.jpg" alt="Marit Alke" style="width:110px;height:110px;border-radius:5px;flex-shrink:0;object-fit:cover;box-shadow:0 4px 14px rgba(0,0,0,0.12)"/><div style="flex:1;min-width:240px"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.15rem, 1.4vw, 1.3rem);font-style:italic;line-height:1.7;color:#3a3a3a;margin:0 0 14px">„Es macht so einen großen Spaß, nach und nach Claude Cowork so zu briefen, dass er mir die wiederkehrenden Aufgaben abnimmt - und zu erleben, wie kreativ er und ich gemeinsam sein können! ✨<br/><br/>Das spart mir nicht nur Zeit, sondern ich fühle mich dadurch auch empowert, neue Dinge anzugehen, die ich früher nicht für möglich hielt oder für die mir die Energie fehlte. Mein Wirkungskreis hat sich dadurch total erweitert.&quot;</p></div></div></div></section><section style="background:#f7f8f5;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Die Powerwoche</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0">Eine Woche, in der du mit dem Kurs wirklich vorankommst</h2><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.2rem, 1.4vw, 1.375rem);color:#5a5a5a;line-height:1.75;text-align:center;text-wrap:pretty;margin:24px auto 0;max-width:720px">Ein Selbstlernkurs wartet geduldig, und der Alltag drängelt sich davor. In der Powerwoche reservieren wir uns gemeinsam eine Woche dafür. Du lernst von den Beispielen und Fragen der anderen und <strong>kommst mit deinem Kurs konkret voran</strong>.</p><div style="background:#ffffff;border-radius:5px;box-shadow:0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);padding:clamp(12px, 2vw, 24px);margin:44px auto 0;max-width:940px"><img src="assets/powerwoche-ablauf.svg" alt="Ablauf der Powerwoche: Auftakt Freitag 4.12., Live-Workshops Montag bis Freitag, Sprechstunden Montag und Mittwoch 17 Uhr" style="width:100%;height:auto;display:block"/></div><div class="pw-grid2" style="margin-top:40px"><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.06);border-top:4px solid #00b3c3"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.4vw, 1.2rem);color:#3a3a3a;margin:0 0 10px;line-height:1.3">Live-Workshops, jeweils 90 Minuten</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Jeder Tag hat zwei Teile. Erst gibt es Input und Erklärung für alle, die noch nicht viel vom Kurs geschafft haben. Nach einer kurzen Pause folgt der Teil für Fortgeschrittene, mit einer optionalen Aufgabe für den Tag.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.06);border-top:4px solid #00b3c3"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.4vw, 1.2rem);color:#3a3a3a;margin:0 0 10px;line-height:1.3">Zwei Sprechstunden am Abend</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Montag, 7.12., und Mittwoch, 9.12., jeweils um 17 Uhr: deine Fragen, dein Stand, ich schaue mit dir drauf.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.06);border-top:4px solid #00b3c3"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.4vw, 1.2rem);color:#3a3a3a;margin:0 0 10px;line-height:1.3">Austausch-Forum</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Während der ganzen Woche kannst du Fragen stellen, Beispiele zeigen und von den anderen lernen.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.06);border-top:4px solid #00b3c3"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.4vw, 1.2rem);color:#3a3a3a;margin:0 0 10px;line-height:1.3">Alle Aufzeichnungen</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Du kannst nicht live dabei sein? Du bekommst alle Aufzeichnungen und holst nach, was du verpasst hast.</p></div></div><div style="max-width:720px;margin:44px auto 0;border:1.5px solid #00b3c3;border-radius:5px;background:#ffffff;padding:clamp(24px, 3vw, 36px);text-align:center"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.1rem, 1.3vw, 1.2rem);color:#5a5a5a;line-height:1.7;margin:0">Die Powerwoche passt, wenn du <strong>Austausch, Feedback und einen festen Rahmen</strong> magst. Lernst du lieber ganz in deinem eigenen Tempo, bleibt der Selbstlernkurs pur genau das Richtige.</p></div></div></section><div style="background:#ffb000;color:#fff;text-align:center;padding:clamp(14px, 2vw, 22px) 32px;font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:600;font-size:clamp(1.4rem, 2.6vw, 2rem);line-height:1.2">Was du danach hast: Einen echten KI-Assistenten</div><div><div style="background-image:url(&#x27;assets/gradient-tuerkis-lime.jpg&#x27;);background-size:cover;background-position:center;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1100px;margin:0 auto"><div class="grid-cap"><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/05-bildschirm-layout.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Landingpages selbst bauen - kein Designer &amp; kein Tool mehr nötig</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/06-zauberstab-sterne.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Word, Excel, PowerPoint und Grafiken - fertig, im eigenen Stil, in Minuten</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/07-filmklappe-ton.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Videos schneiden, Audios verarbeiten - lokal auf deinem Rechner, ohne Abo</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/08-zahnrad-apps.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Claude arbeitet direkt in WordPress, GetResponse &amp; Co. - was deutlich Zeit spart</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/09-automatisierung-zahnrad.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Aufgaben, die dich jede Woche Stunden kosten - einmal eingerichtet, brauchst du sie nur noch anstoßen</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/10-haende-baustein.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Eigene Skills bauen: deine besten Abläufe speichern und jederzeit wieder abrufen</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/11-mausklick-touchscreen.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Interaktive Tools für dich oder deine Kunden - kreative Lösungen für deine Herausforderungen</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:24px 22px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;box-shadow:0 4px 16px rgba(0,0,0,0.05)"><div style="width:68px;height:68px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/12-trichter-pipeline.png" alt="" style="width:48px;height:48px;display:block"/></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#3a3a3a;line-height:1.5;margin:0;font-weight:700">Transkript rein - Blogartikel, Social Post, Newsletter raus. Content-Repurposing leicht gemacht</p></div></div><div style="margin-top:24px;background:rgba(255,255,255,0.92);border:1.5px solid rgba(255,255,255,0.7);border-radius:5px;padding:clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 36px);box-shadow:0 8px 28px rgba(0,0,0,0.14);text-align:center"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.1rem, 1.4vw, 1.25rem);color:#3a3a3a;line-height:1.65;margin:0">… und das alles kannst du <strong>kombinieren zu ganzen Workflows</strong>, variieren und zu wiederkehrenden Aufgaben machen. Dein Coworker lernt im Laufe der Zeit, wie du arbeitest und was du brauchst!</p></div></div></div><div style="height:12px;background:#ffb000;width:100%"></div></div><section style="background:#ffffff;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1160px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">So ist der Kurs aufgebaut</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0">Praxislektionen, Erklärlektionen und Tutorials - drei Bausteine, die ineinandergreifen</h2><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.05rem, 1.2vw, 1.15rem);color:#5a5a5a;text-align:center;max-width:700px;margin:20px auto 0;line-height:1.7">Du startest nicht mit der komplexen Aufgabe, sondern mit einer kleinen, machbaren: den Praxislektionen als Mini-Challenges. Die Erklärlektionen sorgen dafür, dass du verstehst, was du tust, statt nur abzuarbeiten. Und die Tutorials übersetzen das Gelernte in klassische Alltagsprobleme von Solo-Selbstständigen. Alle drei greifen ineinander - und ergeben am Ende ein System, das für dich arbeitet.</p><div style="margin:36px 0 8px"><div class="stat-row"><div style="text-align:center"><div class="stat-num">20</div><div class="stat-label">Praxislektionen</div></div><div style="text-align:center"><div class="stat-num">12+</div><div class="stat-label">Erklärlektionen</div></div><div style="text-align:center"><div class="stat-num">5</div><div class="stat-label">Tutorials, mehr in Arbeit</div></div><div style="text-align:center"><div class="stat-num">1</div><div class="stat-label">begleitender Autoresponder</div></div></div></div><div class="grid-formats-5" style="margin-top:40px"><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(26px, 3vw, 36px);box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)"><div style="display:flex;align-items:center;gap:18px;margin-bottom:18px"><div style="width:64px;height:64px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/01-puzzleteile.png" alt="" style="width:44px;height:44px;display:block"/></div><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.2rem, 1.8vw, 1.45rem);color:#3a3a3a;margin:0;line-height:1.25">20 Praxislektionen</h3></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18px;color:#5a5a5a;line-height:1.68;margin:0 0 14px">Jede Lektion bringt dich einen konkreten Schritt weiter: Ordnerpower, Automatisierung, Konnektoren, Medienwerkstatt, eigene Skills. Mit Erklärung, konkretem Prompt und klarer Anleitung.<br/><br/>Wie eine Challenge, die dir mundgerecht aufbereitete Übungen an die Hand gibt - du musst sie nur machen. 😊</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-style:italic;font-size:16px;color:#00b3c3;font-weight:700;margin:0">Du übst nicht - du baust auf.</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(26px, 3vw, 36px);box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)"><div style="display:flex;align-items:center;gap:18px;margin-bottom:18px"><div style="width:64px;height:64px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/02-buch-gluehbirne.png" alt="" style="width:44px;height:44px;display:block"/></div><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.2rem, 1.8vw, 1.45rem);color:#3a3a3a;margin:0;line-height:1.25">Über 10 Erklärlektionen</h3></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18px;color:#5a5a5a;line-height:1.68;margin:0 0 14px">Wie funktionieren Tokens? Welche unterschiedlichen Arten von Skills gibt es? Was macht eine gute CLAUDE.md aus? Welche Developer-Tools machen deinen Rechner zum Powerhouse?<br/><br/>Die Erklärlektionen zeigen dir bewährte Vorgehensweisen, damit du verstehst, warum Claude etwas vorschlägt - statt es einfach zu übernehmen.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-style:italic;font-size:16px;color:#00b3c3;font-weight:700;margin:0">Damit du Claude führst - und nicht blind übernimmst, was er vorschlägt.</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(26px, 3vw, 36px);box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)"><div style="display:flex;align-items:center;gap:18px;margin-bottom:18px"><div style="width:64px;height:64px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/12-trichter-pipeline.png" alt="" style="width:44px;height:44px;display:block"/></div><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.2rem, 1.8vw, 1.45rem);color:#3a3a3a;margin:0;line-height:1.25">Tutorials für den Solo-Alltag</h3></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18px;color:#5a5a5a;line-height:1.68;margin:0 0 14px">Landingpages verlässlich im eigenen Design ausliefern, den Newsletter per Sprachnachricht automatisieren, Videoschnitt mit FFmpeg und DaVinci, YouTube als Weiterbildungsquelle nutzen.<br/><br/>Ein Teil ist schon fertig, weitere Tutorials zu typischen Alltagsproblemen kommen laufend dazu.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-style:italic;font-size:16px;color:#00b3c3;font-weight:700;margin:0">Klassische Herausforderungen von Solo-Selbstständigen, konkret gelöst.</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(26px, 3vw, 36px);box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)"><div style="display:flex;align-items:center;gap:18px;margin-bottom:18px"><div style="width:64px;height:64px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/03-umschlag-blitz.png" alt="" style="width:44px;height:44px;display:block"/></div><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.2rem, 1.8vw, 1.45rem);color:#3a3a3a;margin:0;line-height:1.25">Begleitender Autoresponder</h3></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18px;color:#5a5a5a;line-height:1.68;margin:0 0 14px">Nach der Anmeldung startet automatisch eine Mail-Serie mit einzelnen Lektionen und Praxisaufgaben im Fokus: motivierende Tipps, vertiefende Erklärungen, weiterführende Ideen.<br/><br/>Kein klassischer Newsletter, sondern ein automatisierter Begleiter, der dich Schritt für Schritt durch neue Schwerpunktthemen führt - egal, ob du heute oder erst in ein paar Monaten startest.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-style:italic;font-size:16px;color:#00b3c3;font-weight:700;margin:0">Damit du dranbleibst - egal, wann du einsteigst.</p></div><div style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(26px, 3vw, 36px);box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 28px rgba(0,0,0,0.13)"><div style="display:flex;align-items:center;gap:18px;margin-bottom:18px"><div style="width:64px;height:64px;border-radius:5px;background:#ffffff;border:1.5px solid #ecefe7;box-shadow:0 4px 14px rgba(0,0,0,0.06);display:flex;align-items:center;justify-content:center;flex-shrink:0"><img src="assets/icons/04-werkzeugkoffer-haken.png" alt="" style="width:44px;height:44px;display:block"/></div><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.2rem, 1.8vw, 1.45rem);color:#3a3a3a;margin:0;line-height:1.25">Geprüfte Skills</h3></div><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18px;color:#5a5a5a;line-height:1.68;margin:0 0 14px">Fertige Skills für typische Arbeitsprozesse von Solo-Selbständigen, die du mit einem Klick in deiner Claude-App installierst und sofort nutzen kannst - von mir entwickelt und getestet.<br/><br/>Du bekommst in Minuten ins Laufen, was ich meist in mehreren Stunden ausprobiert und als guten Prozess aufgebaut habe.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-style:italic;font-size:16px;color:#00b3c3;font-weight:700;margin:0">Direkt einsetzen - kein Herumprobieren.</p></div></div></div></section><section style="background:#f7f8f5;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Erfahrungsberichte</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0;margin-bottom:16px">Das sagen Teilnehmer:innen des Programms</h2><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-style:italic;text-align:center;max-width:660px;margin:0 auto 44px">Viele Kundenstimmen stammen aus dem begleiteten Gruppenkurs (Claude Cowork Deep Dive Programm) - die Lerninhalte sind identisch mit dem Selbstlernkurs, den du hier buchst.</p><div class="grid-quotes-3"><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Selten so viel in so kurzer Zeit gelernt. Natürlich liegt das auch am Thema. Claude Cowork hat mich brennend interessiert, weil ich als Solo-Selbstständige endlich meine Prozesse automatisieren wollte, damit nicht mehr so viel Zeit täglich für Handarbeit drauf geht.<br/><br/><strong>(Spoiler: das hat auch geklappt, beziehungsweise klappt immer noch.)</strong> Marit hat mich ganz toll auf den Weg gebracht, wie ich mit der KI am besten kommuniziere. Und wenn wir eigene Wege gingen, ganz wunderbar immer wieder die Fäden zusammengeführt.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Susanne Biwer · Teilnehmerin Gruppenkurs</figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Durch den Kurs weiß ich nun wirklich, wie ich Cowork sinnvoll in mein Business integriere, was alles möglich ist, wie ich meine Ergebnisse verbessere und mir gleichzeitig die Arbeit enorm erleichtere.<br/><br/><strong>Der Kurs ist didaktisch sehr gut aufgebaut.</strong> Die Kombination aus Wissensvermittlung und konkretem Experimentieren ist gelungen, und die Begleitung durch Marit einfach toll.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Oliver Teufel · Teilnehmer Gruppenkurs</figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Vom ersten Moment an war ich begeistert - und bin es noch. Du gehst total in diesem Thema auf, experimentierst herum, hast so ständig neue Ideen und bereitest uns diese <strong>in kleinen Häppchen und sehr gut verständlich</strong> auf.<br/><br/>Ich habe mich über jede neue Lektion und jede E-Mail von dir gefreut!</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Tanja Priefling · Teilnehmerin Gruppenkurs</figcaption></figure></div></div></section><section style="background:#f7f8f5;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Für wen ist dieser Kurs?</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0">Passt das zu dir?</h2><div class="grid-fit" style="margin-top:44px"><div style="background:#ffffff;border:1.5px solid #00b3c3;border-radius:5px;padding:clamp(28px, 3vw, 40px);box-shadow:0 6px 20px rgba(0,0,0,0.06)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.15rem, 1.7vw, 1.4rem);color:#3a3a3a;margin:0 0 22px">Ja, passt gut, wenn…</h3><ul style="margin:0;padding:0"><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:#a4c931;border:none;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">✓</span><span>du als Soloselbstständige oder Solopreneur viel online und am Bildschirm arbeitest,</span></li><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:#a4c931;border:none;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">✓</span><span>du mindestens (erste) Erfahrungen mit KI-Chatbots hast und bereits teilweise Arbeiten an KI delegiert hast,</span></li><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:#a4c931;border:none;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">✓</span><span>du öfter denkst, wie nervig diese ganze Copy-Paste-Upload-Download-Tool-Jongliererei ist - vor allem, wenn sich bestimmte Prozesse immer wiederholen,</span></li><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:#a4c931;border:none;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">✓</span><span>du mehr Ideen hast als Zeit, diese praktisch umzusetzen - und das endlich ändern willst,</span></li><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:#a4c931;border:none;color:#ffffff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700">✓</span><span>du bereit bist, praktisch umzusetzen und am Anfang ein wenig Zeit zu investieren, um deinen Coworker gut zu briefen und kennenzulernen.</span></li></ul></div><div style="background:#ffffff;border:1.5px solid #ffb000;border-radius:5px;padding:clamp(28px, 3vw, 40px);box-shadow:0 6px 20px rgba(0,0,0,0.04)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.15rem, 1.7vw, 1.4rem);color:#7b7b7b;margin:0 0 22px">Nicht das Richtige, wenn…</h3><ul style="margin:0;padding:0"><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:transparent;border:1.5px solid #ffb000;color:#ffb000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">–</span><span>du noch ganz am Anfang mit KI bist: Claude Cowork ist aus meiner Sicht nichts für KI-Einsteiger,</span></li><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:transparent;border:1.5px solid #ffb000;color:#ffb000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">–</span><span>du lieber Videos konsumierst, in denen andere tolle Sachen zeigen, statt selbst Hand anzulegen (denn in meinem Kurs erhältst du vor allem Praxis-Anleitungen und Videos nur dann, wenn es wirklich sinnvoll ist),</span></li><li style="display:flex;align-items:flex-start;gap:14px;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:18.5px;color:#5a5a5a;line-height:1.55;list-style:none;margin-bottom:16px"><span style="width:26px;height:26px;border-radius:50%;flex-shrink:0;margin-top:1px;background:transparent;border:1.5px solid #ffb000;color:#ffb000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700">–</span><span>du ausgefeilte &quot;Superprompts&quot; erwartest, die dich von 0 auf 100 in Sachen KI-Agenten katapultieren. Damit werden einmalig tolle Ergebnisse möglich, dir fehlt aber das Verständnis und die Grundlage, um es langfristig auf dein Business anzuwenden.</span></li></ul></div></div></div></section><section style="background:#ffffff;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Was meine Teilnehmer sagen</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0;margin-bottom:16px">Stimmen aus dem Deep Dive Programm</h2><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-style:italic;text-align:center;max-width:660px;margin:0 auto 44px">Landingpage gebaut, Video-Workflow automatisiert, eigenes Tool programmiert, Newsletter gestartet: Das haben Teilnehmende in wenigen Wochen konkret erreicht.</p><div class="grid-quotes-3"><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Dieser Kurs hat mir die Welt von Claude Cowork eröffnet. Als Einzelunternehmerin hatte ich vorher kaum Berührungspunkte mit Claude, wenn dann nur im Chat.<br/><br/>Durch die Praxislektionen mit glasklarer Anleitung habe ich Stück für Stück ein ganzes Repertoire an Möglichkeiten kennengelernt. Jede Lektion ist super praxisnah: schrittweise Anleitung, Prompt-Vorlagen, und am Ende Ideen, wie man das im eigenen Business nutzen kann.<br/><br/><strong>Ich kann Claude Cowork jetzt schon wie einen Mitarbeiter einsetzen</strong> und meine Prozesse laufen so viel schneller und effizienter.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Daniela Keller<span style="font-weight:400">, <a href="https://statistik-und-beratung.de" target="_blank" rel="noopener" style="color:#00b3c3;text-decoration:underline;text-underline-offset:3px">statistik-und-beratung.de</a></span></figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0"><strong>Meine Video-Aufgaben laufen jetzt per Knopfdruck.</strong> Vor dem Deep Dive war bei mir vieles chaotisch: Systeme, Aufgaben, alles hat Energie gezogen. Ich wollte am liebsten eine Assistentin, der ich jederzeit Arbeit abgeben kann - am Schreibtisch genauso wie mit den Füßen auf dem Sofa.<br/><br/>Heute ist Claude mit Dispatch für mich wie ein zweites Gehirn: Thumbnail erstellen, Video hochladen, Aufgaben erledigen - vieles geht per Sprachnachricht oder ist nur noch einen Knopfdruck entfernt!</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Silke van Beuningen<span style="font-weight:400">, <a href="https://silkevanbeuningen.de" target="_blank" rel="noopener" style="color:#00b3c3;text-decoration:underline;text-underline-offset:3px">silkevanbeuningen.de</a></span></figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Marit bringt einen klaren roten Faden in ein komplexes Thema - ihre Freude, Kompetenz und langjährige Erfahrung sind in jeder Lektion spürbar.<br/><br/><strong>Nach nur zwei halben Tagen mit Marits Kurs</strong> hat Claude Cowork für mich Dinge erledigt, die ich früher anstrengend fand: interne Verlinkungen im Blog, einen fertigen Blogartikel, einen Entwurf für eine neue Angebotsseite.<br/><br/>Ich bin hin und weg und empfehle Marit von Herzen weiter.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Maria Kosmala<span style="font-weight:400">, <a href="https://mariakosmala.com" target="_blank" rel="noopener" style="color:#00b3c3;text-decoration:underline;text-underline-offset:3px">mariakosmala.com</a></span></figcaption></figure></div></div></section><section class="about-section" style="background:#f7f8f5;padding:clamp(64px, 9vw, 108px) 0px"><div style="max-width:1200px;margin:0 auto"><div style="display:flex;gap:clamp(32px, 4vw, 56px);align-items:flex-start"><div class="about-img-desktop" style="flex-shrink:0"><img src="assets/portrait-marit.jpg" alt="Marit Alke" style="width:260px;height:260px;object-fit:cover;display:block;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.12)"/></div><div style="flex:1"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:left">Hallo, ich bin Marit!</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:left;text-wrap:pretty;margin:0;margin-bottom:24px">Vom Ausprobieren zum echten System</h2><img class="about-img-mobile" src="assets/portrait-marit.jpg" alt="Marit Alke" loading="lazy"/><div style="display:grid;gap:18px"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.2rem, 1.4vw, 1.375rem);color:#5a5a5a;line-height:1.75;text-align:left;text-wrap:pretty;margin:0">Im Februar 2026 habe ich Claude Cowork auf einer Workation entdeckt - und es war für mich ein zweiter großer Shift in der Arbeit mit KI. Plötzlich war da nicht mehr nur ein Chatbot, der antwortet. Da war ein Assistent, der auf meinem Rechner arbeitet, in meinen Ordnern schreibt, meine Tools kennt.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.2rem, 1.4vw, 1.375rem);color:#5a5a5a;line-height:1.75;text-align:left;text-wrap:pretty;margin:0">Seitdem lasse ich einen nervigen Workflow nach dem anderen los: Zoom-Aufzeichnung kommt rein, Kurslektion geht raus. Video transkribieren, hochladen &amp; einbetten, Newsletter fertig formatiert von Getresponse aus verschicken - mit einem Befehl. Ich baue Skills, kleine Skripte, interaktive Tools - und sogar ein eigenes Plugin. Dinge, die ich vorher so nicht allein machen konnte. Claude Cowork arbeitet im Hintergrund mit und ist gleichzeitig ein fähiger Programmierer - das ist mega!</p><div style="background:#ffffff;border:1.5px solid #ffb000;border-radius:5px;padding:clamp(20px, 2.5vw, 28px);box-shadow:0 3px 10px rgba(0,0,0,0.05)"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.2rem, 1.4vw, 1.375rem);color:#5a5a5a;line-height:1.75;text-align:left;text-wrap:pretty;margin:0">In diesem Kurs gebe ich alle Lernmaterialien weiter, die ich für mein Gruppenprogramm &quot;Claude Cowork Deep Dive Programm&quot; entwickelt habe - inzwischen über Monate gewachsen und geschärft an dem, was für Solo-Selbstständige wirklich nützlich ist. Du bekommst nicht nur Lektionen, sondern eine Infrastruktur, die mit dir weiterwächst.</p></div></div></div></div></div></section><section style="background:#ffffff;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Erfahrungsberichte</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0;margin-bottom:44px">Weitere Stimmen aus dem Programm</h2><div class="grid-quotes"><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Ich hatte tatsächlich etwas Berührungsängste mit der KI, da ich sie nicht so ohne weiteres auf meinen Rechner lassen wollte. Also habe ich mir ein Laptop für die KI gekauft, so als hätte ich eine neue Assistentin und würde ihr ein Laptop für die Zusammenarbeit zur Verfügung stellen. [...]<br/><br/><strong>Am meisten geflasht bin ich nach wie vor, dass Claude Cowork einfach viele Aufgaben parallel bearbeiten kann</strong> und ich meine täglichen ToDos auf diese Weise einfach „abgeben&quot; lerne.<br/><br/>Deine Lernvideos sind super einfach erklärt und strukturiert, damit kommen mein Assistent und ich gut weiter. Danke vielmals!</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Sandra · Teilnehmerin Gruppenkurs</figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">KI in allen Ausprägungen ist für meine Anwenderfragen als Solounternehmer ein ziemlicher Brocken - oder besser: der Mount Everest schlechthin.<br/><br/><strong>Marit ist für mich die richtige Sherpani</strong>, auch wenn sie mit der Spitzengruppe schon weit voraus ist. Ich fühle mich bestens aufgehoben mit meinen Fragen und Übungsergebnissen auch abseits der Hauptroute. Bin zuversichtlich, dass alle Pfade zum Gipfel führen.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Jörg · Teilnehmer Gruppenkurs</figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Mich hat besonders beeindruckt, welche Möglichkeiten sich dadurch eröffnen. [...]<br/><br/><strong>Dank Marits Inspirationen habe ich mich sogar getraut, eine eigene Sprachlern-App zu erstellen</strong>, ohne Programmier-Kenntnisse zu haben.<br/><br/>Auch die Begleitung durch Marit war einfach hervorragend: Sie ist sehr strukturiert, verfügt über ein beeindruckend tiefes Wissen und bringt gleichzeitig eine große Neugier mit, neue Dinge auszuprobieren und Zusammenhänge wirklich zu verstehen.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Marion Kellner · Teilnehmerin Gruppenkurs</figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0"><strong>Ich habe sehr viel erreicht</strong>, und was noch viel wichtiger ist: Ich weiß, dass ich durch den Kurs noch viel, viel mehr erreichen kann.<br/><br/>Liebe Marit, vielen Dank für die tollen neuen Möglichkeiten, die du mir durch den Kurs eröffnet hast. Ich kann deinen Kurs absolut empfehlen.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Andrea · Teilnehmerin Gruppenkurs</figcaption></figure></div></div></section><div style="background:#ffb000;color:#fff;text-align:center;padding:clamp(14px, 2vw, 22px) 32px;font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:600;font-size:clamp(1.4rem, 2.6vw, 2rem);line-height:1.2">Deine Investition:</div><div id="zugang"><div style="position:relative;background-image:url(&#x27;assets/hintergrund-claude-cowork-deepdive.jpg&#x27;);background-size:cover;background-position:center;padding:clamp(64px, 9vw, 104px) 24px"><div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.14) 100%)"></div><div style="position:relative;z-index:1;max-width:980px;margin:0 auto"><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.6rem, 3vw, 2.3rem);color:#ffffff;text-align:center;margin:0 0 32px;text-shadow:0 2px 12px rgba(0,0,0,0.45)">Dein Zugang zum Selbstlernkurs</h2><div class="pw-prices"><div style="background:#ffffff;border-radius:5px;padding:clamp(26px, 3.4vw, 36px);box-shadow:0 12px 36px rgba(0,0,0,0.22);text-align:center;display:flex;flex-direction:column"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.15rem;color:#3a3a3a;margin-bottom:10px">Selbstlernkurs</div><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(2.4rem, 5vw, 3.2rem);color:#3a3a3a;line-height:1;margin:4px 0 8px">195,- €</div><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:14.5px;color:#7b7b7b;margin-bottom:20px">netto zzgl. MwSt. (232,05 € brutto)<br/>Einmalige Zahlung · inklusive aller Updates</div><ul style="list-style:none;margin:0 0 24px;padding:0;text-align:left;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16.5px;color:#5a5a5a;line-height:1.5;flex:1"><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Alle Praxislektionen und Erklärlektionen</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Tutorials und direkt einsetzbare Skills</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Begleitender Autoresponder</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Lernen in deinem eigenen Tempo</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Zugang zu den Materialien und allen Updates mindestens 24 Monate nach Kauf</span></li></ul><a href="/ccdd-selbstlernkurs-checkout/" target="_blank" rel="noopener" class="cta-btn " style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:700;font-size:20px;background:#00b3c3;color:#ffffff;border:none;border-radius:6px;padding:14px 34px;cursor:pointer;display:block;text-align:center;text-decoration:none;width:100%;--hov:#ffb000">Selbstlernkurs buchen →</a></div><div style="background:#ffffff;border-radius:5px;padding:clamp(32px, 4vw, 44px) clamp(26px, 3.4vw, 40px) clamp(26px, 3.4vw, 40px);box-shadow:0 18px 50px rgba(0,0,0,0.30);border:2px solid #ffb000;text-align:center;position:relative;display:flex;flex-direction:column"><div style="position:absolute;top:-17px;left:50%;transform:translateX(-50%);background:#ffb000;color:#ffffff;font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;padding:8px 18px;border-radius:5px;white-space:nowrap;text-shadow:0 0 6px rgba(20,20,20,0.55)">Mit Live-Workshop-Woche</div><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.25rem;color:#3a3a3a;margin-bottom:10px">Selbstlernkurs mit Powerwoche</div><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(3rem, 7vw, 4.25rem);color:#3a3a3a;line-height:1;margin:4px 0 8px">275,- €</div><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:14.5px;color:#7b7b7b;margin-bottom:20px">netto zzgl. MwSt. (327,25 € brutto)<br/>Einmalige Zahlung · inklusive aller Updates</div><ul style="list-style:none;margin:0 0 24px;padding:0;text-align:left;font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16.5px;color:#5a5a5a;line-height:1.5;flex:1"><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Alles aus dem Selbstlernkurs inklusive 24 Monate Zugang</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Sechs Live-Workshops à 90 Minuten (4.-11.12.2026)</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Zwei Sprechstunden am Abend (7.12. und 9.12., 17 Uhr)</span></li><li style="display:flex;gap:10px;margin-bottom:8px"><span style="color:#a4c931;font-weight:700">✓</span><span>Austausch-Forum und alle Aufzeichnungen</span></li></ul><a href="/ccdd-selbstlernkurs-powerwoche-checkout/" target="_blank" rel="noopener" class="cta-btn cta-pulse-teal" style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:700;font-size:21px;background:#00b3c3;color:#ffffff;border:none;border-radius:6px;padding:17px 40px;cursor:pointer;display:block;text-align:center;text-decoration:none;width:100%;--hov:#ffb000">Mit Powerwoche buchen →</a><div style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:14.5px;color:#3a3a3a;font-weight:700;margin-top:12px">Buchbar bis Montag, 7.12.2026</div></div></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 3vw, 30px);margin-top:24px;box-shadow:0 12px 36px rgba(0,0,0,0.18)"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16.5px;color:#5a5a5a;line-height:1.65;margin:0"><strong style="color:#3a3a3a">Du hast den Selbstlernkurs schon?</strong> Die Infos zum Aufstocken auf die Powerwoche bekommst du separat per Mail.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#5a5a5a;line-height:1.65;margin:14px 0 0"><strong style="color:#3a3a3a">14 Tage Zufriedenheitsgarantie:</strong> Wenn du merkst, dass der Kurs nicht das Richtige für dich ist, kannst du innerhalb von 14 Tagen nach der Buchung zurücktreten. Ich erstatte dir den Kaufpreis abzüglich einer Bearbeitungspauschale von 20 €.</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:13.5px;color:#7b7b7b;line-height:1.6;margin:14px 0 0">Die Zahlung läuft über den Zahlungsdienstleister Mollie. Deine Rechnung bekommst du separat per E-Mail von mir, mit etwas Zeitverzug, da ich sie noch selbst erstelle.</p></div></div></div><div style="height:12px;background:#ffb000;width:100%"></div></div><section style="background:#ffffff;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Was ist drin?</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0">Acht Themenfelder - kein starres Modulsystem, sondern ein wachsender Werkzeugkasten</h2><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.05rem, 1.2vw, 1.15rem);color:#5a5a5a;text-align:center;max-width:700px;margin:20px auto 0;line-height:1.7">Die Lektionen sind nach Themen gruppiert, nicht in einer starren Modul-Abfolge. Du kannst chronologisch durchgehen oder gezielt bei dem Thema einsteigen, das dich gerade am meisten weiterbringt.</p><div style="display:grid;grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));gap:16px;margin-top:44px"><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Einführung</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Desktop-App, Oberfläche, Einstellungen - damit dein Cowork startklar ist, bevor es losgeht.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Erste Schritte &amp; Cowork-Briefing</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Ordnerpower, echte Dateien, Branding, Autopilot für wiederkehrende Aufgaben - die Kernfunktionen Schritt für Schritt erleben.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Konnektoren</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Claude verbindet sich mit deinen Tools: Notizen-App und mehr - erst spielerisch erleben, dann zu Workflows machen.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">HTML &amp; Landingpages</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Freebies selbst bauen, deine erste Landingpage, ein eigener Baukasten aus Design-Blöcken - ganz ohne Tool-Abo.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Video, Audio &amp; YouTube</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Transkription und Videoschnitt lokal auf deinem Rechner, YouTube als Wissensquelle für deine eigene Weiterbildung.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Social Media Bilder &amp; Folien</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Karussell-Posts, Bildbearbeitung und Folienvorlagen im eigenen Design - lokal erstellt, direkt einsetzbar.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Externe Tools &amp; Apps</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">API-Verbindungen, MCP-Konnektoren, Mini-Apps als Werkzeugbauer - Claude als Redakteur deiner Website.</p></div><div style="background:#f7f8f5;border-radius:5px;padding:24px 26px;border-top:4px solid #00b3c3;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.1rem;color:#3a3a3a;margin:0 0 10px;line-height:1.3">Weiterführendes</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:16px;color:#5a5a5a;line-height:1.6;margin:0">Deine CLAUDE.md gemeinsam überarbeiten, einen eigenen Skill bauen, Claudepedia als Glossar für alle Fachbegriffe.</p></div></div><div class="grid-extras" style="display:grid;grid-template-columns:repeat(3, 1fr);gap:16px;margin-top:16px"><div style="background:#ffffff;border-radius:5px;padding:22px 24px;border:1.5px solid #ffb000;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.05rem;color:#3a3a3a;margin:0 0 8px">Erklärlektionen</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15.5px;color:#5a5a5a;line-height:1.6;margin:0">Hintergrundwissen zu Tokens, Developer-Tools, Einstellungen, CLAUDE.md und mehr - damit du nicht nur anwendest, sondern verstehst und einordnen kannst, was Claude dir vorschlägt.</p></div><div style="background:#ffffff;border-radius:5px;padding:22px 24px;border:1.5px solid #ffb000;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.05rem;color:#3a3a3a;margin:0 0 8px">Tutorials für den Alltag</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15.5px;color:#5a5a5a;line-height:1.6;margin:0">Schritt-für-Schritt-Anleitungen für klassische Solo-Selbstständigen-Themen wie Landingpages, Videoschnitt oder Newsletter-Automatisierung - weitere kommen laufend dazu.</p></div><div style="background:#ffffff;border-radius:5px;padding:22px 24px;border:1.5px solid #ffb000;box-shadow:0 2px 8px rgba(0,0,0,0.07), 0 8px 24px rgba(0,0,0,0.11)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:1.05rem;color:#3a3a3a;margin:0 0 8px">Skills zum Installieren</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15.5px;color:#5a5a5a;line-height:1.6;margin:0">Fertige, geprüfte Skills von mir - direkt einsetzbar für typische Business-Prozesse.</p></div></div><div style="margin-top:32px;background:#f7f8f5;border-radius:5px;border:1.5px solid #03557f;padding:clamp(20px, 2.5vw, 28px) clamp(24px, 3vw, 36px);display:flex;gap:18px;align-items:flex-start"><span style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:20px;color:#03557f;flex-shrink:0;width:28px;height:28px;border-radius:50%;border:1.5px solid #03557f;display:flex;align-items:center;justify-content:center">i</span><div><p style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.3vw, 1.2rem);color:#3a3a3a;margin:0 0 8px">Der Kurs wächst weiter</p><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1rem, 1.2vw, 1.1rem);color:#5a5a5a;line-height:1.65;margin:0">Die Praxislektionen, Erklärlektionen und Skills sind fertig und sofort nutzbar. Bei den Tutorials (ausführliche Video-Anleitungen) für den Solo-Alltag ergänze ich noch einige weitere Themen, die für dich als Solo-Selbstständige besonders relevant sind. Per Mail erfährst du, wenn etwas Neues dazukommt.</p></div></div></div></section><section style="background:#f7f8f5;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:1040px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">Erfahrungsberichte</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0;margin-bottom:44px">Noch mehr Stimmen aus dem Programm</h2><div class="grid-quotes-3"><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Vor der Challenge bei Marit kannte ich Claude noch gar nicht. [...] Was mich neugierig gemacht hat, war das kostenfreie Webinar von Marit und wie sie gezeigt hat, dass man sich mit Claude einen eigenen Assistenten bauen kann, der die eigenen Prozesse abbildet.<br/><br/><strong>In den acht Wochen habe ich eine Landingpage gebaut, meinen Newsletter gestartet, bestehende Seiten SEO-optimiert und eine funktionierende Ordnerstruktur etabliert.</strong> [...]<br/><br/>Für Soloselbstständige lohnt sich das auf jeden Fall: Man baut sich einen eigenen digitalen Assistenten auf, der die eigenen Prozesse kennt.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Laura Sander · Teilnehmerin Gruppenkurs</figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0">Das war ein wilder Ritt für mich, ein Intensivkurs, der mich vom technischen Verständnis und der Umsetzung wirklich herausgefordert hat.<br/><br/><strong>Vermutlich hätte ich abgebrochen, wenn Marit uns als Nicht-Techies nicht so gut durch die „KI-Prärie&quot; geführt hätte.</strong> Ihre mutige und freudige Einstellung gegenüber diesem Mega-Tool mit seinen für „normale Cowboys&quot; unglaublichen Möglichkeiten hat mich auf dem Weg gehalten.<br/><br/>Ich freue mich darauf, meine Kreativität und Produktivität an den richtigen Stellen damit deutlich zu erweitern. Danke für dieses Zukunfts-Geschenk!</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Dr. Martina Nohl · Teilnehmerin Gruppenkurs<span style="font-weight:400">, <a href="https://genial-leben.com" target="_blank" rel="noopener" style="color:#00b3c3;text-decoration:underline;text-underline-offset:3px">genial-leben.com</a></span></figcaption></figure><figure style="background:#ffffff;border:1.5px solid #ecefe7;border-radius:5px;padding:clamp(28px, 3vw, 40px);margin:0;box-shadow:0 6px 20px rgba(0,0,0,0.06);display:flex;flex-direction:column;gap:18px"><div style="font-family:Georgia, serif;font-weight:700;font-size:60px;color:#ffb000;line-height:0.4;height:0.4em">&quot;</div><blockquote style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:400;font-style:normal;font-size:16.5px;line-height:1.65;color:#5a5a5a;margin:0"><strong>Ich habe meine Berührungsängste mit Claude verloren</strong>, erste Landingpages programmiert, ein paar Routineaufgaben ausgelagert und vor allem verstanden, wie viel mehr noch möglich ist, das ich nach und nach umsetzen werde.<br/><br/>Danke Marit, dass du uns eine so steile Lernkurve ermöglicht und immer für alle Fragen dagewesen bist - ohne dass wir dabei von dir „abhängig&quot; wurden. Du hast mich sehr ermutigt, meinen eigenen Weg zu gehen mit Claude und nicht so schnell locker zu lassen, wenn etwas nicht gleich funktioniert.<br/><br/>Denn oft kann Claude selbst mir helfen, die Lösung zu finden. Und das ist wirklich faszinierend.</blockquote><figcaption style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:15px;color:#7b7b7b;font-weight:700">— Bianca · Teilnehmerin Gruppenkurs</figcaption></figure></div></div></section><section style="background:#f7f8f5;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:800px;margin:0 auto"><div style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-size:13px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#00b3c3;margin-bottom:16px;text-align:center">FAQ</div><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#3a3a3a;line-height:1.18;text-align:center;text-wrap:pretty;margin:0">Häufige Fragen</h2><div style="display:grid;gap:16px;margin-top:44px"><p class="faq-group-label" style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.4vw, 1.25rem);color:#00b3c3;margin:0 0 -4px">Zur Powerwoche:</p><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Was ist die Powerwoche?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Eine Live-Online-Woche vom 4. bis 11. Dezember 2026 mit dem Ziel, dich beim Umsetzen des Selbstlernkurses zu unterstützen und dir einige zusätzliche Ideen mitzugeben:<br /><br />sechs Workshops im Zoom-Raum à 90 Minuten (Auftakt am Freitag, 4.12., dann Montag bis Freitag), zwei Sprechstunden am Abend, ein Austausch-Forum und alle Aufzeichnungen. Du kannst sie im Herbst 2026 gemeinsam mit dem Selbstlernkurs buchen.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Ich habe den Selbstlernkurs schon. Kann ich die Powerwoche dazubuchen?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Ja, du erhältst von mir einen exklusiven Rabattcode. Buchbar ist die Powerwoche idealerweise bis Freitag, 4.12., spätestens bis 7.12.2026 morgens. Die Infos zum Aufstocken bekommst du separat per Mail. Wenn bei dir nichts angekommen ist, schreib mir kurz an info@marit-alke.de.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Was, wenn ich nicht bei allen Live-Calls in der Powerwoche dabei sein kann?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Das ist ja ganz normal, es wird vermutlich niemand bei JEDEM einzelnen Termin dabei sein. 😊 Alle Live-Termine werden aufgezeichnet und du bekommst zeitnah die Aufzeichnungen mit Zeitmarken und Zusammenfassung. Wenn du in dieser Woche ein paar Zeitfenster frei hast und bei einigen der Termine live dabei sein kannst, wirst du aus meiner Sicht damit gut vorankommen. Außerdem kannst du während der Powerwoche jederzeit Fragen im Forum oder an mich per Mail stellen.</p></div><p class="faq-group-label" style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.05rem, 1.4vw, 1.25rem);color:#00b3c3;margin:24px 0 -4px">Zum Selbstlernkurs:</p><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Was ist der begleitende Autoresponder genau?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Eine automatisierte Mail-Serie, die nach deiner Anmeldung startet: einzelne Lektionen und Praxisaufgaben im Fokus, mit motivierenden Tipps und vertiefenden Erklärungen. Kein klassischer Community-Newsletter, sondern eine feste Abfolge - du bekommst sie komplett, egal wann du einsteigst. Über neue Inhalte im Kurs, die für alle relevant sind, informiere ich dich zusätzlich per Mail.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Bis wann sind die Inhalte zugänglich?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Du hast "unbegrenzt" (mindestens ca. 2 Jahre) Zugang zu allen Kursmaterialien inklusive aller Updates. Wenn du danach noch länger Zugang brauchst, kannst du mich gern individuell ansprechen.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Was, wenn mir der Kurs nicht gefällt?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Da es ein Selbstlernkurs ist und sich an Unternehmer:innen und Selbständige richtet, gibt es keine offizielle Rückgaberegelung. Ich gebe dir aber gern eine Zufriedenheits-Garantie: Innerhalb von 14 Tagen kannst du den Kurs zurückgeben, abzüglich einer Bearbeitungsgebühr von €20,- netto. (Für das Paket mit Powerwoche gilt dasselbe: Das Rücktrittsrecht von 14 Tagen beginnt mit der Buchung, eine zusätzliche Stornierungsfrist für die Powerwoche gibt es nicht.)<br /><br />Schreib mir einfach eine Mail und dann klären wir das.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Brauche ich die bezahlte Claude-Variante?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Ja, du brauchst mindestens das Pro-Paket sowie die Claude Desktop-App, um Claude Cowork nutzen zu können. Das Pro-Paket kostet aktuell 18 € pro Monat bei monatlicher Zahlung.</p></div><div style="background:#ffffff;border-radius:5px;padding:clamp(22px, 2.5vw, 30px);box-shadow:0 3px 12px rgba(0,0,0,0.05)"><h3 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1rem, 1.3vw, 1.15rem);color:#3a3a3a;margin:0 0 12px;line-height:1.35">Gibt es technische Voraussetzungen?</h3><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:17px;color:#5a5a5a;line-height:1.7;margin:0">Ja. Die Claude Desktop-App nutzt relativ viel Arbeitsspeicher und viele Funktionen deines Rechners - empfohlen sind <strong>mindestens 8 GB RAM, besser 16 GB</strong>. Auf älteren Computern kann die App möglicherweise nur eingeschränkt funktionieren. Du kannst sie auf mehreren Geräten installieren (z.B. Laptop und Desktop), brauchst dann aber einen Cloud-Dienst für einen einheitlichen Arbeitsordner. Das erkläre ich auch im Kurs.<br /><br />Mit einem kleinen kostenlosen Programm von Anthropic kannst du vorab direkt prüfen, ob dein Rechner startklar für Cowork ist: <a href="https://claude.com/docs/third-party/claude-desktop/installation#check-device-readiness" target="_blank" rel="noopener" style="color:#00b3c3;text-decoration:underline;text-underline-offset:3px;">Readiness-Check (englischsprachige Anthropic-Doku)</a>.</p></div></div></div></section><div style="background-image:url(&#x27;assets/gradient-tuerkis-lime.jpg&#x27;);background-size:cover;background-position:center;padding:clamp(64px, 9vw, 108px) 24px"><div style="max-width:720px;margin:0 auto;text-align:center"><img src="assets/glitter-sterne-orange.png" alt="" style="height:52px;margin-bottom:24px"/><h2 style="font-family:&#x27;Open Sans&#x27;, sans-serif;font-weight:700;font-size:clamp(1.7rem, 3.4vw, 2.6rem);color:#ffffff;line-height:1.18;margin-bottom:24px;text-wrap:pretty">Dein KI-System wartet darauf, aufgebaut zu werden.</h2><div style="background:#ffffff;border-radius:5px;padding:clamp(24px, 3vw, 36px);margin-bottom:36px;box-shadow:0 6px 24px rgba(0,0,0,0.10);text-align:left"><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:clamp(1.1rem, 1.3vw, 1.25rem);color:#5a5a5a;line-height:1.75;margin:0">Nicht irgendwann - jetzt! 😊 Sich in Claude Cowork einzuarbeiten ist wie das berühmte &quot;Säge schärfen&quot;: Jetzt Zeit und Energie investieren, um deine Workflows mit KI zu optimieren.<br/><br/>Jede Lektion bringt dich einen konkreten Schritt weiter: von der ersten Datei, die Claude selbst erstellt, bis zum Workflow, der läuft, während du anderen Dingen nachgehst. <strong>Am Ende hast du eine Infrastruktur, einen fähigen KI-Assistenten, der dich und deine Arbeitsprozesse sehr gut kennt und dich bei vielen Tätigkeiten entlastet.</strong></p></div><a href="#zugang" class="cta-btn cta-pulse-orange" style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-weight:700;font-size:21px;background:#ffb000;color:#ffffff;border:none;border-radius:6px;padding:17px 40px;cursor:pointer;display:inline-block;text-align:center;text-decoration:none;width:auto;--hov:#00b3c3">Zu den Preisen →</a></div></div><footer style="background:#3a3a3a;color:#ffffff;text-align:center;padding:40px 24px"><img src="assets/logo-marit-alke-schriftzug.png" alt="Marit Alke" style="height:30px;margin-bottom:16px;filter:brightness(0) invert(1);opacity:0.9"/><p style="font-family:&#x27;PT Sans&#x27;, sans-serif;font-size:14px;color:rgba(255,255,255,0.8);margin:0">© 2026 Marit Alke  ·  <a href="#" style="color:#fff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,0.4)">Impressum</a>  ·  <a href="#" style="color:#fff;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,0.4)">Datenschutz</a></p></footer></div></div>
 
 <script>
-// Parallax + reveal: warten bis React fertig gerendert hat
+// Parallax + reveal
 function initAnimations() {
   // ── Parallax ──────────────────────────────────────────────
   const heroBg = document.querySelector('header > div[style*="hero-header"]');
@@ -846,13 +180,16 @@ function initAnimations() {
   });
 }
 
-// React rendert async - kurz warten
-const waitForReact = setInterval(() => {
-  if (document.querySelector('#root > div')) {
-    clearInterval(waitForReact);
-    initAnimations();
-  }
-}, 100);
+// Powerwoche-Box: Einblenden beim Scrollen
+function initPwBox() {
+  const el = document.querySelector('.pw-box');
+  if (!el) return;
+  if (!('IntersectionObserver' in window)) { el.classList.add('in'); return; }
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { el.classList.add('in'); io.disconnect(); } }), { threshold: 0.25 });
+  io.observe(el);
+}
+initPwBox();
+initAnimations();
 </script>
 </body>
 </html>
