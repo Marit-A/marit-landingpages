@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webinar-Aufzeichnung: Wie du deinen KI-Assistenten einrichtest</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'PT Sans', sans-serif;
+      background: #ffffff;
+      color: #5a5a5a;
+      line-height: 1.7;
+    }
+
+    /* ── TRENNBALKEN ── */
+    .divider-orange-thin { height: 4px; background: #ffb000; }
+    .divider-orange      { height: 12px; background: #ffb000; }
+
+    /* ── HERO FOTO MIT TEXT ── */
+    .hero-photo {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background-image: url('hero-wasser-urwald.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.20) 50%, rgba(0,0,0,0) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+    .hero-content { max-width: 700px; }
+    .hero-pill {
+      display: inline-block;
+      background: #ffb000;
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 3px rgba(20,20,20,0.7), 0 0 8px rgba(20,20,20,0.55), 0 0 14px rgba(20,20,20,0.35);
+    }
+    .hero-content h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+    }
+
+    /* ── INTRO TEXT ── */
+    .intro-section {
+      background: #ffffff;
+      padding: 40px 24px 44px;
+      text-align: center;
+    }
+    .intro-section p {
+      font-size: 18px;
+      color: #5a5a5a;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* ── VIDEO SEKTION ── */
+    .video-section {
+      background: #f7f8f5;
+      padding: 48px 24px 56px;
+    }
+    .video-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 12px 40px rgba(0,0,0,0.10);
+      overflow: hidden;
+    }
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── ORANGER BANNER ── */
+    .orange-banner {
+      background: #ffb000;
+      padding: 22px 24px;
+      text-align: center;
+    }
+    .orange-banner h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 3px rgba(20,20,20,0.7), 0 0 8px rgba(20,20,20,0.55), 0 0 14px rgba(20,20,20,0.35);
+    }
+    .orange-banner p {
+      font-size: 16px;
+      color: #ffffff;
+      margin-top: 6px;
+      text-shadow: 0 0 3px rgba(20,20,20,0.7), 0 0 8px rgba(20,20,20,0.55), 0 0 14px rgba(20,20,20,0.35);
+    }
+
+    /* ── ZEITMARKEN SEKTION ── */
+    .chapters-section {
+      background: #ffffff;
+      padding: 52px 24px 64px;
+    }
+    .chapters-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .chapters-heading {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      color: #3a3a3a;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* Zwei Spalten, Fluss von oben nach unten */
+    .chapters-columns {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+    }
+    .chapters-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chapters-col:first-child { padding-right: 20px; }
+    .chapters-col:last-child  { padding-left: 20px; }
+    .chapters-divider {
+      width: 1px;
+      background: #e8edf2;
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+    @media (max-width: 620px) {
+      .chapters-columns { flex-direction: column; }
+      .chapters-col:first-child { padding-right: 0; }
+      .chapters-col:last-child  { padding-left: 0; }
+      .chapters-divider { display: none; }
+    }
+
+    /* Karte */
+    .chapter-card {
+      background: #ffffff;
+      border: 1.5px solid #e8edf2;
+      border-radius: 6px;
+      padding: 14px 16px 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chapter-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      border-color: #00b3c3;
+    }
+    .chapter-card.has-link:hover {
+      border-color: #ffb000;
+    }
+    .chapter-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .chapter-time {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffb000;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .chapter-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #3a3a3a;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .chapter-link-hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      color: #7a9e22;
+      font-weight: 700;
+      padding-left: 23px;
+    }
+    /* Kleiner Pfeil unten zentriert */
+    .chapter-arrow {
+      text-align: center;
+      color: #00b3c3;
+      font-size: 11px;
+      margin-top: 8px;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .chapter-card.has-link .chapter-arrow { color: #ffb000; }
+
+    /* ── ANGEBOT SEKTION ── */
+    .offer-section {
+      background: #f7f8f5;
+      padding: 56px 20px 64px;
+    }
+    .offer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .offer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .offer-image-wrap { max-width: 100%; margin: 0 auto; }
+    }
+
+    .offer-image-wrap {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .offer-image-wrap:hover {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    }
+    .offer-image-wrap img {
+      width: 100%;
+      display: block;
+    }
+
+    .offer-content .eyebrow {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00b3c3;
+      margin-bottom: 12px;
+    }
+    .offer-content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+      color: #3a3a3a;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .offer-content p {
+      font-size: 17px;
+      color: #5a5a5a;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .price-block {
+      background: #ffffff;
+      border: 1.5px solid #e8edf2;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .price-regular {
+      font-size: 15px;
+      color: #7b7b7b;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .price-current {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #3a3a3a;
+      margin-bottom: 6px;
+    }
+    .price-current span {
+      font-size: 15px;
+      font-weight: 400;
+      color: #7b7b7b;
+    }
+    .price-code {
+      font-size: 15px;
+      color: #5a5a5a;
+      line-height: 1.6;
+    }
+    .code-badge {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      background: #fff8e6;
+      color: #c07800;
+      border: 1px solid #ffb000;
+      border-radius: 4px;
+      padding: 2px 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-offer {
+      display: inline-block;
+      background: #00b3c3;
+      color: #ffffff;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-offer:hover {
+      background: #009aaa;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,179,195,0.30);
+    }
+
+    /* ── TRANSKRIPT DOWNLOAD ── */
+    .transcript-section {
+      background: #f7f8f5;
+      padding: 40px 24px 48px;
+      text-align: center;
+    }
+    .transcript-section p {
+      font-size: 16px;
+      color: #5a5a5a;
+      max-width: 560px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .btn-transcript {
+      display: inline-block;
+      background: #3a3a3a;
+      color: #ffffff;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-transcript:hover {
+      background: #555555;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.20);
+    }
+
+
+    /* ── KOPFZEILE ── */
+    .site-header { background:#ffffff; padding:18px 24px; }
+    .site-header-inner { max-width:960px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .site-logo img { display:block; height:36px; width:auto; }
+    .site-home { font-family:'Open Sans',sans-serif; font-size:16px; font-weight:600; color:#3a3a3a; text-decoration:none; }
+    .site-home:hover { color:#00b3c3; }
+    /* ── ZUSAMMENFASSUNG (aufklappbar) ── */
+    .summary-details { max-width:860px; margin:0 auto; border:1.5px solid #e8edf2; border-radius:6px; background:#ffffff; box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:left; }
+    .summary-details summary { cursor:pointer; list-style:none; padding:16px 22px; font-family:'Open Sans',sans-serif; font-weight:700; font-size:16px; color:#3a3a3a; display:flex; align-items:center; gap:12px; }
+    .summary-details summary::-webkit-details-marker { display:none; }
+    .summary-details summary::before { content:'\25B8'; color:#00b3c3; font-size:18px; transition:transform .2s ease; }
+    .summary-details[open] summary::before { transform:rotate(90deg); }
+    .summary-body { padding:0 22px 22px; }
+    .btn-slides { display:block; box-sizing:border-box; max-width:860px; margin:16px auto 0; background:#00b3c3; color:#ffffff; font-family:'PT Sans',sans-serif; font-size:22px; font-weight:700; text-align:center; text-decoration:none; padding:18px 24px; border-radius:5px; text-shadow:0 0 6px rgba(20,20,20,0.55); transition:background .2s ease, transform .2s ease; }
+    .btn-slides:hover { background:#009aaa; transform:translateY(-2px); }
+    .btn-copy { background:#00b3c3; color:#ffffff; border:none; border-radius:5px; font-family:'PT Sans',sans-serif; font-size:18px; font-weight:700; padding:12px 28px; cursor:pointer; text-shadow:0 0 6px rgba(20,20,20,0.55); margin-bottom:16px; transition:background .2s ease; }
+    .btn-copy:hover { background:#7a9e22; }
+    .summary-text { white-space:pre-wrap; font-size:16px; line-height:1.65; color:#5a5a5a; max-height:480px; overflow:auto; border-top:1px solid #e8edf2; padding-top:16px; }
+    /* ── ANGEBOT: Zusatz ── */
+    .offer-note { font-size:15px; color:#7b7b7b; line-height:1.6; margin:18px 0 0; }
+    .price-line { font-size:16px; color:#5a5a5a; margin-top:4px; }
+    .price-line.small { font-size:14px; color:#7b7b7b; }
+    .eyebrow-dates { font-size:15px; color:#7b7b7b; margin-bottom:18px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #3a3a3a;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer p { font-size: 14px; color: #9a9a9a; line-height: 1.6; }
+    .footer a { color: #00b3c3; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-logo" href="https://marit-alke.de" target="_blank" rel="noopener"><img src="logo-marit-alke-schriftzug.png" alt="Marit Alke"></a>
+      <a class="site-home" href="https://marit-alke.de" target="_blank" rel="noopener">Home</a>
+    </div>
+  </header>
+
+  <div class="divider-orange-thin"></div>
+
+  <!-- Hero Foto mit Text -->
+  <div class="hero-photo">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <span class="hero-pill">Webinar-Aufzeichnung · 6. Oktober 2026</span>
+        <h1>Wie du deinen KI-Assistenten einrichtest, der viel mehr kann als nur chatten</h1>
+      </div>
+    </div>
+  </div>
+  <div class="divider-orange"></div>
+
+  <!-- Intro Text -->
+  <section class="intro-section">
+    <p>
+      Schön, dass du dabei warst oder dir die Aufzeichnung anschaust.
+      Hier findest du das komplette Webinar mit allen Live-Demos und der Fragerunde.
+      Darunter kannst du direkt zu den Abschnitten springen, die dich am meisten interessieren.
+    </p>
+  </section>
+
+  <!-- Video -->
+  <section class="video-section">
+    <div class="video-wrap">
+      <iframe
+        id="webinar-video"
+        src="https://www.youtube.com/embed/zbOoy4T6spg?si=9G5P50B8tFXB6iTG"
+        title="Webinar-Aufzeichnung: Wie du deinen KI-Assistenten einrichtest"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Oranger Banner -->
+  <div class="orange-banner">
+    <h2>Springe direkt zu deinem Thema</h2>
+    <p>Klicke auf einen Abschnitt, das Video startet genau an dieser Stelle.</p>
+  </div>
+
+  <!-- Zeitmarken -->
+  <section class="chapters-section">
+    <div class="chapters-inner">
+      <h2 class="chapters-heading">Überblick über die Inhalte mit Sprungmarken</h2>
+      <div class="chapters-columns">
+        <div class="chapters-col" id="col-left"></div>
+        <div class="chapters-divider"></div>
+        <div class="chapters-col" id="col-right"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zusammenfassung zum Kopieren -->
+  <section class="transcript-section">
+    <p>Möchtest du das Webinar mit deiner KI auswerten? Hier ist die ausführliche Zusammenfassung zum Aufklappen. Mit einem Klick kopierst du den Text und gibst ihn in deinen Chat.</p>
+    <details class="summary-details">
+      <summary>Zusammenfassung anzeigen und kopieren</summary>
+      <div class="summary-body">
+        <button type="button" class="btn-copy" id="copy-summary">Text kopieren</button>
+        <div class="summary-text" id="summary-text"># Zusammenfassung: Wie du deinen KI-Assistenten einrichtest, der viel mehr kann als nur chatten
+
+Webinar mit Marit Alke am 6. Oktober 2026. Aufzeichnung: https://youtu.be/zbOoy4T6spg
+
+## Worum es ging
+
+Ein How-to für alle, die frisch mit Claude als Assistent in der Desktop-App (Claude Cowork) starten: Was richte ich zuerst ein, welche Einstellungen sind wichtig, wie verbinde ich Claude mit meinen Tools? Dazu eine Demo, in der Claude auf einen Schlag einen kompletten kostenlosen Mini-Videokurs mit allen Materialien erstellt.
+
+## Chatbot oder Cowork: der Unterschied
+
+Im reinen Chat liefert die KI Ergebnisse, aber Dateien muss man selbst hochladen, herunterladen und weiterverarbeiten. In der Claude Desktop-App arbeitet Claude (Cowork) direkt in deinen Ordnern und Programmen auf deinem Rechner. Es gibt sie auch in der kostenlosen Version, dann aber nur mit Chat. Cowork braucht die Bezahlversion und läuft auf dem Computer, nicht auf Handy oder Tablet. Eine auf dem Rechner begonnene Aufgabe lässt sich aber vom Handy aus weiterführen, solange die App am Rechner geöffnet bleibt. Chat und Cowork sollen in Zukunft zu einer Oberfläche zusammenwachsen.
+
+Das Besondere an agentischer KI: Claude arbeitet ganze Ketten von Aufgaben selbstständig ab, innerhalb des Rahmens, den du absteckst. Der dauerhafte Zugriff auf Ordner und Dateien ist der eigentliche Kern, denn so entsteht nach und nach ein Unternehmensgedächtnis.
+
+Marits Ansatz: Sie lässt Claude nicht frei laufen, sondern spielt jeden einzelnen Schritt einmal selbst mit ihm durch, so als säße ein neuer Assistent neben ihr. Erst danach werden die Schritte zu größeren Abläufen kombiniert.
+
+## Ist der Ordnerzugriff riskant?
+
+Man gibt ein Stück Kontrolle ab, das gehört dazu. Claude kommt aber nur an den Ordner, den du freigibst, und fragt nach, wenn ihm der Zugriff fehlt. Cowork hat klarere Regeln als Claude Code. Marits Empfehlungen: keine Klardaten von Kunden in den Chat, keine Passwörter im Ordner (die gehören in einen Passwortmanager), und hochsensible Dinge wie Gesundheitsdaten gar nicht erst auf der Arbeitsfestplatte lagern. Wer Mitarbeitende hat, braucht eine zusätzliche Sicherheitsschicht.
+
+## Die Demo: ein Mini-Videokurs mit 14 Materialien
+
+Ausgangslage: drei fertige Videos, ein eingesprochener Text für die Anmeldeseite, ein Hintergrundbild. Mit einem kompakten Prompt entstanden in Marits Designsystem drei Landingpages bzw. Kursseiten, fünf Autoresponder-Mails, ein PDF-Workbook, Präsentationsfolien, ein Social-Media-Karussell und ein Kasten für die Startseite. Dazu eine Übersichtsseite als Demo. Ihr Fazit: Was früher Tage dauerte, ist jetzt auf einen Schlag da, mit etwa 90 Prozent Toleranz gegenüber dem Ergebnis des Assistenten.
+
+Im zweiten Schritt, dem Veröffentlichen, weiß Claude durch Skills, was wohin gehört: Videos zum Videohoster (bei Marit Gumlet, alternativ Vimeo) samt Einbettungscode und Transkript, Landingpages zu WordPress oder Netlify, Mails als Entwurf zu GetResponse, Social-Media-Posts über Buffer. Social-Media-Texte spricht Marit vorher selbst ein und lässt sie nicht schreiben. Der Skill verlangt außerdem, dass sie vor der Veröffentlichung Text und Bild freigibt.
+
+## Warum das möglich war
+
+Claude selbst hat es so beschrieben: Marit war schnell, weil die Entscheidungen vorher getroffen und aufgeschrieben waren, sodass eine Maschine sie anwenden kann. Dazu gehören ein Designsystem mit klaren Regeln, die CLAUDE.md, ein Briefing, vorhandene Beispiele im Ordner (frühere Mails, Karussells) und die Fähigkeit, die eigene Arbeit zu prüfen, indem Claude Seiten rendert und Screenshots kontrolliert. Tipp: Frag Claude immer wieder, was er gemacht hat und wie es funktioniert hat, und akzeptiere nicht einfach das erste Ergebnis.
+
+## So startest du
+
+1. Lege einen eigenen Arbeitsordner an, am besten mit einem Kürzel im Namen, damit du ihn leicht wiederfindest, und verbinde ihn in Claude. Besprich mit Claude, wie ihr ihn organisiert.
+2. Empfehlung nach Marits Erfahrung: ein Ordner „Zu löschen“ und ein Input-Ordner, der nur deinen eigenen Input enthält und den du jederzeit ungesehen leeren kannst. Ergebnisse legt Claude in neuen Ordnern an.
+3. Business-Infos als Textdatei (MD): Wer bist du, deine Zielgruppe, dein Geschäftsmodell, dein Schreibstil, deine Workflows und Tools. Deine Marke (Logo, Farben, Schriften, Beispiele, Hintergrundbilder, Icons) kommt in einen Branding-Ordner.
+4. Wenn du bisher mit ChatGPT gearbeitet hast: Lass dir dort ein kurzes, strukturiertes Übergabedokument über dein Business schreiben, lade es in den Ordner und besprich es mit Claude. MD-Dateien sind für KI am besten lesbar.
+5. Bei jedem neuen Projekt gibst du Claude als Vorlage deine bisherigen Ergebnisse (zum Beispiel frühere Mails als Screenshot oder HTML) und sagst, was dir gefällt und was er ändern soll.
+
+Weitere Fähigkeiten mit Ordnerzugriff: Inhalte von Fotos und handschriftlichen Zetteln auslesen, Ordner sortieren und Dateien umbenennen, Dateien umwandeln (zum Beispiel JPEG in PDF).
+
+## Die CLAUDE.md: deine Bedienungsanleitung
+
+Diese Textdatei liest Claude zu Beginn jeder Arbeit zuerst. Sie sagt, welche Datei wann zu lesen ist (zum Beispiel Business-Kontext und Schreibstil bei Texten, das Designsystem bei Landingpages) und enthält Spielregeln, etwa: Keys und Passwörter nie im Chat zeigen, kein Computer Use, bei Problemen innehalten und nachfragen statt weiter zu probieren. Wenn dich etwas nervt, lass es in die CLAUDE.md schreiben. Mit CLAUDE.md fragt Claude bei „Bau mir eine Landingpage“ nicht erst alles ab, sondern liest Designsystem und Branding und schlägt direkt einen Text vor.
+
+## Die wichtigsten Einstellungen in der App
+
+- Datenschutz und Speicher: Du kannst Chats durchsuchen lassen und Gedächtnis aus Chats erzeugen lassen. Marit hat sensible Themen im Gedächtnis ausgeschaltet. Das Gedächtnis kannst du einsehen und per Prompt ändern.
+- Cowork: Vertrauenswürdige Ordner festlegen (zum Beispiel Arbeitsordner und Input-Ordner), Dateien in einem festen Ordner ablegen lassen.
+- Funktionen: Codeausführung und Dateierstellung müssen erlaubt sein, sonst ist Cowork deutlich weniger hilfreich und Skills funktionieren nicht.
+- Ausgehender Netzwerkverkehr: Marit wählt nicht „alle Domains“, sondern die Paketmanager plus gezielt erlaubte Domains der Tools, die sie nutzt (zum Beispiel Zoom, Cloudinary, GetResponse, Gumlet). Sonst müsste sie vieles von Hand ins Terminal einfügen.
+- Computer Use (Claude durchsucht den gesamten Rechner nach Apps) ist ihr einen Schritt zu viel, höchstens zeitweise.
+
+## Die Verbindung nach draußen: vier Wege
+
+1. Fertiger Konnektor aus dem Verzeichnis (unter „Anpassungen“), zum Beispiel Google Drive oder Notion. Mit den Toolberechtigungen legst du genau fest, was Claude darf.
+2. Eigener Konnektor über einen MCP-Server: Du gibst Namen und URL ein und wirst durch die Anmeldung geführt. Claude erklärt dir, was der Server kann.
+3. API-Skript: Wenn es keinen Konnektor gibt, lässt du dir von Claude ein Skript für die API des Tools erstellen und Schritt für Schritt erklären.
+4. Browser Use: Claude klickt sich im Browser durch, zum Beispiel in WordPress. Das ist nicht Computer Use und muss erlaubt werden.
+
+Zu WordPress: Mit einem eigenen Benutzer und einem Anwendungspasswort kann Claude zugreifen, als Redakteur ist das für die meisten Aufgaben sinnvoller als als Admin.
+
+## Die .env-Datei: Passwörter niemals in den Chat
+
+Passwörter und API-Keys gehören in eine versteckte .env-Datei im Arbeitsordner. Claude schreibt nur Skripte, die sich den Schlüssel dort herausholen, ohne dass er im Chat erscheint. Prompt: „Ich möchte Passwörter speichern, bitte lege eine .env-Datei für mich an und sag mir die Variablen, die du für dieses Tool brauchst.“ Auf dem Mac blendest du versteckte Dateien mit Umschalt, Command und Punkt ein.
+
+## Skills und Puzzlesteine
+
+Wenn ein Prozess einmal gut funktioniert hat, sag: „Mach mir daraus einen Skill.“ So entstehen Skills bei Marit, statt sie irgendwo herunterzuladen. Ihr Prinzip: Erst die einzelnen Arbeitsschritte verstehen und kontrolliert anlegen (Videos lokal schneiden, Bildcollagen bauen, Transkripte erstellen, ein Tool per Konnektor oder API anbinden). Diese Puzzlesteine lassen sich dann zu Super-Prompts verbinden, zum Beispiel: Idee aus der Notion-Datenbank holen, mit eingesprochenem Text und Stilinfos zum Newsletter machen, Grafik erzeugen und als Entwurf in das Newsletter-Programm laden.
+
+## Das Herbstangebot
+
+Der Claude Cowork Selbstlernkurs führt Schritt für Schritt durch diese Einrichtung und viele weitere Praxislektionen. Neu: die Powerwoche vom 4. bis 11. Dezember 2026 mit Live-Workshops, Sprechstunden, Austauschforum und Aufzeichnungen. Du kannst nur den Selbstlernkurs buchen und später aufstocken: Wer den Kurs hat, zahlt für die Powerwoche 80 Euro zuzüglich MwSt. Der Zugang zum Kurs bleibt mindestens zwei Jahre bestehen, es gibt eine 14-tägige Zufriedenheitsgarantie.
+
+## Aus der Fragerunde
+
+- Kurssystem in WordPress bauen lassen? Möglich, aber nichts für den ersten Schritt. Prüfen lassen, ob das Plugin über die REST-API erreichbar ist, mit Claude beraten und Schritt für Schritt vorgehen, keinen Super-Prompt.
+- Passt der Kurs, wenn ich bei null starte? Eher nicht. Er setzt ein eigenes Business, ein Branding und erste Erfahrung mit einem KI-Chatbot voraus. Landingpages entstehen lokal als HTML und werden über Netlify oder WordPress veröffentlicht.
+- Datenschutz und Kundendaten: Vorher anonymisieren (zum Beispiel Namen aus einer Tabelle entfernen und hinterher wieder zusammenführen) oder mit Platzhaltern arbeiten. Es gibt auch Anonymisierungs-Tools für Unternehmen.
+- Powerwoche später zubuchen: Ja, bis kurz vorher, mit einem Rabattcode für Kursbesitzer.
+- Social-Media-Visuals: Claude baut sie lokal als HTML und macht daraus ein Bild, mit Vorlagen, Designsystem, Hintergrundbild, Porträt und Logo. Eine KI-Bildgenerierung hat er nicht. Teilnehmende berichteten vom Adobe-Konnektor für Firefly. Neu und für die Co-Kreation hilfreich: die Dokument-Funktion, in der du Texte selbst bearbeitest.
+- Canva nutzt Marit kaum noch, weil der Umweg über das Tool Zeit kostet und die Canva-KI oft enttäuscht.
+- Ohne WordPress? Ja, Claude kann HTML erstellen, das sich in andere Seiten einbinden oder über Netlify veröffentlichen lässt. Der Kurs ist keine reine Einsteigerschulung, die späteren Lektionen werden anspruchsvoller. Es gibt zusätzlich einen Lernmentor-Skill, mit dem du den Kurs im Chat durcharbeitest.</div>
+      </div>
+    </details>
+    <a class="btn-slides" href="https://lp.marit-alke.de/folien-ki-assistent-6.10/">Zu den Folien</a>
+  </section>
+
+  <div class="divider-orange"></div>
+
+  <!-- Angebot -->
+  <section class="offer-section">
+    <div class="offer-inner">
+      <div class="offer-image-wrap" onclick="window.open('https://lp.marit-alke.de/claude-cowork-selbstlernkurs/', '_blank')">
+        <img src="vorschaubild-ccdd-powerwoche.jpg" alt="Claude Cowork Selbstlernkurs plus Powerwoche im Dezember">
+      </div>
+      <div class="offer-content">
+        <p class="eyebrow">Mein Herbstangebot</p>
+        <h2>Claude Cowork Selbstlernkurs plus Powerwoche im Dezember</h2>
+        <p class="eyebrow-dates">Powerwoche: 4. bis 11. Dezember 2026, live per Zoom, buchbar bis 7. Dezember</p>
+        <p>
+          Du willst das, was du im Webinar gesehen hast, Schritt für Schritt für dein eigenes Business umsetzen?
+          Im Selbstlernkurs richtest du Claude Cowork ein, automatisierst deine Prozesse und baust Skills,
+          die wirklich zu dir passen, in deinem eigenen Tempo. In der Powerwoche im Dezember kommst du mit mir gemeinsam
+          voran: mit sechs Live-Workshops, zwei Abend-Sprechstunden, einem Austauschforum und allen Aufzeichnungen.
+        </p>
+
+        <div class="price-block">
+          <div class="price-current">275 € <span>Selbstlernkurs mit Powerwoche</span></div>
+          <div class="price-line small">zzgl. MwSt., das sind 327,25 € brutto, einmalige Zahlung</div>
+        </div>
+
+        <a href="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/" class="btn-offer" target="_blank">
+          Zum Angebot
+        </a>
+
+        <p class="offer-note">
+          Du kannst auch erst einmal nur den Selbstlernkurs buchen (195 € zzgl. MwSt., 232,05 € brutto)
+          und später aufstocken: Wer den Selbstlernkurs hat, zahlt für die Powerwoche 80 € zzgl. MwSt. (95,20 € brutto).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      &copy; 2026 Marit Alke ·
+      <a href="https://marit-alke.de/impressum" target="_blank">Impressum</a> ·
+      <a href="https://marit-alke.de/datenschutz" target="_blank">Datenschutz</a>
+    </p>
+  </footer>
+
+  <script>
+    // Parallax Hero
+    const heroPhoto = document.querySelector('.hero-photo');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      heroPhoto.style.backgroundPosition = `left calc(50% + ${y * 0.35}px)`;
+    }, { passive: true });
+
+    const chapters = [
+      { seconds: 0, time: "0:00:00", title: "Willkommen: Worum es heute geht" },
+      { seconds: 135, time: "0:02:15", title: "Wer ist Marit? Mein Weg zu Claude Cowork" },
+      { seconds: 367, time: "0:06:07", title: "Chatbot oder Cowork: Was agentische KI ausmacht" },
+      { seconds: 560, time: "0:09:20", title: "Ist der Ordnerzugriff riskant?" },
+      { seconds: 742, time: "0:12:22", title: "Demo: Ein kompletter Mini-Videokurs mit 14 Materialien" },
+      { seconds: 1044, time: "0:17:24", title: "Was muss wohin? Veröffentlichen mit Skills" },
+      { seconds: 1390, time: "0:23:10", title: "Warum das möglich war: Entscheidungen vorher aufschreiben" },
+      { seconds: 1623, time: "0:27:03", title: "Mein Arbeitsordner und das Unternehmensgedächtnis" },
+      { seconds: 1714, time: "0:28:34", title: "Mein Fazit: Früher und heute" },
+      { seconds: 1808, time: "0:30:08", title: "Mein Herbstangebot: Selbstlernkurs plus Powerwoche" },
+      { seconds: 1901, time: "0:31:41", title: "Fragen: Externe Festplatte, Projekte, WordPress-Zugang" },
+      { seconds: 2340, time: "0:39:00", title: "So startest du: Arbeitsordner und Input-Ordner anlegen" },
+      { seconds: 2401, time: "0:40:01", title: "Umzug von ChatGPT: Das Übergabedokument" },
+      { seconds: 2690, time: "0:44:50", title: "Was Claude mit dem Ordner noch alles kann" },
+      { seconds: 2779, time: "0:46:19", title: "Die CLAUDE.md: Deine Bedienungsanleitung für Claude" },
+      { seconds: 3030, time: "0:50:30", title: "Die wichtigsten Einstellungen in der App (live)" },
+      { seconds: 3360, time: "0:56:00", title: "Vier Wege, wie Claude mit deinen Tools spricht" },
+      { seconds: 3630, time: "1:00:30", title: "Die .env-Datei: Passwörter niemals in den Chat" },
+      { seconds: 3804, time: "1:03:24", title: "Aus Gelungenem einen Skill machen" },
+      { seconds: 3931, time: "1:05:31", title: "Puzzlesteine und Super-Prompts" },
+      { seconds: 4023, time: "1:07:03", title: "Rückfrage: Powerwoche später aufstocken" },
+      { seconds: 4149, time: "1:09:09", title: "Fragerunde: Kurssystem in WordPress mit Claude bauen?" },
+      { seconds: 4430, time: "1:13:50", title: "Passt der Selbstlernkurs, wenn ich bei null starte?" },
+      { seconds: 4555, time: "1:15:55", title: "Cowork vom Handy oder Tablet weiterführen" },
+      { seconds: 4648, time: "1:17:28", title: "Datenschutz: Kundendaten anonymisieren" },
+      { seconds: 4930, time: "1:22:10", title: "Social Media: Adobe Firefly, Dokument-Funktion, Canva" },
+      { seconds: 5430, time: "1:30:30", title: "Ohne WordPress? Und wie lange gibt es den Kurs?" },
+      { seconds: 5650, time: "1:34:10", title: "Abschluss und Verabschiedung" }
+    ];
+
+    const colLeft  = document.getElementById('col-left');
+    const colRight = document.getElementById('col-right');
+    const videoEl  = document.getElementById('webinar-video');
+    const BASE_URL = 'https://www.youtube.com/embed/zbOoy4T6spg';
+    const split    = Math.ceil(chapters.length / 2); // zwei Spalten
+
+    function makeCard(ch) {
+      const card = document.createElement('a');
+      card.className = 'chapter-card' + (ch.link ? ' has-link' : '');
+      card.href = '#';
+
+      card.innerHTML = `
+        <div class="chapter-card-top">
+          <div class="chapter-time">${ch.time}</div>
+          <div class="chapter-title">${ch.title}</div>
+        </div>
+        ${ch.link ? `<div class="chapter-link-hint">Direkt zum Kurs</div>` : ''}
+        <div class="chapter-arrow">&#9662;</div>
+      `;
+
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (ch.link) {
+          window.open(ch.link, '_blank');
+        } else {
+          videoEl.src = BASE_URL + '?start=' + ch.seconds + '&autoplay=1';
+          document.querySelector('.video-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      return card;
+    }
+
+    // Sprunglink aus der Mail: Seite?t=Sekunden
+    (function () {
+      const t = parseInt(new URLSearchParams(window.location.search).get('t'), 10);
+      if (!isNaN(t) && t >= 0) {
+        videoEl.src = BASE_URL + '?start=' + t + '&autoplay=1';
+        window.addEventListener('load', function () {
+          document.querySelector('.video-section').scrollIntoView({ block: 'center' });
+        });
+      }
+    })();
+
+    chapters.forEach((ch, i) => {
+      const card = makeCard(ch);
+      (i < split ? colLeft : colRight).appendChild(card);
+    });
+
+    // Zusammenfassung kopieren
+    (function () {
+      const btn = document.getElementById('copy-summary');
+      const box = document.getElementById('summary-text');
+      if (!btn || !box) return;
+      btn.addEventListener('click', function () {
+        const text = box.textContent;
+        const done = function () { btn.textContent = 'Kopiert!'; setTimeout(function () { btn.textContent = 'Text kopieren'; }, 2000); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, fallback);
+        } else { fallback(); }
+        function fallback() {
+          const r = document.createRange(); r.selectNodeContents(box);
+          const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          sel.removeAllRanges();
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
