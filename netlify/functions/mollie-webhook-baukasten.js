@@ -1,19 +1,27 @@
 const https = require("https");
 const tls   = require("tls");
 const { produkte } = require("./baukasten-produkte.json");
+const { kontaktAbgleichenUndAnlegen } = require("./lexoffice-kontakt");
 
 // Baukasten-Webhook: einer für alle Produkte aus baukasten-produkte.json.
 // Nach einer bezahlten Zahlung:
 // 1. Kurszugang im SimpleCourses-Plugin freischalten (nur Produkte mit "kurszugang")
 // 2. parallel dazu: Kontakt in die GetResponse-Liste des Produkts eintragen
 //    (die Liste verschickt als Autoresponder die Bestätigungsmail)
-// 3. Bestell-Info an Marit, sobald Schritt 1 fertig ist, mit dessen Ergebnis
+// 3. parallel dazu: Lexoffice-Kontakt abgleichen und bei Bedarf anlegen (lexoffice-kontakt.js,
+//    ohne Rechnung; Schalter LEXOFFICE_API_KEY und LEXOFFICE_KONTAKTE in Netlify)
+// 4. Bestell-Info an Marit, sobald Schritt 1 und 3 fertig sind, mit deren Ergebnis
 // SMTP-Client und GetResponse-Aufrufe 1:1 aus mollie-webhook-vibe-coding.js.
 const MOLLIE_API_KEY      = process.env.MOLLIE_API_KEY_BAUKASTEN;
 const GETRESPONSE_API_KEY = process.env.GETRESPONSE_API_KEY;
 const POSTEO_EMAIL        = process.env.POSTEO_EMAIL;
 const POSTEO_PASSWORD     = process.env.POSTEO_PASSWORD;
 const NOTIFY_TO           = "info@marit-alke.de";
+// Lexoffice-Kontakt: ohne Schlüssel wird der Schritt übersprungen. Angelegt wird nur bei
+// LEXOFFICE_KONTAKTE=an, sonst ist es ein Probelauf (die Info-Mail sagt, was passieren würde).
+const LEXOFFICE_API_KEY   = process.env.LEXOFFICE_API_KEY;
+const LEXOFFICE_ANLEGEN   = String(process.env.LEXOFFICE_KONTAKTE || "").toLowerCase() === "an";
+const LEXOFFICE_FRIST_MS  = 7000;
 
 // Kursplattformen mit dem Kauf-Eingang des SimpleCourses-Plugins (class-purchase-api.php).
 // Das Kennwort steht dort in der wp-config.php als SC_PURCHASE_SECRET.
@@ -66,11 +74,17 @@ exports.handler = async (event) => {
 
   // GetResponse läuft parallel zum Kurszugang. Die Info-Mail wartet auf den Kurszugang,
   // damit Marit darin sieht, ob die Freischaltung geklappt hat.
+  // Der Lexoffice-Kontakt läuft von Anfang an mit, scheitert nie laut (Fehler landen nur in der Info-Mail)
+  const kontaktLauf = lexofficeKontakt(produkt, payment);
+
   const [, zugang] = await Promise.all([
     updateGetResponse(produkt, m.email, m.firstName || "", rabattFuer(produkt, m.discountCode)),
     (async () => {
-      const ergebnis = await freischalten(produkt, payment, rabattFuer(produkt, m.discountCode));
-      await sendNotificationMail(produkt, payment, ergebnis);
+      const [ergebnis, kontakt] = await Promise.all([
+        freischalten(produkt, payment, rabattFuer(produkt, m.discountCode)),
+        kontaktLauf
+      ]);
+      await sendNotificationMail(produkt, payment, ergebnis, kontakt);
       return ergebnis;
     })()
   ]);
@@ -83,6 +97,30 @@ exports.handler = async (event) => {
   }
   return { statusCode: 200, body: "OK" };
 };
+
+// ── Lexoffice-Kontakt ─────────────────────────────────────────────────────────
+
+// Gleicht den Kontakt ab und legt ihn bei Bedarf an. Höchstens LEXOFFICE_FRIST_MS lang,
+// damit die Info-Mail auch bei einer langsamen Lexoffice-API rechtzeitig rausgeht.
+async function lexofficeKontakt(produkt, payment) {
+  let timer;
+  const frist = new Promise(resolve => {
+    timer = setTimeout(() => resolve({ ergebnis: "fehler", ok: false, text: "FEHLER: Lexoffice hat nicht rechtzeitig geantwortet. Bitte Kontakt von Hand prüfen oder anlegen." }), LEXOFFICE_FRIST_MS);
+  });
+  try {
+    const ergebnis = await Promise.race([
+      kontaktAbgleichenUndAnlegen(payment, { key: LEXOFFICE_API_KEY, anlegen: LEXOFFICE_ANLEGEN, produktName: produkt.name }),
+      frist
+    ]);
+    console.log(`Lexoffice-Kontakt (${payment.id}): ${ergebnis.ergebnis} - ${ergebnis.text}`);
+    return ergebnis;
+  } catch (err) {
+    console.error("Lexoffice-Kontakt Fehler:", err.message);
+    return { ergebnis: "fehler", ok: false, text: `FEHLER: ${err.message}. Bitte Kontakt von Hand prüfen oder anlegen.` };
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 // ── Kurszugang ────────────────────────────────────────────────────────────────
 
@@ -185,13 +223,13 @@ async function getContactByEmail(email, campaignId) {
 
 // ── Bestell-Benachrichtigung per E-Mail ─────────────────────────────────────────
 
-async function sendNotificationMail(produkt, payment, zugang) {
+async function sendNotificationMail(produkt, payment, zugang, kontakt) {
   if (!(POSTEO_EMAIL && POSTEO_PASSWORD)) {
     console.log("Benachrichtigungsmail übersprungen: POSTEO_EMAIL/POSTEO_PASSWORD nicht gesetzt");
     return;
   }
   try {
-    const { subject, text } = buildNotificationEmail(produkt, payment, zugang);
+    const { subject, text } = buildNotificationEmail(produkt, payment, zugang, kontakt);
     await sendMail({
       host: "posteo.de",  // nicht "smtp.posteo.de", diesen Namen gibt es nicht (Ursache der fehlenden Info-Mails, 11.09.2026)
       port: 465,
@@ -209,7 +247,7 @@ async function sendNotificationMail(produkt, payment, zugang) {
   }
 }
 
-function buildNotificationEmail(produkt, payment, zugang) {
+function buildNotificationEmail(produkt, payment, zugang, kontakt) {
   const m = payment.metadata || {};
   const name = [m.firstName, m.lastName].filter(Boolean).join(" ") || "(unbekannt)";
   const amount = payment.amount ? `${payment.amount.value} ${payment.amount.currency}` : "(unbekannt)";
@@ -231,6 +269,7 @@ function buildNotificationEmail(produkt, payment, zugang) {
     `Zahlbetrag: ${amount}`,
     m.discountCode ? `Rabattcode: ${m.discountCode}` : null,
     zugang.text ? `Kurszugang: ${zugang.text}` : null,
+    kontakt && kontakt.ergebnis !== "uebersprungen" ? `Lexoffice-Kontakt: ${kontakt.text}` : null,
     produkt.digitaler_inhalt ? `Zustimmung sofortiger Beginn (Widerrufsrecht erlischt): ${m.widerrufVerzicht === "true" ? "ja" : "nein"}` : null,
     `Mollie Payment-ID: ${payment.id || "(unbekannt)"}`,
     dashboardUrl ? `Mollie Dashboard: ${dashboardUrl}` : null,
@@ -239,7 +278,7 @@ function buildNotificationEmail(produkt, payment, zugang) {
   ].filter(line => line !== null);
 
   return {
-    subject: `${zugang.ok ? "" : "⚠️ Kurszugang prüfen! "}Neue Bestellung: ${name}`,
+    subject: `${zugang.ok ? "" : "⚠️ Kurszugang prüfen! "}${kontakt && !kontakt.ok ? "⚠️ Lexoffice-Kontakt prüfen! " : ""}Neue Bestellung: ${name}`,
     text: lines.join("\n")
   };
 }

@@ -94,6 +94,25 @@
       line-height: 1.55;
     }
 
+    .price-box.form-price { margin: 1.5rem 0 0; }
+    .price-box.price-top { padding: 0.55rem 1rem; }
+    .price-box.price-top .price-main { font-size: 1.15rem; }
+    .price-box .price-label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-mid);
+      margin-bottom: 0.35rem;
+    }
+    .price-box .price-rabatt { display: none; font-size: 0.9rem; color: var(--text-mid); line-height: 1.6; margin-bottom: 0.4rem; }
+    .price-box .price-rabatt strong { color: #2e7d32; }
+    .price-box.rabattiert { border-left-color: #2e7d32; background: #f1f8ee; }
+    .price-box.rabattiert .price-main { color: #2e7d32; }
+    .hint.discount-ok { color: #2e7d32; font-weight: 700; font-size: 0.95rem; }
+    .hint.discount-error { color: #b3261e; font-weight: 700; font-size: 0.9rem; }
+
     .benefits {
       list-style: none;
       font-size: 0.95rem;
@@ -234,6 +253,7 @@
       .card-header { padding: 1.25rem 1.5rem 1rem; }
       .form-body { padding: 0 1.5rem 1.5rem; }
       .price-box { margin: 1.1rem 1.5rem; }
+      .price-box.form-price { margin: 1.25rem 0 0; }
       .benefits { margin: 0 1.5rem 1.1rem; }
       .info-box, .note-box { margin: 0 1.5rem 1.1rem; }
     }
@@ -251,9 +271,8 @@
     </div>
     <div class="orange-bar"></div>
 
-    <div class="price-box">
-      <div class="price-main" id="priceMain">195,00 &euro; netto <span class="price-zusatz">zzgl. gesetzl. MwSt.</span></div>
-      <div class="price-detail" id="priceDetail">Aus Deutschland (oder ohne gültige EU-USt-IdNr.) zahlst du 232,05&nbsp;&euro; inkl. 19&nbsp;% MwSt. Mit gültiger EU-USt-IdNr. außerhalb Deutschlands gilt Reverse Charge (Steuerschuldnerschaft des Leistungsempfängers), dann zahlst du den Nettobetrag.</div>
+    <div class="price-box price-top">
+      <div class="price-main">195,00&nbsp;&euro; netto <span class="price-zusatz">(232,05&nbsp;&euro; inkl. 19&nbsp;% MwSt.)</span></div>
     </div>
 
     <ul class="benefits">
@@ -362,7 +381,7 @@
       <div class="form-group">
         <label for="vatId">USt-IdNr. / Schweizer UID <span class="optional">(optional, für Unternehmen)</span></label>
         <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678 oder CHE-123.456.789" autocomplete="off">
-        <div class="hint"><strong>Nur für Käufer:innen von außerhalb Deutschlands relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, du zahlst dann den Preis ohne deutsche MwSt. Die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird. Aus der Schweiz oder einem anderen Land außerhalb der EU trägst du hier deine Unternehmens-ID ein (z.&nbsp;B. die Schweizer UID).</div>
+        <div class="hint"><strong>Nur für Käufer:innen von außerhalb Deutschlands relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, du zahlst dann den Preis ohne deutsche MwSt. Die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird. Aus der Schweiz oder einem anderen Land außerhalb der EU trägst du hier deine Unternehmens-ID ein (z.&nbsp;B. die Schweizer UID).<br><strong>Bei Fragen dazu bitte <u>vor</u> Zahlung bei mir melden.</strong></div>
       </div>
 
       <div class="form-section-title">Rabattcode</div>
@@ -374,6 +393,13 @@
         </div>
         <input type="hidden" name="discountCode" id="discountCode" value="">
         <div class="hint" id="discountFeedback">Die Prüfung und der endgültige Preis kommen beim Absenden vom Server.</div>
+      </div>
+
+      <div class="price-box form-price" id="priceBox">
+        <div class="price-label">Dein Preis</div>
+        <div class="price-rabatt" id="priceRabatt"></div>
+        <div class="price-main" id="priceMain">195,00 &euro; netto <span class="price-zusatz">zzgl. gesetzl. MwSt.</span></div>
+        <div class="price-detail" id="priceDetail">Bruttopreis inkl. 19&nbsp;% MwSt.: <strong>232,05&nbsp;&euro;</strong></div>
       </div>
 
       <div class="checkbox-group">
@@ -405,12 +431,24 @@
     var BASIS_NETTO = 195.00;
     var CODES = { "PROCLUB20": 20.00 };
     var aktiverCode = "";
-    function eur(n) { return n.toFixed(2).replace(".", ",") + "\u00a0\u20ac"; }
+    function eur(n) { return n.toFixed(2).replace(".", ",") + " €"; }
     function renderPrice() {
-      var netto = BASIS_NETTO - (aktiverCode ? CODES[aktiverCode] : 0);
+      var rabatt = aktiverCode ? CODES[aktiverCode] : 0;
+      var netto = BASIS_NETTO - rabatt;
       var brutto = Math.round(netto * 119) / 100;
+      var box = document.getElementById("priceBox");
+      var zeile = document.getElementById("priceRabatt");
+      if (aktiverCode) {
+        zeile.style.display = "block";
+        zeile.innerHTML = 'Preis ohne Code: <s>' + eur(BASIS_NETTO) + ' netto</s><br>Rabattcode ' + aktiverCode + ': <strong>−' + eur(rabatt) + ' netto</strong>';
+        box.classList.add("rabattiert");
+      } else {
+        zeile.style.display = "none";
+        zeile.innerHTML = "";
+        box.classList.remove("rabattiert");
+      }
       document.getElementById("priceMain").innerHTML = eur(netto) + ' netto <span class="price-zusatz">zzgl. gesetzl. MwSt.</span>';
-      document.getElementById("priceDetail").innerHTML = 'Aus Deutschland (oder ohne gültige EU-USt-IdNr.) zahlst du ' + eur(brutto) + ' inkl. 19\u00a0% MwSt. Mit gültiger EU-USt-IdNr. außerhalb Deutschlands gilt Reverse Charge (Steuerschuldnerschaft des Leistungsempfängers), dann zahlst du den Nettobetrag.';
+      document.getElementById("priceDetail").innerHTML = 'Bruttopreis inkl. 19 % MwSt.: <strong>' + eur(brutto) + '</strong>';
     }
     function applyDiscount() {
       var code = document.getElementById("discountInput").value.trim().toUpperCase();
@@ -418,15 +456,27 @@
       if (code && Object.prototype.hasOwnProperty.call(CODES, code)) {
         aktiverCode = code;
         document.getElementById("discountCode").value = code;
-        fb.textContent = "Code angewendet. Dein Preis ist aktualisiert.";
+        fb.className = "hint discount-ok";
+        fb.textContent = "✓ Super, das hat geklappt! Dein Rabattcode wurde angenommen, den neuen Preis siehst du direkt darunter.";
       } else {
         aktiverCode = "";
         document.getElementById("discountCode").value = "";
-        fb.textContent = code ? "Diesen Code kenne ich nicht. Bitte prüfe die Eingabe." : "Die Prüfung und der endgültige Preis kommen beim Absenden vom Server.";
+        if (code) {
+          fb.className = "hint discount-error";
+          fb.textContent = "Diesen Code kenne ich nicht. Bitte prüfe die Eingabe.";
+        } else {
+          fb.className = "hint";
+          fb.textContent = "Die Prüfung und der endgültige Preis kommen beim Absenden vom Server.";
+        }
       }
       renderPrice();
     }
     document.getElementById("discountApplyBtn").addEventListener("click", applyDiscount);
+    document.getElementById("discountInput").addEventListener("input", function() {
+      // Gültiger Code: Preis sofort anpassen, ohne dass "Anwenden" geklickt werden muss
+      var c = this.value.trim().toUpperCase();
+      if (Object.prototype.hasOwnProperty.call(CODES, c) || aktiverCode) applyDiscount();
+    });
     document.getElementById("discountInput").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); applyDiscount(); } });
     document.getElementById("checkoutForm").addEventListener("submit", function() {
       var eingabe = document.getElementById("discountInput").value.trim().toUpperCase();
