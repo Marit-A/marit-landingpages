@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anmeldung eingegangen – KI-InspiCamp 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ic-turquoise: #00b3c3;
+      --ic-navy: #03557f;
+      --ic-yellow: #fdde4a;
+      --ic-white: #ffffff;
+      --ic-ink: #12303f;
+      --ic-gray-700: #4a5c66;
+      --ic-gray-500: #77888f;
+      --ic-gray-200: #dfe7eb;
+      --ic-gray-100: #f1f5f7;
+      --font-display: 'Raleway', 'Trebuchet MS', sans-serif;
+      --font-body: 'Open Sans', 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      font-size: 17px;
+      background: var(--ic-gray-100);
+      color: var(--ic-gray-700);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1rem;
+    }
+    .card {
+      background: var(--ic-white);
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(3, 85, 127, .10);
+      width: 100%;
+      max-width: 520px;
+      overflow: hidden;
+      text-align: center;
+    }
+    .card-top {
+      background: linear-gradient(180deg, rgba(1,52,74,.55), rgba(1,52,74,.22) 45%, rgba(1,52,74,.55)), url("hintergrund.jpg") center / cover no-repeat;
+      padding: 2.75rem 2rem 2.25rem;
+      color: var(--ic-white);
+      text-shadow: 0 2px 12px rgba(1, 52, 74, .45);
+    }
+    .checkmark {
+      width: 56px; height: 56px; background: var(--ic-yellow); color: var(--ic-navy); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem; font-size: 1.5rem; text-shadow: none; font-weight: 700;
+    }
+    .card-top h1 { font-family: var(--font-display); font-weight: 800; font-size: 1.5rem; margin-bottom: 0.6rem; }
+    .card-top p { font-size: 1rem; line-height: 1.6; }
+    .yellow-bar { height: 8px; background: var(--ic-yellow); }
+    .card-body { padding: 2rem; }
+    .steps { text-align: left; margin-top: 0.5rem; }
+    .step { display: flex; gap: 0.9rem; align-items: flex-start; margin-bottom: 1.15rem; }
+    .step-icon {
+      width: 2rem; height: 2rem; min-width: 2rem; background: var(--ic-gray-100);
+      border: 1.5px solid var(--ic-turquoise); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-body); font-size: 0.85rem; font-weight: 700; color: var(--ic-navy); margin-top: 0.1rem;
+    }
+    .step-text { font-size: 0.95rem; line-height: 1.6; color: var(--ic-gray-700); }
+    .step-text strong { color: var(--ic-navy); }
+    .step-text a { color: var(--ic-navy); }
+    .footer-note {
+      margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--ic-gray-200);
+      font-size: 0.88rem; color: var(--ic-gray-500); line-height: 1.6;
+    }
+    .footer-note a { color: var(--ic-navy); }
+    .footer { margin-top: 2rem; font-size: 0.8rem; color: var(--ic-gray-500); text-align: center; }
+    .footer a { color: var(--ic-gray-500); }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="card-top">
+      <div class="checkmark">✓</div>
+      <h1>Schön, dass du dabei bist!</h1>
+      <p>Deine Anmeldung fürs KI-InspiCamp am 17. &amp; 18. September 2027 in Bonn ist eingegangen. Sobald die Zahlung bestätigt ist, bekommst du eine Mail.</p>
+    </div>
+    <div class="yellow-bar"></div>
+    <div class="card-body">
+      <div class="steps">
+        <div class="step">
+          <div class="step-icon">1</div>
+          <div class="step-text"><strong>Bestätigung</strong><br>Bei Kreditkarte und PayPal passiert das meist innerhalb weniger Minuten. Bei SEPA-Überweisung erst, wenn das Geld angekommen ist, das kann ein paar Tage dauern.</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">2</div>
+          <div class="step-text"><strong>Alle Infos zum Event</strong><br>Du bekommst eine Mail mit allen Details, näher am Termin erhältst du noch weitere Infos.</div>
+        </div>
+        <div class="step">
+          <div class="step-icon">3</div>
+          <div class="step-text"><strong>Rechnung per E-Mail</strong><br>Deine Rechnung bekommst du separat in den nächsten Tagen.</div>
+        </div>
+      </div>
+      <div class="footer-note">
+        Du hast per Kreditkarte oder PayPal bezahlt, aber nach einer Stunde ist noch keine Mail da? Schau kurz im Spam-Ordner nach. Und sonst schreib uns an <a href="mailto:info@marit-alke.de">info@marit-alke.de</a>, wir kümmern uns darum.
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.marit-alke.de/impressum" target="_blank">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutz</a>
+  </div>
+
+</body>
+</html>

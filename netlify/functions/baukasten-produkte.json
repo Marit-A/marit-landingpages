@@ -92,6 +92,19 @@
           "hinweis": "70 EUR netto Rabatt fuer Deep-Design-Teilnehmer:innen."
         }
       }
+    },
+    "inspicamp": {
+      "name": "KI-InspiCamp 2027 - Ticket",
+      "kennung": "inspicamp_2027",
+      "netto_cent": 29700,
+      "seite": "inspicamp-checkout",
+      "digitaler_inhalt": false,
+      "volle_ust": true,
+      "info_an": ["info@marit-alke.de", "mail@dariavision.de"],
+      "getresponse": {
+        "liste_id": "7bhfY",
+        "tag": "inspicamp_2027"
+      }
     }
   }
 }

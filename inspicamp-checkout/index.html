@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KI-InspiCamp 2027 – Jetzt anmelden</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@500;600;700;800&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ic-turquoise: #00b3c3;
+      --ic-turquoise-700: #03818d;
+      --ic-turquoise-050: #eefafc;
+      --ic-navy: #03557f;
+      --ic-navy-700: #02445f;
+      --ic-yellow: #fdde4a;
+      --ic-yellow-600: #f2ce22;
+      --ic-yellow-100: #fff8d7;
+      --ic-white: #ffffff;
+      --ic-ink: #12303f;
+      --ic-gray-700: #4a5c66;
+      --ic-gray-500: #77888f;
+      --ic-gray-200: #dfe7eb;
+      --ic-gray-100: #f1f5f7;
+      --font-display: 'Raleway', 'Trebuchet MS', sans-serif;
+      --font-body: 'Open Sans', 'Segoe UI', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 17px;
+      background: var(--ic-gray-100);
+      color: var(--ic-gray-700);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    .banner {
+      width: 100%;
+      max-width: 560px;
+      border-radius: 10px;
+      display: block;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 4px 16px rgba(3, 85, 127, .10);
+    }
+
+    .card {
+      background: var(--ic-white);
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(3, 85, 127, .10);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+
+    .card-header { padding: 1.75rem 2rem 1.25rem; }
+
+    .card-header .logo { height: 34px; width: auto; margin-bottom: 1rem; }
+
+    .card-header .label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ic-turquoise-700);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-header h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.55rem;
+      color: var(--ic-navy);
+      line-height: 1.25;
+      letter-spacing: -0.005em;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-header .description {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: var(--ic-gray-700);
+    }
+
+    .card-header .description strong { color: var(--ic-navy); font-weight: 700; }
+
+    .yellow-bar { height: 6px; background: var(--ic-yellow); }
+
+    .price-box {
+      background: var(--ic-turquoise-050);
+      border-left: 4px solid var(--ic-yellow);
+      margin: 1.25rem 2rem;
+      padding: 1rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .price-box .price-tier-badge {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: var(--ic-yellow);
+      color: var(--ic-navy);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-box .price-main {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--ic-navy);
+    }
+
+    .price-box .price-gross {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--ic-gray-500);
+    }
+
+    .price-box .price-was {
+      font-size: 0.92rem;
+      color: var(--ic-gray-500);
+      margin-top: 0.4rem;
+    }
+
+    .price-box .price-was strong { color: var(--ic-navy); font-weight: 700; }
+
+    .price-box .price-detail {
+      font-size: 0.86rem;
+      color: var(--ic-gray-500);
+      margin-top: 0.5rem;
+      line-height: 1.55;
+    }
+
+    .benefits {
+      list-style: none;
+      font-size: 0.93rem;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.5;
+    }
+
+    .benefits li::before {
+      content: "\2713";
+      color: var(--ic-turquoise-700);
+      font-weight: 700;
+      flex: none;
+    }
+
+    .info-box {
+      background: var(--ic-turquoise-050);
+      border: 1px solid #cdeaec;
+      border-radius: 6px;
+      padding: 0.85rem 1.05rem;
+      font-size: 0.88rem;
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .info-box strong { color: var(--ic-navy); }
+    .info-box ul { margin: 0.35rem 0 0 1.1rem; padding: 0; }
+    .info-box li { margin-bottom: 0.3rem; }
+
+    .note-box {
+      background: var(--ic-yellow-100);
+      border: 1px solid #f6e6a0;
+      border-radius: 6px;
+      padding: 0.85rem 1.05rem;
+      font-size: 0.86rem;
+      color: #6a5310;
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .note-box strong { color: #4a3a0a; }
+
+    .note-box-inline {
+      background: var(--ic-yellow-100);
+      border: 1px solid #f6e6a0;
+      border-radius: 6px;
+      padding: 0.75rem 0.9rem;
+      font-size: 0.84rem;
+      color: #6a5310;
+      line-height: 1.6;
+      margin: 0.35rem 0 1rem;
+    }
+
+    .note-box-inline strong { color: #4a3a0a; }
+    .note-box-inline a { color: #4a3a0a; text-decoration: underline; }
+
+    .form-body { padding: 0 2rem 2rem; }
+
+    .form-section-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--ic-gray-500);
+      margin: 1.5rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid var(--ic-gray-200);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-group { margin-bottom: 0.75rem; }
+
+    label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--ic-navy);
+      margin-bottom: 0.3rem;
+    }
+
+    label .optional { font-weight: 400; color: var(--ic-gray-500); font-size: 0.8rem; }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid var(--ic-gray-200);
+      border-radius: 6px;
+      font-family: inherit;
+      font-size: 0.98rem;
+      color: var(--ic-ink);
+      background: var(--ic-white);
+      transition: border-color .15s;
+    }
+
+    input:focus, select:focus { outline: none; border-color: var(--ic-turquoise); }
+
+    .hint { font-size: 0.8rem; color: var(--ic-gray-500); margin-top: 0.3rem; line-height: 1.5; }
+
+    .checkbox-group { margin-top: 1.5rem; }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--ic-gray-700);
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 1.1rem; height: 1.1rem; min-width: 1.1rem;
+      margin-top: 0.15rem; accent-color: var(--ic-turquoise);
+    }
+
+    .checkbox-label a { color: var(--ic-navy); text-decoration: underline; }
+
+    .btn-pay {
+      display: block;
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.95rem 1.5rem;
+      background: var(--ic-yellow);
+      color: var(--ic-navy);
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 0 rgba(217, 180, 0, .55);
+      transition: background .18s, transform .18s, box-shadow .18s;
+    }
+
+    .btn-pay:hover { background: var(--ic-yellow-600); transform: translateY(-1px); box-shadow: 0 4px 0 rgba(217, 180, 0, .55); }
+    .btn-pay:active { transform: scale(.985); }
+    .btn-pay:disabled { background: #c9c9c9; color: #777; cursor: not-allowed; box-shadow: none; transform: none; }
+
+    .security-note { text-align: center; font-size: 0.8rem; color: var(--ic-gray-500); margin-top: 0.85rem; line-height: 1.5; }
+
+    .footer { margin-top: 2rem; font-size: 0.8rem; color: var(--ic-gray-500); text-align: center; }
+    .footer a { color: var(--ic-gray-500); }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .card-header { padding: 1.4rem 1.5rem 1rem; }
+      .form-body { padding: 0 1.5rem 1.5rem; }
+      .price-box { margin: 1.1rem 1.5rem; }
+      .benefits { margin: 0 1.5rem 1.1rem; }
+      .info-box, .note-box { margin: 0 1.5rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <img class="banner" src="checkout-banner-2027.jpg" alt="Teilnehmende beim KI-InspiCamp im Austausch">
+
+  <div class="card">
+    <div class="card-header">
+      <img class="logo" src="logo-tuerkis.png" alt="InspiCamp">
+      <div class="label">Live-BarCamp · 17. &amp; 18. September 2027 in Bonn</div>
+      <h1>Das BarCamp für Soloselbständige, die KI sinnvoll nutzen wollen</h1>
+      <div class="description">Zwei Tage live in Bonn: <strong>miteinander und voneinander lernen auf Augenhöhe</strong>, Austausch, Begegnung und Inspiration, die dein Business beflügelt. Start Freitag, 17. September, ca. 14 Uhr (Eintrudeln und optional Lunch schon ab 12 Uhr), Ende Samstag, 18. September, ca. 18 Uhr.<br><br>Wie beim InspiCamp seit 2014 üblich: Open Space, kein festes Programm, die Sessions bringt ihr selbst mit. Hast du Lust, dabei zu sein?</div>
+    </div>
+    <div class="yellow-bar"></div>
+
+    <div class="price-box">
+      <div class="price-tier-badge" id="tierBadge">Preis bis 28.02.2027</div>
+      <div class="price-main" id="priceMain">&euro; 297,- zzgl. 19&nbsp;% MwSt. <span class="price-gross">(353,43&nbsp;&euro; inkl. MwSt.)</span></div>
+      <div class="price-was" id="priceWas">Danach <strong>€ 327,- netto</strong> (Frühbucherpreis bis 30.06.2027), ab 01.07.2027 <strong>€ 377,- netto</strong> (Spontanbucher-Preis).</div>
+    </div>
+
+    <ul class="benefits">
+      <li>2&times; Mittagessen, dazu Snacks, Wasser, Säfte, Tee und Kaffee</li>
+      <li>Alle Räume und der offene Austausch im Open-Space-Format, den ihr gemeinsam gestaltet</li>
+      <li>Veranstaltungsort: JH Bonn Venusberg, Haager Weg 42, 53127 Bonn</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>So geht's nach der Buchung weiter:</strong>
+      <ul>
+        <li>Du bekommst gleich eine Bestätigungsmail mit allen Infos rund ums Event.</li>
+        <li>Deine Rechnung bekommst du separat in den nächsten Tagen per E-Mail.</li>
+        <li>Näher am Termin erhältst du noch alle weiteren Infos.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <strong>Hinweis zur Zahlung:</strong> Die Bezahlung läuft sicher über den Zahlungsdienstleister <strong>Mollie</strong> (Kreditkarte, PayPal, SEPA u.&nbsp;a.).
+    </div>
+
+    <form class="form-body" method="POST" action="/.netlify/functions/create-payment-baukasten" id="checkoutForm">
+      <input type="hidden" name="produkt" value="inspicamp">
+
+      <div class="form-section-title">Deine Angaben</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Vorname *</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nachname *</label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+      </div>
+
+      <div class="form-section-title">Rechnungsadresse</div>
+
+      <div class="form-group">
+        <label for="company">Firma <span class="optional">(optional)</span></label>
+        <input type="text" id="company" name="company" autocomplete="organization">
+      </div>
+
+      <div class="form-group">
+        <label for="street">Straße und Hausnummer *</label>
+        <input type="text" id="street" name="street" required autocomplete="street-address">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zip">PLZ *</label>
+          <input type="text" id="zip" name="zip" required autocomplete="postal-code">
+        </div>
+        <div class="form-group">
+          <label for="city">Ort *</label>
+          <input type="text" id="city" name="city" required autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Land *</label>
+        <select id="country" name="country" required autocomplete="country">
+          <option value="DE" selected>Deutschland</option>
+          <option value="AT">Österreich</option>
+          <option value="CH">Schweiz</option>
+          <option value="BE">Belgien</option>
+          <option value="BG">Bulgarien</option>
+          <option value="HR">Kroatien</option>
+          <option value="CY">Zypern</option>
+          <option value="CZ">Tschechien</option>
+          <option value="DK">Dänemark</option>
+          <option value="EE">Estland</option>
+          <option value="FI">Finnland</option>
+          <option value="FR">Frankreich</option>
+          <option value="GR">Griechenland</option>
+          <option value="HU">Ungarn</option>
+          <option value="IE">Irland</option>
+          <option value="IT">Italien</option>
+          <option value="LV">Lettland</option>
+          <option value="LT">Litauen</option>
+          <option value="LU">Luxemburg</option>
+          <option value="MT">Malta</option>
+          <option value="NL">Niederlande</option>
+          <option value="PL">Polen</option>
+          <option value="PT">Portugal</option>
+          <option value="RO">Rumänien</option>
+          <option value="SK">Slowakei</option>
+          <option value="SI">Slowenien</option>
+          <option value="ES">Spanien</option>
+          <option value="SE">Schweden</option>
+          <option value="GB">Vereinigtes Königreich</option>
+          <option value="US">USA</option>
+          <option value="XX">Sonstiges Land</option>
+        </select>
+        <div class="hint">Für deine Rechnungsadresse.</div>
+      </div>
+
+      <div class="form-group">
+        <div class="note-box-inline">
+          <strong>Hinweis für Teilnehmende aus dem Ausland:</strong> Bei Präsenzveranstaltungen wie dem InspiCamp gilt steuerlich der Ort der Veranstaltung, hier Deutschland. Wir können dir deshalb keine umsatzsteuerbefreite Rechnung ausstellen, auch nicht mit gültiger ausländischer USt-IdNr., und unabhängig davon, ob du Privatperson oder Unternehmerin bist (mehr dazu in diesem <a href="https://www.dihk.de/de/themen-und-positionen/geaenderte-verwaltungsauffassung-zum-leistungsort-bei-praesenzveranstaltungen-55096" target="_blank">Artikel der IHK</a>). Melde dich gern bei uns, dann schauen wir gemeinsam nach der besten Lösung für dich.
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" name="agb" required>
+          <span>Ich habe die <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a> und die <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie. *</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-pay" id="submitBtn">
+        Jetzt zahlungspflichtig buchen
+      </button>
+
+      <p class="security-note">🔒 Sichere Zahlung über Mollie &nbsp;·&nbsp; PayPal, Kreditkarte, SEPA und mehr<br>Für Präsenzveranstaltungen mit festem Termin besteht laut § 312g BGB kein gesetzliches Widerrufsrecht. Die Stornobedingungen findest du in den AGB.</p>
+    </form>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.marit-alke.de/impressum" target="_blank">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutz</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a>
+  </div>
+
+  <script>
+    // Nur Anzeige, die verbindliche Preislogik muesste serverseitig in der Baukasten-Function ergaenzt werden,
+    // sobald dieses Produkt dort angelegt ist. Noch nichts deployt, noch kein Eintrag in baukasten-produkte.json.
+    // Drei feste Preisstufen nach Datum, keine Rabattcodes.
+    var TIERS = [
+      { label: "Preis", net: 297, until: new Date("2027-02-28T23:59:59+01:00"), untilText: "28.02.2027" },
+      { label: "Frühbucherpreis", net: 327, until: new Date("2027-06-30T23:59:59+02:00"), untilText: "30.06.2027" },
+      { label: "Spontanbucher-Preis", net: 377, until: null, untilText: null }
+    ];
+
+    function formatEuroRund(n) {
+      return "€ " + n + ",-";
+    }
+
+    function formatEuroKomma(n) {
+      return n.toLocaleString("de-DE", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " €";
+    }
+
+    var now = new Date();
+    var tierIndex = TIERS.findIndex(function (t) { return t.until === null || now <= t.until; });
+    if (tierIndex === -1) { tierIndex = TIERS.length - 1; }
+    var current = TIERS[tierIndex];
+    var later = TIERS.slice(tierIndex + 1);
+
+    document.getElementById("tierBadge").textContent = current.label + (current.untilText ? " bis " + current.untilText : "");
+    var gross = Math.round(current.net * 1.19 * 100) / 100;
+    document.getElementById("priceMain").innerHTML =
+      formatEuroRund(current.net) + " zzgl. 19&nbsp;% MwSt. <span class=\"price-gross\">(" + formatEuroKomma(gross) + " inkl. MwSt.)</span>";
+
+    var priceWasEl = document.getElementById("priceWas");
+    if (later.length > 0) {
+      var parts = later.map(function (t) {
+        return "<strong>" + formatEuroRund(t.net) + " netto</strong> (" + t.label + (t.untilText ? " bis " + t.untilText : "") + ")";
+      });
+      priceWasEl.innerHTML = "Danach " + parts.join(", danach ") + ".";
+      priceWasEl.style.display = "";
+    } else {
+      priceWasEl.style.display = "none";
+    }
+
+    document.getElementById("checkoutForm").addEventListener("submit", function () {
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Weiterleitung zur Zahlung...";
+    });
+  </script>
+
+</body>
+</html>

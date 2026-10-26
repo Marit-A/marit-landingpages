@@ -93,7 +93,12 @@ exports.handler = async (event) => {
   let vatValidated  = false;
   let vatCheckNote   = "";
 
-  if (vatId) {
+  // Produkte mit "volle_ust": true (Präsenzveranstaltung in Deutschland, z. B. InspiCamp): Leistungsort ist
+  // Deutschland, deshalb volle deutsche USt für alle. Keine VIES-Prüfung, kein Reverse Charge.
+  // Eine angegebene USt-IdNr. wird nur für die Rechnung mitgegeben.
+  if (vatId && produkt.volle_ust) {
+    vatCheckNote = "Keine Prüfung: volle deutsche USt für alle (Präsenzveranstaltung in Deutschland)";
+  } else if (vatId) {
     const vatFormatOk = /^[A-Z]{2}[A-Z0-9]{2,}$/.test(vatId);
     if (!vatFormatOk) {
       return errorPage("Die USt-IdNr. hat nicht das erwartete Format (Ländercode + Nummer, z. B. ATU12345678). Bitte korrigiere die Eingabe oder lass das Feld leer.");

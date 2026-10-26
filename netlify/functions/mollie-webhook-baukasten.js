@@ -230,17 +230,23 @@ async function sendNotificationMail(produkt, payment, zugang, kontakt) {
   }
   try {
     const { subject, text } = buildNotificationEmail(produkt, payment, zugang, kontakt);
-    await sendMail({
+    // Pro Produkt optional mehrere Empfänger ("info_an" in baukasten-produkte.json), sonst NOTIFY_TO.
+    // Jede Adresse bekommt eine eigene Mail, damit ein Fehler bei einer die anderen nicht verhindert.
+    const empfaenger = Array.isArray(produkt.info_an) && produkt.info_an.length ? produkt.info_an : [NOTIFY_TO];
+    const ergebnisse = await Promise.allSettled(empfaenger.map(to => sendMail({
       host: "posteo.de",  // nicht "smtp.posteo.de", diesen Namen gibt es nicht (Ursache der fehlenden Info-Mails, 11.09.2026)
       port: 465,
       user: POSTEO_EMAIL,
       pass: POSTEO_PASSWORD,
       from: POSTEO_EMAIL,
-      to: NOTIFY_TO,
+      to,
       subject,
       text
+    })));
+    ergebnisse.forEach((r, i) => {
+      if (r.status === "fulfilled") console.log(`Bestell-Benachrichtigung OK: ${empfaenger[i]}`);
+      else console.error(`Benachrichtigungsmail Fehler (${empfaenger[i]}):`, r.reason && r.reason.message);
     });
-    console.log("Bestell-Benachrichtigung OK");
   } catch (err) {
     // Nie den Webhook scheitern lassen, wenn nur die Benachrichtigungsmail fehlschlägt
     console.error("Benachrichtigungsmail Fehler:", err.message);
