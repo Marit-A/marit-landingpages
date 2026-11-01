@@ -1,5 +1,5 @@
 {
-  "hinweis": "Produktliste des Baukastens. Jeder Eintrag unter 'produkte' wird über create-payment-baukasten.js und mollie-webhook-baukasten.js verkauft. Der Schlüssel (z. B. human-design) steht im Bestellformular als verstecktes Feld 'produkt'. Preise in Cent netto. 'name' ist der Text auf der Mollie-Zahlungsseite, 'kennung' landet als metadata.product in der Zahlung. 'seite' ist der Ordner auf lp.marit-alke.de mit index.html und danke.html. 'digitaler_inhalt': true verlangt im Formular das Häkchen zum Widerrufsrecht. 'kurszugang' schaltet nach der Zahlung einen Kurs im SimpleCourses-Plugin frei (Plattform kurse oder hub, Kurs-ID aus WordPress), 'weitere_kurs_ids' zusätzliche Kursbereiche. 'verkauf_bis' (JJJJ-MM-TT, inklusive, Zeit Europe/Berlin) sperrt den Verkauf danach. 'rabattcodes' (optional): Code -> abzug_netto_cent, optional eigene getresponse-Liste und kein_kurszugang:true. WICHTIG: Schluessel immer in GROSSBUCHSTABEN schreiben, der Server normalisiert die Eingabe (Gross/Klein egal).",
+  "hinweis": "Produktliste des Baukastens. Jeder Eintrag unter 'produkte' wird über create-payment-baukasten.js und mollie-webhook-baukasten.js verkauft. Der Schlüssel (z. B. human-design) steht im Bestellformular als verstecktes Feld 'produkt'. Preise in Cent netto. 'name' ist der Text auf der Mollie-Zahlungsseite, 'kennung' landet als metadata.product in der Zahlung. 'seite' ist der Ordner auf lp.marit-alke.de mit index.html und danke.html. 'digitaler_inhalt': true verlangt im Formular das Häkchen zum Widerrufsrecht. 'kurszugang' schaltet nach der Zahlung einen Kurs im SimpleCourses-Plugin frei (Plattform kurse oder hub, Kurs-ID aus WordPress), 'weitere_kurs_ids' zusätzliche Kursbereiche. 'verkauf_bis' (JJJJ-MM-TT, inklusive, Zeit Europe/Berlin) sperrt den Verkauf danach. 'rabattcodes' (optional): Code -> abzug_netto_cent, optional eigene getresponse-Liste und kein_kurszugang:true. WICHTIG: Schluessel immer in GROSSBUCHSTABEN schreiben, der Server normalisiert die Eingabe (Gross/Klein egal). 'leistungsart' (optional): 'elektronisch' oder 'live' schaltet die Steuerregeln aus steuerregeln.js ein (EU ohne USt-ID und Drittland: bei 'live' Stopp, bei 'elektronisch' 19 % mit Häkchen bzw. netto). 'copecart_url' ist der direkte CopeCart-Link für den Stopp-Hinweis, 'stopp_modus' ('link' oder 'mail') steuert, ob der Link oder eine Mail-Bitte erscheint.",
   "produkte": {
     "human-design": {
       "name": "Selbstcoaching mit Human Design & KI",
@@ -47,7 +47,7 @@
       }
     },
     "ccdd-selbstlernkurs": {
-      "name": "Claude Cowork Deep Dive Selbstlernkurs",
+      "name": "Claude Pro Deep Dive Selbstlernkurs",
       "kennung": "ccdd_selbstlernkurs",
       "netto_cent": 19500,
       "seite": "ccdd-selbstlernkurs-checkout",
@@ -65,10 +65,13 @@
           "abzug_netto_cent": 7000,
           "hinweis": "70 EUR netto Rabatt fuer Deep-Design-Teilnehmer:innen."
         }
-      }
+      },
+      "leistungsart": "elektronisch",
+      "copecart_url": "https://copecart.com/products/c619e3c2/checkout",
+      "stopp_modus": "mail"
     },
     "ccdd-selbstlernkurs-powerwoche": {
-      "name": "Claude Cowork Deep Dive Selbstlernkurs mit Powerwoche",
+      "name": "Claude Pro Deep Dive Selbstlernkurs mit Powerwoche",
       "kennung": "ccdd_powerwoche",
       "netto_cent": 27500,
       "seite": "ccdd-selbstlernkurs-powerwoche-checkout",
@@ -91,7 +94,10 @@
           "abzug_netto_cent": 7000,
           "hinweis": "70 EUR netto Rabatt fuer Deep-Design-Teilnehmer:innen."
         }
-      }
+      },
+      "leistungsart": "live",
+      "copecart_url": null,
+      "stopp_modus": "mail"
     },
     "inspicamp": {
       "name": "KI-InspiCamp 2027 - Ticket",
@@ -100,7 +106,10 @@
       "seite": "inspicamp-checkout",
       "digitaler_inhalt": false,
       "volle_ust": true,
-      "info_an": ["info@marit-alke.de", "mail@dariavision.de"],
+      "info_an": [
+        "info@marit-alke.de",
+        "mail@dariavision.de"
+      ],
       "getresponse": {
         "liste_id": "7bhfY",
         "tag": "inspicamp_2027"

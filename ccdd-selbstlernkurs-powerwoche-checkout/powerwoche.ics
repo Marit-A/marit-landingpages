@@ -26,7 +26,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261204T130000
 DTEND;TZID=Europe/Berlin:20261204T143000
 SUMMARY:Powerwoche: Auftakt-Workshop
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -35,7 +35,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261207T093000
 DTEND;TZID=Europe/Berlin:20261207T110000
 SUMMARY:Powerwoche: Live-Workshop
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -44,7 +44,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261207T170000
 DTEND;TZID=Europe/Berlin:20261207T180000
 SUMMARY:Powerwoche: Sprechstunde
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -53,7 +53,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261208T093000
 DTEND;TZID=Europe/Berlin:20261208T110000
 SUMMARY:Powerwoche: Live-Workshop
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -62,7 +62,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261209T093000
 DTEND;TZID=Europe/Berlin:20261209T110000
 SUMMARY:Powerwoche: Live-Workshop
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -71,7 +71,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261209T170000
 DTEND;TZID=Europe/Berlin:20261209T180000
 SUMMARY:Powerwoche: Sprechstunde
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -80,7 +80,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261210T130000
 DTEND;TZID=Europe/Berlin:20261210T143000
 SUMMARY:Powerwoche: Live-Workshop
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 BEGIN:VEVENT
@@ -89,7 +89,7 @@ DTSTAMP:20261003T120000Z
 DTSTART;TZID=Europe/Berlin:20261211T130000
 DTEND;TZID=Europe/Berlin:20261211T143000
 SUMMARY:Powerwoche: Live-Workshop
-DESCRIPTION:Claude Cowork Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
+DESCRIPTION:Claude Pro Deep Dive Powerwoche. Der Zoom-Link folgt per E-Mail vor dem Start.
 LOCATION:Online (Zoom)
 END:VEVENT
 END:VCALENDAR

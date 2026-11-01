@@ -2,6 +2,7 @@ const https = require("https");
 const tls   = require("tls");
 const { produkte } = require("./baukasten-produkte.json");
 const { kontaktAbgleichenUndAnlegen } = require("./lexoffice-kontakt");
+const { beschreibeSteuerfall, zahlungsland, landAbgleich } = require("./steuerregeln.js");
 
 // Baukasten-Webhook: einer für alle Produkte aus baukasten-produkte.json.
 // Nach einer bezahlten Zahlung:
@@ -263,6 +264,10 @@ function buildNotificationEmail(produkt, payment, zugang, kontakt) {
     ? `${m.vatId}${m.vatValidated === "true" && m.vatCheckNote ? " (" + m.vatCheckNote + ")" : ""}`
     : "(keine)";
 
+  // Steuerfall (nur Produkte mit leistungsart) und Abgleich Land der Zahlung gegen angegebenes Land
+  const steuerText = m.steuerfall ? beschreibeSteuerfall(m.steuerfall, m.country) : "";
+  const landWarnung = m.steuerfall ? landAbgleich(m.country, zahlungsland(payment)) : "";
+
   const lines = [
     `Neue Bestellung: ${produkt.name}`,
     ``,
@@ -272,6 +277,8 @@ function buildNotificationEmail(produkt, payment, zugang, kontakt) {
     `Adresse: ${m.street || ""}, ${m.zip || ""} ${m.city || ""}, ${m.country || ""}`,
     `USt-IdNr.: ${vatLine}`,
     `Reverse Charge: ${m.reverseCharge === "true" ? "ja" : "nein"}`,
+    steuerText ? `Steuerfall (${m.steuerfall}): ${steuerText}` : null,
+    landWarnung ? `⚠️ ${landWarnung}` : null,
     `Zahlbetrag: ${amount}`,
     m.discountCode ? `Rabattcode: ${m.discountCode}` : null,
     zugang.text ? `Kurszugang: ${zugang.text}` : null,
@@ -284,7 +291,7 @@ function buildNotificationEmail(produkt, payment, zugang, kontakt) {
   ].filter(line => line !== null);
 
   return {
-    subject: `${zugang.ok ? "" : "⚠️ Kurszugang prüfen! "}${kontakt && !kontakt.ok ? "⚠️ Lexoffice-Kontakt prüfen! " : ""}Neue Bestellung: ${name}`,
+    subject: `${landWarnung ? "⚠️ Land prüfen! " : ""}${zugang.ok ? "" : "⚠️ Kurszugang prüfen! "}${kontakt && !kontakt.ok ? "⚠️ Lexoffice-Kontakt prüfen! " : ""}Neue Bestellung: ${name}`,
     text: lines.join("\n")
   };
 }

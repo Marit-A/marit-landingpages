@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude Cowork Deep Dive Selbstlernkurs – Jetzt bestellen</title>
+  <title>Claude Pro Deep Dive Selbstlernkurs – Jetzt bestellen</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
   <style>
@@ -262,11 +262,11 @@
 <body>
 
   <div class="card">
-    <img class="produktbild" src="produktbild.jpg" width="1600" height="700" alt="Claude Cowork Deep Dive: Selbstlernkurs">
+    <img class="produktbild" src="produktbild.jpg" width="1600" height="700" alt="Claude Pro Deep Dive: Selbstlernkurs">
 
     <div class="card-header">
       <div class="label">Selbstlernkurs · sofort starten</div>
-      <h1>Claude Cowork Deep Dive: Selbstlernkurs</h1>
+      <h1>Claude Pro Deep Dive: Selbstlernkurs</h1>
       <div class="description">Du baust dir Schritt für Schritt einen echten KI-Assistenten auf deinem Rechner auf, und zwar so, dass du verstehst, was du tust. Gemacht für Solo-Selbständige und Content-Ersteller:innen.</div>
     </div>
     <div class="orange-bar"></div>
@@ -379,9 +379,23 @@
       </div>
 
       <div class="form-group">
-        <label for="vatId">USt-IdNr. / Schweizer UID <span class="optional">(optional, für Unternehmen)</span></label>
-        <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678 oder CHE-123.456.789" autocomplete="off">
-        <div class="hint"><strong>Nur für Käufer:innen von außerhalb Deutschlands relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, du zahlst dann den Preis ohne deutsche MwSt. Die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird. Aus der Schweiz oder einem anderen Land außerhalb der EU trägst du hier deine Unternehmens-ID ein (z.&nbsp;B. die Schweizer UID).<br><strong>Bei Fragen dazu bitte <u>vor</u> Zahlung bei mir melden.</strong></div>
+        <label for="vatId">USt-IdNr. <span class="optional">(optional, für Unternehmen)</span></label>
+        <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678" autocomplete="off">
+        <div class="hint"><strong>Nur für Käufer:innen von außerhalb Deutschlands relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, du zahlst dann den Preis ohne deutsche MwSt. Die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird.<br><strong>Bei Fragen dazu bitte <u>vor</u> Zahlung bei mir melden.</strong></div>
+      </div>
+
+      <div class="note-box" id="steuerStopp" style="display:none; margin:0 0 0.9rem;"></div>
+
+      <div class="note-box" id="steuerHinweis19" style="display:none; margin:0 0 0.9rem;">
+        <strong>Bevor du kaufst:</strong> Dieses Angebot richtet sich an Unternehmer:innen und Selbstständige. Ohne USt-IdNr. berechne ich 19&nbsp;% deutsche Umsatzsteuer. <strong>Ich kann die Umsatzsteuer nachträglich nicht erstatten.</strong> Hast du eine USt-IdNr., trag sie oben ein, dann entfällt die deutsche Umsatzsteuer.
+        <label class="checkbox-label" style="margin:0.7rem 0 0;">
+          <input type="checkbox" name="ust19" id="ust19">
+          <span>Ich kaufe ohne USt-IdNr. und bin einverstanden, dass 19&nbsp;% deutsche Umsatzsteuer berechnet werden. Mir ist bekannt, dass sie nachträglich nicht erstattet wird. *</span>
+        </label>
+      </div>
+
+      <div class="note-box" id="steuerNetto" style="display:none; margin:0 0 0.9rem;">
+        <strong>Hinweis zur Steuer:</strong> Du kaufst aus einem Land außerhalb der EU. Ich stelle die Rechnung ohne deutsche Umsatzsteuer aus. Steuern, die in deinem Land anfallen, liegen bei dir.
       </div>
 
       <div class="form-section-title">Rabattcode</div>
@@ -478,6 +492,67 @@
       if (Object.prototype.hasOwnProperty.call(CODES, c) || aktiverCode) applyDiscount();
     });
     document.getElementById("discountInput").addEventListener("keydown", function(e) { if (e.key === "Enter") { e.preventDefault(); applyDiscount(); } });
+    // ── Steuerregeln (Kopie aus netlify/functions/steuerregeln.js, wortgleich, wird per Test geprüft) ──
+    /* STEUERREGELN-START */
+function steuerRegel(leistungsart, country, vatId) {
+  var EU = ["AT","BE","BG","CY","CZ","DK","EE","ES","FI","FR","GR","HR","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK","XI"];
+  var v = String(vatId || "").toUpperCase().replace(/[\s.\-]/g, "");
+  var ort = String(country || "DE").toUpperCase();
+  if (v.length >= 2) { ort = v.slice(0, 2); }
+  if (ort === "EL") { ort = "GR"; }
+  var mitUid = v.length >= 2;
+  var live = leistungsart === "live";
+  if (ort === "DE") {
+    return { ort: ort, gruppe: "DE", mitUid: mitUid, aktion: "weiter", ust: "19", pruefeVies: false, braucht19Haken: false, grund: "" };
+  }
+  if (EU.indexOf(ort) !== -1) {
+    if (mitUid) {
+      return { ort: ort, gruppe: "EU", mitUid: true, aktion: "weiter", ust: "rc", pruefeVies: true, braucht19Haken: false, grund: "" };
+    }
+    if (live) {
+      return { ort: ort, gruppe: "EU", mitUid: false, aktion: "stopp", ust: "", pruefeVies: false, braucht19Haken: false, grund: "eu_ohne_uid" };
+    }
+    return { ort: ort, gruppe: "EU", mitUid: false, aktion: "weiter", ust: "19", pruefeVies: false, braucht19Haken: true, grund: "" };
+  }
+  if (live) {
+    return { ort: ort, gruppe: "DRITT", mitUid: mitUid, aktion: "stopp", ust: "", pruefeVies: false, braucht19Haken: false, grund: "drittland_live" };
+  }
+  return { ort: ort, gruppe: "DRITT", mitUid: mitUid, aktion: "weiter", ust: "netto", pruefeVies: false, braucht19Haken: false, grund: "" };
+}
+
+function plzPlausibel(country, zip) {
+  var z = String(zip || "").replace(/\s/g, "");
+  var c = String(country || "").toUpperCase();
+  if (c === "DE") { return /^\d{5}$/.test(z); }
+  if (c === "AT" || c === "CH") { return /^\d{4}$/.test(z); }
+  return true;
+}
+    /* STEUERREGELN-END */
+    var LEISTUNGSART = "elektronisch";
+    var COPECART_URL = "https://copecart.com/products/c619e3c2/checkout";
+    var STOPP_GRUENDE = {
+      eu_ohne_uid: "Dieses Angebot enthält Live-Unterricht. Für Käufe aus dem EU-Ausland ohne USt-IdNr. kann ich die Umsatzsteuer über dieses Formular nicht korrekt abrechnen.",
+      drittland_live: "Dieses Angebot enthält Live-Unterricht. Über dieses Formular kann ich es nur für Käufe aus Deutschland und für Unternehmen mit gültiger USt-IdNr. aus der EU abrechnen."
+    };
+    function aktualisiereSteuerHinweise() {
+      var r = steuerRegel(LEISTUNGSART, document.getElementById("country").value, document.getElementById("vatId").value);
+      var stopp = document.getElementById("steuerStopp");
+      if (r.aktion === "stopp") {
+        var weiter = COPECART_URL
+          ? 'Du kannst das Angebot stattdessen bei meinem Vertriebspartner CopeCart buchen, dort wird die Umsatzsteuer für dein Land abgerechnet: <a href="' + COPECART_URL + '">Zur Buchung bei CopeCart</a>'
+          : 'Bitte schreib mir kurz an <a href="mailto:info@marit-alke.de">info@marit-alke.de</a>, dann finden wir den passenden Weg.';
+        stopp.innerHTML = '<strong>Hier geht es leider nicht weiter.</strong> ' + STOPP_GRUENDE[r.grund] + '<br>' + weiter;
+      }
+      stopp.style.display = r.aktion === "stopp" ? "block" : "none";
+      document.getElementById("steuerHinweis19").style.display = r.braucht19Haken ? "block" : "none";
+      document.getElementById("ust19").required = r.braucht19Haken;
+      document.getElementById("steuerNetto").style.display = (r.aktion === "weiter" && r.gruppe === "DRITT") ? "block" : "none";
+      document.getElementById("submitBtn").disabled = r.aktion === "stopp";
+    }
+    document.getElementById("country").addEventListener("change", aktualisiereSteuerHinweise);
+    document.getElementById("vatId").addEventListener("input", aktualisiereSteuerHinweise);
+    aktualisiereSteuerHinweise();
+
     document.getElementById("checkoutForm").addEventListener("submit", function() {
       var eingabe = document.getElementById("discountInput").value.trim().toUpperCase();
       if (eingabe && !document.getElementById("discountCode").value) document.getElementById("discountCode").value = eingabe;

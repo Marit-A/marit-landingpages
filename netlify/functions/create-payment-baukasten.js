@@ -1,5 +1,6 @@
 const https = require("https");
 const { produkte } = require("./baukasten-produkte.json");
+const { steuerRegel, plzPlausibel, stoppMeldung, steuerfallCode } = require("./steuerregeln.js");
 
 // Baukasten: ein Bezahl-Code für alle neuen Produkte. Preis, Mollie-Text und
 // Danke-Seite kommen aus baukasten-produkte.json, das Formular schickt nur den
@@ -84,6 +85,31 @@ exports.handler = async (event) => {
   const priceNet   = centsToStr(priceNetCents);
   const priceGross = centsToStr(priceGrossCents);
 
+  // ── Steuerregeln nach Leistungsart (nur Produkte mit "leistungsart") ──────
+  // elektronisch = reiner Selbstlernkurs, live = enthält Live-Unterricht.
+  // Regeln und Begründung: steuerregeln.js. Produkte ohne leistungsart nutzen weiter die alte Logik unten.
+  let regel = null;
+  let ust19Bestaetigt = false;
+  if (produkt.leistungsart && !produkt.volle_ust) {
+    regel = steuerRegel(produkt.leistungsart, country, vatId);
+    if (regel.aktion === "stopp") {
+      return {
+        statusCode: 400,
+        headers: { "Content-Type": "text/html; charset=utf-8" },
+        body: stoppMeldung(regel.grund, produkt) + `<p><a href="javascript:history.back()">Zurück zum Formular</a></p>`
+      };
+    }
+    if (!plzPlausibel(country, zip)) {
+      return errorPage("Die Postleitzahl passt nicht zum gewählten Land. Bitte prüfe Land und Postleitzahl.");
+    }
+    if (regel.braucht19Haken) {
+      ust19Bestaetigt = params.get("ust19") === "on";
+      if (!ust19Bestaetigt) {
+        return errorPage("Bitte bestätige mit dem Häkchen, dass du den Kurs ohne USt-IdNr. mit 19 % deutscher Umsatzsteuer kaufst und ich die Umsatzsteuer nachträglich nicht erstatten kann.");
+      }
+    }
+  }
+
   // ── USt-IdNr.-Prüfung ────────────────────────────────────────────────────
   // Reverse Charge gilt nur für grenzüberschreitende B2B-Geschäfte innerhalb der EU
   // (Art. 44 MwStSystRL) bzw. für Drittland-Geschäfte (steuerfreie Ausfuhrlieferung).
@@ -141,6 +167,12 @@ exports.handler = async (event) => {
     }
   }
 
+  // Drittland (nur elektronische Leistung kommt bis hierher): netto, Leistungsort Ausland
+  if (regel && regel.gruppe === "DRITT") {
+    reverseCharge = true;
+    if (!vatCheckNote) vatCheckNote = "Drittland: keine deutsche USt (Leistungsort Ausland)";
+  }
+
   const finalPrice = reverseCharge ? priceNet : priceGross;
 
   const metadata = {
@@ -148,7 +180,8 @@ exports.handler = async (event) => {
     firstName, lastName, email, company, street, zip, city, country,
     vatId, reverseCharge: String(reverseCharge), vatValidated: String(vatValidated), vatCheckNote,
     widerrufVerzicht: String(widerrufVerzicht),
-    discountCode: rabattCode
+    discountCode: rabattCode,
+    ...(regel ? { leistungsart: produkt.leistungsart, steuerfall: steuerfallCode(regel, ust19Bestaetigt) } : {})
   };
 
   try {
