@@ -111,6 +111,13 @@ function buildNotificationEmail(payment) {
     ? `${m.vatId}${m.vatValidated === "true" && m.vatCheckNote ? " (" + m.vatCheckNote + ")" : ""}`
     : "(keine)";
 
+  // Neue Mail an den Kunden in Gmail (Web), Betreff vorbelegt. Bewusst kein "Antworten" auf diese Info-Mail,
+  // damit nichts aus der Bestell-Info beim Kunden landet.
+  const rechnungsText = `Hallo${m.firstName ? " " + m.firstName : ""},\n\ndanke für deinen Kauf! Anbei deine Rechnung.\n\nWenn du Fragen oder Anregungen hast, melde dich gern.`;
+  const antwortLink = m.email
+    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(m.email)}&su=${encodeURIComponent("Anbei deine Rechnung für " + "Vibe-Coding Experimentiertage")}&body=${encodeURIComponent(rechnungsText)}`
+    : null;
+
   const lines = [
     `Neue Bestellung: Vibe-Coding Experimentiertage`,
     ``,
@@ -123,6 +130,7 @@ function buildNotificationEmail(payment) {
     `Zahlbetrag: ${amount}`,
     `Mollie Payment-ID: ${payment.id || "(unbekannt)"}`,
     dashboardUrl ? `Mollie Dashboard: ${dashboardUrl}` : null,
+    antwortLink ? `Rechnung an den Kunden senden (Link öffnet Gmail mit neuer Mail): ${antwortLink}` : null,
     ``,
     `Rechnung bitte wie gewohnt manuell in Lexoffice erstellen.`
   ].filter(line => line !== null);

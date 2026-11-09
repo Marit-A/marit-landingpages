@@ -264,6 +264,13 @@ function buildNotificationEmail(produkt, payment, zugang, kontakt) {
     ? `${m.vatId}${m.vatValidated === "true" && m.vatCheckNote ? " (" + m.vatCheckNote + ")" : ""}`
     : "(keine)";
 
+  // Neue Mail an den Kunden in Gmail (Web), Betreff vorbelegt. Bewusst kein "Antworten" auf diese Info-Mail,
+  // damit nichts aus der Bestell-Info beim Kunden landet.
+  const rechnungsText = `Hallo${m.firstName ? " " + m.firstName : ""},\n\ndanke für deinen Kauf! Anbei deine Rechnung.\n\nWenn du Fragen oder Anregungen hast, melde dich gern.`;
+  const antwortLink = m.email
+    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(m.email)}&su=${encodeURIComponent("Anbei deine Rechnung für " + produkt.name)}&body=${encodeURIComponent(rechnungsText)}`
+    : null;
+
   // Steuerfall (nur Produkte mit leistungsart) und Abgleich Land der Zahlung gegen angegebenes Land
   const steuerText = m.steuerfall ? beschreibeSteuerfall(m.steuerfall, m.country) : "";
   const landWarnung = m.steuerfall ? landAbgleich(m.country, zahlungsland(payment)) : "";
@@ -286,6 +293,7 @@ function buildNotificationEmail(produkt, payment, zugang, kontakt) {
     produkt.digitaler_inhalt ? `Zustimmung sofortiger Beginn (Widerrufsrecht erlischt): ${m.widerrufVerzicht === "true" ? "ja" : "nein"}` : null,
     `Mollie Payment-ID: ${payment.id || "(unbekannt)"}`,
     dashboardUrl ? `Mollie Dashboard: ${dashboardUrl}` : null,
+    antwortLink ? `Rechnung an den Kunden senden (Link öffnet Gmail mit neuer Mail): ${antwortLink}` : null,
     ``,
     `Rechnung bitte wie gewohnt manuell in Lexoffice erstellen.`
   ].filter(line => line !== null);
