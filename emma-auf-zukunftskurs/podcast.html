@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="description" content="Auf Zukunftskurs – der Podcast von Emma. Gedanken über Zukunft, Menschsein und neue Möglichkeiten.">
+  <title>Podcast · Auf Zukunftskurs · Emm.A</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&family=Open+Sans:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--surface:#fcfaf6;--warm:#fbeedd;--border:#e8dfd2;--ink:#34383c;--muted:#646a6e;--teal:#3f8c89;--deep:#2c6b69;--amber:#f0a83c;--coral:#dd5e45;--honey:#f0d678;--white:#fff;--max:1180px;--shadow:0 18px 50px rgba(52,56,60,.10)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--surface);color:var(--ink);font:16px/1.7 "Open Sans",sans-serif}a{color:inherit}h1,h2,h3{font-family:"Sora",sans-serif;font-weight:600;line-height:1.14;letter-spacing:-.035em;margin:0}
+    .site-header{max-width:var(--max);margin:auto;padding:18px 28px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid rgba(240,168,60,.34);box-shadow:0 7px 18px rgba(240,168,60,.10)}.brand{text-decoration:none;display:flex;align-items:baseline;gap:10px}.brand-mark{font:600 2.35rem/1 "Caveat",cursive;color:var(--coral)}.brand-sub{font:600 .70rem "Sora";letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}nav{display:flex;gap:32px}nav a{text-decoration:none;font-size:.98rem;font-weight:600}nav a:hover,nav a[aria-current=page]{color:var(--coral)}
+    .pod-hero{background:var(--deep);color:var(--white);padding:66px 28px 70px;position:relative;overflow:hidden}.pod-hero:before{content:"";position:absolute;width:520px;height:520px;border:2px solid rgba(240,168,60,.48);border-radius:50%;right:-180px;top:-270px}.pod-hero:after{content:"";position:absolute;width:250px;height:250px;border:2px solid rgba(221,94,69,.65);border-radius:50%;left:-130px;bottom:-170px}.pod-inner{max-width:var(--max);margin:auto;display:grid;grid-template-columns:1fr .85fr;gap:70px;align-items:end;position:relative;z-index:1}.eyebrow{font:600 .72rem "Sora";text-transform:uppercase;letter-spacing:.15em;color:var(--honey);margin-bottom:15px}.eyebrow:before{content:"";display:inline-block;width:28px;height:3px;margin:0 10px 3px 0;background:var(--coral);border-radius:4px}.pod-hero h1{font-size:clamp(3.4rem,6vw,5.9rem)}.pod-hero h1 span{color:var(--amber)}.pod-intro{font-size:1.08rem;color:rgba(255,255,255,.86);max-width:600px}.script{font:500 2rem "Caveat",cursive;color:var(--honey)}
+    .player-wrap{max-width:var(--max);margin:-35px auto 0;padding:0 28px;position:relative;z-index:2}.player{background:var(--white);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:22px 25px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}.play{width:58px;height:58px;border-radius:50%;border:0;background:var(--coral);color:white;font-size:1.25rem;cursor:pointer}.player-title{font-family:"Sora";font-weight:600}.player-meta{font-size:.78rem;color:var(--muted);margin-top:3px}.track{height:7px;background:#ece7df;border-radius:99px;margin-top:12px;overflow:hidden}.track span{display:block;width:32%;height:100%;background:linear-gradient(90deg,var(--teal),var(--amber))}.duration{font:600 .8rem "Sora";color:var(--muted)}
+    .section{padding:78px 28px}.inner{max-width:var(--max);margin:auto}.section-heading{display:grid;grid-template-columns:.75fr 1.25fr;gap:45px;align-items:end;margin-bottom:38px}.section h2{font-size:clamp(2rem,3.8vw,3.15rem)}.section-intro{max-width:650px;color:var(--muted);margin:0}
+    .episodes{display:grid;grid-template-columns:1fr 1fr;gap:18px}.episode{border:1px solid var(--border);border-radius:20px;background:var(--white);padding:27px;display:grid;grid-template-columns:70px 1fr;gap:20px}.episode:nth-child(3n+2){background:var(--warm)}.episode-number{font:600 2.4rem/1 "Sora";color:var(--teal)}.episode:nth-child(3n+2) .episode-number{color:var(--amber)}.episode:nth-child(3n) .episode-number{color:var(--coral)}.episode h3{font-size:1.28rem;margin-bottom:8px}.episode p{color:var(--muted);font-size:.9rem;margin:0}.episode a{display:inline-block;margin-top:14px;color:var(--deep);font-weight:700;font-size:.86rem;text-decoration:none}
+    .articles{background:var(--warm)}.post{max-width:850px;margin:0 auto;padding:0 0 60px;border-bottom:1px solid var(--border)}.post+.post{padding-top:58px}.post:last-child{border-bottom:0;padding-bottom:0}.post-kicker{font:600 .68rem "Sora";letter-spacing:.14em;text-transform:uppercase;color:var(--coral);margin-bottom:11px}.post h3{font-size:clamp(1.75rem,3vw,2.4rem);margin-bottom:14px}.post p{color:var(--muted);max-width:790px}.post .read{color:var(--deep);font-weight:700;text-decoration:underline;text-underline-offset:4px}
+    .quote{max-width:850px;margin:0 auto;padding:50px 0;text-align:center}.quote p{font:500 clamp(1.7rem,3.4vw,2.65rem)/1.25 "Sora";letter-spacing:-.03em}.quote span{font:500 1.7rem "Caveat";color:var(--coral)}
+    .old-note{max-width:760px;margin:auto;text-align:center}.old-note p{color:var(--muted)}.old-note a{color:var(--coral);font-weight:700;text-underline-offset:5px}
+    footer{border-top:1px solid var(--border);padding:26px 28px}.footer-inner{max-width:var(--max);margin:auto;display:flex;justify-content:space-between;color:var(--muted);font-size:.8rem}
+    @media(max-width:850px){.pod-inner,.section-heading{grid-template-columns:1fr;gap:25px}.episodes{grid-template-columns:1fr}.player{grid-template-columns:auto 1fr}.duration{display:none}}
+    @media(max-width:560px){.site-header{padding:15px 18px 13px}.brand-sub{display:none}nav{gap:13px}nav a{font-size:.82rem}.pod-hero,.section,.player-wrap{padding-left:18px;padding-right:18px}.player{padding:17px}.episode{grid-template-columns:52px 1fr}.episode-number{font-size:1.9rem}.footer-inner{flex-direction:column;gap:8px}}
+  </style>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html"><span class="brand-mark">Emm.A</span><span class="brand-sub">Auf Zukunftskurs</span></a>
+  <nav><a href="index.html">Start</a><a href="ueber-emma.html">Über Emma</a><a href="podcast.html" aria-current="page">Podcast</a></nav>
+</header>
+
+<main>
+  <section class="pod-hero">
+    <div class="pod-inner">
+      <div>
+        <div class="eyebrow">Der Podcast</div>
+        <h1>Auf <span>Zukunftskurs</span></h1>
+      </div>
+      <div>
+        <p class="pod-intro">Gespräche und Gedanken über das, was vor uns liegen könnte. Über Technologien, die unseren Alltag verändern. Über menschliche Fragen, die dadurch plötzlich wieder ganz alt aussehen.</p>
+        <div class="script">Neugierig bleiben.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="player-wrap">
+    <div class="player">
+      <button class="play" type="button" aria-label="Podcast abspielen">▶</button>
+      <div>
+        <div class="player-title">Was macht KI eigentlich mit uns?</div>
+        <div class="player-meta">Folge 02 · 24:18 · Demo-Player für den Workshop</div>
+        <div class="track"><span></span></div>
+      </div>
+      <div class="duration">24:18</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-heading">
+        <div><div class="eyebrow">Alle Folgen</div><h2>Ein paar Gedanken zum Anhören</h2></div>
+        <p class="section-intro">Die Podcastseite ist bewusst als Audio-first-Experiment gestaltet. Oben steht der Player, darunter die Folgen wie kleine redaktionelle Kapitel.</p>
+      </div>
+      <div class="episodes">
+        <article class="episode"><div class="episode-number">01</div><div><h3>Die Zukunft ist nicht fertig</h3><p>Warum es einen Unterschied macht, welche Bilder wir heute von morgen in uns tragen.</p><a href="#artikel-1">Zur Artikelversion ↓</a></div></article>
+        <article class="episode"><div class="episode-number">02</div><div><h3>Was macht KI eigentlich mit uns?</h3><p>Eine Frage, die mich inzwischen mehr interessiert als die nächste Liste neuer Funktionen.</p><a href="#artikel-2">Zur Artikelversion ↓</a></div></article>
+        <article class="episode"><div class="episode-number">03</div><div><h3>Wenn Maschinen denken und Menschen wieder fühlen</h3><p>Über Automatisierung, Intuition und die Fähigkeiten, die wir vielleicht neu schätzen lernen.</p><a href="#artikel-3">Zur Artikelversion ↓</a></div></article>
+        <article class="episode"><div class="episode-number">04</div><div><h3>Warum gute Zukunftsbilder wichtig sind</h3><p>Wie Geschichten darüber entscheiden können, was wir uns überhaupt vorstellen und wünschen.</p><a href="#artikel-4">Zur Artikelversion ↓</a></div></article>
+        <article class="episode"><div class="episode-number">05</div><div><h3>Paris baut Straßen zurück. Was können wir daraus lernen?</h3><p>Eine Beobachtung über Stadtumbau und die Frage, wem öffentlicher Raum eigentlich gehört.</p><a href="#artikel-5">Zur Artikelversion ↓</a></div></article>
+        <article class="episode"><div class="episode-number">06</div><div><h3>Wer wollen wir sein, wenn Arbeit sich verändert?</h3><p>Ein Gespräch über Identität, Zeit und die Möglichkeit, Arbeit neu zu denken.</p><a href="#artikel-6">Zur Artikelversion ↓</a></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="inner">
+      <p>„Vielleicht müssen wir die Zukunft gar nicht kennen. Vielleicht reicht es, wieder neugierig auf sie zu werden.“</p>
+      <span>Emma</span>
+    </div>
+  </section>
+
+  <section class="section articles">
+    <div class="inner">
+      <div class="section-heading">
+        <div><div class="eyebrow">Aus dem Podcast</div><h2>Weiterlesen</h2></div>
+        <p class="section-intro">Die Folgen bekommen hier eine zweite Form. Aus dem Gespräch wird ein längerer Text, in dem ein Gedanke etwas mehr Platz bekommt.</p>
+      </div>
+
+      <article class="post" id="artikel-1">
+        <div class="post-kicker">Folge 01 · Zukunftsbilder</div>
+        <h3>Die Zukunft ist nicht fertig</h3>
+        <p>Wir sprechen erstaunlich oft über die Zukunft, als wäre sie ein Ort, der irgendwo bereits feststeht und auf uns zukommt. Dabei ist vieles davon viel offener, als es sich in Schlagzeilen anhört. Unsere Vorstellungen beeinflussen, welche Möglichkeiten wir sehen, welche Ideen wir ausprobieren und welche Entwicklungen wir für selbstverständlich halten.</p>
+        <p>Ich finde deshalb die Frage spannender, welches Bild von morgen uns eigentlich gut tut. Eines, das alles rosarot malt, brauchen wir nicht. Aber vielleicht eines, in dem wir noch vorkommen.</p>
+        <a class="read" href="#">Artikel vollständig lesen →</a>
+      </article>
+
+      <article class="post" id="artikel-2">
+        <div class="post-kicker">Folge 02 · Technologie</div>
+        <h3>Was macht KI eigentlich mit uns?</h3>
+        <p>Ich habe lange gefragt, was KI alles kann. Das war naheliegend und oft faszinierend. Inzwischen interessiert mich eine andere Ebene: Was verändert sich bei uns, wenn wir einen Teil unserer Denkarbeit an Maschinen abgeben?</p>
+        <p>Vielleicht werden wir manche Fähigkeiten weniger üben. Vielleicht entdecken wir andere wieder neu. Und vielleicht merken wir erst im Umgang mit diesen Systemen, welche Dinge wir gar nicht delegieren möchten.</p>
+        <a class="read" href="#">Artikel vollständig lesen →</a>
+      </article>
+
+      <article class="post" id="artikel-3">
+        <div class="post-kicker">Folge 03 · Menschsein</div>
+        <h3>Wenn Maschinen denken und Menschen wieder fühlen</h3>
+        <p>Je mehr Systeme Sprache, Bilder und Entscheidungen übernehmen können, desto interessanter wird für mich die Frage, was wir mit der frei werdenden Aufmerksamkeit anfangen. Vielleicht ist das keine technische Frage. Vielleicht ist es eine Lebensfrage.</p>
+        <p>Was möchte ich selbst erleben? Was möchte ich mit anderen besprechen? Wo vertraue ich meinem Urteil, auch wenn eine Maschine eine plausible Antwort liefert?</p>
+        <a class="read" href="#">Artikel vollständig lesen →</a>
+      </article>
+
+      <article class="post" id="artikel-4">
+        <div class="post-kicker">Folge 04 · Zukunftsbilder</div>
+        <h3>Warum gute Zukunftsbilder wichtig sind</h3>
+        <p>Wenn wir uns Zukunft nur als Katastrophe oder als technologische Erlösung vorstellen, wird unser innerer Möglichkeitsraum ziemlich klein. Gute Zukunftsbilder müssen dabei gar nicht perfekt sein. Sie dürfen Fragen offenlassen.</p>
+        <a class="read" href="#">Artikel vollständig lesen →</a>
+      </article>
+
+      <article class="post" id="artikel-5">
+        <div class="post-kicker">Folge 05 · Stadt &amp; Gesellschaft</div>
+        <h3>Paris baut Straßen zurück. Was können wir daraus lernen?</h3>
+        <p>Mich faszinieren Veränderungen, die plötzlich sichtbar machen, dass eine Stadt auch anders funktionieren könnte. Wenn Straßen anders genutzt werden, verändert sich mehr als der Verkehr. Es verändert sich das Bild davon, wie Menschen sich im öffentlichen Raum bewegen und begegnen.</p>
+        <a class="read" href="#">Artikel vollständig lesen →</a>
+      </article>
+
+      <article class="post" id="artikel-6">
+        <div class="post-kicker">Folge 06 · Arbeit</div>
+        <h3>Wer wollen wir sein, wenn Arbeit sich verändert?</h3>
+        <p>Wenn Maschinen mehr Aufgaben übernehmen, wird die alte Frage nach Produktivität irgendwann ziemlich klein. Dann wird interessanter, wofür wir unsere Zeit eigentlich verwenden wollen und welche Formen von Arbeit uns mit anderen Menschen verbinden.</p>
+        <a class="read" href="#">Artikel vollständig lesen →</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="old-note">
+      <div class="eyebrow">Eine kleine Zeitreise</div>
+      <h2>Manche Fragen haben bei mir mit KI angefangen.</h2>
+      <p>Wer meine ersten Schritte mit KI sehen möchte, findet sie noch auf meinem alten YouTube-Kanal.</p>
+      <a href="https://www.youtube.com/@EmmalearnsAI" target="_blank" rel="noopener">Zu „Emma learns AI“ ↗</a>
+    </div>
+  </section>
+</main>
+
+<footer><div class="footer-inner"><span>© 2026 Emm.A · Auf Zukunftskurs</span><span>Ein fiktives Projekt für einen Deep Design Workshop</span></div></footer>
+
+<script>
+  const play = document.querySelector('.play');
+  let playing = false;
+  if (play) {
+    play.addEventListener('click', () => {
+      playing = !playing;
+      play.textContent = playing ? 'Ⅱ' : '▶';
+      play.setAttribute('aria-label', playing ? 'Podcast pausieren' : 'Podcast abspielen');
+    });
+  }
+</script>
+</body>
+</html>
