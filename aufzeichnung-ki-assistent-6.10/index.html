@@ -258,6 +258,7 @@
     }
     .offer-image-wrap img {
       width: 100%;
+      height: auto;
       display: block;
     }
 
@@ -396,6 +397,20 @@
     .btn-copy { background:#00b3c3; color:#ffffff; border:none; border-radius:5px; font-family:'PT Sans',sans-serif; font-size:18px; font-weight:700; padding:12px 28px; cursor:pointer; text-shadow:0 0 6px rgba(20,20,20,0.55); margin-bottom:16px; transition:background .2s ease; }
     .btn-copy:hover { background:#7a9e22; }
     .summary-text { white-space:pre-wrap; font-size:16px; line-height:1.65; color:#5a5a5a; max-height:480px; overflow:auto; border-top:1px solid #e8edf2; padding-top:16px; }
+    /* ── ANGEBOT: zwei Varianten ── */
+    .offer-choices { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+    .offer-choice { position:relative; background:#ffffff; border:1.5px solid #e8edf2; border-radius:6px; padding:20px 20px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .offer-choice.plus { border-color:#ffb000; }
+    .offer-choice-tag { display:inline-block; font-family:'Open Sans',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#00b3c3; margin-bottom:8px; }
+    .offer-choice.plus .offer-choice-tag { color:#c07800; }
+    .offer-choice-name { font-family:'Open Sans',sans-serif; font-size:18px; font-weight:700; color:#3a3a3a; line-height:1.3; margin-bottom:6px; }
+    .offer-choice-price { font-family:'Open Sans',sans-serif; font-size:30px; font-weight:700; color:#3a3a3a; line-height:1.1; margin-bottom:6px; }
+    .offer-choice-sub { font-size:14px; color:#7b7b7b; line-height:1.5; margin:0; }
+    .offer-content p.offer-choice-sub { margin-bottom:0; font-size:14px; }
+    .offer-hint { font-size:16px; color:#5a5a5a; line-height:1.6; margin:14px 0 0; }
+    .offer-content p.offer-hint { font-size:16px; margin:14px 0 0; }
+    @media (max-width: 520px) { .offer-choices { grid-template-columns:1fr; } }
+
     /* ── ANGEBOT: Zusatz ── */
     .offer-note { font-size:15px; color:#7b7b7b; line-height:1.6; margin:18px 0 0; }
     .price-line { font-size:16px; color:#5a5a5a; margin-top:4px; }
@@ -576,11 +591,11 @@ Der Claude Cowork Selbstlernkurs führt Schritt für Schritt durch diese Einrich
   <section class="offer-section">
     <div class="offer-inner">
       <div class="offer-image-wrap" onclick="window.open('https://lp.marit-alke.de/claude-cowork-selbstlernkurs/', '_blank')">
-        <img src="vorschaubild-ccdd-powerwoche.jpg" alt="Claude Cowork Selbstlernkurs plus Powerwoche im Dezember">
+        <img src="vorschaubild-claude-pro-deep-dive-powerwoche.webp" width="900" height="473" loading="lazy" alt="Claude Pro Deep Dive: Selbstlernkurs und Powerwoche vom 4. bis 11. Dezember">
       </div>
       <div class="offer-content">
         <p class="eyebrow">Mein Herbstangebot</p>
-        <h2>Claude Cowork Selbstlernkurs plus Powerwoche im Dezember</h2>
+        <h2>Claude Pro Deep Dive: Selbstlernkurs mit oder ohne Powerwoche</h2>
         <p class="eyebrow-dates">Powerwoche: 4. bis 11. Dezember 2026, live per Zoom, buchbar bis 7. Dezember</p>
         <p>
           Du willst das, was du im Webinar gesehen hast, Schritt für Schritt für dein eigenes Business umsetzen?
@@ -589,18 +604,33 @@ Der Claude Cowork Selbstlernkurs führt Schritt für Schritt durch diese Einrich
           voran: mit sechs Live-Workshops, zwei Abend-Sprechstunden, einem Austauschforum und allen Aufzeichnungen.
         </p>
 
-        <div class="price-block">
-          <div class="price-current">275 € <span>Selbstlernkurs mit Powerwoche</span></div>
-          <div class="price-line small">zzgl. MwSt., das sind 327,25 € brutto, einmalige Zahlung</div>
+        <div class="offer-choices">
+          <div class="offer-choice">
+            <span class="offer-choice-tag">Zum Selbstlernen</span>
+            <div class="offer-choice-name">Nur der Selbstlernkurs</div>
+            <div class="offer-choice-price">195 €</div>
+            <p class="offer-choice-sub">zzgl. MwSt., das sind 232,05 € brutto, einmalige Zahlung</p>
+          </div>
+          <div class="offer-choice plus">
+            <span class="offer-choice-tag">Mit Live-Begleitung</span>
+            <div class="offer-choice-name">Selbstlernkurs mit Powerwoche</div>
+            <div class="offer-choice-price">275 €</div>
+            <p class="offer-choice-sub">zzgl. MwSt., das sind 327,25 € brutto, einmalige Zahlung</p>
+          </div>
         </div>
 
         <a href="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/" class="btn-offer" target="_blank">
-          Zum Angebot
+          Beide Angebote ansehen
         </a>
 
+        <p class="offer-hint">
+          Auf der Kursseite siehst du beide Varianten und wählst dort, ob du nur den Selbstlernkurs
+          oder den Kurs mit Powerwoche buchen möchtest.
+        </p>
+
         <p class="offer-note">
-          Du kannst auch erst einmal nur den Selbstlernkurs buchen (195 € zzgl. MwSt., 232,05 € brutto)
-          und später aufstocken: Wer den Selbstlernkurs hat, zahlt für die Powerwoche 80 € zzgl. MwSt. (95,20 € brutto).
+          Du kannst auch erst einmal nur den Selbstlernkurs buchen und später aufstocken:
+          Wer den Selbstlernkurs hat, zahlt für die Powerwoche 80 € zzgl. MwSt. (95,20 € brutto).
         </p>
       </div>
     </div>
