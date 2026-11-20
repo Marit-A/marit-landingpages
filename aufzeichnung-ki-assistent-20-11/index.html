@@ -468,7 +468,7 @@
     <p>
       Schön, dass du dabei warst oder dir die Aufzeichnung anschaust.
       Im Webinar habe ich dir gezeigt, was ich mit Claude als KI-Assistent in meinem Solo-Business mache.
-      Hier findest du das komplette Webinar, darunter die Folien und einen Blick in meinen Kursbereich.
+      Hier findest du das komplette Webinar. Darunter kannst du direkt zu den Abschnitten springen, die dich am meisten interessieren, und findest die Folien und einen Blick in meinen Kursbereich.
     </p>
   </section>
 
@@ -484,6 +484,97 @@
         allowfullscreen>
       </iframe>
     </div>
+  </section>
+
+  <!-- Oranger Banner -->
+  <div class="orange-banner">
+    <h2>Springe direkt zu deinem Thema</h2>
+    <p>Klicke auf einen Abschnitt, das Video startet genau an dieser Stelle.</p>
+  </div>
+
+  <!-- Zeitmarken -->
+  <section class="chapters-section">
+    <div class="chapters-inner">
+      <h2 class="chapters-heading">Überblick über die Inhalte mit Sprungmarken</h2>
+      <div class="chapters-columns">
+        <div class="chapters-col" id="col-left"></div>
+        <div class="chapters-divider"></div>
+        <div class="chapters-col" id="col-right"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zusammenfassung zum Kopieren -->
+  <section class="transcript-section">
+    <p>Möchtest du das Webinar mit deiner KI auswerten? Hier ist die ausführliche Zusammenfassung zum Aufklappen. Mit einem Klick kopierst du den Text und gibst ihn in deinen Chat.</p>
+    <details class="summary-details">
+      <summary>Zusammenfassung anzeigen und kopieren</summary>
+      <div class="summary-body">
+        <button type="button" class="btn-copy" id="copy-summary">Text kopieren</button>
+        <div class="summary-text" id="summary-text"># Zusammenfassung: Als Solo-Selbständige nicht mehr allein arbeiten – mit Claude als KI-Assistent
+
+Webinar mit Marit Alke am 20. November 2026. Aufzeichnung: https://youtu.be/RRZtywvPjpo
+
+## Worum es ging
+
+Kein Mitmach-Webinar, sondern ein Blick über die Schulter: Marit erzählt, warum 2026 durch Claude ein Neustart für ihr Business war, und zeigt live zwei Abläufe, die ihr wiederkehrende digitale Arbeit abnehmen. Erstens wird aus einem ungeschnittenen Video ein geschnittenes Video auf einer fertigen Webseite plus Newsletter-Entwurf. Zweitens wird aus einem Screenshot ein Social-Media-Visual, das direkt auf drei Kanälen veröffentlicht wird. Die Leitidee: flexible Automatisierung für die nervigen Aufgaben, damit mehr Zeit für das bleibt, was Spaß macht.
+
+## Marits KI-Jahr
+
+Im Februar nahm sich Marit eine Woche Auszeit, um zu verstehen, was KI-Agenten für Solo-Selbständige bedeuten. Seitdem arbeitet sie täglich mit Claude im Pro-Plan (rund 18 Euro im Monat). Daraus entstanden ein achtwöchiges Gruppenprogramm, vier Workshops, ein Selbstlernkurs und eigene Tools, zum Beispiel ein Programm zum Aufnehmen von Videos. Vorher hatte sie über Jahre hinweg rund 150 Landingpages, tausend E-Mails, unzählige Kurslektionen sowie Blogartikel und Podcastfolgen von Hand gebaut. Claude holt sie aus diesem Content-Hamsterrad.
+
+## Was mit Claude Pro gemeint ist
+
+Claude gibt es im Browser, als Handy-App und als Desktop-App auf dem Rechner. Marit arbeitet in der Desktop-App, in der Claude Zugriff auf einen freigegebenen Arbeitsordner hat. Der frühere Name dafür war Cowork, inzwischen sind Chat und Cowork in der App zusammengeführt. Ein reiner Chatbot liefert nur Text, Dateien muss man selbst hoch- und herunterladen. Mit dem Ordnerzugriff erledigt Claude Dinge selbst: Er schreibt Skripte, wandelt Dateien um, bearbeitet Bilder, baut Seiten und bereitet Inhalte in anderen Programmen vor. Die Handy-App nutzt Marit vor allem, um Ideen einzusprechen und am Rechner begonnene Aufgaben weiterzuführen.
+
+Marit spricht lieber von einem Assistenten als von einem Agenten. Sie übt jeden Arbeitsschritt zuerst einmal gemeinsam mit Claude, so wie mit einem neuen Mitarbeiter, und kombiniert die Schritte erst danach zu größeren Abläufen. Claude Code kann noch mehr, zum Beispiel Programme installieren und den Rechner steuern. Für Einsteigerinnen hält sie das für überdimensioniert und unnötig riskant.
+
+## Für wen sich das lohnt
+
+Wer Marketing und Arbeit weitgehend offline macht, braucht diesen Assistenten kaum. Hilfreich ist er bei immer wiederkehrenden, ähnlichen digitalen Abläufen wie Content-Marketing, Social Media, Newsletter oder Webseitenpflege. Außerdem bei einmaligen größeren digitalen Projekten, etwa einem Website-Rebranding oder dem ersten Onlinekurs. Die Leitfrage: Was mache ich digital immer wieder auf ähnliche Weise und finde es nervig?
+
+## Demo 1: Vom Rohvideo zur fertigen Seite
+
+Der einzige Prompt: neues Video schneiden, ich habe mich oft versprochen, zuerst einen Schnittvorschlag. Claude holt sich den passenden Skill (einen eingeübten Arbeitsablauf) und sucht das neueste Video im Ordner. Er zieht den Ton heraus und lässt ihn über den HappyScribe-Konnektor transkribieren. Daraus baut er einen Schnittvorschlag Zeile für Zeile, in dem Marit selbst festlegt, was drin bleibt. Das Ergebnis: aus knapp 15 Minuten wurden 6:46 Minuten. Bei Konnektoren lässt sich genau einstellen, was Claude darf, zum Beispiel nie etwas löschen.
+
+Im zweiten Schritt lädt Claude das Video zum Videohoster Gumlet hoch, legt eine neue Aufzeichnungsseite nach dem Vorbild der letzten an, bindet Video und Folien ein, prüft die Seite per Screenshot und bereitet die Mail an die Teilnehmenden als Entwurf in GetResponse vor. Das Veröffentlichen übernimmt später Netlify.
+
+Warum das funktioniert: Skills enthalten die eingeübten Abläufe. Die CLAUDE.md im Arbeitsordner wird immer zuerst gelesen und sagt Claude, welche Infos wo liegen und welche Regeln gelten. Startkarten, Schreibstil, Branding und Vorlagen liegen ebenfalls im Ordner. Skills baut Marit nicht selbst: Wenn ein Ablauf gut funktioniert, sagt sie „Mach daraus einen Skill“. Ohne die Desktop-App mit Ordneranbindung ginge das alles nicht, weil Claude sonst weder Video noch Vorlagen noch Folien findet.
+
+Nebenbei gezeigt: In einem Artefakt (einem gemeinsamen Dokument in der App) kann man Texte zusammen mit Claude bearbeiten und selbst hineintippen, ähnlich wie Canvas bei ChatGPT. Aus einem Demo-Text baute Claude ein gestaltetes PDF-Handout in Marits Farben und Icons.
+
+## Demo 2: Vom Screenshot zum Social-Media-Post
+
+Ein Screenshot der Teilnehmenden kommt in den Input-Ordner. Claude macht alle Gesichter außer Marits unkenntlich und baut daraus ein Visual in drei Formaten mit Titel und hervorgehobenem Aufruf „Hol dir die Aufzeichnung“. Marit ändert Titel, Abstände und Icon per Nachprompt, Texte kann sie im Artefakt auch direkt anklicken und ändern. Veröffentlicht wird über den Buffer-Konnektor auf Facebook, Instagram und LinkedIn. Buffer ist das einzige Verteiltool, das diese Verbindung in der kostenlosen Version erlaubt. Claude fragt vor dem Veröffentlichen noch einmal nach.
+
+## Das Designsystem
+
+Woher Claude Marits Farben kennt: aus einem Designsystem, das aus ihrer Webseite extrahiert wurde. Es enthält echte Designregeln, zum Beispiel welche Farbe auf welchem Hintergrund stehen darf, wie Logos auf hellem und dunklem Grund aussehen, wie Hero-Bereiche und Icons gestaltet sind. Claude Design ist inzwischen in die App integriert und für Marit fast ein Canva-Ersatz. Sie hat ihr Designsystem als Textdatei mit Hintergrundbildern, Logo und Schriften in den Arbeitsordner geladen.
+
+Unterschied zu den Branding-Infos aus dem Kurs: Die Branding-Infos sind die kurzen Basics (Farben, Schriften, ein paar Gewohnheiten). Ein Designsystem ist viel umfangreicher und muss eine Weile nachgeschärft werden, indem man an fertigen Ergebnissen sieht, welche Regeln passen. Tipp: Zu viel Input verwirrt eher, lieber zwei Designsysteme anlegen, eins für Visuals und Folien und eins für Landingpages.
+
+## Marits Prinzip: Puzzlesteine
+
+Jeder Arbeitsschritt wird so lange geübt, bis er gut läuft (Transkript, Schnittvorschlag, Video hochladen, Grafik bauen, Konnektor anbinden). Danach reicht ein Satz, der mehrere Puzzlesteine verbindet, zum Beispiel: Idee aus der Notion-Datenbank holen, mit eingesprochenem Text zum Newsletter machen, Grafik erstellen und als Entwurf ins Newsletter-Tool laden. Oder: Zoom-Aufzeichnung transkribieren, schneiden, zu YouTube laden und auf die Aufzeichnungsseite setzen.
+
+Mit Claude spricht Marit nüchtern wie mit einem Assistenten. ChatGPT nutzt sie weiter als Sparringspartner zum Durchdenken. Meistens arbeitet sie mit dem Modell Sonnet, für aufwendige Designs und komplexe Aufgaben wie eigene Tools mit Opus.
+
+## Das Angebot
+
+Der Selbstlernkurs Claude Pro Deep Dive (vorher Claude Cowork Deep Dive) führt mit Praxislektionen Schritt für Schritt zum eigenen Assistenten. Er kostet 195 Euro zuzüglich MwSt. Dazu gibt es die Powerwoche vom 4. bis 11. Dezember 2026 mit Live-Workshops im Coworking-Stil, zwei Abend-Sprechstunden und Austausch in der Gruppe, für 80 Euro Aufschlag. Der Kurs wird laufend erweitert, weil sich Claude so schnell weiterentwickelt.
+
+## Aus der Fragerunde
+
+- HappyScribe oder lokal transkribieren? Beides geht, HappyScribe ist genauer. Die lokale Transkription sprang bei Marit manchmal zwischen Deutsch und Englisch.
+- Welche Aufgaben eignen sich? Zum Beispiel Bilder verkleinern, Dubletten finden, Dateien sortieren und beschriften, kleine Tools bauen statt für Abos zu zahlen. Claude erkennt Bildinhalte und liest handgeschriebene Zettel. Tausende Bilder auf einmal sprengen aber den Pro-Plan, lieber in Portionen vorsortieren.
+- WordPress und WooCommerce: WordPress hat eine REST-API, über die Claude als Redakteur in die Seite hineinarbeiten kann, viele Plugins machen ihre Funktionen darüber zugänglich. Einmal ein Anwendungspasswort anlegen, in einer geheimen Datei im Arbeitsordner speichern, nie in den Chat. Claude führt einen durch die Einrichtung.
+- Diktieren: Marit nutzt Amical, weil es ihre Sprache gut erfasst und kaum glättet. Die interne Diktierfunktion von Claude wird aber auch besser.
+- Wie viel Ordnerzugriff? Nie die ganze Festplatte. Auch beim Dokumente-Ordner vorsichtig sein und Sensibles wie Kinderfotos oder alte Teilnehmerlisten vorher auf eine externe Festplatte verschieben.
+- Lange Videos: In der App bricht Claude längere Rechenarbeiten aus Sicherheitsgründen nach einigen Minuten ab. Videos bis etwa 20 Minuten klappen gut, längere Aufzeichnungen schneidet Marit mit Claude Code. Eine Bonus-Lektion zur Videobearbeitung mit Claude Code ist geplant.
+- Pinterest: Claude postet nicht direkt auf Plattformen, sondern über ein Verteiltool wie Buffer. Geht Pinterest dort, geht es auch mit Claude. Browser-Steuerung ist für Marit nur der letzte Ausweg.
+- Umzug von ChatGPT: ChatGPT bitten, alles Wichtige über das Business kurz und strukturiert für eine andere KI aufzuschreiben, Veraltetes streichen und das Dokument Claude geben. Der eigentliche Gamechanger ist der Arbeitsordner als Arbeitsgedächtnis: Claude findet Videos, Seiten und Vorlagen selbst, der Mental Load sinkt deutlich.</div>
+      </div>
+    </details>
   </section>
 
   <!-- Folien -->
@@ -579,6 +670,115 @@
       const y = window.scrollY;
       heroPhoto.style.backgroundPosition = `left calc(50% + ${y * 0.35}px)`;
     }, { passive: true });
+
+    const chapters = [
+      { seconds: 0, time: "0:00:00", title: "Willkommen: Als Solo-Selbständige nicht mehr allein arbeiten" },
+      { seconds: 154, time: "0:02:34", title: "Heute: Kein Mitmach-Webinar, sondern zwei Live-Demos" },
+      { seconds: 219, time: "0:03:39", title: "Mein KI-Jahr: Von der Auszeit zum Selbstlernkurs" },
+      { seconds: 314, time: "0:05:14", title: "Was meine ich mit Claude Pro? Browser, Desktop-App, Handy" },
+      { seconds: 516, time: "0:08:36", title: "Chatbot oder Assistent mit Ordnerzugriff" },
+      { seconds: 701, time: "0:11:41", title: "Assistent statt Agent: Jeden Schritt erst gemeinsam üben" },
+      { seconds: 802, time: "0:13:22", title: "Über mich: Raus aus dem Content-Hamsterrad" },
+      { seconds: 956, time: "0:15:56", title: "Für wen sich ein KI-Assistent wirklich lohnt" },
+      { seconds: 1086, time: "0:18:06", title: "Demo 1: Video schneiden mit Schnittvorschlag" },
+      { seconds: 1301, time: "0:21:41", title: "Konnektoren am Beispiel HappyScribe: Was Claude darf" },
+      { seconds: 1616, time: "0:26:56", title: "Texte gemeinsam im Artefakt bearbeiten" },
+      { seconds: 1783, time: "0:29:43", title: "Video geschnitten: Aus knapp 15 Minuten werden 6:46" },
+      { seconds: 1882, time: "0:31:22", title: "Aufzeichnungsseite mit Video und Folien anlegen lassen" },
+      { seconds: 2076, time: "0:34:36", title: "So läuft es ab: Skills, CLAUDE.md und Arbeitsordner" },
+      { seconds: 2277, time: "0:37:57", title: "Ergebnis: Video bei Gumlet, Seite lokal geprüft" },
+      { seconds: 2429, time: "0:40:29", title: "Link festlegen und Mail an die Teilnehmenden vorbereiten" },
+      { seconds: 2555, time: "0:42:35", title: "Fragen: HappyScribe oder lokal? Warum nur in der Desktop-App?" },
+      { seconds: 2701, time: "0:45:01", title: "Welche Aufgaben eignen sich für dein Business?" },
+      { seconds: 2765, time: "0:46:05", title: "WordPress und WooCommerce über die REST-API" },
+      { seconds: 2842, time: "0:47:22", title: "Diktieren: Mit welchem Tool ich einspreche" },
+      { seconds: 2915, time: "0:48:35", title: "Bilder sortieren, Dubletten finden, Handschrift lesen" },
+      { seconds: 3038, time: "0:50:38", title: "Wie viel Ordnerzugriff ist sicher? Chat oder Claude Code" },
+      { seconds: 3136, time: "0:52:16", title: "Gruppenfoto und Mail-Entwurf in GetResponse" },
+      { seconds: 3299, time: "0:54:59", title: "Demo 2: Screenshot wird zum Social-Media-Visual" },
+      { seconds: 3431, time: "0:57:11", title: "Exkurs: Das Designsystem und Claude Design" },
+      { seconds: 3607, time: "1:00:07", title: "Ergebnis: Visuals in drei Formaten" },
+      { seconds: 3652, time: "1:00:52", title: "Nüchtern mit Claude, Sparring mit ChatGPT" },
+      { seconds: 3968, time: "1:06:08", title: "Fragen: Claude Design, Branding-Infos oder Designsystem?" },
+      { seconds: 4158, time: "1:09:18", title: "Sonnet oder Opus: Welches Modell wann?" },
+      { seconds: 4217, time: "1:10:17", title: "Veröffentlichen über Buffer, Text direkt im Visual ändern" },
+      { seconds: 4321, time: "1:12:01", title: "Puzzlesteine: Mein Micromanagement-System" },
+      { seconds: 4416, time: "1:13:36", title: "Mein Angebot: Selbstlernkurs und Powerwoche" },
+      { seconds: 4778, time: "1:19:38", title: "Produkte in WooCommerce mit Claude pflegen?" },
+      { seconds: 4851, time: "1:20:51", title: "Lange Videos schneiden: Wann Claude Code nötig ist" },
+      { seconds: 5136, time: "1:25:36", title: "Pinterest verbinden: Warum Buffer der Zwischenschritt ist" },
+      { seconds: 5223, time: "1:27:03", title: "Umzug von ChatGPT und der Ordner als Arbeitsgedächtnis" },
+      { seconds: 5440, time: "1:30:40", title: "Abschluss und Verabschiedung" }
+    ];
+
+    const colLeft  = document.getElementById('col-left');
+    const colRight = document.getElementById('col-right');
+    const videoEl  = document.getElementById('webinar-video');
+    const BASE_URL = 'https://www.youtube.com/embed/RRZtywvPjpo';
+    const split    = Math.ceil(chapters.length / 2); // zwei Spalten
+
+    function makeCard(ch) {
+      const card = document.createElement('a');
+      card.className = 'chapter-card' + (ch.link ? ' has-link' : '');
+      card.href = '#';
+
+      card.innerHTML = `
+        <div class="chapter-card-top">
+          <div class="chapter-time">${ch.time}</div>
+          <div class="chapter-title">${ch.title}</div>
+        </div>
+        ${ch.link ? `<div class="chapter-link-hint">Direkt zum Kurs</div>` : ''}
+        <div class="chapter-arrow">&#9662;</div>
+      `;
+
+      card.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (ch.link) {
+          window.open(ch.link, '_blank');
+        } else {
+          videoEl.src = BASE_URL + '?start=' + ch.seconds + '&autoplay=1';
+          document.querySelector('.video-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      });
+
+      return card;
+    }
+
+    // Sprunglink aus der Mail: Seite?t=Sekunden
+    (function () {
+      const t = parseInt(new URLSearchParams(window.location.search).get('t'), 10);
+      if (!isNaN(t) && t >= 0) {
+        videoEl.src = BASE_URL + '?start=' + t + '&autoplay=1';
+        window.addEventListener('load', function () {
+          document.querySelector('.video-section').scrollIntoView({ block: 'center' });
+        });
+      }
+    })();
+
+    chapters.forEach((ch, i) => {
+      const card = makeCard(ch);
+      (i < split ? colLeft : colRight).appendChild(card);
+    });
+
+    // Zusammenfassung kopieren
+    (function () {
+      const btn = document.getElementById('copy-summary');
+      const box = document.getElementById('summary-text');
+      if (!btn || !box) return;
+      btn.addEventListener('click', function () {
+        const text = box.textContent;
+        const done = function () { btn.textContent = 'Kopiert!'; setTimeout(function () { btn.textContent = 'Text kopieren'; }, 2000); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, fallback);
+        } else { fallback(); }
+        function fallback() {
+          const r = document.createRange(); r.selectNodeContents(box);
+          const sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+          try { document.execCommand('copy'); done(); } catch (e) {}
+          sel.removeAllRanges();
+        }
+      });
+    })();
   </script>
 
 </body>
