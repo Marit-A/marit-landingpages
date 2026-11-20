@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Webinar-Aufzeichnung: Als Solo-Selbständige nicht mehr allein arbeiten - mit Claude als KI-Assistent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'PT Sans', sans-serif;
+      background: #ffffff;
+      color: #5a5a5a;
+      line-height: 1.7;
+    }
+
+    /* ── TRENNBALKEN ── */
+    .divider-orange-thin { height: 4px; background: #ffb000; }
+    .divider-orange      { height: 12px; background: #ffb000; }
+
+    /* ── HERO FOTO MIT TEXT ── */
+    .hero-photo {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      background-image: url('hero-wasser-urwald.jpg');
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.60) 0%, rgba(0,0,0,0.20) 50%, rgba(0,0,0,0) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 40px;
+    }
+    .hero-content { max-width: 700px; }
+    .hero-pill {
+      display: inline-block;
+      background: #ffb000;
+      color: #ffffff;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 3px rgba(20,20,20,0.7), 0 0 8px rgba(20,20,20,0.55), 0 0 14px rgba(20,20,20,0.35);
+    }
+    .hero-content h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+    }
+
+    /* ── INTRO TEXT ── */
+    .intro-section {
+      background: #ffffff;
+      padding: 40px 24px 44px;
+      text-align: center;
+    }
+    .intro-section p {
+      font-size: 18px;
+      color: #5a5a5a;
+      max-width: 640px;
+      margin: 0 auto;
+      line-height: 1.75;
+    }
+
+    /* ── VIDEO SEKTION ── */
+    .video-section {
+      background: #f7f8f5;
+      padding: 48px 24px 56px;
+    }
+    .video-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 6px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12), 0 12px 40px rgba(0,0,0,0.10);
+      overflow: hidden;
+    }
+    .video-wrap iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+
+    /* ── ORANGER BANNER ── */
+    .orange-banner {
+      background: #ffb000;
+      padding: 22px 24px;
+      text-align: center;
+    }
+    .orange-banner h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 700;
+      color: #ffffff;
+      text-shadow: 0 0 3px rgba(20,20,20,0.7), 0 0 8px rgba(20,20,20,0.55), 0 0 14px rgba(20,20,20,0.35);
+    }
+    .orange-banner p {
+      font-size: 16px;
+      color: #ffffff;
+      margin-top: 6px;
+      text-shadow: 0 0 3px rgba(20,20,20,0.7), 0 0 8px rgba(20,20,20,0.55), 0 0 14px rgba(20,20,20,0.35);
+    }
+
+    /* ── ZEITMARKEN SEKTION ── */
+    .chapters-section {
+      background: #ffffff;
+      padding: 52px 24px 64px;
+    }
+    .chapters-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .chapters-heading {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(20px, 2.5vw, 26px);
+      font-weight: 700;
+      color: #3a3a3a;
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    /* Zwei Spalten, Fluss von oben nach unten */
+    .chapters-columns {
+      display: flex;
+      gap: 0;
+      align-items: flex-start;
+    }
+    .chapters-col {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chapters-col:first-child { padding-right: 20px; }
+    .chapters-col:last-child  { padding-left: 20px; }
+    .chapters-divider {
+      width: 1px;
+      background: #e8edf2;
+      align-self: stretch;
+      flex-shrink: 0;
+    }
+    @media (max-width: 620px) {
+      .chapters-columns { flex-direction: column; }
+      .chapters-col:first-child { padding-right: 0; }
+      .chapters-col:last-child  { padding-left: 0; }
+      .chapters-divider { display: none; }
+    }
+
+    /* Karte */
+    .chapter-card {
+      background: #ffffff;
+      border: 1.5px solid #e8edf2;
+      border-radius: 6px;
+      padding: 14px 16px 10px;
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .chapter-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 24px rgba(0,0,0,0.12);
+      border-color: #00b3c3;
+    }
+    .chapter-card.has-link:hover {
+      border-color: #ffb000;
+    }
+    .chapter-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .chapter-time {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffb000;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      padding-top: 2px;
+      flex-shrink: 0;
+    }
+    .chapter-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: #3a3a3a;
+      line-height: 1.4;
+      flex: 1;
+    }
+    .chapter-link-hint {
+      display: block;
+      margin-top: 6px;
+      font-size: 14px;
+      color: #7a9e22;
+      font-weight: 700;
+      padding-left: 23px;
+    }
+    /* Kleiner Pfeil unten zentriert */
+    .chapter-arrow {
+      text-align: center;
+      color: #00b3c3;
+      font-size: 11px;
+      margin-top: 8px;
+      line-height: 1;
+      opacity: 0.7;
+    }
+    .chapter-card.has-link .chapter-arrow { color: #ffb000; }
+
+    /* ── ANGEBOT SEKTION ── */
+    .offer-section {
+      background: #f7f8f5;
+      padding: 56px 20px 64px;
+    }
+    .offer-inner {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    @media (max-width: 860px) {
+      .offer-inner { grid-template-columns: 1fr; gap: 28px; }
+      .offer-image-wrap { max-width: 100%; margin: 0 auto; }
+    }
+
+    .offer-image-wrap {
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .offer-image-wrap:hover {
+      transform: translateY(-6px) scale(1.04);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.18);
+    }
+    .offer-image-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .offer-content .eyebrow {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #00b3c3;
+      margin-bottom: 12px;
+    }
+    .offer-content h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: clamp(22px, 3vw, 30px);
+      font-weight: 700;
+      color: #3a3a3a;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .offer-content p {
+      font-size: 17px;
+      color: #5a5a5a;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .price-block {
+      background: #ffffff;
+      border: 1.5px solid #e8edf2;
+      border-radius: 6px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+    .price-regular {
+      font-size: 15px;
+      color: #7b7b7b;
+      text-decoration: line-through;
+      margin-bottom: 4px;
+    }
+    .price-current {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: #3a3a3a;
+      margin-bottom: 6px;
+    }
+    .price-current span {
+      font-size: 15px;
+      font-weight: 400;
+      color: #7b7b7b;
+    }
+    .price-code {
+      font-size: 15px;
+      color: #5a5a5a;
+      line-height: 1.6;
+    }
+    .code-badge {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      background: #fff8e6;
+      color: #c07800;
+      border: 1px solid #ffb000;
+      border-radius: 4px;
+      padding: 2px 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .btn-offer {
+      display: inline-block;
+      background: #00b3c3;
+      color: #ffffff;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-offer:hover {
+      background: #009aaa;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,179,195,0.30);
+    }
+
+    /* ── TRANSKRIPT DOWNLOAD ── */
+    .transcript-section {
+      background: #f7f8f5;
+      padding: 40px 24px 48px;
+      text-align: center;
+    }
+    .transcript-section p {
+      font-size: 16px;
+      color: #5a5a5a;
+      max-width: 560px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+    .btn-transcript {
+      display: inline-block;
+      background: #3a3a3a;
+      color: #ffffff;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-transcript:hover {
+      background: #555555;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.20);
+    }
+
+
+    /* ── KOPFZEILE ── */
+    .site-header { background:#ffffff; padding:18px 24px; }
+    .site-header-inner { max-width:960px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .site-logo img { display:block; height:36px; width:auto; }
+    .site-home { font-family:'Open Sans',sans-serif; font-size:16px; font-weight:600; color:#3a3a3a; text-decoration:none; }
+    .site-home:hover { color:#00b3c3; }
+    /* ── ZUSAMMENFASSUNG (aufklappbar) ── */
+    .summary-details { max-width:860px; margin:0 auto; border:1.5px solid #e8edf2; border-radius:6px; background:#ffffff; box-shadow:0 2px 8px rgba(0,0,0,0.06); text-align:left; }
+    .summary-details summary { cursor:pointer; list-style:none; padding:16px 22px; font-family:'Open Sans',sans-serif; font-weight:700; font-size:16px; color:#3a3a3a; display:flex; align-items:center; gap:12px; }
+    .summary-details summary::-webkit-details-marker { display:none; }
+    .summary-details summary::before { content:'\25B8'; color:#00b3c3; font-size:18px; transition:transform .2s ease; }
+    .summary-details[open] summary::before { transform:rotate(90deg); }
+    .summary-body { padding:0 22px 22px; }
+    .btn-slides { display:block; box-sizing:border-box; max-width:860px; margin:16px auto 0; background:#00b3c3; color:#ffffff; font-family:'PT Sans',sans-serif; font-size:22px; font-weight:700; text-align:center; text-decoration:none; padding:18px 24px; border-radius:5px; text-shadow:0 0 6px rgba(20,20,20,0.55); transition:background .2s ease, transform .2s ease; }
+    .btn-slides:hover { background:#009aaa; transform:translateY(-2px); }
+    .btn-copy { background:#00b3c3; color:#ffffff; border:none; border-radius:5px; font-family:'PT Sans',sans-serif; font-size:18px; font-weight:700; padding:12px 28px; cursor:pointer; text-shadow:0 0 6px rgba(20,20,20,0.55); margin-bottom:16px; transition:background .2s ease; }
+    .btn-copy:hover { background:#7a9e22; }
+    .summary-text { white-space:pre-wrap; font-size:16px; line-height:1.65; color:#5a5a5a; max-height:480px; overflow:auto; border-top:1px solid #e8edf2; padding-top:16px; }
+    /* ── ANGEBOT: zwei Varianten ── */
+    .offer-choices { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:22px; }
+    .offer-choice { position:relative; background:#ffffff; border:1.5px solid #e8edf2; border-radius:6px; padding:20px 20px 16px; box-shadow:0 2px 8px rgba(0,0,0,0.06); }
+    .offer-choice.plus { border-color:#ffb000; }
+    .offer-choice-tag { display:inline-block; font-family:'Open Sans',sans-serif; font-size:12px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#00b3c3; margin-bottom:8px; }
+    .offer-choice.plus .offer-choice-tag { color:#c07800; }
+    .offer-choice-name { font-family:'Open Sans',sans-serif; font-size:18px; font-weight:700; color:#3a3a3a; line-height:1.3; margin-bottom:6px; }
+    .offer-choice-price { font-family:'Open Sans',sans-serif; font-size:30px; font-weight:700; color:#3a3a3a; line-height:1.1; margin-bottom:6px; }
+    .offer-choice-sub { font-size:14px; color:#7b7b7b; line-height:1.5; margin:0; }
+    .offer-content p.offer-choice-sub { margin-bottom:0; font-size:14px; }
+    .offer-hint { font-size:16px; color:#5a5a5a; line-height:1.6; margin:14px 0 0; }
+    .offer-content p.offer-hint { font-size:16px; margin:14px 0 0; }
+    @media (max-width: 520px) { .offer-choices { grid-template-columns:1fr; } }
+
+    /* ── ANGEBOT: Zusatz ── */
+    .offer-note { font-size:15px; color:#7b7b7b; line-height:1.6; margin:18px 0 0; }
+    .price-line { font-size:16px; color:#5a5a5a; margin-top:4px; }
+    .price-line.small { font-size:14px; color:#7b7b7b; }
+    .eyebrow-dates { font-size:15px; color:#7b7b7b; margin-bottom:18px; }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: #3a3a3a;
+      padding: 32px 24px;
+      text-align: center;
+    }
+    .footer p { font-size: 14px; color: #9a9a9a; line-height: 1.6; }
+    .footer a { color: #00b3c3; text-decoration: none; }
+    .footer a:hover { text-decoration: underline; }
+  
+    /* ── AUFZEICHNUNG: Platzhalter bis das YouTube-Video da ist ── */
+    .video-placeholder { max-width:860px; margin:0 auto; aspect-ratio:16 / 9; background:#ffffff; border:1.5px solid #e8edf2; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.12), 0 12px 40px rgba(0,0,0,0.10); display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px; }
+    .video-placeholder h2 { font-family:'Open Sans',sans-serif; font-size:clamp(20px,2.6vw,26px); font-weight:700; color:#3a3a3a; margin-bottom:10px; }
+    .video-placeholder p { font-size:18px; color:#5a5a5a; max-width:520px; }
+    .video-placeholder .bar { width:64px; height:4px; background:#ffb000; margin-bottom:18px; }
+    /* ── FOLIEN ── */
+    .slides-section { background:#ffffff; padding:44px 24px 52px; text-align:center; }
+    .slides-section p { font-size:18px; color:#5a5a5a; max-width:640px; margin:0 auto 4px; line-height:1.7; }
+    @media (max-width: 520px) { .hero-overlay { padding: 0 16px; } .hero-pill { letter-spacing: 1px; font-size: 10px; padding: 5px 12px; } }
+    /* ── EINBLICK-VIDEO ── */
+    .insight-section { background:#ffffff; padding:48px 24px 56px; }
+    .insight-section .video-wrap { background:#000000; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="site-header-inner">
+      <a class="site-logo" href="https://marit-alke.de" target="_blank" rel="noopener"><img src="logo-marit-alke-schriftzug.png" alt="Marit Alke"></a>
+      <a class="site-home" href="https://marit-alke.de" target="_blank" rel="noopener">Home</a>
+    </div>
+  </header>
+
+  <div class="divider-orange-thin"></div>
+
+  <!-- Hero Foto mit Text -->
+  <div class="hero-photo">
+    <div class="hero-overlay">
+      <div class="hero-content">
+        <span class="hero-pill">Webinar-Aufzeichnung · 20. November 2026</span>
+        <h1>Als Solo-Selbständige nicht mehr allein arbeiten - mit Claude als KI-Assistent</h1>
+      </div>
+    </div>
+  </div>
+  <div class="divider-orange"></div>
+
+  <!-- Intro Text -->
+  <section class="intro-section">
+    <p>
+      Schön, dass du dabei warst oder dir die Aufzeichnung anschaust.
+      Im Webinar habe ich dir gezeigt, was ich mit Claude als KI-Assistent in meinem Solo-Business mache.
+      Hier findest du das komplette Webinar, darunter die Folien und einen Blick in meinen Kursbereich.
+    </p>
+  </section>
+
+  <!-- Video -->
+  <section class="video-section" id="aufzeichnung">
+    <div class="video-wrap">
+      <iframe
+        id="webinar-video"
+        src="https://www.youtube.com/embed/RRZtywvPjpo"
+        title="Webinar-Aufzeichnung: Als Solo-Selbständige nicht mehr allein arbeiten - mit Claude als KI-Assistent"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <!-- Folien -->
+  <section class="slides-section">
+    <p>Hier kannst du dir die Folien aus dem Webinar ansehen.</p>
+    <a class="btn-slides" href="https://hub.marit-alke.de/wp-content/uploads/folien-webinar-20-11-claude-ki-assistent.pdf" target="_blank" rel="noopener">Zu den Folien</a>
+  </section>
+
+  <!-- Oranger Banner -->
+  <div class="orange-banner">
+    <h2>Ein Blick in meinen Kursbereich</h2>
+    <p>Hier zeige ich dir, wie mein Kurs Claude Pro Deep Dive aufgebaut ist.</p>
+  </div>
+
+  <!-- Einblick-Video (Gumlet) -->
+  <section class="insight-section">
+    <div class="video-wrap">
+      <iframe
+        loading="lazy"
+        title="Einblick in den Kurs Claude Pro Deep Dive"
+        src="https://play.gumlet.io/embed/6b003f457fd1e91458135038?background=false&autoplay=false&loop=false&disable_player_controls=false"
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen;"
+        referrerpolicy="origin"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </section>
+
+  <div class="divider-orange"></div>
+
+  <!-- Angebot -->
+  <section class="offer-section">
+    <div class="offer-inner">
+      <div class="offer-image-wrap" onclick="window.open('https://lp.marit-alke.de/claude-cowork-selbstlernkurs/', '_blank')">
+        <img src="vorschaubild-claude-pro-deep-dive-powerwoche.webp" width="900" height="473" loading="lazy" alt="Claude Pro Deep Dive: Selbstlernkurs und Powerwoche vom 4. bis 11. Dezember">
+      </div>
+      <div class="offer-content">
+        <p class="eyebrow">Mein Herbstangebot</p>
+        <h2>Claude Pro Deep Dive: Selbstlernkurs mit oder ohne Powerwoche</h2>
+        <p class="eyebrow-dates">Powerwoche: 4. bis 11. Dezember 2026, live per Zoom, buchbar bis 7. Dezember</p>
+        <p>
+          Du willst das, was du im Webinar gesehen hast, Schritt für Schritt für dein eigenes Business umsetzen?
+          Im Selbstlernkurs richtest du Claude Cowork ein, automatisierst deine Prozesse und baust Skills,
+          die wirklich zu dir passen, in deinem eigenen Tempo. In der Powerwoche im Dezember kommst du mit mir gemeinsam
+          voran: mit sechs Live-Workshops, zwei Abend-Sprechstunden, einem Austauschforum und allen Aufzeichnungen.
+        </p>
+
+        <div class="offer-choices">
+          <div class="offer-choice">
+            <span class="offer-choice-tag">Zum Selbstlernen</span>
+            <div class="offer-choice-name">Nur der Selbstlernkurs</div>
+            <div class="offer-choice-price">195 €</div>
+            <p class="offer-choice-sub">zzgl. MwSt., das sind 232,05 € brutto, einmalige Zahlung</p>
+          </div>
+          <div class="offer-choice plus">
+            <span class="offer-choice-tag">Mit Live-Begleitung</span>
+            <div class="offer-choice-name">Selbstlernkurs mit Powerwoche</div>
+            <div class="offer-choice-price">275 €</div>
+            <p class="offer-choice-sub">zzgl. MwSt., das sind 327,25 € brutto, einmalige Zahlung</p>
+          </div>
+        </div>
+
+        <a href="https://lp.marit-alke.de/claude-cowork-selbstlernkurs/" class="btn-offer" target="_blank">
+          Beide Angebote ansehen
+        </a>
+
+        <p class="offer-hint">
+          Auf der Kursseite siehst du beide Varianten und wählst dort, ob du nur den Selbstlernkurs
+          oder den Kurs mit Powerwoche buchen möchtest.
+        </p>
+
+        <p class="offer-note">
+          Du kannst auch erst einmal nur den Selbstlernkurs buchen und später aufstocken:
+          Wer den Selbstlernkurs hat, zahlt für die Powerwoche 80 € zzgl. MwSt. (95,20 € brutto).
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>
+      &copy; 2026 Marit Alke ·
+      <a href="https://marit-alke.de/impressum" target="_blank">Impressum</a> ·
+      <a href="https://marit-alke.de/datenschutz" target="_blank">Datenschutz</a>
+    </p>
+  </footer>
+
+  <script>
+    // Parallax Hero
+    const heroPhoto = document.querySelector('.hero-photo');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      heroPhoto.style.backgroundPosition = `left calc(50% + ${y * 0.35}px)`;
+    }, { passive: true });
+  </script>
+
+</body>
+</html>
