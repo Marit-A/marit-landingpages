@@ -1,5 +1,6 @@
 const https = require("https");
 const tls   = require("tls");
+const { kaufAblauf } = require("./kauf-ablauf.js");
 
 const MOLLIE_API_KEY      = process.env.MOLLIE_API_KEY_DEEP_DESIGN;
 const GETRESPONSE_API_KEY = process.env.GETRESPONSE_API_KEY;
@@ -28,6 +29,7 @@ const NOTIFY_TO       = "info@marit-alke.de";
 // per Test vom Mac aus mit genau diesem Code bestätigt (Versand in rund 0,5 Sekunden).
 
 exports.handler = async (event) => {
+  const start = Date.now();
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
@@ -65,7 +67,13 @@ exports.handler = async (event) => {
   // GetResponse-Update und Benachrichtigungsmail sind voneinander unabhängig – parallel
   // statt nacheinander ausführen, damit die Gesamtlaufzeit nicht die Summe, sondern nur
   // das Maximum beider Vorgänge ist (wichtig wegen Netlifys Zeitlimit für Functions).
-  await Promise.all([updateGetResponse(email, firstName), sendNotificationMail(payment)]);
+  // Kaufablauf (kauf-ablauf.js): Lexoffice-Kontakt, Ampel, bei Grün Rechnungsentwurf.
+  // Die Info-Mail wartet darauf, damit sie das Ergebnis nennt.
+  const [, ablauf] = await Promise.all([
+    updateGetResponse(email, firstName),
+    kaufAblauf({ payment, kennung: "deep_design_workshop", produktName: "DEEP DESIGN Workshop", mollieKey: MOLLIE_API_KEY, start })
+  ]);
+  await sendNotificationMail(payment, ablauf);
 
   return { statusCode: 200, body: "OK" };
 };
@@ -80,13 +88,13 @@ async function updateGetResponse(email, firstName) {
   }
 }
 
-async function sendNotificationMail(payment) {
+async function sendNotificationMail(payment, ablauf) {
   if (!(POSTEO_EMAIL && POSTEO_PASSWORD)) {
     console.log("Benachrichtigungsmail übersprungen: POSTEO_EMAIL/POSTEO_PASSWORD nicht gesetzt");
     return;
   }
   try {
-    const { subject, text } = buildNotificationEmail(payment);
+    const { subject, text } = buildNotificationEmail(payment, ablauf);
     await sendMail({
       host: "posteo.de",
       port: 465,
@@ -108,7 +116,9 @@ async function sendNotificationMail(payment) {
 
 // ── Bestell-Benachrichtigung per E-Mail ─────────────────────────────────────────
 
-function buildNotificationEmail(payment) {
+function buildNotificationEmail(payment, ablauf) {
+  const kontakt = ablauf && ablauf.kontakt;
+  const rechnung = (ablauf && ablauf.rechnungZeilen) || [];
   const m = payment.metadata || {};
   const name = [m.firstName, m.lastName].filter(Boolean).join(" ") || "(unbekannt)";
   const amount = payment.amount ? `${payment.amount.value} ${payment.amount.currency}` : "(unbekannt)";
@@ -140,15 +150,16 @@ function buildNotificationEmail(payment) {
     `Preis-Tier: ${m.priceTier || "(unbekannt)"}`,
     `Rabattcode: ${discountLine}`,
     `Zahlbetrag: ${amount}`,
+    kontakt && kontakt.ergebnis !== "uebersprungen" ? `Lexoffice-Kontakt: ${kontakt.text}` : null,
     `Mollie Payment-ID: ${payment.id || "(unbekannt)"}`,
     dashboardUrl ? `Mollie Dashboard: ${dashboardUrl}` : null,
     antwortLink ? `Rechnung an den Kunden senden (Link öffnet Gmail mit neuer Mail): ${antwortLink}` : null,
     ``,
-    `Rechnung bitte wie gewohnt manuell in Lexoffice erstellen.`
+    ...(rechnung.length ? rechnung : [`Rechnung bitte wie gewohnt manuell in Lexoffice erstellen.`])
   ].filter(line => line !== null);
 
   return {
-    subject: `Neue Bestellung: ${name}${m.discountCode ? " (" + m.discountCode + ")" : ""}`,
+    subject: `${kontakt && !kontakt.ok ? "⚠️ Lexoffice-Kontakt prüfen! " : ""}Neue Bestellung: ${name}${m.discountCode ? " (" + m.discountCode + ")" : ""}${(ablauf && ablauf.betreffZusatz) || ""}`,
     text: lines.join("\n")
   };
 }

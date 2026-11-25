@@ -1,11 +1,21 @@
 const https = require("https");
+const { kaufAblauf } = require("./kauf-ablauf.js");
+const { sendMail } = require("./mail-versand.js");
 
 const MOLLIE_API_KEY      = process.env.MOLLIE_API_KEY;
 const GETRESPONSE_API_KEY = process.env.GETRESPONSE_API_KEY;
 const GR_CAMPAIGN_ID      = "7M5Vz"; // CCDD VIP-Letter
 const GR_TAG_NAME         = "vip_newsletter";
 
+// Bestell-Info an Marit (seit 25.11.2026, vorher kam nur die Mollie-eigene Benachrichtigung),
+// mit dem Ergebnis des Kaufablaufs (Lexoffice-Kontakt, Ampel, Rechnungsentwurf).
+const POSTEO_EMAIL    = process.env.POSTEO_EMAIL;
+const POSTEO_PASSWORD = process.env.POSTEO_PASSWORD;
+const NOTIFY_TO       = "info@marit-alke.de";
+const PRODUKT_NAME    = "CCDD VIP-Letter";
+
 exports.handler = async (event) => {
+  const start = Date.now();
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
   }
@@ -41,18 +51,73 @@ exports.handler = async (event) => {
     return { statusCode: 200, body: "OK" };
   }
 
-  // GetResponse: Kontakt anlegen/taggen
-  // Rechnung: manuell in Lexoffice – siehe MOLLIE-SETUP.md
-  try {
-    const tagId = await getOrCreateTag(GR_TAG_NAME);
-    await upsertContact(email, firstName, GR_CAMPAIGN_ID, tagId);
-    console.log(`GetResponse OK: ${email}`);
-  } catch (err) {
-    console.error("GetResponse Fehler:", err.message);
-  }
+  // GetResponse und Kaufablauf (Lexoffice-Kontakt, Ampel, bei Grün Rechnungsentwurf) parallel,
+  // danach die Bestell-Info mit dem Ergebnis
+  const [, ablauf] = await Promise.all([
+    (async () => {
+      try {
+        const tagId = await getOrCreateTag(GR_TAG_NAME);
+        await upsertContact(email, firstName, GR_CAMPAIGN_ID, tagId);
+        console.log(`GetResponse OK: ${email}`);
+      } catch (err) {
+        console.error("GetResponse Fehler:", err.message);
+      }
+    })(),
+    kaufAblauf({ payment, kennung: "vip_letter", produktName: PRODUKT_NAME, mollieKey: MOLLIE_API_KEY, start })
+  ]);
+  await sendNotificationMail(payment, ablauf);
 
   return { statusCode: 200, body: "OK" };
 };
+
+// ── Bestell-Info an Marit ────────────────────────────────────────────────────
+
+async function sendNotificationMail(payment, ablauf) {
+  if (!(POSTEO_EMAIL && POSTEO_PASSWORD)) {
+    console.log("Benachrichtigungsmail übersprungen: POSTEO_EMAIL/POSTEO_PASSWORD nicht gesetzt");
+    return;
+  }
+  try {
+    const { subject, text } = buildNotificationEmail(payment, ablauf);
+    await sendMail({ host: "posteo.de", port: 465, user: POSTEO_EMAIL, pass: POSTEO_PASSWORD, from: POSTEO_EMAIL, to: NOTIFY_TO, subject, text });
+    console.log("Bestell-Benachrichtigung OK");
+  } catch (err) {
+    console.error("Benachrichtigungsmail Fehler:", err.message);
+  }
+}
+
+function buildNotificationEmail(payment, ablauf) {
+  const m = payment.metadata || {};
+  const kontakt = ablauf && ablauf.kontakt;
+  const rechnung = (ablauf && ablauf.rechnungZeilen) || [];
+  const name = [m.firstName, m.lastName].filter(Boolean).join(" ") || "(unbekannt)";
+  const amount = payment.amount ? `${payment.amount.value} ${payment.amount.currency}` : "(unbekannt)";
+  const dashboardUrl = payment._links && payment._links.dashboard ? payment._links.dashboard.href : "";
+  const rechnungsText = `Hallo${m.firstName ? " " + m.firstName : ""},\n\ndanke für deinen Kauf! Anbei deine Rechnung.\n\nWenn du Fragen oder Anregungen hast, melde dich gern.`;
+  const antwortLink = m.email
+    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(m.email)}&su=${encodeURIComponent("Anbei deine Rechnung für " + PRODUKT_NAME)}&body=${encodeURIComponent(rechnungsText)}`
+    : null;
+  const lines = [
+    `Neue Bestellung: ${PRODUKT_NAME}`,
+    ``,
+    `Name: ${name}`,
+    `E-Mail: ${m.email || "(unbekannt)"}`,
+    `Firma: ${m.company || "(keine)"}`,
+    `Adresse: ${m.street || ""}, ${m.zip || ""} ${m.city || ""}, ${m.country || ""}`,
+    `USt-IdNr.: ${m.vatId || "(keine)"}${m.vatId ? " (nicht über VIES geprüft)" : ""}`,
+    `Zahlbetrag: ${amount}`,
+    kontakt && kontakt.ergebnis !== "uebersprungen" ? `Lexoffice-Kontakt: ${kontakt.text}` : null,
+    `Mollie Payment-ID: ${payment.id || "(unbekannt)"}`,
+    dashboardUrl ? `Mollie Dashboard: ${dashboardUrl}` : null,
+    antwortLink ? `Rechnung an den Kunden senden (Link öffnet Gmail mit neuer Mail): ${antwortLink}` : null,
+    ``,
+    ...(rechnung.length ? rechnung : [`Rechnung bitte wie gewohnt manuell in Lexoffice erstellen.`])
+  ].filter(line => line !== null);
+  return {
+    subject: `${kontakt && !kontakt.ok ? "⚠️ Lexoffice-Kontakt prüfen! " : ""}Neue Bestellung VIP-Letter: ${name}${(ablauf && ablauf.betreffZusatz) || ""}`,
+    text: lines.join("\n")
+  };
+}
 
 // ── GetResponse ───────────────────────────────────────────────────────────────
 
@@ -103,6 +168,7 @@ function mollieRequest(method, path, body) {
       });
     });
     req.on("error", reject);
+    req.setTimeout(8000, () => req.destroy(new Error(`Mollie-Anfrage Timeout: ${path}`)));
     if (payload) req.write(payload);
     req.end();
   });

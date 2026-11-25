@@ -108,4 +108,30 @@ function landAbgleich(angegeben, zahlland) {
   return `Angegebenes Land ${a || "?"} weicht vom Land der Zahlung ${zahlland} ab (Kunden-Hinweis prüfen)`;
 }
 
-module.exports = { steuerRegel, plzPlausibel, stoppMeldung, steuerfallCode, beschreibeSteuerfall, zahlungsland, landAbgleich };
+
+// ── Steuerfall für die Rechnung (kauf-ablauf.js) ─────────────────────────────
+// Leitet aus den Metadaten einer Zahlung ab, wie die Rechnung aussehen muss. Gilt für alle
+// Produkte, auch für die alten Checkouts ohne "steuerfall" (DEEP DESIGN, Vibe-Coding, VIP-Letter).
+//   code:   DE-19, EU-19, EU-RC, DRITT-netto, DRITT-19
+//   netto:  true = gezahlter Betrag ist netto (keine deutsche USt)
+//   unklar: Grund, warum die Rechnung nicht automatisch entstehen darf (sonst "")
+const EU_LAENDER = ["AT","BE","BG","CY","CZ","DK","EE","ES","FI","FR","GR","HR","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK","XI"];
+
+function steuerfallErmitteln(m, optionen) {
+  const o = optionen || {};
+  const vat = String(m.vatId || "").toUpperCase().replace(/[\s.\-]/g, "");
+  let land = String(m.country || "DE").toUpperCase();
+  if (vat.length >= 2 && /^[A-Z]{2}/.test(vat)) land = vat.slice(0, 2);
+  if (land === "EL") land = "GR";
+  const rc = m.reverseCharge === "true" || (m.reverseCharge === undefined && !!vat && String(m.country || "").toUpperCase() !== "DE");
+  if (o.volleUst || land === "DE") return { code: "DE-19", land, netto: false, unklar: "" };
+  if (EU_LAENDER.includes(land)) {
+    if (!rc) return { code: "EU-19", land, netto: false, unklar: "" };
+    if (m.vatValidated === "true") return { code: "EU-RC", land, netto: true, unklar: "" };
+    return { code: "EU-RC", land, netto: true, unklar: "USt-IdNr. aus der EU ist nicht über VIES bestätigt" };
+  }
+  if (rc) return { code: "DRITT-netto", land, netto: true, unklar: "" };
+  return { code: "DRITT-19", land, netto: false, unklar: `Käufer:in aus Drittland (${land}) hat 19 % deutsche USt gezahlt, Steuerfall bitte prüfen` };
+}
+
+module.exports = { steuerfallErmitteln, steuerRegel, plzPlausibel, stoppMeldung, steuerfallCode, beschreibeSteuerfall, zahlungsland, landAbgleich };

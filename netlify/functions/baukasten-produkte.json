@@ -1,21 +1,6 @@
 {
   "hinweis": "Produktliste des Baukastens. Jeder Eintrag unter 'produkte' wird über create-payment-baukasten.js und mollie-webhook-baukasten.js verkauft. Der Schlüssel (z. B. human-design) steht im Bestellformular als verstecktes Feld 'produkt'. Preise in Cent netto. 'name' ist der Text auf der Mollie-Zahlungsseite, 'kennung' landet als metadata.product in der Zahlung. 'seite' ist der Ordner auf lp.marit-alke.de mit index.html und danke.html. 'digitaler_inhalt': true verlangt im Formular das Häkchen zum Widerrufsrecht. 'kurszugang' schaltet nach der Zahlung einen Kurs im SimpleCourses-Plugin frei (Plattform kurse oder hub, Kurs-ID aus WordPress), 'weitere_kurs_ids' zusätzliche Kursbereiche. 'verkauf_bis' (JJJJ-MM-TT, inklusive, Zeit Europe/Berlin) sperrt den Verkauf danach. 'rabattcodes' (optional): Code -> abzug_netto_cent, optional eigene getresponse-Liste und kein_kurszugang:true. WICHTIG: Schluessel immer in GROSSBUCHSTABEN schreiben, der Server normalisiert die Eingabe (Gross/Klein egal). 'leistungsart' (optional): 'elektronisch' oder 'live' schaltet die Steuerregeln aus steuerregeln.js ein (EU ohne USt-ID und Drittland: bei 'live' Stopp, bei 'elektronisch' 19 % mit Häkchen bzw. netto). 'copecart_url' ist der direkte CopeCart-Link für den Stopp-Hinweis, 'stopp_modus' ('link' oder 'mail') steuert, ob der Link oder eine Mail-Bitte erscheint.",
   "produkte": {
-    "human-design": {
-      "name": "Selbstcoaching mit Human Design & KI",
-      "kennung": "human_design_ki",
-      "netto_cent": 1500,
-      "seite": "human-design-checkout",
-      "digitaler_inhalt": true,
-      "getresponse": {
-        "liste_id": "7DIfc",
-        "tag": "selbstcoaching_human_design"
-      },
-      "kurszugang": {
-        "plattform": "kurse",
-        "kurs_id": 34
-      }
-    },
     "deep-talks": {
       "name": "Deep Talks mit der KI (Audiokurs)",
       "kennung": "deep_talks_ki",
@@ -29,21 +14,6 @@
       "kurszugang": {
         "plattform": "kurse",
         "kurs_id": 126
-      }
-    },
-    "bau-deinen-bot": {
-      "name": "Bau deinen Bot: Erstelle deinen eigenen CustomGPT",
-      "kennung": "bau_deinen_bot",
-      "netto_cent": 2500,
-      "seite": "bau-deinen-bot-checkout",
-      "digitaler_inhalt": true,
-      "getresponse": {
-        "liste_id": "7eaYS",
-        "tag": "bau_deinen_bot"
-      },
-      "kurszugang": {
-        "plattform": "kurse",
-        "kurs_id": 17
       }
     },
     "ccdd-selbstlernkurs": {

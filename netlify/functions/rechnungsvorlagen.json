@@ -1,0 +1,86 @@
+{
+  "hinweis": "Rechnungsvorlagen für den Lexoffice-Entwurf nach einem Mollie-Kauf (kauf-ablauf.js). Schlüssel = metadata.product der Zahlung (beim VIP-Letter 'vip_letter'). artikel_id: Artikel in Lexoffice; fehlt sie, sucht der Webhook den Artikel über artikel_titel und legt ihn bei Bedarf an. position/beschreibung: Text der Rechnungszeile. leistung: 'none', 'zahlungstag' (Lieferdatum = Zahlungstag) oder {von, bis} (Leistungszeitraum). einleitung: {vorname} wird ersetzt. Preise für die Ampel: Baukasten-Produkte nehmen netto_cent und rabattcodes aus baukasten-produkte.json, die drei alten Produkte stehen hier unter 'preise' (netto_cent ohne Code) und 'rabattcodes' (Code -> Endpreis netto_cent). 'varianten': Rabattcode -> abweichende Position (z. B. Powerwoche-Aufstockung). 'volle_ust': true = immer 19 % deutsche USt (Präsenzveranstaltung in Deutschland).",
+  "vorlagen": {
+    "ccdd_selbstlernkurs": {
+      "artikel_id": "5f84d20a-0600-4b6c-81f0-381e18ab8369",
+      "artikel_titel": "Claude Cowork Selbstlernkurs",
+      "position": "Claude Pro Deep Dive Selbstlernkurs",
+      "beschreibung": "Claude als KI-Assistenten einrichten",
+      "leistung": "none",
+      "einleitung": "\nLiebe {vorname},\n\ndanke für deinen Kauf! \nHier kommt deine Rechnung:",
+      "schluss": "Herzliche Grüße\nMarit Alke"
+    },
+    "ccdd_powerwoche": {
+      "artikel_id": "977d2b03-f741-40a0-8fde-4ddf55673669",
+      "artikel_titel": "Claude Cowork Deep Dive Selbstlernkurs mit Powerwoche",
+      "position": "Claude Pro Deep Dive Selbstlernkurs mit Powerwoche",
+      "beschreibung": "Selbstlernkurs inkl. Teilnahme an der Powerwoche (4.-11.12.2026)",
+      "leistung": "none",
+      "einleitung": "\nLiebe {vorname},\n\ndanke für deinen Kauf! \nHier kommt deine Rechnung:",
+      "schluss": "Herzliche Grüße\nMarit Alke",
+      "varianten": {
+        "CCDD-POWERWOCHE": {
+          "artikel_id": "6ee22416-7a35-4b0b-a529-13d19e2c15a3",
+          "artikel_titel": "Claude Pro Powerwoche",
+          "position": "Claude Pro Powerwoche",
+          "beschreibung": "Live-Online Workshop 4.-11.12.2026",
+          "leistung": { "von": "2026-12-04", "bis": "2026-12-11" },
+          "einleitung": "\nLiebe {vorname},\n\ndanke für deinen Kauf! Hier kommt deine Rechnung für die Claude Pro Powerwoche:"
+        }
+      }
+    },
+    "deep_talks_ki": {
+      "artikel_id": null,
+      "artikel_titel": "Deep Talks mit der KI (Audiokurs)",
+      "position": "Deep Talks mit der KI (Audiokurs)",
+      "beschreibung": "Selbstlernkurs auf kurse.marit-alke.de",
+      "leistung": "none",
+      "einleitung": "\nLiebe {vorname},\n\ndanke für deinen Kauf! \nHier kommt deine Rechnung:",
+      "schluss": "Herzliche Grüße\nMarit Alke"
+    },
+    "inspicamp_2027": {
+      "artikel_id": "30bad102-68f9-4f3f-b06f-80dcf14c3331",
+      "artikel_titel": "KI-InspiCamp",
+      "titel": "Rechnung InspiCamp 2027",
+      "position": "KI-InspiCamp",
+      "beschreibung": "BarCamp in Bonn",
+      "leistung": { "von": "2027-09-17", "bis": "2027-09-18" },
+      "volle_ust": true,
+      "einleitung": "\nLiebe {vorname},\n\nwie schön, dass du beim KI-InspiCamp am 17. und 18.9.2027 dabei bist! \nHier deine Rechnung:",
+      "schluss": "Wir freuen uns auf das Event!\n\nHerzliche Grüße\nMarit Alke"
+    },
+    "deep_design_workshop": {
+      "artikel_id": "ffdf93f8-e7f6-420c-913f-f6189589dcc1",
+      "artikel_titel": "DEEP Design mit KI - Online-Workshop",
+      "position": "DEEP Design mit KI - Online-Workshop",
+      "beschreibung": "Live-Online-Workshop 24.-30.9.2026",
+      "leistung": "zahlungstag",
+      "einleitung": "\nLiebe {vorname},\n\nwie schön, dass du bei meinem Workshop dabei bist!\nHier ist deine Rechnung:",
+      "schluss": "Ich freu mich drauf!\n\nHerzliche Grüße\nMarit Alke",
+      "preise": [39500, 49500],
+      "rabattcodes": { "CCDD70": 32500, "VIP100": 29500 }
+    },
+    "vibe_coding_experimentiertage": {
+      "artikel_id": "3f3f23cf-fcdb-4e20-9cba-1e8153a6825d",
+      "artikel_titel": "Vibe-Coding Experimentiertage",
+      "position": "Vibe-Coding Experimentiertage",
+      "beschreibung": "Live-Online-Workshop 5.-9.11.2026",
+      "leistung": { "von": "2026-11-05", "bis": "2026-11-09" },
+      "einleitung": "\nLiebe {vorname},\n\nschön, dass du bei meinen \"Vibe-Coding\"-Tagen dabei bist! Hier kommt deine Rechnung:",
+      "schluss": "Herzliche Grüße\nMarit Alke",
+      "preise": [9900],
+      "rabattcodes": {}
+    },
+    "vip_letter": {
+      "artikel_id": "bad6fa22-1a10-4b60-9363-89d9ec8d482a",
+      "artikel_titel": "CCDD VIP-Newsletter",
+      "position": "CCDD VIP-Newsletter",
+      "beschreibung": "Exklusiver Newsletter zu Claude Cowork und KI-Tools für dein Business",
+      "leistung": "zahlungstag",
+      "einleitung": "\nLiebe {vorname},\n\ndanke für deinen Kauf! Hier kommt deine Rechnung.",
+      "schluss": "Herzliche Grüße\nMarit Alke",
+      "preise": [3900],
+      "rabattcodes": {}
+    }
+  }
+}

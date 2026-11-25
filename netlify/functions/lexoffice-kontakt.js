@@ -178,7 +178,7 @@ function findeKontakt(kontakte, m) {
     const extra = [];
     if (t.c.archived) extra.push("Kontakt ist archiviert");
     if (!(t.c.roles && t.c.roles.customer)) extra.push("Kontakt hat keine Kundenrolle (nur Lieferant?)");
-    return { ergebnis: "vorhanden", kontakt: { id: t.c.id, name: kontaktAnzeige(t.c) }, kriterien: t.kriterien, hinweise: [...extra, ...hinweise] };
+    return { ergebnis: "vorhanden", kontakt: { id: t.c.id, name: kontaktAnzeige(t.c), roh: t.c }, kriterien: t.kriterien, hinweise: [...extra, ...hinweise] };
   }
   if (sicher.length > 1) {
     return {
@@ -326,13 +326,13 @@ async function kontaktAbgleichenUndAnlegen(payment, optionen) {
 
     const wer = b.kontakt.company ? `${b.kontakt.company.name} (Ansprechperson ${[m.firstName, m.lastName].filter(Boolean).join(" ")})` : `${[m.firstName, m.lastName].filter(Boolean).join(" ")}${b.kontakt.addresses.billing[0].supplement ? ", darunter " + b.kontakt.addresses.billing[0].supplement : ""}`;
     if (!o.anlegen) {
-      return { ergebnis: "neu", ok: true, angelegt: false, vorschau: b.kontakt, hinweise: f.hinweise, text: `PROBELAUF, nichts angelegt. Würde neuen Kontakt anlegen: ${wer}.${hinweis}` };
+      return { ergebnis: "neu", ok: true, angelegt: false, vorschau: b.kontakt, kontakt: { id: null, name: wer, roh: b.kontakt }, hinweise: f.hinweise, text: `PROBELAUF, nichts angelegt. Würde neuen Kontakt anlegen: ${wer}.${hinweis}` };
     }
 
     await warte(o.pauseMs);
     const a = await mitWiederholung(() => lexofficeAufruf(o.key, "POST", "/contacts", b.kontakt, o.timeoutMs, o.https));
     if (a.status === 200 || a.status === 201) {
-      return { ergebnis: "neu", ok: true, angelegt: true, kontakt: { id: a.body.id, name: wer }, hinweise: f.hinweise, text: `Neuer Kontakt angelegt: ${wer}.${hinweis}` };
+      return { ergebnis: "neu", ok: true, angelegt: true, kontakt: { id: a.body.id, name: wer, roh: { ...b.kontakt, id: a.body.id } }, hinweise: f.hinweise, text: `Neuer Kontakt angelegt: ${wer}.${hinweis}` };
     }
     const grund = (a.body.message || (a.body.IssueList && JSON.stringify(a.body.IssueList)) || "").toString().slice(0, 300);
     return { ergebnis: "fehler", ok: false, text: `FEHLER beim Anlegen (HTTP ${a.status} ${grund}). Bitte von Hand anlegen: ${wer}.` };
