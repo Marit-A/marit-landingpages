@@ -11,10 +11,9 @@
         "liste_id": "GA5wl",
         "tag": "deeptalks"
       },
-      "kurszugang": {
-        "plattform": "kurse",
-        "kurs_id": 126
-      }
+      "leistungsart": "elektronisch",
+      "copecart_url": "https://copecart.com/products/771fde6c/checkout",
+      "stopp_modus": "mail"
     },
     "ccdd-selbstlernkurs": {
       "name": "Claude Pro Deep Dive Selbstlernkurs",

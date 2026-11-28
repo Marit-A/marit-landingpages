@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deep Talks mit der KI – Jetzt bestellen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ffb000;
+      --teal:   #00b3c3;
+      --teal-dark: #0098a6;
+      --navy:   #03557f;
+      --lime:   #a4c931;
+      --heading: #3a3a3a;
+      --text:    #5a5a5a;
+      --text-mid: #7b7b7b;
+      --bg-light: #f7f8f5;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'PT Sans', 'Open Sans', sans-serif;
+      font-size: 17px;
+      background: var(--bg-light);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem 1rem 4rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08), 0 6px 24px rgba(0,0,0,0.10);
+      width: 100%;
+      max-width: 560px;
+      overflow: hidden;
+    }
+
+    .produktbild { display: block; width: 100%; height: auto; }
+
+    .card-header { padding: 1.5rem 2rem 1.25rem; }
+
+    .card-header .label {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--navy);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+
+    .card-header h1 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--heading);
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+
+    .card-header .description { font-size: 1rem; line-height: 1.6; }
+
+    .orange-bar { height: 6px; background: var(--orange); }
+
+    .price-box {
+      background: var(--bg-light);
+      border-left: 4px solid var(--orange);
+      margin: 1.25rem 2rem;
+      padding: 0.9rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+
+    .price-box .price-main {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--heading);
+    }
+
+    .price-box .price-zusatz { font-size: 0.9rem; font-weight: 400; color: var(--text-mid); }
+
+    .price-box .price-detail {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      margin-top: 0.4rem;
+      line-height: 1.55;
+    }
+
+    .benefits {
+      list-style: none;
+      font-size: 0.95rem;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.55rem;
+      margin-bottom: 0.45rem;
+      line-height: 1.45;
+    }
+
+    .benefits li::before {
+      content: "\2713";
+      color: var(--lime);
+      font-weight: 700;
+      flex: none;
+    }
+
+    .info-box {
+      background: rgba(0, 179, 195, 0.08);
+      border: 1px solid rgba(0, 179, 195, 0.35);
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .info-box strong { color: var(--heading); }
+    .info-box ul { margin: 0.3rem 0 0 1.1rem; }
+
+    .note-box {
+      background: #fff8e6;
+      border: 1px solid #ffe1a3;
+      border-radius: 4px;
+      padding: 0.8rem 1rem;
+      font-size: 0.9rem;
+      color: #7a5a12;
+      line-height: 1.6;
+      margin: 0 2rem 1.25rem;
+    }
+
+    .note-box strong { color: #5c4409; }
+
+    .form-body { padding: 0 2rem 2rem; }
+
+    .form-section-title {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-mid);
+      margin: 1.4rem 0 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #e8e8e8;
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .form-group { margin-bottom: 0.75rem; }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--heading);
+      margin-bottom: 0.3rem;
+    }
+
+    label .optional { font-weight: 400; color: var(--text-mid); font-size: 0.82rem; }
+
+    input, select {
+      width: 100%;
+      padding: 0.6rem 0.75rem;
+      border: 1.5px solid #d8d8d8;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1rem;
+      color: var(--heading);
+      background: var(--white);
+      transition: border-color 0.15s;
+    }
+
+    input:focus, select:focus { outline: none; border-color: var(--teal); }
+
+    .hint { font-size: 0.8rem; color: var(--text-mid); margin-top: 0.3rem; line-height: 1.4; }
+
+    .checkbox-group { margin-top: 1.5rem; }
+
+    .checkbox-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+      cursor: pointer;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 1.1rem; height: 1.1rem; min-width: 1.1rem;
+      margin-top: 0.15rem; accent-color: var(--teal);
+    }
+
+    .checkbox-label a { color: var(--navy); text-decoration: underline; }
+
+    .btn-pay {
+      display: block;
+      width: 100%;
+      margin-top: 1.5rem;
+      padding: 0.9rem 1.5rem;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      border-radius: 5px;
+      font-family: 'PT Sans', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-pay:hover { background: var(--teal-dark); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .btn-pay:disabled { background: #aaa; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    .security-note { text-align: center; font-size: 0.8rem; color: var(--text-mid); margin-top: 0.75rem; line-height: 1.5; }
+
+    .footer { margin-top: 2rem; font-size: 0.8rem; color: var(--text-mid); text-align: center; }
+    .footer a { color: var(--text-mid); }
+
+    @media (max-width: 480px) {
+      .form-row { grid-template-columns: 1fr; }
+      .card-header { padding: 1.25rem 1.5rem 1rem; }
+      .form-body { padding: 0 1.5rem 1.5rem; }
+      .price-box { margin: 1.1rem 1.5rem; }
+      .benefits { margin: 0 1.5rem 1.1rem; }
+      .info-box, .note-box { margin: 0 1.5rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <img class="produktbild" src="produktbild.png" width="800" height="600" alt="Deep Talks mit der KI">
+
+    <div class="card-header">
+      <div class="label">Audiokurs · sofort starten</div>
+      <h1>Deep Talks mit der KI</h1>
+      <div class="description">Dein Chatbot als echter Sparringspartner: 7 Audio-Episoden mit Ideen für Gespräche, die dir helfen, klarer zu denken, Entscheidungen zu treffen und dich selbst besser zu verstehen. Funktioniert mit ChatGPT, Claude, Gemini und anderen, auch in der kostenlosen Version.</div>
+    </div>
+    <div class="orange-bar"></div>
+
+    <div class="price-box">
+      <div class="price-main">35,00 &euro; netto <span class="price-zusatz">zzgl. gesetzl. MwSt.</span></div>
+      <div class="price-detail">Aus Deutschland und aus der EU ohne USt-IdNr. zahlst du 41,65&nbsp;&euro; inkl. 19&nbsp;% MwSt. Mit gültiger EU-USt-IdNr. außerhalb Deutschlands gilt Reverse Charge (Steuerschuldnerschaft des Leistungsempfängers), dann zahlst du den Nettobetrag. Von außerhalb der EU zahlst du ebenfalls netto.</div>
+    </div>
+
+    <ul class="benefits">
+      <li>7 Audio-Episoden mit überraschenden Ideen für echte KI-Gespräche</li>
+      <li>Prompt- und Fragenlisten zu jeder Episode, zum sofortigen Losprobieren</li>
+      <li>Ein eigener RSS-Feed für deinen Podcast-Player, die Einrichtung erklärt der Kurs</li>
+      <li>Zugang zu den Lektionen, solange es den Kurs gibt, mindestens zwei Jahre</li>
+      <li>20 Tage Geld-zurück-Garantie</li>
+    </ul>
+
+    <div class="info-box">
+      <strong>So kommst du in den Kurs:</strong>
+      <ul>
+        <li>Der Kurs liegt in der Zukunftskurs-Akademie (kurse.marit-alke.de). Nach der Zahlung bekommst du eine Bestätigungsmail mit dem Link zur Registrierungsseite.</li>
+        <li>Der Zugang läuft für alle über die Registrierungsseite, die in der Bestätigungsmail verlinkt ist.</li>
+        <li>Das gilt auch, wenn du schon ein Konto in der Zukunftskurs-Akademie hast. Alle weiteren Infos stehen auf der Seite.</li>
+      </ul>
+    </div>
+
+    <div class="note-box">
+      <strong>Hinweis zur Zahlung:</strong> Die Bezahlung läuft sicher über den Zahlungsdienstleister <strong>Mollie</strong> (Kreditkarte, PayPal, SEPA u.&nbsp;a.). Deine Rechnung erhältst du separat per E-Mail. Da ich sie aktuell noch von Hand erstelle, kann das ein paar Tage dauern.
+    </div>
+
+    <form class="form-body" method="POST" action="/.netlify/functions/create-payment-baukasten" id="checkoutForm">
+      <input type="hidden" name="produkt" value="deep-talks">
+
+      <div class="form-section-title">Deine Angaben</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="firstName">Vorname *</label>
+          <input type="text" id="firstName" name="firstName" required autocomplete="given-name">
+        </div>
+        <div class="form-group">
+          <label for="lastName">Nachname *</label>
+          <input type="text" id="lastName" name="lastName" required autocomplete="family-name">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-Mail-Adresse *</label>
+        <input type="email" id="email" name="email" required autocomplete="email">
+        <div class="hint">An diese Adresse geht die Bestätigungsmail mit dem Registrierungslink. Nutze bei der Registrierung bitte dieselbe Adresse wie hier.</div>
+      </div>
+
+      <div class="form-section-title">Rechnungsadresse</div>
+
+      <div class="form-group">
+        <label for="company">Firma <span class="optional">(optional)</span></label>
+        <input type="text" id="company" name="company" autocomplete="organization">
+      </div>
+
+      <div class="form-group">
+        <label for="street">Straße und Hausnummer *</label>
+        <input type="text" id="street" name="street" required autocomplete="street-address">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zip">PLZ *</label>
+          <input type="text" id="zip" name="zip" required autocomplete="postal-code">
+        </div>
+        <div class="form-group">
+          <label for="city">Ort *</label>
+          <input type="text" id="city" name="city" required autocomplete="address-level2">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Land *</label>
+        <select id="country" name="country" required autocomplete="country">
+          <option value="DE" selected>Deutschland</option>
+          <option value="AT">Österreich</option>
+          <option value="CH">Schweiz</option>
+          <option value="BE">Belgien</option>
+          <option value="BG">Bulgarien</option>
+          <option value="HR">Kroatien</option>
+          <option value="CY">Zypern</option>
+          <option value="CZ">Tschechien</option>
+          <option value="DK">Dänemark</option>
+          <option value="EE">Estland</option>
+          <option value="FI">Finnland</option>
+          <option value="FR">Frankreich</option>
+          <option value="GR">Griechenland</option>
+          <option value="HU">Ungarn</option>
+          <option value="IE">Irland</option>
+          <option value="IT">Italien</option>
+          <option value="LV">Lettland</option>
+          <option value="LT">Litauen</option>
+          <option value="LU">Luxemburg</option>
+          <option value="MT">Malta</option>
+          <option value="NL">Niederlande</option>
+          <option value="PL">Polen</option>
+          <option value="PT">Portugal</option>
+          <option value="RO">Rumänien</option>
+          <option value="SK">Slowakei</option>
+          <option value="SI">Slowenien</option>
+          <option value="ES">Spanien</option>
+          <option value="SE">Schweden</option>
+          <option value="GB">Vereinigtes Königreich</option>
+          <option value="US">USA</option>
+          <option value="XX">Sonstiges Land</option>
+        </select>
+        <div class="hint">Bitte wähle dein Land aus, es entscheidet über die Steuerbehandlung deiner Rechnung.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="vatId">USt-IdNr. <span class="optional">(optional, für Unternehmen)</span></label>
+        <input type="text" id="vatId" name="vatId" placeholder="z.B. ATU12345678" autocomplete="off">
+        <div class="hint"><strong>Nur für Käufer:innen von außerhalb Deutschlands relevant!</strong> Bei gültiger EU-USt-IdNr. gilt Reverse Charge, du zahlst dann den Preis ohne deutsche MwSt. Die USt-IdNr. wird automatisch gegen die EU-Datenbank VIES geprüft, bevor die Zahlung erstellt wird.<br><strong>Bei Fragen dazu bitte <u>vor</u> Zahlung bei mir melden.</strong></div>
+      </div>
+      <div class="note-box" id="steuerStopp" style="display:none; margin:0 0 0.9rem;"></div>
+
+      <div class="note-box" id="steuerHinweis19" style="display:none; margin:0 0 0.9rem;">
+        <strong>Bevor du kaufst:</strong> Dieses Angebot richtet sich an Unternehmer:innen und Selbstständige. Ohne USt-IdNr. berechne ich 19&nbsp;% deutsche Umsatzsteuer. <strong>Ich kann die Umsatzsteuer nachträglich nicht erstatten.</strong> Hast du eine USt-IdNr., trag sie oben ein, dann entfällt die deutsche Umsatzsteuer.
+        <label class="checkbox-label" style="margin:0.7rem 0 0;">
+          <input type="checkbox" name="ust19" id="ust19">
+          <span>Ich kaufe ohne USt-IdNr. und bin einverstanden, dass 19&nbsp;% deutsche Umsatzsteuer berechnet werden. Mir ist bekannt, dass sie nachträglich nicht erstattet wird. *</span>
+        </label>
+      </div>
+
+      <div class="note-box" id="steuerNetto" style="display:none; margin:0 0 0.9rem;">
+        <strong>Hinweis zur Steuer:</strong> Du kaufst aus einem Land außerhalb der EU. Ich stelle die Rechnung ohne deutsche Umsatzsteuer aus. Steuern, die in deinem Land anfallen, liegen bei dir.
+      </div>
+
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" name="agb" required>
+          <span>Ich habe die <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a> und die <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutzerklärung</a> gelesen und akzeptiere sie. *</span>
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" name="widerruf" required>
+          <span>Ich stimme ausdrücklich zu, dass mit der Ausführung des Vertrags sofort begonnen wird. Mir ist bekannt, dass ich dadurch mein Widerrufsrecht verliere. *</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-pay" id="submitBtn">
+        Jetzt zahlungspflichtig bestellen
+      </button>
+
+      <p class="security-note">🔒 Sichere Zahlung über Mollie &nbsp;·&nbsp; PayPal, Kreditkarte, SEPA und mehr<br>Am unkompliziertesten für uns beide: PayPal.</p>
+    </form>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.marit-alke.de/impressum" target="_blank">Impressum</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/datenschutz" target="_blank">Datenschutz</a> &nbsp;·&nbsp;
+    <a href="https://www.marit-alke.de/agb" target="_blank">AGB</a>
+  </div>
+
+  <script>
+    // ── Steuerregeln (Kopie aus netlify/functions/steuerregeln.js, wortgleich, wird per Test geprüft) ──
+    /* STEUERREGELN-START */
+function steuerRegel(leistungsart, country, vatId) {
+  var EU = ["AT","BE","BG","CY","CZ","DK","EE","ES","FI","FR","GR","HR","HU","IE","IT","LT","LU","LV","MT","NL","PL","PT","RO","SE","SI","SK","XI"];
+  var v = String(vatId || "").toUpperCase().replace(/[\s.\-]/g, "");
+  var ort = String(country || "DE").toUpperCase();
+  if (v.length >= 2) { ort = v.slice(0, 2); }
+  if (ort === "EL") { ort = "GR"; }
+  var mitUid = v.length >= 2;
+  var live = leistungsart === "live";
+  if (ort === "DE") {
+    return { ort: ort, gruppe: "DE", mitUid: mitUid, aktion: "weiter", ust: "19", pruefeVies: false, braucht19Haken: false, grund: "" };
+  }
+  if (EU.indexOf(ort) !== -1) {
+    if (mitUid) {
+      return { ort: ort, gruppe: "EU", mitUid: true, aktion: "weiter", ust: "rc", pruefeVies: true, braucht19Haken: false, grund: "" };
+    }
+    if (live) {
+      return { ort: ort, gruppe: "EU", mitUid: false, aktion: "stopp", ust: "", pruefeVies: false, braucht19Haken: false, grund: "eu_ohne_uid" };
+    }
+    return { ort: ort, gruppe: "EU", mitUid: false, aktion: "weiter", ust: "19", pruefeVies: false, braucht19Haken: true, grund: "" };
+  }
+  if (live) {
+    return { ort: ort, gruppe: "DRITT", mitUid: mitUid, aktion: "stopp", ust: "", pruefeVies: false, braucht19Haken: false, grund: "drittland_live" };
+  }
+  return { ort: ort, gruppe: "DRITT", mitUid: mitUid, aktion: "weiter", ust: "netto", pruefeVies: false, braucht19Haken: false, grund: "" };
+}
+
+function plzPlausibel(country, zip) {
+  var z = String(zip || "").replace(/\s/g, "");
+  var c = String(country || "").toUpperCase();
+  if (c === "DE") { return /^\d{5}$/.test(z); }
+  if (c === "AT" || c === "CH") { return /^\d{4}$/.test(z); }
+  return true;
+}
+    /* STEUERREGELN-END */
+    var LEISTUNGSART = "elektronisch";
+    var COPECART_URL = "https://copecart.com/products/771fde6c/checkout";
+    var STOPP_GRUENDE = {
+      eu_ohne_uid: "Dieses Angebot enthält Live-Unterricht. Für Käufe aus dem EU-Ausland ohne USt-IdNr. kann ich die Umsatzsteuer über dieses Formular nicht korrekt abrechnen.",
+      drittland_live: "Dieses Angebot enthält Live-Unterricht. Über dieses Formular kann ich es nur für Käufe aus Deutschland und für Unternehmen mit gültiger USt-IdNr. aus der EU abrechnen."
+    };
+    function aktualisiereSteuerHinweise() {
+      var r = steuerRegel(LEISTUNGSART, document.getElementById("country").value, document.getElementById("vatId").value);
+      var stopp = document.getElementById("steuerStopp");
+      if (r.aktion === "stopp") {
+        var weiter = COPECART_URL
+          ? 'Du kannst das Angebot stattdessen bei meinem Vertriebspartner CopeCart buchen, dort wird die Umsatzsteuer für dein Land abgerechnet: <a href="' + COPECART_URL + '">Zur Buchung bei CopeCart</a>'
+          : 'Bitte schreib mir kurz an <a href="mailto:info@marit-alke.de">info@marit-alke.de</a>, dann finden wir den passenden Weg.';
+        stopp.innerHTML = '<strong>Hier geht es leider nicht weiter.</strong> ' + STOPP_GRUENDE[r.grund] + '<br>' + weiter;
+      }
+      stopp.style.display = r.aktion === "stopp" ? "block" : "none";
+      document.getElementById("steuerHinweis19").style.display = r.braucht19Haken ? "block" : "none";
+      document.getElementById("ust19").required = r.braucht19Haken;
+      document.getElementById("steuerNetto").style.display = (r.aktion === "weiter" && r.gruppe === "DRITT") ? "block" : "none";
+      document.getElementById("submitBtn").disabled = r.aktion === "stopp";
+    }
+    document.getElementById("country").addEventListener("change", aktualisiereSteuerHinweise);
+    document.getElementById("vatId").addEventListener("input", aktualisiereSteuerHinweise);
+    aktualisiereSteuerHinweise();
+    document.getElementById("checkoutForm").addEventListener("submit", function() {
+      var btn = document.getElementById("submitBtn");
+      btn.disabled = true;
+      btn.textContent = "Weiterleitung zur Zahlung...";
+    });
+  </script>
+
+</body>
+</html>
